@@ -1,0 +1,546 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Ankara Sürdürülebilirlik Haritası</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: radyal Ankara ekosistem haritası + NetZero TEKMER bölümü + üniversite bazlı akademisyen rehberi + aktör dizini + takvim */
+:root{
+  --bg:#F2F4F1; --surface:#FFFFFF; --ink:#16231F; --muted:#5B6862; --line:#D6DDD8;
+  --accent:#1F6F5C; --soft:#E6ECE8; --band:#E3EDE8;
+  --c-tgb:#1F6F5C; --c-tek:#2E7FB0; --c-gir:#B07A1E; --c-kur:#7A4FA0; --c-mrk:#B5473A; --c-aka:#8A3B62; --c-kam:#4E6B2E; --c-des:#C2583E; --c-etk:#3B5BA9; --c-yat:#0E7C86; --c-eko:#9A5B13;
+  --ok:#2F7D4F; --warn:#A86A10; --off:#8A928E;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1614; --surface:#17211E; --ink:#E4EBE7; --muted:#9AA8A1; --line:#2A3733; --accent:#5CC0A2; --soft:#1E2A26; --band:#14201C;
+  --c-tgb:#5CC0A2; --c-tek:#6AB4E6; --c-gir:#E0A94A; --c-kur:#B08AD6; --c-mrk:#E8857A; --c-aka:#E089B6; --c-kam:#9CC46A; --c-des:#EE8E72; --c-etk:#8AA6EE; --c-yat:#4FC3CC; --c-eko:#D9A066;
+  --ok:#6BC58E; --warn:#E3A84A; --off:#6E7874; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1614; --surface:#17211E; --ink:#E4EBE7; --muted:#9AA8A1; --line:#2A3733; --accent:#5CC0A2; --soft:#1E2A26; --band:#14201C;
+  --c-tgb:#5CC0A2; --c-tek:#6AB4E6; --c-gir:#E0A94A; --c-kur:#B08AD6; --c-mrk:#E8857A; --c-aka:#E089B6; --c-kam:#9CC46A; --c-des:#EE8E72; --c-etk:#8AA6EE; --c-yat:#4FC3CC; --c-eko:#D9A066;
+  --ok:#6BC58E; --warn:#E3A84A; --off:#6E7874; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px}
+h1,h2,h3,h4{font-family:var(--f-display);font-stretch:85%;text-wrap:balance;margin:0;line-height:1.1}
+h1{font-size:clamp(30px,5vw,50px);font-weight:800;letter-spacing:-.01em}
+h2{font-size:26px;font-weight:700}
+a{color:var(--accent)}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.lede{max-width:68ch;color:var(--muted);margin:10px 0 0}
+header{display:grid;gap:18px;margin-bottom:22px}
+.facts{display:flex;flex-wrap:wrap;gap:10px 28px;border-top:1px solid var(--line);padding-top:14px}
+.fact b{font-family:var(--f-display);font-stretch:80%;font-size:26px;display:block;font-variant-numeric:tabular-nums}
+.fact span{font-size:13px;color:var(--muted)}
+.factlink{color:inherit;text-decoration:none}.factlink span{text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+.girsay{border:1px solid var(--line);border-left:3px solid var(--c-gir,var(--line));padding:14px 16px;margin:14px 0 4px;font-size:14px;line-height:1.55}
+.girsay h3{margin:0 0 8px;font-size:15px}.girsay ul{margin:6px 0 0;padding-left:18px}.girsay li{margin:3px 0}
+nav.toc{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 14px}
+.chip{font:500 13px var(--f-body);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:6px 12px 6px 10px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.chip i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.chip small{font-family:var(--f-mono);color:var(--muted)}
+.chip[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.chip:focus-visible,.node:focus-visible,input:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mapgrid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:860px){.mapgrid{grid-template-columns:1fr}}
+.mapbox{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px}
+.mapbox svg{width:100%;height:auto;display:block}
+.node{cursor:pointer}
+.node.dim{opacity:.14}
+.node.sel circle{stroke:var(--ink);stroke-width:2.5}
+.sector-label{font:600 11.5px var(--f-mono);letter-spacing:.05em;text-transform:uppercase}
+.nlabel{font:600 12px var(--f-body);fill:var(--ink);pointer-events:none;paint-order:stroke;stroke:var(--surface);stroke-width:4px}
+.detail{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px)}
+.detail .cat{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--c)}
+.detail h3{font-size:26px;margin:6px 0 4px}
+.detail .where{color:var(--muted);font-size:13px}
+.detail p{margin:12px 0}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px;margin:12px 0}
+.kv dt{color:var(--muted);font-size:13px}.kv dd{margin:0;min-width:0}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12px;background:var(--soft);padding:2px 8px;border-radius:4px}
+.src{font-size:13px;word-break:break-word}
+.tools{display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin:44px 0 14px}
+.tools h2{flex:1 1 auto}
+.tools p{flex-basis:100%;margin:0;color:var(--muted);max-width:72ch}
+input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);min-width:0;width:min(320px,100%)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:6px;padding:14px 16px;cursor:pointer;display:flex;flex-direction:column;gap:6px;min-width:0;text-align:left;font:inherit;color:inherit}
+.card:hover{border-color:var(--c)}
+.card .top{display:flex;justify-content:space-between;gap:8px;font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.card h4{font-size:17px;font-weight:700;font-stretch:88%}
+.card p{margin:0;font-size:13.5px;color:var(--muted)}
+.empty{color:var(--muted);padding:20px 0}
+/* NetZero */
+.nz{background:var(--band);border:1px solid var(--line);border-radius:12px;padding:24px;margin-top:40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+@media (max-width:860px){.nz{grid-template-columns:1fr}}
+.nz h2{font-size:32px}
+.nz p{margin:10px 0 0;max-width:62ch}
+.path{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+@media (max-width:520px){.path{grid-template-columns:1fr}}
+.path div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px}
+.path b{display:block;font-family:var(--f-display);font-stretch:88%;font-size:16px;margin-bottom:2px}
+.path span{font-size:13.5px;color:var(--muted)}
+.prog{display:grid;gap:0;border-top:1px solid var(--line)}
+.prog div{display:grid;grid-template-columns:minmax(0,170px) minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+@media (max-width:520px){.prog div{grid-template-columns:1fr;gap:2px}}
+.prog b{font-weight:600}
+.prize{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--c-tek);border-radius:8px;padding:14px 16px;font-size:14px}
+.prize b{font-family:var(--f-display);font-stretch:85%;font-size:18px;display:block}
+/* Academics */
+.uni{margin-top:8px}
+.uni h3{font-size:20px;display:flex;gap:10px;align-items:baseline;padding:18px 0 8px;border-bottom:2px solid var(--ink)}
+.uni h3 small{font:500 12px var(--f-mono);color:var(--muted);letter-spacing:.04em}
+.ppl{display:grid;gap:0}
+.p{display:grid;grid-template-columns:minmax(0,240px) minmax(0,1fr);gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+@media (max-width:640px){.p{grid-template-columns:1fr;gap:4px}}
+.p .nm b{display:block;font-weight:600}
+.p .nm span{font-size:13px;color:var(--muted)}
+.p .wk{font-size:14px;min-width:0}
+.p .wk .tags{margin-top:6px}
+.p .wk a{font-size:12.5px}
+.mgmt{display:grid;gap:10px;margin:8px 0 4px}
+.mgmt div{border-left:2px solid var(--line);padding-left:10px;font-size:13.5px}
+.mgmt b{font-weight:600}.mgmt .rl{color:var(--muted);font-size:12.5px;display:block}
+.cp{font-size:13.5px;margin:6px 0 0}
+/* investments */
+.inv-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px;align-items:start}
+@media (max-width:860px){.inv-top{grid-template-columns:1fr}}
+.stat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.stat div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.stat div.hl{border-color:var(--c-yat);box-shadow:inset 3px 0 0 var(--c-yat)}
+.stat b{display:block;font-family:var(--f-display);font-stretch:80%;font-size:24px;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--muted)}
+.chartbox{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.chartbox h3{font-size:16px;margin-bottom:10px}
+.bar{display:grid;grid-template-columns:140px minmax(0,1fr) 92px;gap:10px;align-items:center;font-size:13px;padding:3px 0}
+@media (max-width:520px){.bar{grid-template-columns:104px minmax(0,1fr) 78px}}
+.bar .tr{height:14px;background:var(--soft);border-radius:3px;overflow:hidden}
+.bar .fl{height:100%;background:var(--muted);opacity:.55}
+.bar.hl .fl{background:var(--c-yat);opacity:1}
+.bar.hl{font-weight:600}
+.bar .v{font-family:var(--f-mono);font-size:12px;text-align:right;font-variant-numeric:tabular-nums}
+.chartnote{font-size:12px;color:var(--muted);margin-top:8px}
+.invlist{display:grid;border-top:1px solid var(--line);margin-top:20px}
+.irow{display:grid;grid-template-columns:96px 130px minmax(0,1fr) minmax(0,150px);gap:14px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline}
+@media (max-width:760px){.irow{grid-template-columns:1fr;gap:3px}}
+.irow time{font-family:var(--f-mono);font-size:13px}
+.irow .amt{font-family:var(--f-display);font-stretch:85%;font-size:17px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:760px){.irow .amt{text-align:left}}
+.ty{font:600 11px var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--c-yat);justify-self:start}
+.firms{margin:8px 0 0;padding-left:18px;font-size:14px}
+.card .bg{color:var(--ink);font-size:13px}
+.card .fr{font-size:12.5px;color:var(--muted)}
+.card .fr b{color:var(--ink);font-weight:600}
+/* timeline */
+.timeline{display:grid;border-top:1px solid var(--line)}
+.trow{display:grid;grid-template-columns:150px 120px minmax(0,1fr);gap:14px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline}
+@media (max-width:620px){.trow{grid-template-columns:1fr;gap:4px}}
+.trow time{font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums}
+.pill{font:600 11px var(--f-mono);letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid currentColor;justify-self:start}
+.pill.open{color:var(--ok)}.pill.soon{color:var(--warn)}.pill.closed{color:var(--off)}.pill.yearly{color:var(--accent)}
+.trow b{font-weight:600}.sub{color:var(--muted);font-size:13.5px}
+.gaps{border-top:2px solid var(--ink);margin-top:40px;padding-top:12px;font-size:14px;max-width:80ch}
+.gaps ul{margin:8px 0 0;padding-left:18px}
+.note{font-size:13px;color:var(--muted);margin-top:28px;max-width:80ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div>
+    <div class="eyebrow">Ankara ekosistemi · 22 Ekim 2026</div>
+    <h1>Ankara Sürdürülebilirlik Haritası</h1>
+  </div>
+  <div class="facts">
+    <div class="fact"><b>3.000+</b><span>Ankara'daki teknoloji girişimi (2018–2025)</span></div>
+    <div class="fact"><a href="#girsay" class="factlink"><b>~21</b><span>sürdürülebilirlik girişimi haritada · resmî sayım yok</span></a></div>
+    <div class="fact"><b>$331 mn</b><span>2018–2025, 210 girişime yatırım (tüm sektörler)</span></div>
+    <div class="fact"><b>11</b><span>KOSGEB onaylı TEKMER</span></div>
+    <div class="fact"><b id="f-aka">0</b><span>akademisyen, 6 kurum</span></div>
+    <div class="fact"><b>22–23 Eki</b><span>Türkiye Hidrojen Zirvesi, AYBÜ</span></div>
+  </div>
+  <nav class="toc" aria-label="Bölümler"><a href="#harita">Harita</a><a href="#netzero">NetZero TEKMER</a><a href="#akademi">Akademisyenler</a><a href="#yatirim">Yatırımlar</a><a href="#dizin">Aktör dizini</a><a href="#takvim">Takvim</a></nav>
+</header>
+
+<div class="chips" id="chips" role="group" aria-label="Kategori filtresi"></div>
+
+<div class="mapgrid" id="harita">
+  <div class="mapbox"><svg id="map" viewBox="0 0 720 720" role="img" aria-label="Kategori dilimlerine ayrılmış Ankara ekosistem haritası"></svg></div>
+  <aside class="detail" id="detail" aria-live="polite"></aside>
+</div>
+
+<section class="nz" id="netzero" style="--c:var(--c-tek)">
+  <div>
+    <div class="eyebrow">Odak · Çankaya</div>
+    <h2>NetZero TEKMER</h2>
+    <p>Gezegen sağlığı, sürdürülebilirlik ve iklim direncine odaklanan, özel sermaye ve KOSGEB desteğiyle kurulmuş teknoloji geliştirme merkezi. İklim değişikliği, temiz enerji, atık yönetimi, döngüsel ekonomi ve sağlık inovasyonu girişimlerine öncelik veriyor; yazılım, yapay zekâ ve oyun projelerine de açık. Kamu Araştırmaları Vakfı (KAV) kurumsal paydaşları arasında.</p>
+    <div class="path">
+      <div><b>Ön kuluçka</b><span>Fikir doğrulama, eğitim ve mentorluk, SparkLabs TrueZero fikir doğrulama, TEKMER içinde şirket kuruluşu.</span></div>
+      <div><b>Kuluçka (5746 sayılı Kanun)</b><span>Ar-Ge indirimi, SGK prim desteği, gelir vergisi stopajı teşviki; ofis, toplantı ve ortak alanlar. Ar-Ge projesiyle en fazla 36 ay.</span></div>
+    </div>
+    <div class="prize"><b>True Zero Global Prize · COP31</b>SparkLabs ile birlikte düzenlenen küresel iklim girişimi yarışması. Başvurular 28 Eylül 2026'da kapandı; Demo Day ve B2B görüşmeleri COP31 Antalya'da (tarım paneli 9 Kasım, temiz enerji paneli 10 Kasım). Ortak başkanlar Tyrese Gibson ve Kevin Chou. Ödül yapısı kaynaklarda farklı geçiyor: Karar 50 bin + 25 bin dolar, SparkLabs duyurusu iki girişime 50'şer bin dolar yazıyor. <a href="https://www.karar.com/kultur-sanat-haberleri/kavin-paydasliginda-cop31e-kuresel-yarisma-75-bin-dolarlik-odul-2074365" target="_blank" rel="noopener">Kaynak ↗</a></div>
+  </div>
+  <div>
+    <div class="eyebrow">Programlar ve olanaklar</div>
+    <div class="prog" style="margin-top:10px">
+      <div><b>TEYDEB Proje Hazırlama</b><span class="sub">TÜBİTAK Ar-Ge ve yenilik projesi geliştirme desteği</span></div>
+      <div><b>NetZero İVME</b><span class="sub">Ön kuluçka ve kuluçkayı birleştiren hızlandırma: mentorluk, iş geliştirme, pazar erişimi, yatırıma hazırlık</span></div>
+      <div><b>SparkLabs TrueZero</b><span class="sub">SparkLabs Group ile iklim ve gezegen sağlığı odaklı program</span></div>
+      <div><b>O2Zone Akademi</b><span class="sub">Girişimcilik, teknoloji ve sürdürülebilirlik eğitimleri ve atölyeleri</span></div>
+      <div><b>Ground Zero Work Coffee</b><span class="sub">Çalışma ve sosyal alan, konferans salonu, esnek ofisler</span></div>
+      <div><b>Yatırımcı ve B2B</b><span class="sub">Yatırımcı buluşmaları, sunum hazırlığı, ihracat danışmanlığı, fuar desteği</span></div>
+    </div>
+    <dl class="kv">
+      <dt>İş birlikleri</dt><dd>KOSGEB, ODTÜ Teknokent, SparkLabs, KAV</dd>
+      <dt>Adres</dt><dd>Çiğdem Mah. 1552. Sok. No:1/2, Çankaya</dd>
+      <dt>İletişim</dt><dd>info@netzerotekmer.com.tr · 0312 431 10 99</dd>
+    </dl>
+    <p class="src"><a href="https://netzerotekmer.com.tr/" target="_blank" rel="noopener">netzerotekmer.com.tr ↗</a> · <a href="https://netzerotekmer.com.tr/biz-kimiz/" target="_blank" rel="noopener">Biz Kimiz ↗</a></p>
+  </div>
+</section>
+
+<div class="tools" id="akademi">
+  <h2>Akademisyen rehberi</h2>
+  <input type="search" id="qa" placeholder="Ara: hidrojen, perovskit, CO₂…" aria-label="Akademisyen ara">
+  <p>Sürdürülebilirlik alanında çalışan Ankara'daki öğretim üyeleri, kurum ve birimleriyle. Unvanlar ve bağlantılar kurumların akademik profil sayfalarından (AVESİS, bölüm ve grup sayfaları) alındı.</p>
+</div>
+<div class="chips" id="unichips" role="group" aria-label="Üniversite filtresi"></div>
+<div id="unis"></div>
+
+<div class="tools" id="yatirim">
+  <h2>Yatırımlar</h2>
+  <div class="girsay" id="girsay">
+    <h3>3.000+ girişimin kaçı sürdürülebilirlik alanında?</h3>
+    Bunun resmî bir sayısı yok. Ankara Kalkınma Ajansı'nın 3.000+ rakamı 2018–2025 arası tüm teknoloji girişimlerini kapsıyor ve sektöre göre girişim sayısı vermiyor; startups.watch ve Invest in Türkiye raporlarında da Ankara için iklim veya sürdürülebilirlik girişimi sayımı bulunmuyor. Elimizdeki göstergeler:
+    <ul>
+      <li><b>Haritada ~21 girişim/firma</b> sürdürülebilirlik alanında: 10'u ayrı girişim kartı (Evreka, Inavitas, FarmLabs, MicroFert, TRIPY, Sine Enerji, Biomass Enerji, DOA Smart, CFL, AISField), diğerleri teknopark firma listelerinde (ONO Yazılım, SESASİS, Sputek, OSTİM Teknopark'taki 8 enerji/tarım/çevre firması). Bu bir alt sınır; tam bir tarama değil.</li>
+      <li><b>Yatırım alanlarda ~%9:</b> 2025'te sektörü belirtilen 46 yatırım işleminin 4'ü "Sürdürülebilirlik &amp; Çevre". Tutarda pay çok düşük: 41 milyon doların ~650 bini (~%1,6).</li>
+      <li><b>Türkiye geneliyle kıyas:</b> startups.watch 2025'te ülke genelinde 18 "Enerji" ve 10 "Sürdürülebilirlik" etiketli işlem saydı (etiketler çakışabilir).</li>
+    </ul>
+    Yatırım payını (4/59 ≈ %7 ile 4/46 ≈ %9) tüm girişimlere uygularsak 3.000+ girişimin <b>kabaca 200–270'i</b> sürdürülebilirlikle ilişkili olabilir. Bu bir tahmin, sayım değil; yatırım alan girişimler tüm girişimleri tam temsil etmeyebilir.
+    <p class="sub" style="margin:8px 0 0">Kaynaklar: <a href="https://www.ankaraka.org.tr/sites/default/files/article-documents/2025-ankara-startup-ekosistemi-analizi-2.pdf" target="_blank" rel="noopener">Ankara Girişim Ekosistemi Analizi 2025 ↗</a> · <a href="https://www.ekonomiankara.com/ankara-girisimcilikte-yeni-esigi-asti-3-bin-girisim-331-milyon-dolar-yatirim-aldi/13621" target="_blank" rel="noopener">Ekonomi Ankara ↗</a> · <a href="https://www.turcorn.gov.tr/upload/Node/100496/files/Year_in_Review_2025_v1-01.pdf" target="_blank" rel="noopener">startups.watch 2025 ↗</a></p>
+  </div>
+  <p>Ankara'da sürdürülebilirlik alanındaki girişim yatırımları, büyük şirket ve altyapı yatırımları ve fonlar. Sayfadaki "2025'te 59 yatırım" rakamı tüm sektörleri kapsıyor; sürdürülebilirliğin payı aşağıda.</p>
+</div>
+<div class="inv-top">
+  <div class="stat">
+    <div class="hl"><b>4 işlem</b><span>2025'te Sürdürülebilirlik & Çevre (59 işlemin içinde)</span></div>
+    <div class="hl"><b>~$650 bin</b><span>bu işlemlerin toplamı; 41 milyon doların yaklaşık %1,6'sı</span></div>
+    <div><b>2 · ~$600 bin</b><span>özel sektör yatırımı</span></div>
+    <div><b>2 · ~$45 bin</b><span>TÜBİTAK BİGG yatırımı</span></div>
+    <div><b>59 · $41 mn</b><span>2025, tüm sektörler</span></div>
+    <div><b>83 · $114 mn</b><span>2024, tüm sektörler</span></div>
+  </div>
+  <div class="chartbox">
+    <h3>2025 Ankara girişim yatırımları, sektöre göre (milyon $)</h3>
+    <div id="secchart"></div>
+    <p class="chartnote">Kaynak: Ankara Kalkınma Ajansı, 2025 Yılsonu Ankara Girişimcilik Ekosistemi. Sektör tablosundaki işlemler 46'ya ulaşıyor; 13 işlemin sektörü raporda yok. Raporda ayrı bir enerji, iklim ya da tarım teknolojisi kategorisi bulunmuyor. <a href="https://www.ankaraka.org.tr/sites/default/files/article-documents/2025-ankara-startup-ekosistemi-analizi-2.pdf" target="_blank" rel="noopener">Rapor ↗</a></p>
+  </div>
+</div>
+<div class="invlist" id="invlist"></div>
+
+<div class="tools" id="dizin">
+  <h2>Aktör dizini</h2>
+  <input type="search" id="q" placeholder="Ara: güneş, atık, ODTÜ, batarya…" aria-label="Aktör ara">
+</div>
+<div class="grid" id="grid"></div>
+
+<div class="tools" id="takvim"><h2>Destek ve etkinlik takvimi</h2><p>Destekler ulusal programlar; Ankara'daki girişim, KOBİ ve kurumlar başvurabiliyor. Durum bugünün tarihine göre hesaplanıyor.</p></div>
+<div class="timeline" id="timeline"></div>
+</div>
+
+<script>
+const CATS={
+ tgb:{n:"Teknopark",s:"Teknopark",c:"--c-tgb"}, tek:{n:"TEKMER & kuluçka",s:"TEKMER",c:"--c-tek"}, gir:{n:"Girişim",s:"Girişim",c:"--c-gir"},
+ kur:{n:"Şirket projesi",s:"Şirket",c:"--c-kur"}, mrk:{n:"Araştırma merkezi",s:"Ar. merkezi",c:"--c-mrk"}, aka:{n:"Akademisyen",s:"Akademisyen",c:"--c-aka"},
+ kam:{n:"Kamu, küme & yatırımcı",s:"Kamu",c:"--c-kam"}, des:{n:"Destek",s:"Destek",c:"--c-des"}, etk:{n:"Etkinlik",s:"Etkinlik",c:"--c-etk"}, yat:{n:"Yatırım",s:"Yatırım",c:"--c-yat"}, eko:{n:"Platform, hızlandırıcı & ağ",s:"Platform",c:"--c-eko"}
+};
+const D=[
+{id:"odtu-tk",k:"tgb",yon:[["Serdar R. Alemdar", "Genel Müdür · ODTÜ Rektör Danışmanı", "ODTÜ Makine Mühendisliği ve ETH Zürih Elektronik Mühendisliği mezunu. İş geliştirme, teknoloji yönetimi ve girişimcilik ekosistemi kurma deneyimi.", "https://tetz.org.tr/serdar-alemdar/"]],cp:["ASELSAN", "HAVELSAN", "TUSAŞ", "ROKETSAN (OEM erişimi)", "Siemens", "Türk Telekom", "Netaş", "Comodo", "ATOS", "Arçelik", "Vestel", "Samsung"],cpn:"2021 listesi; 2025'te 420'yi aşkın Ar-Ge firması ve TSSK savunma kümesi.",cpu:"https://www.ekonomim.com/sektorler/devlerin-adresi-odtu-teknokent-haberi-640581",n:"ODTÜ Teknokent",l:"Çankaya",t:["enerji-çevre %6","girişimcilik tüneli"],uz:"Yazılım ve bilişim (%50), elektronik (%20), makine ve tasarım (%15), medikal (%6), enerji ve çevre (%6).",bg:"Firmaların yaklaşık %6'sı enerji ve çevre alanında. ODTÜ-GÜNAM, RÜZGEM ve ODTÜ İKLİM ile aynı kampüste; NetZero TEKMER'in iş birlikçisi ve ASO Teknopark'ın ortağı. Bünyesindeki ODTÜ Teknokent TEKMER eğitim teknolojilerine odaklı.",fr:["Evreka (dijital atık yönetimi)","FarmLabs (yapay zekâ destekli tarım)"],d:"Türkiye'nin ilk teknoparkı; 300'ü aşkın Ar-Ge firması.",u:"https://www.htk.org.tr/odtu-teknokent-firmasi-136"},
+{id:"cyber",k:"tgb",yon:[["Faruk İnaltekin", "Genel Müdür (Ekim 2016'dan beri)", "ODTÜ Endüstri Mühendisliği (2007). ODTÜ Teknokent'te üniversite-sanayi iş birliği uzmanı (2007–08), TOBB Başkanlık özel danışmanı (2009–10), TUSAŞ'ta alt yüklenici yöneticisi (2010–13), Cyberpark Girişimcilik, İş Birliği ve Teknoloji Transferi Direktörü (2013–16). TGBD Yönetim Kurulu Başkanı (2017–), IASP Yönetim Kurulu üyesi (2017–22), DEİK Dijital Teknolojiler İş Konseyi üyesi.", "https://unesco.org.tr/Pages/1882/34/Faruk%20%C4%B0NALTEK%C4%B0N/"]],cp:["Enerjisa Enerji (Enerjisa Teknoloji ve Etki Merkezi)"],cpn:"320'yi aşkın yüksek teknoloji firması; 40 akademisyen ve 30 öğrenci firması.",cpu:"https://w3.bilkent.edu.tr/web/kalite_guvencesi/kidr_kanitlari/2026/C/[5]C.1.1.3.Cyberpark.pdf",n:"Bilkent CYBERPARK",l:"Çankaya",t:["ICT","kuluçka"],uz:"Ağırlıklı olarak bilgi ve iletişim teknolojileri.",bg:"Enerjisa Enerji ile Enerjisa Teknoloji ve Etki Merkezi'ni ve Solutionshop Hackathon'ı yürütüyor; enerji ve yeşil dönüşüm çalışmaları raporlarında öne çıkıyor. Ağırlık hâlâ bilişimde.",fr:["Enerjisa Teknoloji ve Etki Merkezi"],d:"Bilkent Üniversitesi ve Bilkent Holding tarafından 2002'de kuruldu.",u:"https://bthaber.com/bilkent-cyberpark-dunyanin-onde-gelen-firmalariyla-stratejik-is-birliklerine-sahip"},
+{id:"hacettepe",k:"tgb",yon:[["İsmail Karahan", "Genel Müdür (Ekim 2023'ten beri)", "Fırat Üniversitesi Elektrik-Elektronik Mühendisliği (1991). EGO Doğal Gaz Dairesi mühendisi, ESGAZ (Eskişehir doğal gaz dağıtım) Genel Müdürü (2003–10), EPDK Başkan Danışmanı ve Doğal Gaz Piyasası Dairesi Başkanı (2010–16), Aselsannet Genel Müdürü (2016–23).", "https://www.hacettepeteknokent.com.tr/tr/ismail_karahan-33"], ["Prof. Dr. Mehmet Cahit Güran", "Yönetim Kurulu Başkanı · Hacettepe Üniversitesi Rektörü", "", "https://www.hacettepeteknokent.com.tr/tr/yonetimkurulu"]],cp:["Softtech", "PTT Teknoloji", "TRMotor", "EHSİM", "ARD Bilişim", "Numesys"],cpn:"Teknokent ana sayfasında öne çıkarılan firmalar; kurumsal ortaklar arasında GAMA Endüstri Tesisleri.",cpu:"https://www.hacettepeteknokent.com.tr/",n:"Hacettepe Teknokent",l:"Beytepe",t:["ISO 14001","akıllı kampüs"],uz:"350 firma (2025). Yazılım ve bilgi-iletişim ilk iki sırada, ardından savunma ve sağlık-medikal-ilaç; enerji, gıda ve tarım da sektörler arasında.",bg:"ISO 14001 Çevre Yönetim Sistemi sertifikası var. 2016'da kampüsü güneş enerjisi, depolama ve elektrikli araç hızlı şarjıyla donatan akıllı kampüs projesini duyurdu.",fr:[],d:"Hacettepe Üniversitesi merkezli TGB (2003).",u:"https://www.hacettepeteknokent.com.tr/tr/hakkimizda_-1"},
+{id:"gazi",k:"tgb",yon:[["Elif Başak Teksin", "Genel Müdür (Ekim 2023'ten beri)", "Gazi Üniversitesi Maliye; Anadolu Üniversitesi bankacılık-sigorta ve hukuk; serbest muhasebeci mali müşavir. 2008'de Gazi Teknopark'a halkla ilişkiler uzmanı olarak katıldı, firma ilişkileri müdürü ve operasyon direktörü oldu.", "https://www.paradergi.com.tr/girisimcilik/2024/03/12/tgbleri-guclendiren-8-kadin"], ["Furkan Özcan", "Genel Müdür Yardımcısı", "", "https://www.ekonomist.com.tr/makale/kulucka-merkezleri-yatirim-atagina-kalkiyor-70069"]],cp:["ONO Yazılım (iklim teknolojisi)", "Bakiyem Ödeme Çözümleri", "Tiga Sağlık Teknolojileri", "CareMed"],cpn:"Yaklaşık 140 firma; son dönem odakları arasında enerji ve sürdürülebilirlik var.",cpu:"https://gse.gazi.edu.tr/view/news/295743/gazi-teknopark-teknoloji-alanindaki-potansiyeli-artirmayi-hedefliyor",n:"Gazi Teknopark",l:"Gölbaşı",t:["araştırma GES","yeşil firmalar"],uz:"Elektronik, yazılım ve enerji sistemleri.",bg:"18 panel modeli ve 51 eviriciyle kurulmuş yaklaşık 264 kW'lık araştırma GES'i; yıllık enerjisinin %40 kadarını kendisi üretiyor (2015). Biyogübre, mikromobilite ve batarya testi alanında firmalar barındırıyor.",fr:["ONO Yazılım (blokzincir tabanlı IoT karbon izleme, Gazi kampüslerinde)","MicroFert (mikrobiyal biyogübre)","TRIPY Mobility (paylaşımlı e-bisiklet)","Sine Enerji (batarya kapasite testi)","SESASİS (HASAT enerji sistemleri projesi)"],d:"Gazi Üniversitesi merkezli TGB (2007).",u:"https://www.tgbd.org.tr/content/upload/bulletins/documents/e-bulten-5-sayi-20230323084529.pdf"},
+{id:"auteknokent",k:"tgb",yon:[["M. Güray Değerli", "Genel Müdür", "Kuleli Askeri Lisesi ve Kara Harp Okulu İnşaat (1988); İstanbul Ticaret Üniversitesi Sanayi Politikaları ve Teknoloji Yönetimi yüksek lisansı. GTÜ Teknopark Genel Müdürü ve Rektör Danışmanı; Beykent Üniversitesi Stratejik Araştırma Merkezi kurucusu; Nagoya Üniversitesi misafir öğretim üyesi; BMC, Nurol ve YOLBAK ile savunma projeleri.", "https://ankaenstitusu.com/team_mf/mustafa-guray-degerli/"], ["Vedat Güçler", "Genel Müdür Yardımcısı", "", "https://ankarateknokent.com/haberler/"]],cp:[],cpn:"",cpu:"",n:"Ankara Üniversitesi Teknokent",l:"Gölbaşı",t:["ilk yeşil teknopark","yenilenebilir elektrik"],uz:"Genel teknoloji; bilişim ve siber güvenlik etkinlikleri öne çıkıyor.",bg:"Enerjisa ile Türkiye'nin ilk yeşil teknoparkı olarak tanıtılıyor: elektriğini özel sözleşmeyle yenilenebilir kaynaklardan alıyor (2025'te yaklaşık 2,6 GWh), aydınlatma ve izleme güneş ve depolamayla çalışıyor; yılda yaklaşık 1.200 ton emisyon önleme hedefi.",fr:[],d:"Ankara Üniversitesi merkezli TGB (2006).",u:"https://www.enerjisa.com.tr/en/about-enerjisa/media-centre/press-releases/the-first-green-technopark-in-turkiye-reduces-carbon-emissions-in-collaboration-with-enerjisa-enerji"},
+{id:"aso-tp",k:"tgb",yon:[["Prof. Dr. Mehmet Cansız", "Genel Müdür (Mart 2024'ten) · ASO Genel Sekreteri", "DPT, Kalkınma Bakanlığı ve Cumhurbaşkanlığı Strateji ve Bütçe Başkanlığı'nda yaklaşık 20 yıl teknopark politikaları üzerine çalıştı; Teknopark Değerlendirme Kurulu üyeliği yaptı.", "https://www.ekonomim.com/is-dunyasi/seyit-ardic-aso-teknopark-baskanligina-yeniden-secildi-haberi-736362"], ["Seyit Ardıç", "Yönetim Kurulu Başkanı · ASO Başkanı", "", "https://www.ekonomim.com/is-dunyasi/seyit-ardic-aso-teknopark-baskanligina-yeniden-secildi-haberi-736362"]],cp:[],cpn:"",cpu:"",n:"ASO Teknopark",l:"Sincan, ASO 1. OSB",t:["sanayi","ileri imalat"],uz:"Sanayiye dönük teknopark: ileri imalat, prototipleme; 76 firma.",bg:"Doğrudan yeşil teknoloji odağı yok. Ortağı ASO, TTGV ve Ankara Kalkınma Ajansı ile sanayicilere Eko-Üretim Dönüşüm Programı yürütüyor; teknopark bu sanayi tabanına yakın konumda.",fr:[],d:"ASO, ASO OSB'leri, ODTÜ, ODTÜ Teknokent ve TOBB ETÜ ortaklığı; 1,2 milyon m²'lik Ankara Teknoloji Üssü çalışmasını yürütüyor.",p:"Seyit Ardıç (YK Başkanı)",u:"https://www.iasp.ws/our-members/directory/@478807/aso-teknopark-a.ş."},
+{id:"tp-ankara",k:"tgb",yon:[["Berk Yavru", "Genel Müdür (Aralık 2019'dan beri) · İvedik GSYF icra kurulu", "Atılım Üniversitesi Mekatronik Mühendisliği (2009). 2010'da Türkiye'nin ilk çok rotorlu İHA üreticisi olarak tanımlanan Robonik Mekatronik'i kurdu, 2017'de sattı; 2019'da Teknopark Ankara'ya insansız sistemler danışmanı olarak katıldı.", "https://www.ivedikgsyf.com/berk-yavru/"], ["Hasan Gültekin", "Yönetim Kurulu Başkanı · İvedik OSB", "", "https://www.ankaraka.org.tr/techankara-proje-pazari-2026-program-akisi-aciklandi"]],cp:[],cpn:"",cpu:"",n:"Teknopark Ankara",l:"İvedik OSB",t:["savunma","makine","medikal"],uz:"Savunma, havacılık, elektronik, medikal, makine ve yazılım.",bg:"Uzmanlığı yeşil teknoloji değil; yenilenebilir enerji ürünleri geliştiren girişim barındırıyor.",fr:["Sputek Teknoloji (verimli PV panel, dalga enerjisi modülü, güneşli akıllı çardak)"],d:"İvedik OSB ve AYBÜ ortaklığı; 2017'den beri, 150'den fazla firma.",u:"https://www.ekonomist.com.tr/haberler/genc-girisimciler-yenilenebilir-enerji-projeleri-gelistiriyor-16520"},
+{id:"ostim-tp",k:"tgb",yon:[["Dr. Derya Çağlar", "Genel Müdür (2015'ten beri)", "ODTÜ Şehir ve Bölge Planlama; Ball State yüksek lisans; Purdue'da çok kriterli karar analizi doktorası. California State University Fresno'da NSF destekli kentsel su yönetimi araştırması yürüttü; Ankara Kalkınma Ajansı'nda Strateji ve İş Geliştirme Birimi Başkanı ve Yatırım Destek Ofisi Koordinatörü. Güneydoğu Avrupa Bilim ve Teknoloji Parkları İttifakı icra kurulu üyesi.", "https://www.greentransition.bg/en/speaker/dr-derya-caglar"], ["Orhan Aydın", "Yönetim Kurulu Başkanı · OSTİM OSB Başkanı", "", "https://ostimteknopark.com.tr/tr/yonetim-kurulu"]],cp:[],cpn:"",cpu:"",n:"OSTİM Teknopark",l:"Yenimahalle",t:["yeşil enerji temalı","176 firma"],uz:"Türkiye'nin ilk yeşil enerji temalı teknoparkı (2014); OSTİM kümelenmeleriyle iç içe.",bg:"Tema doğrudan yeşil enerji; OSTİM ENERJİK kümelenmesi ve Yeşil OSB belgeli OSTİM OSB ile aynı ekosistemde. 176 firmalık listede enerji, tarım ve çevre adı taşıyan firmalar var (sektör firma adına göre).",fr:["Ariş Enerji","Atlas Noya Enerji Yatırımları","Barbiotech Biyoteknoloji Enerji","Ertekno Enerji","Teslaware Enerji Danışmanlık","Toya (tarım, yenilenebilir enerji)","Tarımart Bilişim","Akura Madencilik Çevre Mühendislik"],d:"OSTİM'in teknoloji geliştirme bölgesi.",u:"https://ostimteknopark.com.tr/tr/firmalar-119"},
+// TEKMER'ler (KOSGEB listesinde Ankara'da 11 TEKMER)
+{id:"netzero",k:"tek",n:"NetZero TEKMER",l:"Çiğdem, Çankaya",t:["iklim teknolojisi","döngüsel ekonomi","SparkLabs TrueZero"],uz:"Gezegen sağlığı, iklim, temiz enerji, atık, döngüsel ekonomi; yazılım, yapay zekâ ve oyuna da açık.",bg:"Ankara'daki tek sürdürülebilirlik odaklı TEKMER. True Zero Global Prize'ı SparkLabs ile COP31'de düzenliyor.",fr:[],d:"Ön kuluçka, 5746 sayılı Kanun kapsamında kuluçka, NetZero İVME, TEYDEB proje hazırlama ve O2Zone Akademi. Ayrıntısı aşağıdaki bölümde.",u:"https://netzerotekmer.com.tr/"},
+{id:"ankara-tekmer",k:"tek",yon:[["İmran Gürakan", "Kurucu Ortak ve CEO · Ankara TEKMER ve LEAP Investment", "LEAP üzerinden B2B ve SaaS odaklı yatırımlar; 2023 ortasına kadar yaklaşık 1 milyon dolar toplam yatırım.", ""], ["Ali Yücelen", "Yönetim Kurulu Başkanı", "", ""], ["Merve Taşyaran", "Girişimcilik Programları ve Pazarlama Direktörü", "2026'da yaklaşık 60 girişim, %90 üzeri doluluk.", "https://www.ekonomist.com.tr/makale/kulucka-merkezleri-yatirim-atagina-kalkiyor-70069"]],n:"Ankara TEKMER",l:"Yıldırım Kule, Çankaya",t:["LEAP Investment","100 mn TL fon"],uz:"Sektörden bağımsız teknoloji girişimciliği; Şubat 2022'de açıldı.",bg:"Belirli bir yeşil odağı yok; LEAP fonuna erişim, FabLab ve 5746 teşvikleri sunuyor.",fr:[],d:"Türkiye'nin ilk özel sermaye destekli TEKMER'i; ana yatırımcısı LEAP Investment, 100 milyon TL'lik yatırım fonu.",p:"İmran Gürakan (CEO) · Ali Yücelen (YK Başkanı)",u:"https://www.kosgeb.gov.tr/site/tr/genel/detay/8149/ankarada-girisimciligin-en-yeni-merkezi"},
+{id:"orion",k:"tek",yon:[["İsa Uysal", "Genel Müdür · THK & Orion TEKMER", "Ekim 2026'da Albaraka Garaj ile iş birliğini imzaladı.", "https://startupx.com.tr/albaraka-garaj-ve-thk-orion-tekmerden-stratejik-is-birligi"]],n:"Orion TEKMER",l:"Kızılırmak, Çankaya",t:["savunma","akıllı şehir","Yeşil Yaka"],uz:"Savunma, havacılık, dijital dönüşüm, akıllı şehirler ve yazılım. THK & Orion TEKMER olarak işletiliyor.",bg:"Yeşil Yaka sürdürülebilirlik programını OSTİM ENERJİK ile yürüttü; akıllı şehir teması da çevresel uygulamalara açık.",fr:[],d:"MentorUp, Albaraka Garaj Ankara hızlandırıcısı, VC Akademi ve BİGG programları.",u:"https://oriontekmer.com/"},
+{id:"autekmer",k:"tek",n:"Ankara Üniversitesi TEKMER",l:"Dögol Cad., Yenimahalle",t:["sektörden bağımsız"],uz:"Sektörden bağımsız; yapay zekâ, sağlık, enerji, tarım-gıda, yazılım ve malzeme örnek alanlar.",bg:"Enerji ve tarım-gıda kabul ettiği alanlar arasında; ayrı bir yeşil program duyurmadı.",fr:[],d:"Ankara Üniversitesi ve KOSGEB iş birliği; ofis, laboratuvar, prototipleme ve yatırımcı erişimi.",u:"https://www.autekmer.com.tr"},
+{id:"bilkent-tekmer",k:"tek",n:"Bilkent TEKMER",l:"Bilkent Center, Çankaya",t:["yapay zekâ","oyun","dual-use"],uz:"Yapay zekâ, yazılım, oyun-animasyon ve çift kullanımlı teknolojiler; HANE yönetiminde, HANE GSYF erişimi.",bg:"Sürdürülebilirlik odağı yok.",fr:[],d:"KOSGEB ve Cyberpark iş ortaklığıyla.",u:"https://www.tekmerbilkent.com/"},
+{id:"ardventure",k:"tek",yon:[["Arda Ödemiş", "Kurucu ve CEO", "Ankara ve İstanbul'da iki lokasyonlu tek TEKMER (İstanbul açılışı Ekim 2025).", "https://www.aa.com.tr/tr/bilim-teknoloji/bakan-kacir-ardventure-tekmer-girisimlerin-kuresel-markalara-donusmesi-icin-guclu-bir-zemin-olusturacak/3728595"]],n:"Ardventure TEKMER",l:"Koç Kuleleri, Söğütözü",t:["GSYF","kitle fonlama"],uz:"Genel teknoloji girişimleri; ofis, yatırım ve fonlama (GSYF, GSYO, kitle fonlama).",bg:"Sürdürülebilirlik odağı yok.",fr:[],d:"Ardventure tarafından işletiliyor.",u:"https://www.ardventure.com.tr/"},
+{id:"garajx",k:"tek",yon:[["Başak Özcan", "Genel Müdür", "Yönetim kurulunda ATO, ASO, ATB, TOBB ETÜ ve TOBB Ankara Genç Girişimciler Kurulu temsilcileri var. Aynı ad 2019'da ODTÜ Teknokent Girişimcilik Direktörlüğü sunumunda geçiyor.", "https://garajx.com.tr/hakkimizda/"]],n:"GarajX Ankara Genç Girişimciler TEKMER",l:"Beştepe, Yenimahalle",t:["genç girişimci","Founder Institute"],uz:"Genç girişimciler; ortak çalışma alanı, Founder Institute hızlandırıcısı, pazarlama programı.",bg:"Sürdürülebilirlik odağı yok.",fr:[],d:"5746 teşvikleri ve KOSGEB erişimi.",u:"https://garajx.com.tr/"},
+{id:"lhustek",k:"tek",n:"Lokman Hekim TEKMER (LHUSTEK)",l:"Söğütözü, Çankaya",t:["sağlık","ilaç"],uz:"Biyoteknoloji, ilaç, tıbbi cihaz, dijital sağlık, biyomalzeme, fitofarmasötik; 2021'de açıldı.",bg:"Sürdürülebilirlik odağı yok; doğal ürün standardizasyonu en yakın konu.",fr:[],d:"Lokman Hekim Üniversitesi ve KOSGEB iş birliği.",u:"https://lhustek.com/"},
+{id:"meditek",k:"tek",n:"Medipol MEDİTEK TEKMER",l:"Hacı Bayram, Altındağ",t:["medikal teknoloji"],uz:"Tematik merkez; adından medikal teknoloji. 29 kapalı ofis.",bg:"Sürdürülebilirlik odağı yok.",fr:[],d:"Ankara Medipol Üniversitesi ve KOSGEB.",u:"https://tekmermeditek.ankaramedipol.edu.tr/"},
+{id:"sbutekmer",k:"tek",n:"SBÜ TEKMER",l:"Keçiören",t:["sağlık bilimleri"],uz:"Adından sağlık bilimleri; sitesine erişilemedi.",bg:"Sürdürülebilirlik odağı bilinmiyor.",fr:[],d:"Sağlık Bilimleri Üniversitesi Teknoloji Geliştirme Merkezi.",u:"https://www.kosgeb.gov.tr/site/tr/genel/detay/9346/ankaradaki-tekmerler"},
+{id:"biyotek",k:"tek",n:"Başkent Üniversitesi Biyotek TEKMER",l:"Etimesgut",t:["biyoteknoloji"],uz:"Adından biyoteknoloji; tematik alan doğrulanamadı.",bg:"Biyoteknoloji, tarım ve çevre uygulamalarına açılabilir; doğrulanmış yeşil program yok.",fr:[],d:"Başkent Üniversitesi Biyotek Teknoloji Geliştirme Merkezi.",u:"https://www.kosgeb.gov.tr/site/tr/genel/detay/9346/ankaradaki-tekmerler"},
+{id:"odtu-tekmer",k:"tek",n:"ODTÜ Teknokent TEKMER",l:"ODTÜ Teknokent",t:["eğitim teknolojileri"],uz:"Eğitim teknolojileri (EdTech); Nisan 2023'te açıldı. KOSGEB'in güncel Ankara listesinde yer almıyor.",bg:"Sürdürülebilirlik odağı yok.",fr:[],d:"ODTÜ Teknokent bünyesinde, KOSGEB desteğiyle.",u:"https://www.kosgeb.gov.tr/site/tr/genel/detay/8779/odtu-teknokent-tekmer-acildi"},
+{id:"atk",k:"tek",n:"Ankara Teknoloji Köprüsü",l:"Ankara",t:["0–3 yaş girişim","kuluçka"],uz:"Erken aşama kuluçka (TEKMER değil, teknopark kuluçka merkezi).",bg:"Sektörden bağımsız.",fr:[],d:"Bilkent CYBERPARK, Ankara Büyükşehir ve Bilkent Üniversitesi iş birliğiyle kurulan, Ankara'nın en büyük kuluçka merkezi.",u:"https://bthaber.com/bilkent-cyberpark-dunyanin-onde-gelen-firmalariyla-stratejik-is-birliklerine-sahip"},
+{id:"techankara",k:"tek",n:"TechAnkara",l:"Ankara Kalkınma Ajansı",t:["hızlandırıcı","proje pazarı"],uz:"Ajansın girişimcilik çatı markası (TEKMER değil).",bg:"Değerlendirme kriterlerinden biri sosyal/çevresel etki.",fr:[],d:"Proje Pazarı, Girişimcilik Merkezi, hızlandırıcı, mentorluk ve tedarik zinciri yerlileştirme.",u:"https://girisimci.ankaraka.org.tr/en/ankara-proje-pazari"},
+// Girişimler
+{id:"evreka",k:"gir",n:"Evreka",l:"ODTÜ Teknokent",t:["atık yönetimi","SaaS"],d:"ODTÜ mezunlarınca 2015'te kurulan dijital atık yönetimi platformu; 20'den fazla ülkede. Yatırımcıları arasında Logo Ventures, TTGV fonu ve Ford Otosan'ın Driventure'ı var.",p:"Umutcan Duman (CEO)",u:"https://webrazzi.com/2024/05/24/evreka-ford-otosanin-kurumsal-girisim-sermaye-sirketi-driventuredan-yatirim-aldi/"},
+{id:"inavitas",k:"gir",n:"Inavitas",l:"Ankara",t:["akıllı şebeke","enerji zekâsı"],d:"Elektrik dağıtım şirketleri için SCADA, ADMS, OMS ve iş gücü yönetimini birleştiren enerji zekâsı platformu. Ar-Ge merkezi, 20'den fazla Ar-Ge projesi; Türkiye'deki tüm dağıtım şirketleriyle çalışıyor.",p:"Canan Korkmaz (Ar-Ge Müdürü)",u:"https://www.b2match.com/e/greenet-brokerage-event-2026/opportunities/UGFydGljaXBhdGlvbk9wcG9ydHVuaXR5OjIwNDIxOA=="},
+{id:"farmlabs",k:"gir",n:"FarmLabs",l:"ODTÜ Teknokent",t:["akıllı tarım","yapay zekâ"],d:"2020'de kuruldu; tarımsal üretimde yapay zekâ destekli değişken oranlı uygulamalar. TTGV iklim teknolojileri portföyünde.",u:"https://ttgv.org.tr/portfoy/portfoy-kategori/iklim-teknolojileri-girisimleri"},
+{id:"microfert",k:"gir",n:"MicroFert Biyoteknoloji",l:"Gazi Teknopark",t:["biyogübre","BİGG Yeşil Büyüme"],d:"Kimyasal gübre kullanımını azaltan mikroorganizma tabanlı ürünler; siderofor üreten mikrobiyal inokülant projesi TÜBİTAK BİGG Yeşil Büyüme çağrısından destek aldı.",u:"https://www.tgbd.org.tr/content/upload/bulletins/documents/e-bulten-5-sayi-20230323084529.pdf"},
+{id:"tripy",k:"gir",n:"TRIPY Mobility",l:"Gazi Teknopark",t:["mikromobilite","e-bisiklet"],d:"Yapay zekâ destekli elektrikli bisikletler ve paylaşımlı mikromobilite sistemiyle ulaşım kaynaklı emisyonu azaltmayı hedefliyor.",u:"https://www.tgbd.org.tr/content/upload/bulletins/documents/e-bulten-5-sayi-20230323084529.pdf"},
+{id:"sine",k:"gir",n:"Sine Enerji",l:"Gazi Teknopark",t:["güç elektroniği","batarya testi"],d:"Güç elektroniği ve enerji dönüşüm sistemleri; elektrikli araç ve şebeke ölçekli depolama için batarya kapasite test cihazı.",u:"https://www.tgbd.org.tr/content/upload/bulletins/documents/e-bulten-5-sayi-20230323084529.pdf"},
+{id:"biomass",k:"gir",n:"Biomass Enerji",l:"Ankara (OSTİM bağlantılı)",t:["organik atık","biyokömür","gazlaştırma"],d:"2011'den beri organik atık geri dönüşümü: kompost makinesi, pelet presi, gazlaştırma ve piroliz ile sentez gazı ve biyokömür. Üç TÜBİTAK KOBİ Ar-Ge projesi tamamladı.",u:"https://www.biomassenerji.com/"},
+{id:"doa",k:"gir",n:"DOA Smart",l:"Ankara",t:["iç hava kalitesi"],d:"Bitkilerin doğal arıtma gücünü teknolojiyle birleştirerek iç mekân havasını temizleyen sistemler.",u:"https://startupcentrum.com/tr/girisimler"},
+{id:"cfl",k:"gir",n:"CFL Malzeme Teknolojileri",l:"Ankara",t:["biyoteknoloji","malzeme"],d:"2024 başında TÜBİTAK BİGG desteğiyle kurulan malzeme ve biyoteknoloji girişimi.",u:"https://startupcentrum.com/tr/girisimler"},
+{id:"aisfield",k:"gir",n:"AISField",l:"Ankara",t:["robotik","enerji dönüşümü"],d:"Ankara merkezli robotik teknoloji firması; Tüpraş Ventures'ın enerji dönüşümü odaklı doğrudan yatırımları arasında.",u:"https://egirisim.com/2026/06/18/tupras-venturestan-uc-yeni-yatirim-syzygy-plasmonics-aqualung-carbon-capture-ve-via-separations/"},
+// Ekosistem destekçileri
+{id:"startupcentrum",k:"eko",n:"StartupCentrum",l:"Girişim veri platformu · İstanbul ve Ankara",t:["veri","rapor","melek ağı"],uz:"Girişim, yatırımcı, kuluçka ve yetenek verisini birleştiren platform; yatırım raporları, ekosistem haritası, hibe-teşvik ve işe alım danışmanlığı. 2021'de Müge Bezgin ve Nizamettin Sami Harputlu kurdu.",bg:"Ankara Kalkınma Ajansı'nın Ankara girişimcilik raporlarını hazırlıyor; bu sayfadaki 2025 sürdürülebilirlik yatırım verisi o rapordan. Raporlarında Sürdürülebilirlik & Çevre ayrı sektör: 2023'te Türkiye'de yaklaşık 24 milyon dolar. Ekosistem ödüllerinde 'Yılın Sürdürülebilirlik ve Çevre Girişimi' kategorisi var; 2024'te Ankara TEKMER 'Yılın TEKMER'i' seçildi.",fr:["StartupCentrum Alpha fonu (ARZ Portföy ile)","StartupCentrum Melek Yatırım Ağı (Ankara şubesi)"],d:"2024'te 10 milyon dolar değerlemeyle 440 bin dolar yatırım aldı.",p:"Mustafa Erşad Zor (Ankara raporu ekip lideri)",u:"https://startupcentrum.com/tr/raporlar"},
+{id:"inovest",k:"eko",n:"İnovest",l:"Ankara",t:["hızlandırıcı uygulayıcı"],uz:"Hızlandırma programı tasarımı ve uygulaması; Teknopark Ankara'nın Deep TechAnkara 2026 programının stratejisini yürüttü.",bg:"Programları derin teknoloji ve yapay zekâ odaklı; doğrudan yeşil odak yok.",fr:[],d:"Deep TechAnkara 2026: 98 başvurudan 26 girişim, 11 mentorla 80 saat destek, 18 finalist Demo Day'de.",u:"https://girisimci.ankaraka.org.tr/en/deep-techankara-2026-basladi_85.html"},
+{id:"sparklabs",k:"eko",n:"SparkLabs Group",l:"Küresel · NetZero TEKMER ortağı",t:["hızlandırıcı","TrueZero"],uz:"Güney Kore çıkışlı küresel yatırım ve hızlandırma ağı.",bg:"NetZero TEKMER ile SparkLabs TrueZero programını ve True Zero Global Prize'ı yürütüyor; iklim, temiz enerji, tarım, su ve döngüsel ekonomi odaklı.",fr:[],d:"Ankara'da NetZero TEKMER üzerinden faaliyet gösteriyor.",u:"https://www.karar.com/kultur-sanat-haberleri/kavin-paydasliginda-cop31e-kuresel-yarisma-75-bin-dolarlik-odul-2074365"},
+{id:"growthcircuit",k:"eko",n:"Growth Circuit",l:"ODTÜ Teknokent",t:["hızlandırma","yatırım"],uz:"ODTÜ Teknokent'in finansal aracı olarak kurulan hızlandırma ve yatırım şirketi.",bg:"Sektörden bağımsız; ODTÜ Teknokent'in enerji-çevre firmalarına erişimi var.",fr:[],d:"Yeni Fikirler Yeni İşler gibi ODTÜ Teknokent programlarıyla bağlantılı.",u:"https://www.htk.org.tr/odtu-teknokent-firmasi-136"},
+{id:"cyberprog",k:"eko",n:"Bilkent CYBERPARK programları",l:"Çankaya",t:["CAP","Doping Invest Camp","Get in the Ring"],uz:"CAP hızlandırıcısı, yatırımcı-girişimci eşleştirme kampı ve Get in the Ring yatırım yarışması.",bg:"Sektörden bağımsız.",fr:[],d:"2025'te Ankara ekosisteminde aktif programlar arasında raporlandı.",u:"https://ankaraka.org.tr/web/sites/default/files/article-documents/2025-q2-ankara-girisimcilik-ekosistemi-03.10.2025.pdf"},
+{id:"investup",k:"eko",n:"INVEST-UP Ankara",l:"Ankara TEKMER",t:["yatırımcı buluşması"],uz:"Ankara TEKMER'in yatırım hazırlık ve yatırımcı buluşma programı; GCIP Türkiye ön hızlandırıcı bilgilendirmesine de ev sahipliği yaptı.",bg:"GCIP temiz teknoloji programıyla bağlantılı etkinlikler.",fr:[],d:"LEAP fonu ile birlikte Ankara TEKMER girişimlerine açık.",u:"https://ankaraka.org.tr/web/sites/default/files/article-documents/2025-q2-ankara-girisimcilik-ekosistemi-03.10.2025.pdf"},
+{id:"albaraka",k:"eko",n:"Albaraka Garaj Ankara",l:"Orion TEKMER",t:["hızlandırıcı"],uz:"Albaraka'nın girişim hızlandırma programının Ankara ayağı; Orion TEKMER'de.",bg:"Doğrudan yeşil odak yok; Orion TEKMER'in Yeşil Yaka programıyla aynı çatı altında.",fr:[],d:"Orion TEKMER programları arasında.",u:"https://oriontekmer.com/"},
+{id:"founderinst",k:"eko",n:"Founder Institute Ankara",l:"GarajX TEKMER",t:["uluslararası hızlandırıcı"],uz:"Erken aşama kurucular için uluslararası hızlandırma programı.",bg:"Sektörden bağımsız.",fr:[],d:"GarajX TEKMER üzerinden yürütülüyor.",u:"https://garajx.com.tr/"},
+{id:"bilkentyes",k:"eko",n:"Bilkent YES",l:"Bilkent Üniversitesi",t:["öğrenci topluluğu","Ankara Start-Up Zirvesi"],uz:"Young Entrepreneurs Society; Ankara Start-Up Zirvesi 2025'i düzenledi.",bg:"Sektörden bağımsız.",fr:[],d:"Öğrenci girişimcilik topluluğu.",u:"https://ankaraka.org.tr/web/sites/default/files/article-documents/2025-q2-ankara-girisimcilik-ekosistemi-03.10.2025.pdf"},
+{id:"ato",k:"eko",n:"Ankara Ticaret Odası",l:"Ankara",t:["yatırımcı buluşması"],uz:"Sektörel yatırımcı buluşmaları ve verimlilik fuarı.",bg:"2025'te sağlık odaklı yatırımcı buluşması; yeşil odaklı etkinlik raporlanmadı.",fr:[],d:"ASO ile 2025 verimlilik fuarının ortak düzenleyicisi.",u:"https://ankaraka.org.tr/web/sites/default/files/article-documents/2025-q2-ankara-girisimcilik-ekosistemi-03.10.2025.pdf"},
+// Şirket
+{id:"kalyon",k:"kur",n:"Kalyon PV",l:"Başkent OSB, Malıköy",t:["güneş paneli","dikey entegre"],d:"İngot, wafer, hücre ve modülü tek çatı altında üreten entegre tesis; yıllık 2 GW, %80 üzeri yerlilik. Ayaş'ta agrovoltaik pilot.",u:"https://www.ekonomim.com/kose-yazisi/kalyon-pv-abdye-fabrika-kuracak/719265"},
+{id:"aselsan",k:"kur",n:"ASELSAN",l:"Ankara",t:["Yeşil Dönüşüm Merkezi","ESG"],d:"Temmuz 2026'da Yeşil Dönüşüm Merkezi Belgesi aldı; enerji, su ve ham madde verimliliği ile emisyon azaltımı yol haritası. 2025'te BIST Sürdürülebilirlik 25'e ilk sıradan girdi.",u:"https://sanayigazetesi.com.tr/?p=235278"},
+{id:"enerjisa",k:"kur",n:"Başkent EDAŞ · Eşarj",l:"Ankara",t:["şebeke","e-mobilite"],d:"Başkent EDAŞ Ankara'da 3,27 milyonun üzerinde aboneye hizmet veriyor; 2025'in ilk 9 ayında 3,485 milyar TL yatırım. Eşarj temiz enerjili hızlı şarj ağını işletiyor.",u:"https://baskentedas.com.tr/basin-bulteni/baskent-edas-ankara-nin-enerji-gelecegine-yatirimlarini-surduruyor/4981"},
+{id:"tt",k:"kur",n:"TT Ventures",l:"Türk Telekom, Ankara",t:["CVC","enerji & mobilite"],d:"Türk Telekom'un girişim sermayesi kolu; enerji ve mobilite teknolojilerini öncelikli yatırım alanı olarak tanımlıyor.",u:"https://www.takvim.com.tr/teknoloji/enerji-ve-mobilite-girisim-yatirimlari-buyuyor-6477172"},
+{id:"ronesans",k:"kur",n:"Rönesans × Digital Realty",l:"Temelli, Başkent OSB",t:["veri merkezi"],d:"Ekim 2026'da temeli atılan veri merkezi; ilk etapta 22 MW, yeşil dönüşüm hedefleriyle uyumlu tasarım.",u:"https://yeniankara.com.tr/ankara/ankara-temelli-veri-merkezi-ronesans-ve-digital-realtyden-41-milyar-dolarlik-yatirim-186834"},
+// Merkezler
+{id:"gunam",k:"mrk",n:"ODTÜ-GÜNAM",l:"ODTÜ",t:["fotovoltaik","UP2030","TRIUMPH"],d:"2009'da kurulan, Türkiye'nin ilk bütünleşik güneş enerjisi araştırma merkezi. Yedi birim: silisyum PV, gelişen PV, entegre PV, yoğunlaştırılmış ısıl güneş, malzeme ve geri dönüşüm, güç elektroniği ve şebeke, sosyo-ekonomik araştırmalar.",u:"https://odtugunam.org/?p=654"},
+{id:"ruzgem",k:"mrk",n:"ODTÜ RÜZGEM",l:"ODTÜ",t:["rüzgâr","Büyük Rüzgâr Tüneli"],d:"Rüzgâr Enerjisi Teknolojileri Araştırma Merkezi; Büyük Rüzgâr Tüneli devrede.",u:"https://haber.aero/?p=124009"},
+{id:"odtuiklim",k:"mrk",n:"ODTÜ İKLİM",l:"ODTÜ (Ankara & Mersin)",t:["iklim bilimi","TÜBİTAK 1071 TRANSMIT"],d:"Kasım 2022'de kurulan İklim Değişikliği ve Sürdürülebilir Kalkınma Merkezi; iklim bilimi, enerji dönüşümü, sürdürülebilir şehirler, uyum. Müdür Prof. Dr. Barış Salihoğlu.",u:"https://iklim.metu.edu.tr/en/center-administration"},
+{id:"hacsyk",k:"mrk",n:"Hacettepe Sürdürülebilir Yerleşkeler",l:"Beytepe",t:["kampüs GES","karbon ayak izi"],d:"Kampüs genelinde otopark, çatı ve peyzaj alanlarında güneş panelleri, LED ve akıllı bina pilotları. Beytepe karbon ayak izi tahmini kişi başı 0,79 ton (Ekim 2022).",u:"https://syk.hacettepe.edu.tr/tr/enerji_yonetimi-42"},
+{id:"etulab",k:"mrk",n:"TOBB ETÜ Enerji Araştırma Lab.",l:"Söğütözü",t:["güneşten hidrojen","fotoelektrokimya"],d:"Malzeme Bilimi ve Nanoteknoloji Mühendisliği bünyesinde; suyu güneş ışığıyla hidrojen ve oksijene ayıran fotoelektrokimyasal hücreler, nanoyapılı ZnO elektrotlar.",u:"https://www.etu.edu.tr/tr/bolum/malzeme-bilimi-ve-nanoteknoloji-muh/haber/gunes-enerjisinden-hidrojen-elde-etme-calismalari-tobb-etu-de"},
+{id:"tenmak",k:"mrk",n:"TENMAK Temiz Enerji Araştırma Enst.",l:"Sarayköy",t:["yeşil hidrojen","CCUS"],d:"Hidrojen üretimi, depolama, yakıt hücresi ve karbon yakalama Ar-Ge'si; Hidrojen Teknolojileri Stratejisi ve Yol Haritası'nı hazırladı.",u:"https://www.tenmak.gov.tr/attachments/article/3440/target-htyh.pdf"},
+// Kamu
+{id:"enerjik",k:"kam",n:"OSTİM ENERJİK",l:"OSTİM",t:["kümelenme"],d:"OSTİM Yenilenebilir Enerji ve Çevre Teknolojileri Kümelenmesi (2007).",p:"Mehmet Suphi İnal (koordinatör)",u:"https://tr.linkedin.com/in/nilsuerkanli"},
+{id:"ostim-osb",k:"kam",n:"OSTİM OSB",l:"Yenimahalle",t:["Yeşil OSB"],d:"TSE Yeşil OSB Belgesi; yeni binalarda çatı GES zorunlu, kurulu güç 5 MW'a çıkıyor.",p:"Orhan Aydın (YK Başkanı)",u:"https://sanayigazetesi.com.tr/?p=205038"},
+{id:"ttgv",k:"kam",n:"TTGV",l:"Ankara",t:["İklim Öncüsü VC Fonu"],d:"2023'ten itibaren önceliği iklim teknolojileri: İklim Teknolojileri Radarı, İklim Öncüsü programı ve fonu, ASO ile Eko-Üretim Dönüşüm Programı.",p:"Değerhan Usluel (Başkan) · Evren Bükülmez",u:"https://sanayigazetesi.com.tr/?p=227515"},
+{id:"kav",k:"kam",n:"Kamu Araştırmaları Vakfı",l:"Ankara",t:["NetZero TEKMER paydaşı"],d:"NetZero TEKMER'in kurumsal paydaşı; True Zero Global Prize sürecine destek veriyor.",p:"Prof. Dr. Ulvi Saran (Mütevelli Heyeti Başkanı)",u:"https://www.karar.com/kultur-sanat-haberleri/kavin-paydasliginda-cop31e-kuresel-yarisma-75-bin-dolarlik-odul-2074365"},
+{id:"abb",k:"kam",n:"Ankara Büyükşehir Belediyesi",l:"Ankara",t:["Yeşil Şehir Eylem Planı"],d:"Ankara İklim Eylem Planı'nın ardından EBRD Yeşil Şehirler programıyla Yeşil Şehir Eylem Planı.",u:"https://www.sozcu.com.tr/ankaranin-yesil-sehir-eylem-plani-kamuoyuna-tanitildi-wp6804122"},
+{id:"aso",k:"kam",n:"Ankara Sanayi Odası",l:"Ankara",t:["KOBİ yeşil dönüşüm"],d:"Kalkınma Ajansı ve TTGV ile Eko-Üretim Dönüşüm Programı.",u:"https://sanayigazetesi.com.tr/?p=214538"},
+];
+// Akademisyenler: un = üniversite
+const UNIS={odtu:"ODTÜ",bilkent:"Bilkent Üniversitesi",hacettepe:"Hacettepe Üniversitesi",gazi:"Gazi Üniversitesi",atilim:"Atılım Üniversitesi",aybu:"Ankara Yıldırım Beyazıt Üniversitesi"};
+const A=[
+{id:"turan",un:"odtu",n:"Raşit Turan",ti:"Prof. Dr.",b:"Fizik · ODTÜ-GÜNAM kurucusu, SiPV koordinatörü",w:"2009'da GÜNAM'ı kurdu; silisyum fotovoltaik hücre ve modül teknolojileri. Türkiye Fotovoltaik Teknolojileri Platformu'nu yürüttü.",t:["silisyum PV","güneş hücresi"],u:"https://avesis.metu.edu.tr/turanr/deneyim"},
+{id:"yerci",un:"odtu",n:"Selçuk Yerci",ti:"Doç. Dr.",b:"Elektrik-Elektronik Müh. · ODTÜ-GÜNAM YK Başkanı (Ekim 2025'ten) · Test ve Karakterizasyon birimi",w:"Gelişen fotovoltaik teknolojileri. AB Horizon TRIUMPH projesinin koordinatörü: perovskit ve silisyumu birleştiren üç eklemli, düşük maliyetli ve düşük çevresel ayak izli güneş modülleri (2023–2026).",t:["perovskit","tandem PV","Horizon"],u:"https://avesis.metu.edu.tr/syerci"},
+{id:"gunbas",un:"odtu",n:"Görkem Günbaş",ti:"Prof. Dr.",b:"ODTÜ-GÜNAM · Gelişmiş Fotovoltaik birimi koordinatörü",w:"Perovskit ve organik güneş hücreleri için malzeme geliştirme; perovskit hücrelerde ara yüz pasivasyonu. TRIUMPH projesinde araştırmacı.",t:["malzeme","PV geri dönüşümü"],u:"https://avesis.metu.edu.tr/ggunbas"},
+{id:"taylan",un:"odtu",n:"Onur Taylan",ti:"Doç. Dr.",b:"ODTÜ-GÜNAM · ODAK birimi koordinatörü",w:"Yoğunlaştırılmış ısıl güneş enerjisi; Horizon SOLARIZE (EU-SOLARIS) ve HYBRIDPlus (PCM depolamalı hibrit güneş santrali) projeleri, pozitif enerji bölgeleri (PED-ACT).",t:["CSP","güneş ısısı"],u:"https://avesis.metu.edu.tr/otaylan"},
+{id:"gol",un:"odtu",n:"Murat Göl",ti:"Prof. Dr.",b:"ODTÜ-GÜNAM · Powering birimi koordinatörü",w:"Güç elektroniği, şebeke ve sistem entegrasyonu teknolojileri.",t:["şebeke entegrasyonu","güç elektroniği"],u:"https://avesis.metu.edu.tr/mgol"},
+{id:"ozden",un:"odtu",n:"Talat Özden",ti:"Dr. Öğr. Üyesi",b:"ODTÜ-GÜNAM · Modül Teknolojileri birimi koordinatörü",w:"Fotovoltaik modül teknolojileri.",t:["entegre PV"],u:"https://avesis.metu.edu.tr/tozden"},
+{id:"senturk",un:"odtu",n:"Bilge Şentürk",ti:"Arş. Gör. Dr.",b:"ODTÜ-GÜNAM · SolarSEED (sosyo-ekonomik araştırmalar)",w:"Güneş enerjisinin sosyal, ekonomik ve çevresel boyutları; sürdürülebilir tarım uygulamalarının benimsenmesi üzerine proje.",t:["enerji dönüşümü","sosyo-ekonomi"],u:"https://avesis.metu.edu.tr/bilges"},
+{id:"dino",un:"odtu",n:"İpek Gürsel Dino",ti:"Prof. Dr.",b:"Mimarlık · ODTÜ İKLİM müdür yardımcısı",w:"Horizon Europe UP2030 projesinin ODTÜ yürütücüsü: yapay zekâ ile bina enerji performansı, iklim değişikliğine göre tüketim modellemesi, çatı GES potansiyeli ve güneşle beslenen mikromobilite şarjı. İstanbul'da Kadıköy pilotu.",t:["bina enerjisi","yapay zekâ","karbon nötr şehir"],u:"https://avesis.metu.edu.tr/ipekg/projeler"},
+{id:"salihoglu",un:"odtu",n:"Barış Salihoğlu",ti:"Prof. Dr.",b:"Deniz Bilimleri Enstitüsü Müdürü · ODTÜ İKLİM Müdürü",w:"Doğu Akdeniz fiziksel oşinografisi, iklim değişikliğinin Türkiye denizlerine etkileri; Marmara Denizi Bütünleşik Model Sistemi ve müsilaj için oşinografik erken uyarı projeleri.",t:["deniz ısınması","iklim modellemesi"],u:"https://avesis.metu.edu.tr/sabaris"},
+{id:"ozyurt",un:"odtu",n:"Gülizar Özyurt Tarakcıoğlu",ti:"Dr. Öğr. Üyesi",b:"İnşaat Mühendisliği · ODTÜ İKLİM müdür yardımcısı",w:"Deniz seviyesi yükselmesine karşı kıyı kırılganlığı ve risk algısı, kıyı yönetimi.",t:["deniz seviyesi","kıyı"],u:"https://avesis.metu.edu.tr/gulizar/iletisim"},
+{id:"voyvoda",un:"odtu",n:"Ebru Voyvoda",ti:"Prof. Dr.",b:"İktisat · ODTÜ İKLİM yönetim kurulu",w:"Uygulamalı genel denge ve enerji-çevre-ekonomi modellemesi; gelir eşitsizliği ve hane halkı karbon ayak izi; ZEW'de iklim politikalarının ekonomik etkileri.",t:["iklim ekonomisi","genel denge"],u:"https://avesis.metu.edu.tr/voyvoda"},
+{id:"gure",un:"odtu",n:"Pınar Derin Güre",ti:"Prof. Dr.",b:"İktisat · ODTÜ İKLİM yönetim kurulu",w:"İklim, kalkınma ve eşitsizlik; Türkiye'de güneş PV yaygınlaşmasının ekonomik ve siyasi etkileri; fotovoltaikte toplumsal cinsiyet çeşitliliği.",t:["adil dönüşüm","kalkınma"],u:"https://avesis.metu.edu.tr/pderin"},
+{id:"yilmazel",un:"odtu",n:"Yasemin Dilşad Yılmazel Tokel",ti:"Doç. Dr.",b:"Çevre Mühendisliği · ODTÜ İKLİM yönetim kurulu",w:"Mikrobiyal elektrokimyasal sistemler, biyohidrojen, atık sudan besin geri kazanımı; CO₂'yi değerli organik bileşiklere dönüştüren termofilik biyoelektrokimyasal sistemler.",t:["biyohidrojen","atık su","CO₂ dönüşümü"],u:"https://avesis.metu.edu.tr/dilsad"},
+{id:"aksoy",un:"odtu",n:"Ayşegül Aksoy",ti:"Prof. Dr.",b:"Çevre Mühendisliği",w:"Su kalitesi modellemesi, havza yönetimi, entegre atık yönetimi ve çevresel uzaktan algılama; Eymir Gölü, Uluabat ve Porsuk havzası projeleri, Newton Fund destekli proje.",t:["su kalitesi","havza","uzaktan algılama"],u:"https://avesis.metu.edu.tr/aaksoy/yayinlar"},
+{id:"balaban",un:"odtu",n:"Meltem Şenol Balaban",ti:"Doç. Dr.",b:"Şehir ve Bölge Planlama · Afet Yönetimi Merkezi Müdürü",w:"Afet riski azaltma, sel yönetimi, dirençli kentler ve doğa temelli çözümler; yeşil kampüs enerji verimliliği tez danışmanlığı.",t:["iklim uyumu","dirençli kent"],u:"https://avesis.metu.edu.tr/mbalaban"},
+{id:"yucel",un:"odtu",n:"Mustafa Yücel",ti:"Prof. Dr.",b:"Deniz Bilimleri Enstitüsü müdür yardımcısı",w:"Karadeniz ve Baltık'ta oksijen azlığına bağlı deniz tabanı biyojeokimyası, deniz gözlem sistemleri.",t:["okyanus","gözlem"],u:"https://avesis.metu.edu.tr/muyucel"},
+{id:"teksoz",un:"odtu",n:"Gaye Teksöz",ti:"Prof. Dr.",b:"Matematik ve Fen Bilimleri Eğitimi · ODTÜ İKLİM yönetim kurulu",w:"Sürdürülebilir kalkınma için eğitim, çevresel tutumlar ve sistem düşüncesi; ODTÜ kampüsünde sıfır atık ve geri dönüşüm davranışı projesi.",t:["iklim eğitimi"],u:"https://avesis.metu.edu.tr/gtuncer/deneyim"},
+{id:"uzol",un:"odtu",n:"Oğuz Uzol",ti:"Prof. Dr.",b:"ODTÜ RÜZGEM",w:"RÜZGEM Büyük Ölçekli Çok Amaçlı Rüzgâr Tüneli; rüzgâr türbini aerodinamiği.",t:["rüzgâr tüneli","aerodinamik"],u:"https://avesis.metu.edu.tr/uzol"},
+{id:"keysan",un:"odtu",n:"Ozan Keysan",ti:"Doç. Dr.",b:"Elektrik-Elektronik Müh. · ODTÜ RÜZGEM",w:"Doğrudan tahrikli rüzgâr türbini jeneratörleri, dalga enerjisi için doğrusal süperiletken jeneratör, açık deniz rüzgârı entegrasyonu (WINDFLAG). TÜBİTAK 1001 jeneratör güvenilirliği projesi.",t:["rüzgâr jeneratörü"],u:"https://avesis.metu.edu.tr/keysan"},
+{id:"tuncer",un:"odtu",n:"İsmail Hakkı Tuncer",ti:"Prof. Dr.",b:"Havacılık ve Uzay Müh. · ODTÜ RÜZGEM",w:"WRF hava modeliyle birleştirilmiş rüzgâr çiftliği CFD simülasyonları (TÜBİTAK 1001).",t:["rüzgâr çiftliği","CFD"],u:"https://avesis.metu.edu.tr/ituncer"},
+{id:"demir",un:"bilkent",n:"Hilmi Volkan Demir",ti:"Prof. Dr.",b:"Elektrik-Elektronik Müh. ve Fizik · UNAM Müdürü · TÜBA asli üyesi",w:"Nanokristal tabanlı enerji verimli LED aydınlatma, kuantum nokta optoelektroniği, güneş hücrelerinde nanokristal dönüştürücüler, çevresel temizlik için fotokataliz. InnovNano / InnovCoat spin-off'ları.",t:["verimli aydınlatma","nanokristal","fotokataliz"],u:"https://volkan.bilkent.edu.tr/"},
+{id:"karadas",un:"bilkent",n:"Ferdi Karadaş",ti:"Doç. Dr.",b:"Kimya",w:"Su ayrıştırma için düşük maliyetli ve dayanıklı katalitik sistemler; demirle duyarlılaştırılmış su oksidasyonu fotoanotlarında yük transferi (Almanya iş birliği). Humboldt Georg Forster Araştırma Ödülü.",t:["su ayrıştırma","güneş yakıtı","katalizör"],u:"https://web4.bilkent.edu.tr/karadas/?p=40"},
+{id:"orhan",un:"hacettepe",n:"Özge Yüksel Orhan",ti:"Doç. Dr.",b:"Kimya Mühendisliği",w:"Katalitik desorpsiyonla düşük enerjili CO₂ yakalama sistemi ve mevcut tesislere uyarlama mekanizmaları; Pekin Teknoloji Enstitüsü ile TÜBİTAK–NSFC ikili projesi. 2024 Hacettepe Bilim Teşvik Ödülü.",t:["karbon yakalama","CO₂"],u:"https://avesis.hacettepe.edu.tr/oyuksel/yayinlar"},
+{id:"ersan",un:"hacettepe",n:"Hülya Yavuz Ersan",ti:"Prof. Dr.",b:"Çevre Teknolojileri Araştırma Laboratuvarı",w:"Amin, iyonik sıvı ve CO₂ bağlayıcı organik sıvılarla CO₂ absorpsiyonu, karbonik anhidrazla enzimatik destek, ultrasonla desorpsiyon, katalitik CO₂ hidrojenasyonu modellemesi; kompost koşullarında biyobozunma.",t:["karbon yakalama","biyobozunma"],u:"https://avesis.hacettepe.edu.tr/hyavuz"},
+{id:"koksal",un:"hacettepe",n:"Murat Köksal",ti:"Prof. Dr.",b:"Makine Mühendisliği · Enerji Anabilim Dalı",w:"Gaz-katı çok fazlı akış; yoğunlaştırılmış güneş alıcısı projesinde yürütücü yardımcısı, fışkırmalı yataklı güneş alıcıları üzerine yayın (2026).",t:["güneş ısısı","çok fazlı akış"],u:"https://avesis.hacettepe.edu.tr/koksalm"},
+{id:"tozdemir",un:"hacettepe",n:"Tanılay Özdemir",ti:"Arş. Gör.",b:"Makine Mühendisliği · Enerji Anabilim Dalı",w:"Lityum-iyon bataryaların farklı sıcaklıklarda açık devre gerilimi (2026 bildirisi).",t:["batarya","ısıl davranış"],u:"https://avesis.hacettepe.edu.tr/tanilayozdemir"},
+{id:"aktas",un:"gazi",n:"Ahmet Aktaş",ti:"Doç. Dr.",b:"Teknoloji Fakültesi · Enerji Sistemleri Mühendisliği",w:"PV üretimi ve çok seviyeli eviriciler, hibrit enerji depolama (batarya-ultrakapasitör), akıllı şebeke, açık deniz rüzgârı ve deniz akıntısı enerjisi üzerine TÜBİTAK projeleri. Elsevier'den 'Solar Hybrid Systems' kitabı.",t:["PV","enerji depolama","akıllı şebeke"],u:"https://avesis.gazi.edu.tr/a.aktas"},
+{id:"hmsahin",un:"gazi",n:"Hacı Mehmet Şahin",ti:"Prof. Dr.",b:"Gazi Teknopark YK Başkan Vekili (2015 kaydı)",w:"Nükleer enerjiyle hidrojen üretimi, füzyon reaktörü nötroniği; 2015'te Gazi Teknopark'taki 264 kW'lık araştırma GES'inin kurulumunda görevli.",t:["araştırma GES"],u:"https://avesis.gazi.edu.tr/mesahin"},
+{id:"devrim",un:"atilim",n:"Yılser Devrim",ti:"Prof. Dr.",b:"Enerji Sistemleri Mühendisliği · Hidrojen Enerjisi ve Yakıt Pilleri Araştırma Grubu kurucusu",w:"Yüksek sıcaklık PEM yakıt pilleri için uzun ömürlü, düşük maliyetli membran ve katalizör yapıları; Hidrojen Enerjisi ve Yakıt Pilleri Araştırma Grubu kurucusu.",t:["PEM yakıt pili","hidrojen"],u:"https://www.atilim.edu.tr/uploads/employees/yilser-devrim/1750852324-Prof.%20Dr.%20Y%C4%B1lser%20Devrim%20CV%2025%2006%202025.pdf"},
+{id:"celik",un:"aybu",n:"Selahattin Çelik",ti:"Prof. Dr.",b:"AYBÜ Hidrojen Teknolojileri ve Enerji Uygulama ve Araştırma Merkezi (H2TEAM) Müdürü",w:"Hidrojen ve yakıt hücresi teknolojileri; AYBÜ'deki Türkiye Hidrojen Zirvesi 2026'nın koordinatörü.",t:["hidrojen","yakıt hücresi"],u:"https://avesis.aybu.edu.tr/selahattincelik"},
+];
+const T=[
+{id:"h2zirve",k:"etk",n:"Türkiye Hidrojen Zirvesi 2026",o:"AYBÜ, Ankara · H2TEAM koordinasyonu, TESPAM iş birliği",from:"2026-10-22",to:"2026-10-23",d:"Hidrojen Yol Haritası 2035, savunmada yakıt hücreleri, yeşil hidrojen ve sanayide kullanım. Ücretsiz, ön kayıtlı; TENMAK Başkanı ve Prof. Dr. İbrahim Dinçer konuşmacılar arasında.",u:"https://www.dogayidinle.com/enerji/turkiye-hidrojen-zirvesi-2026-ankarada-basliyor-yesil-enerji-savunma-sanayisi-ve-2035-hedefleri-masada/9555"},
+{id:"techpp",k:"etk",n:"TechAnkara Proje Pazarı",o:"Ankara Kalkınma Ajansı · Hacettepe Beytepe",from:"2026-10-20",to:"2026-10-20",yearly:true,d:"12. kez yapıldı; 460 başvurudan 100 proje. Birinciye 600 bin TL ticarileştirme desteği. Başvurular her yıl ilkbaharda açılıyor.",u:"https://www.aksiyon.com.tr/techankara-proje-pazari-ankara-yi-teknoloji-ve-yatirim-agiyla-bulusturdu-379005"},
+{id:"truezero",k:"etk",n:"True Zero Global Prize Demo Day",o:"NetZero TEKMER & SparkLabs · COP31 Antalya",from:"2026-11-09",to:"2026-11-20",d:"Başvurular 28 Eylül'de kapandı. Tarım paneli 9 Kasım, temiz enerji paneli 10 Kasım; kazananlar COP31'de açıklanacak.",u:"https://www.karar.com/kultur-sanat-haberleri/kavin-paydasliginda-cop31e-kuresel-yarisma-75-bin-dolarlik-odul-2074365"},
+{id:"deeptech",k:"etk",n:"Deep TechAnkara 2026 Demo Day",o:"Teknopark Ankara · İnovest · Ankara Kalkınma Ajansı",from:"2026-06-24",to:"2026-06-24",yearly:true,d:"Derin teknoloji ve yapay zekâ girişimleri için hızlandırıcının kapanışı; 18 finalist yatırımcılara sundu.",u:"https://sanayigazetesi.com.tr/?p=230422"},
+{id:"gcipodul",k:"etk",n:"GCIP Türkiye ödül töreni",o:"TÜBİTAK, Ankara",from:"2026-02-11",to:"2026-02-11",yearly:true,d:"Temiz teknoloji hızlandırıcısının ödül töreni; 2025 döneminde 96 başvuru, 39 takım.",u:"https://tubitak.gov.tr/tr/haber/gcip-turkiye-2025-hizlandirici-programi-odulleri-sahiplerini-buldu"},
+{id:"kosgebcop",k:"des",n:"KOSGEB COP31 Odaklı Hızlandırma Desteği",o:"TEKMER işleticileri ve GO sahibi teknoparklar",from:"2026-08-08",to:"2026-08-30",d:"İklim girişimleri için hızlandırma programlarına 6,5 milyon TL'ye kadar destek; COP31'de en az bir faaliyet şartı.",u:"https://www.alomaliye.com/2026/08/09/kosgebden-cop31-odakli-hizlandirma-destegi-cagrisi/"},
+{id:"t1832",k:"des",n:"TÜBİTAK 1832 Sanayide Yeşil Dönüşüm 2026-2",o:"Sanayi kuruluşları",from:"2026-09-20",to:"2026-10-12",d:"Yeşil dönüşüm Ar-Ge'si; hibe ve geri ödemeli destek.",u:"https://www.foreks.com/haber/detay/6aafb7b824008d7d437342f0/AA/tr/tubitak-sanayide-yesil-donusum-programi-nda-yilin-ikinci-cagrisi-basvurulara-acildi-20-09-26/"},
+{id:"t1833",k:"des",n:"TÜBİTAK 1833 SAYEM Yeşil Dönüşüm 2026-1",o:"Sanayi platformları",from:"2026-06-16",to:"2026-10-30",st:"Değerlendirmede",d:"Sonuçlar 30 Ekim'e kadar; Dünya Bankası kapsamındaki son 1833 çağrısı.",u:"https://tubitak.gov.tr/tr/duyuru/1833-sayem-yesil-donusum-2026-1-cagrisi-2-asamasi-basvuruya-acildi"},
+{id:"gcip",k:"des",n:"GCIP Türkiye Hızlandırıcısı",o:"TÜBİTAK & UNIDO · girişimler ve KOBİ'ler",from:"2026-07-01",to:"2026-08-03",yearly:true,d:"Temiz teknoloji kategorileri, kadın girişimci modülü; en iyi 3'e BİGG Fonu'ndan toplam 2,25 mn TL yatırım imkânı.",u:"https://tubitak.gov.tr/tr/duyuru/gcip-turkiye-2026-hizlandiricisi-ve-kapsayici-yesil-gecis-2026-hizlandiricisi-cagrilari-acildi"},
+{id:"ygp",k:"des",n:"Sanayi Bakanlığı Yeşil Dönüşüm Programı",o:"İmalat sanayi tesisleri",from:"2026-11-01",to:"2026-12-31",st:"Yeni çağrı bekleniyor",d:"Emisyon azaltan yatırımlara teşvik; destek alan tesislere Yeşil Dönüşüm Merkezi unvanı. En az 3 kişilik Yeşil Dönüşüm Ekibi şartı.",u:"https://www.paradergi.com.tr/girisimcilik/2026/10/15/sanayide-yesil-donusume-yeni-destek-donemi/amp"},
+{id:"sogreen",k:"des",n:"SoGreen – Sosyal Kapsayıcı Yeşil Geçiş",o:"Ankara Kalkınma Ajansı dahil 81 il",from:"2025-01-01",to:"2026-12-31",st:"İl bazında çağrılar",d:"Dünya Bankası finansmanlı; KOBİ'lerin yeşil geçiş yatırımlarına proje başına 2,5–7,5 mn TL.",u:"https://www.trthaber.com/haber/ekonomi/bati-karadenizdeki-kobilere-235-milyon-liralik-yesil-donusum-destegi-943569.html"},
+{id:"t1831",k:"des",n:"TÜBİTAK 1831 Yeşil İnovasyon Mentörlük",o:"KOBİ'ler",from:"2025-01-01",to:"2026-12-31",st:"Dönemsel çağrı",d:"En fazla 250.000 TL, %90 destek oranı.",u:"https://sanayigazetesi.com.tr/?p=195080"},
+{id:"tenmakcagri",k:"des",n:"TENMAK Ar-Ge Teşvik Çağrıları",o:"Firmalar, üniversiteler",from:"2025-01-01",to:"2026-12-31",st:"Dönemsel çağrı",d:"Hidrojen ve yakıt hücresi, karbon yakalama ve depolama, enerjide dijitalleşme.",u:"https://tbmm.gov.tr/Milletvekili/UyeGenelKurulKonusmalariDetay?eid=120195"},
+];
+
+const SEC=[["FinTech",6,23.3],["Malzeme & Üretim",9,6.1],["Otomotiv",3,4.9],["Siber güvenlik",3,2.5],["Savunma",2,1.5],["Sağlık & Biyotek",14,1.0],["Sürdürülebilirlik & Çevre",4,0.65],["Robotik",3,0.36],["Oyun",1,0.085]];
+const I=[
+{id:"i-evreka17",ty:"Girişim",n:"Evreka · ilk tur",dt:"2017-03",a:"$740 bin",inv:"Sankonline, 500 Istanbul, Nexus Ventures, Filip Minasyan",d:"Akıllı atık toplama sensörleri ve rota optimizasyonu için ilk yatırım turu.",u:"https://webrazzi.com/2017/03/03/evreka-yatirim/"},
+{id:"i-evreka22",ty:"Girişim",n:"Evreka · büyüme turu",dt:"2022-01",a:"$2,2 mn",inv:"Logo Ventures, TechOne, Teknoloji Yatırım TTGV1 Fonu, Fark Labs",d:"Yurt dışında yeni pazarlara açılma ve yerel ekipler için; 2021'de gelir üç katına çıktı.",u:"https://webrazzi.com/2022/01/06/evreka-yatirim-2-milyon-dolar/"},
+{id:"i-evreka24",ty:"Girişim",n:"Evreka · kurumsal yatırım",dt:"2024-05",a:"Açıklanmadı",inv:"Driventure (Ford Otosan CVC)",d:"Driventure'ın sürdürülebilirlik odaklı ilk yatırımı; Gölcük fabrikası boyahanesinde atık yönetimi iş birliğinin devamı.",u:"https://egirisim.com/2024/05/24/driventure-surdurulebilirlik-odakli-ilk-yatirimini-ankara-merkezli-evrekaya-yapti/"},
+{id:"i-aisfield",ty:"Girişim",n:"AISField",dt:"2026-06",a:"Açıklanmadı",inv:"Tüpraş Ventures",d:"Ankara merkezli robotik firması; Tüpraş Ventures'ın enerji dönüşümü portföyündeki doğrudan yatırımlardan biri (Haziran 2026 itibarıyla).",u:"https://www.aa.com.tr/tr/enerjiterminali/sirket-haberleri/tupras-venturestan-enerji-donusum-teknolojilerine-yeni-yatirimlar/57724"},
+{id:"i-cfl",ty:"Girişim",n:"CFL Malzeme Teknolojileri",dt:"2024",a:"Açıklanmadı",inv:"TÜBİTAK BİGG",d:"Malzeme ve biyoteknoloji girişimi BİGG yatırımıyla kuruldu.",u:"https://startupcentrum.com/tr/girisimler"},
+{id:"i-microfert",ty:"Girişim",n:"MicroFert Biyoteknoloji",dt:"2023",a:"Açıklanmadı",inv:"TÜBİTAK BİGG Yeşil Büyüme",d:"Siderofor üreten mikrobiyal inokülant projesi BİGG Yeşil Büyüme çağrısından destek aldı.",u:"https://www.tgbd.org.tr/content/upload/bulletins/documents/e-bulten-5-sayi-20230323084529.pdf"},
+{id:"i-kalyon",ty:"Kurumsal",n:"Kalyon PV entegre güneş fabrikası",dt:"2024",a:"$500 mn+",inv:"Kalyon Holding",d:"Başkent OSB'deki dikey entegre tesiste toplam 500 milyon dolar yatırım; 2024 için 100 milyon dolar ek kapasite yatırımı. Şirket KLYPV koduyla halka açık.",u:"https://www.donanimhaber.com/kalyon-gunes-paneli-fabrikasinin-kapasitesi-arttiriliyor--171713"},
+{id:"i-ronesans",ty:"Kurumsal",n:"Temelli veri merkezi",dt:"2026-10",a:"$4,1 mlr",inv:"Rönesans Holding × Digital Realty",d:"İlk etapta 450 milyon dolar ve 22 MW; enerji ve kaynak verimliliğini esas alan tasarım. Sürdürülebilirlik yatırımı değil, yüksek enerji tüketen bir altyapı yatırımı olarak izlenmeli.",u:"https://yeniankara.com.tr/ankara/ankara-temelli-veri-merkezi-ronesans-ve-digital-realtyden-41-milyar-dolarlik-yatirim-186834"},
+{id:"i-edas",ty:"Kurumsal",n:"Başkent EDAŞ şebeke yatırımları",dt:"2025",a:"3,485 mlr TL",inv:"Enerjisa Enerji",d:"2025'in ilk dokuz ayında Ankara şebekesine bakım, yenileme ve dijital dönüşüm yatırımı.",u:"https://baskentedas.com.tr/basin-bulteni/baskent-edas-ankara-nin-enerji-gelecegine-yatirimlarini-surduruyor/4981"},
+{id:"i-ostimges",ty:"Altyapı",n:"OSTİM otopark GES'leri",dt:"2025",a:"+2 MW",inv:"Dünya Bankası desteği",d:"Açık otoparklara kurulan santrallerle OSTİM'in yenilenebilir kurulu gücü 5 MW'a çıkıyor.",u:"https://www.ekonomigazetesi.com/ekonomi/5gde-yerlilik-payini-ostimin-cagdas-ahi-dayanismasi-buyuttu-76619"},
+{id:"i-auyesil",ty:"Altyapı",n:"Ankara Üniversitesi Teknokent yeşil elektrik",dt:"2025",a:"2,6 GWh/yıl",inv:"Enerjisa sözleşmesi",d:"Teknoparkın elektriği yenilenebilir kaynaklardan; yılda yaklaşık 1.200 ton emisyon önleme hedefi.",u:"https://www.enerjisa.com.tr/en/about-enerjisa/media-centre/press-releases/the-first-green-technopark-in-turkiye-reduces-carbon-emissions-in-collaboration-with-enerjisa-enerji"},
+{id:"i-tenmak",ty:"Altyapı",n:"TENMAK hidrojen Ar-Ge merkezi",dt:"",a:"8.000 m²",inv:"TENMAK",d:"Sarayköy kampüsünde yakıt hücresi testi, yeşil hidrojen üretimi ve günlük 65 kg kapasiteli hidrojen dolum istasyonu; üniversite ve firmalara açık.",u:"https://sanayigazetesi.com.tr/?p=48585"},
+{id:"i-yeka",ty:"Altyapı",n:"YEKA 2026 rüzgâr ve güneş yarışmaları",dt:"2026-10",a:"~$2 mlr",inv:"31 başvuran şirket",d:"Ankara'nın da aralarında olduğu 13 ilde toplam 2.400 MW kapasite için yarışmalar.",u:"https://www.ahaber.com.tr/ekonomi/2026/10/17/yenilenebilir-enerjide-2-milyar-dolarlik-hamle"},
+{id:"i-leap",ty:"Fon",n:"LEAP yatırım fonu",dt:"2022",a:"100 mn TL",inv:"LEAP Investment",d:"Ankara TEKMER girişimlerine yönelik fon; sektör kısıtı yok.",u:"https://www.kosgeb.gov.tr/site/tr/genel/detay/8149/ankarada-girisimciligin-en-yeni-merkezi"},
+{id:"i-ttgv",ty:"Fon",n:"TTGV İklim Öncüsü VC Fonu",dt:"2023",a:"—",inv:"TTGV",d:"İklim teknolojilerinde türünün ilk örneği ticari demo projeleri ve öncül girişimlere yatırım.",u:"https://ttgv.org.tr/media/2024/03/TTGV-kurumsal-sunum-9.pdf"},
+{id:"i-ttv",ty:"Fon",n:"TT Ventures GSYF",dt:"2022",a:"Portföy $600 mn+",inv:"Türk Telekom",d:"12 girişime yatırım; yeni dönemde enerji ve mobilite teknolojileri öncelikli alan.",u:"https://www.takvim.com.tr/teknoloji/enerji-ve-mobilite-girisim-yatirimlari-buyuyor-6477172"},
+{id:"i-hane",ty:"Fon",n:"HANE GSYF",dt:"",a:"—",inv:"HANE",d:"Bilkent TEKMER girişimlerine erişim sağlanan girişim sermayesi fonu; yeşil odak belirtilmemiş.",u:"https://www.tekmerbilkent.com/"},
+];
+const TODAY=new Date();
+const cssv=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const ALL=[...D,
+  ...A.map(a=>({...a,k:"aka",l:UNIS[a.un]+" · "+a.b,d:a.w,p:null,nm:a.ti+" "+a.n})),
+  ...T.map(x=>({...x,l:x.o,t:[],tl:true})),
+  ...I.map(x=>({...x,k:"yat",l:x.ty+" · "+x.inv+(x.dt?" · "+x.dt:""),t:[x.a],p:null}))];
+let active=new Set(Object.keys(CATS)), selected=null, query="", aq="", uniSel=null;
+document.getElementById("f-aka").textContent=A.length;
+
+function fmt(d){return new Date(d+"T00:00:00").toLocaleDateString("tr-TR",{day:"numeric",month:"short",year:"numeric"})}
+function status(x){
+  if(x.st) return {c:"soon",t:x.st};
+  const f=new Date(x.from+"T00:00:00"), t=new Date(x.to+"T23:59:59");
+  if(TODAY<f) return {c:"soon",t:x.k==="etk"?"Yaklaşıyor":"Açılacak"};
+  if(TODAY<=t) return {c:"open",t:x.k==="etk"?"Sürüyor":"Başvuruya açık"};
+  return x.yearly?{c:"yearly",t:"Yıllık · gelecek dönem"}:{c:"closed",t:x.k==="etk"?"Gerçekleşti":"Kapandı"};
+}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+const chips=document.getElementById("chips");
+Object.entries(CATS).forEach(([k,v])=>{
+  const b=document.createElement("button");b.className="chip";b.style.setProperty("--c",`var(${v.c})`);
+  b.setAttribute("aria-pressed","true");b.id="chip-"+k;
+  b.innerHTML=`<i></i>${v.n}<small>${ALL.filter(x=>x.k===k).length}</small>`;
+  b.onclick=()=>{ if(active.size===Object.keys(CATS).length){active=new Set([k])} else if(active.has(k)){active.delete(k); if(!active.size) active=new Set(Object.keys(CATS))} else active.add(k); render()};
+  chips.appendChild(b);
+});
+
+const svg=document.getElementById("map"), NS="http://www.w3.org/2000/svg", C=360;
+function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e}
+function buildMap(){
+  svg.innerHTML="";
+  const keys=Object.keys(CATS);
+  const weight=k=>Math.max(3,ALL.filter(x=>x.k===k).length**0.8);
+  const tot=keys.reduce((s,k)=>s+weight(k),0);
+  [120,220,320].forEach(r=>svg.appendChild(el("circle",{cx:C,cy:C,r,fill:"none",stroke:cssv("--line")})));
+  svg.appendChild(el("circle",{cx:C,cy:C,r:46,fill:cssv("--soft"),stroke:cssv("--line")}));
+  const ct=el("text",{x:C,y:C+6,"text-anchor":"middle",fill:cssv("--ink"),"font-family":"Archivo, sans-serif","font-weight":"800","font-size":"18"});ct.textContent="ANKARA";svg.appendChild(ct);
+  let a0=-Math.PI/2;
+  keys.forEach(k=>{
+    const span=2*Math.PI*weight(k)/tot, col=cssv(CATS[k].c);
+    svg.appendChild(el("line",{x1:C+Math.cos(a0)*50,y1:C+Math.sin(a0)*50,x2:C+Math.cos(a0)*330,y2:C+Math.sin(a0)*330,stroke:cssv("--line")}));
+    const am=a0+span/2, lx=C+Math.cos(am)*346, ly=C+Math.sin(am)*346;
+    const lt=el("text",{x:lx,y:ly+4,"text-anchor":Math.abs(Math.cos(am))<.3?"middle":(Math.cos(am)>0?"start":"end"),fill:col,class:"sector-label"});
+    lt.textContent=CATS[k].s;svg.appendChild(lt);
+    const items=ALL.filter(x=>x.k===k);
+    // pack nodes along rings from inside out
+    let idx=0;
+    for(let r=78; idx<items.length && r<=318; r+=24){
+      const usable=span*r*0.86, cap=Math.max(1,Math.floor(usable/22));
+      const n=Math.min(cap,items.length-idx);
+      for(let j=0;j<n;j++,idx++){
+        const ang=a0+span*0.07+span*0.86*((j+.5)/n);
+        const x=items[idx], px=C+Math.cos(ang)*r, py=C+Math.sin(ang)*r;
+        const g=el("g",{class:"node",tabindex:"0","data-id":x.id,role:"button","aria-label":x.nm||x.n});
+        g.appendChild(el("circle",{cx:px,cy:py,r:7,fill:col,stroke:cssv("--surface"),"stroke-width":1.5}));
+        const tt=el("title",{});tt.textContent=x.nm||x.n;g.appendChild(tt);
+        g.onclick=()=>select(x.id);g.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();select(x.id)}};
+        svg.appendChild(g);
+      }
+    }
+    a0+=span;
+  });
+  svg.appendChild(el("text",{class:"nlabel",id:"sellabel"}));
+}
+
+function hay(x){return ((x.nm||x.n)+" "+(x.d||"")+" "+(x.l||"")+" "+(x.t||[]).join(" ")+" "+(x.p||"")+" "+(x.o||"")).toLocaleLowerCase("tr")}
+function matches(x){ if(!active.has(x.k)) return false; return !query || hay(x).includes(query) }
+
+function select(id,scroll){
+  selected=id; const x=ALL.find(y=>y.id===id); if(!x) return; const c=CATS[x.k];
+  const det=document.getElementById("detail"); det.style.setProperty("--c",`var(${c.c})`);
+  const s=x.tl?status(x):null;
+  det.innerHTML=`<div class="cat">${c.n}</div><h3>${esc(x.nm||x.n)}</h3><div class="where">${esc(x.l||"")}</div>
+   ${x.tl?`<dl class="kv"><dt>Tarih</dt><dd>${fmt(x.from)}${x.to!==x.from?" – "+fmt(x.to):""}</dd><dt>Durum</dt><dd><span class="pill ${s.c}">${s.t}</span></dd></dl>`:""}
+   <p>${esc(x.d)}</p>
+   ${x.uz?`<dl class="kv"><dt>Uzmanlık</dt><dd>${esc(x.uz)}</dd><dt>Sürdürülebilirlik</dt><dd>${esc(x.bg)}</dd></dl>`:""}
+   ${x.yon&&x.yon.length?`<div class="cat" style="margin-top:4px">Yönetim</div><div class="mgmt">${x.yon.map(([n,r,cv,u])=>`<div><b>${esc(n)}</b><span class="rl">${esc(r)}</span>${cv?esc(cv)+" ":""}${u?`<a href="${u}" target="_blank" rel="noopener">Kaynak ↗</a>`:""}</div>`).join("")}</div>`:(x.k==="tek"||x.k==="tgb")?`<p class="sub">Yönetici bilgisi açık kaynaklarda bulunamadı.</p>`:""}
+   ${x.cp&&x.cp.length?`<div class="cat" style="margin-top:4px">Çapa firmalar</div><p class="cp">${x.cp.map(esc).join(", ")}${x.cpn?` <span class="sub">· ${esc(x.cpn)}</span>`:""} <a href="${x.cpu}" target="_blank" rel="noopener">Kaynak ↗</a></p>`:""}
+   ${x.fr?`<div class="cat" style="margin-top:4px">${x.k==="eko"?"Araçları":"Bu alandaki firmalar"}</div>${x.fr.length?`<ul class="firms">${x.fr.map(f=>`<li>${esc(f)}</li>`).join("")}</ul>`:`<p class="sub" style="margin:4px 0 0">Kaynaklarda sürdürülebilirlik alanında isim bazında firma bulunamadı.</p>`}`:""}
+   ${x.p?`<dl class="kv"><dt>Kişiler</dt><dd>${esc(x.p)}</dd></dl>`:""}
+   ${x.t&&x.t.length?`<div class="tags">${x.t.map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>`:""}
+   <p class="src"><a href="${x.u}" target="_blank" rel="noopener">${x.k==="aka"?"Akademik profil":"Kaynak"} ↗</a>${x.id==="netzero"?` · <a href="#netzero">NetZero bölümüne git</a>`:""}${x.k==="aka"?` · <a href="#a-${x.id}">Rehberde gör</a>`:""}</p>`;
+  document.querySelectorAll(".node").forEach(n=>n.classList.toggle("sel",n.dataset.id===id));
+  const g=svg.querySelector(`.node[data-id="${id}"] circle`), lab=document.getElementById("sellabel");
+  if(g){const cx=+g.getAttribute("cx"),cy=+g.getAttribute("cy"),name=x.nm?x.n:x.n;
+    lab.textContent=name.length>28?name.slice(0,27)+"…":name;
+    const right=cx<C; lab.setAttribute("x",right?cx+12:cx-12);lab.setAttribute("y",cy+4);lab.setAttribute("text-anchor",right?"start":"end");}
+  else lab.textContent="";
+  if(scroll&&window.matchMedia("(max-width:860px)").matches) det.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+// Akademisyen rehberi
+const uc=document.getElementById("unichips");
+[[null,"Tümü"],...Object.entries(UNIS)].forEach(([k,v])=>{
+  const b=document.createElement("button");b.className="chip";b.style.setProperty("--c","var(--c-aka)");b.id="uni-"+(k||"all");
+  b.innerHTML=`${k?"<i></i>":""}${v}<small>${k?A.filter(a=>a.un===k).length:A.length}</small>`;
+  b.onclick=()=>{uniSel=k;renderUnis()};uc.appendChild(b);
+});
+function renderUnis(){
+  document.querySelectorAll("#unichips .chip").forEach(b=>b.setAttribute("aria-pressed",b.id===("uni-"+(uniSel||"all"))?"true":"false"));
+  const box=document.getElementById("unis"); box.innerHTML="";
+  let shown=0;
+  Object.entries(UNIS).forEach(([k,v])=>{
+    if(uniSel&&uniSel!==k) return;
+    const list=A.filter(a=>a.un===k&&(!aq||(a.n+" "+a.b+" "+a.w+" "+a.t.join(" ")).toLocaleLowerCase("tr").includes(aq)));
+    if(!list.length) return; shown+=list.length;
+    const s=document.createElement("div");s.className="uni";
+    s.innerHTML=`<h3>${v}<small>${list.length} kişi</small></h3><div class="ppl">${list.map(a=>`
+      <div class="p" id="a-${a.id}"><div class="nm"><b>${esc(a.ti)} ${esc(a.n)}</b><span>${esc(a.b)}</span></div>
+      <div class="wk">${esc(a.w)}<div class="tags">${a.t.map(t=>`<span class="tag">${esc(t)}</span>`).join("")} <a href="${a.u}" target="_blank" rel="noopener">Akademik profil ↗</a></div></div></div>`).join("")}</div>`;
+    box.appendChild(s);
+  });
+  if(!shown) box.innerHTML=`<p class="empty">Bu aramayla eşleşen akademisyen yok. Farklı bir anahtar kelime deneyin.</p>`;
+}
+
+function render(){
+  document.querySelectorAll("#chips .chip").forEach(b=>b.setAttribute("aria-pressed",active.has(b.id.slice(5))?"true":"false"));
+  document.querySelectorAll(".node").forEach(n=>n.classList.toggle("dim",!matches(ALL.find(y=>y.id===n.dataset.id))));
+  const grid=document.getElementById("grid"); grid.innerHTML="";
+  const list=D.filter(matches);
+  if(!list.length) grid.innerHTML=`<p class="empty">Bu filtreyle eşleşen aktör yok. Aramayı temizleyin ya da başka bir kategori seçin.</p>`;
+  list.forEach(x=>{const b=document.createElement("button");b.className="card";b.style.setProperty("--c",`var(${CATS[x.k].c})`);
+    b.innerHTML=`<div class="top"><span>${CATS[x.k].n}</span></div><h4>${esc(x.n)}</h4><p>${esc(x.l)}</p>${x.bg?`<p class="bg">${esc(x.bg)}</p>${x.fr&&x.fr.length?`<p class="fr"><b>${x.k==="eko"?"Araçlar":"Firmalar"}:</b> ${x.fr.map(esc).join(", ")}</p>`:`<p class="fr"><b>Uzmanlık:</b> ${esc(x.uz)}</p>`}${x.yon&&x.yon.length?`<p class="fr"><b>Yönetim:</b> ${esc(x.yon[0][0])} · ${esc(x.yon[0][1])}</p>`:""}${x.cp&&x.cp.length?`<p class="fr"><b>Çapa:</b> ${x.cp.slice(0,5).map(esc).join(", ")}${x.cp.length>5?"…":""}</p>`:""}`:`<p>${esc(x.d.length>150?x.d.slice(0,148)+"…":x.d)}</p>`}`;
+    b.onclick=()=>{select(x.id,true); if(!window.matchMedia("(max-width:860px)").matches) document.getElementById("harita").scrollIntoView({behavior:"smooth",block:"start"})};grid.appendChild(b)});
+  const tl=document.getElementById("timeline"); tl.innerHTML="";
+  const rank={open:0,soon:1,yearly:2,closed:3};
+  T.filter(x=>matches({...x,l:x.o,t:[]})).map(x=>({x,s:status(x)})).sort((a,b)=>rank[a.s.c]-rank[b.s.c]||a.x.from.localeCompare(b.x.from)).forEach(({x,s})=>{
+    const r=document.createElement("div");r.className="trow";
+    r.innerHTML=`<time>${fmt(x.from)}${x.to!==x.from?"<br>– "+fmt(x.to):""}</time><span class="pill ${s.c}">${s.t}</span><div><b>${esc(x.n)}</b> <span class="sub">· ${CATS[x.k].n}</span><div class="sub">${esc(x.o)}. ${esc(x.d)} <a href="${x.u}" target="_blank" rel="noopener">Kaynak ↗</a></div></div>`;
+    tl.appendChild(r)});
+}
+document.getElementById("q").addEventListener("input",e=>{query=e.target.value.trim().toLocaleLowerCase("tr");render()});
+document.getElementById("qa").addEventListener("input",e=>{aq=e.target.value.trim().toLocaleLowerCase("tr");renderUnis()});
+function renderInv(){
+  const max=Math.max(...SEC.map(r=>r[2]));
+  document.getElementById("secchart").innerHTML=SEC.map(([n,c,v])=>`<div class="bar${n.startsWith("Sürd")?" hl":""}"><span>${n}</span><div class="tr"><div class="fl" style="width:${(v/max*100).toFixed(1)}%"></div></div><span class="v">${v<1?v.toFixed(2):v.toFixed(1)} · ${c} işlem</span></div>`).join("");
+  const order={Girişim:0,Kurumsal:1,Altyapı:2,Fon:3};
+  document.getElementById("invlist").innerHTML=[...I].sort((a,b)=>order[a.ty]-order[b.ty]||(b.dt||"").localeCompare(a.dt||"")).map(x=>`<div class="irow"><time>${x.dt||"—"}</time><span class="ty">${x.ty}</span><div><b>${esc(x.n)}</b><div class="sub">${esc(x.inv)}. ${esc(x.d)} <a href="${x.u}" target="_blank" rel="noopener">Kaynak ↗</a></div></div><span class="amt">${esc(x.a)}</span></div>`).join("");
+}
+function boot(){buildMap();render();select(selected||"netzero")}
+boot(); renderUnis(); renderInv();
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",boot);
+new MutationObserver(boot).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+</script>
+
+</body></html>
