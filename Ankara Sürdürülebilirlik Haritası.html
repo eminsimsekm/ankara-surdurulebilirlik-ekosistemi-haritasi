@@ -45,14 +45,14 @@ nav.toc{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px}
 .chip small{font-family:var(--f-mono);color:var(--muted)}
 .chip[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
 .chip:focus-visible,.node:focus-visible,input:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.mapgrid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px;align-items:start}
+.mapgrid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:20px;align-items:start}
 @media (max-width:860px){.mapgrid{grid-template-columns:1fr}}
 .mapbox{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px}
 .mapbox svg{width:100%;height:auto;display:block}
 .node{cursor:pointer}
 .node.dim{opacity:.14}
 .node.sel circle{stroke:var(--ink);stroke-width:2.5}
-.sector-label{font:600 11.5px var(--f-mono);letter-spacing:.05em;text-transform:uppercase}
+.sector-label{font:600 12px var(--f-mono);letter-spacing:.04em;text-transform:uppercase}
 .nlabel{font:600 12px var(--f-body);fill:var(--ink);pointer-events:none;paint-order:stroke;stroke:var(--surface);stroke-width:4px}
 .detail{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px)}
 .detail .cat{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--c)}
@@ -179,7 +179,7 @@ input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var
 <div class="chips" id="chips" role="group" aria-label="Kategori filtresi"></div>
 
 <div class="mapgrid" id="harita">
-  <div class="mapbox"><svg id="map" viewBox="0 0 720 720" role="img" aria-label="Kategori dilimlerine ayrılmış Ankara ekosistem haritası"></svg></div>
+  <div class="mapbox"><svg id="map" viewBox="-90 -70 900 860" role="img" aria-label="Kategori dilimlerine ayrılmış Ankara ekosistem haritası"></svg></div>
   <aside class="detail" id="detail" aria-live="polite"></aside>
 </div>
 </div>
@@ -476,7 +476,7 @@ function buildMap(){
   keys.forEach(k=>{
     const span=2*Math.PI*weight(k)/tot, col=cssv(CATS[k].c);
     svg.appendChild(el("line",{x1:C+Math.cos(a0)*50,y1:C+Math.sin(a0)*50,x2:C+Math.cos(a0)*330,y2:C+Math.sin(a0)*330,stroke:cssv("--line")}));
-    const am=a0+span/2, lx=C+Math.cos(am)*346, ly=C+Math.sin(am)*346;
+    const am=a0+span/2, lx=C+Math.cos(am)*358, ly=C+Math.sin(am)*358;
     const lt=el("text",{x:lx,y:ly+4,"text-anchor":Math.abs(Math.cos(am))<.3?"middle":(Math.cos(am)>0?"start":"end"),fill:col,class:"sector-label"});
     lt.textContent=CATS[k].s;svg.appendChild(lt);
     const items=ALL.filter(x=>x.k===k);
