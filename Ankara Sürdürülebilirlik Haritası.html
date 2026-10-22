@@ -148,6 +148,14 @@ input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var
 .gaps ul{margin:8px 0 0;padding-left:18px}
 .note{font-size:13px;color:var(--muted);margin-top:28px;max-width:80ch}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+/* Tabs */
+.tabs{display:flex;flex-wrap:wrap;gap:0;border-bottom:2px solid var(--line);margin-bottom:24px}
+.tab{font:600 14px var(--f-body);padding:10px 16px;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;background:none;color:var(--muted);cursor:pointer;border-radius:6px 6px 0 0;transition:color .15s,border-color .15s;white-space:nowrap}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.factlink{background:none;border:none;padding:0;cursor:pointer;color:inherit;text-align:left;font:inherit}
 </style>
 
 <div class="wrap">
@@ -158,23 +166,26 @@ input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var
   </div>
   <div class="facts">
     <div class="fact"><b>3.000+</b><span>Ankara'daki teknoloji girişimi (2018–2025)</span></div>
-    <div class="fact"><a href="#girsay" class="factlink"><b>~21</b><span>sürdürülebilirlik girişimi haritada · resmî sayım yok</span></a></div>
+    <div class="fact"><button class="factlink" type="button" onclick="switchTab('yatirim')"><b>~21</b><span>sürdürülebilirlik girişimi haritada · resmî sayım yok</span></button></div>
     <div class="fact"><b>$331 mn</b><span>2018–2025, 210 girişime yatırım (tüm sektörler)</span></div>
     <div class="fact"><b>11</b><span>KOSGEB onaylı TEKMER</span></div>
     <div class="fact"><b id="f-aka">0</b><span>akademisyen, 6 kurum</span></div>
     <div class="fact"><b>22–23 Eki</b><span>Türkiye Hidrojen Zirvesi, AYBÜ</span></div>
   </div>
-  <nav class="toc" aria-label="Bölümler"><a href="#harita">Harita</a><a href="#netzero">NetZero TEKMER</a><a href="#akademi">Akademisyenler</a><a href="#yatirim">Yatırımlar</a><a href="#dizin">Aktör dizini</a><a href="#takvim">Takvim</a></nav>
+  <nav class="tabs" id="maintabs" role="tablist" aria-label="Bölümler"><button class="tab" data-tab="harita" role="tab" aria-selected="true" type="button">Harita</button><button class="tab" data-tab="netzero" role="tab" aria-selected="false" type="button">NetZero TEKMER</button><button class="tab" data-tab="akademi" role="tab" aria-selected="false" type="button">Akademisyenler</button><button class="tab" data-tab="yatirim" role="tab" aria-selected="false" type="button">Yatırımlar</button><button class="tab" data-tab="dizin" role="tab" aria-selected="false" type="button">Aktör dizini</button><button class="tab" data-tab="takvim" role="tab" aria-selected="false" type="button">Takvim</button></nav>
 </header>
 
+<div class="tab-panel active" id="tab-harita" role="tabpanel">
 <div class="chips" id="chips" role="group" aria-label="Kategori filtresi"></div>
 
 <div class="mapgrid" id="harita">
   <div class="mapbox"><svg id="map" viewBox="0 0 720 720" role="img" aria-label="Kategori dilimlerine ayrılmış Ankara ekosistem haritası"></svg></div>
   <aside class="detail" id="detail" aria-live="polite"></aside>
 </div>
+</div>
 
-<section class="nz" id="netzero" style="--c:var(--c-tek)">
+<div class="tab-panel" id="tab-netzero" role="tabpanel">
+<section class="nz" id="netzero" style="--c:var(--c-tek);margin-top:0">
   <div>
     <div class="eyebrow">Odak · Çankaya</div>
     <h2>NetZero TEKMER</h2>
@@ -203,7 +214,9 @@ input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var
     <p class="src"><a href="https://netzerotekmer.com.tr/" target="_blank" rel="noopener">netzerotekmer.com.tr ↗</a> · <a href="https://netzerotekmer.com.tr/biz-kimiz/" target="_blank" rel="noopener">Biz Kimiz ↗</a></p>
   </div>
 </section>
+</div>
 
+<div class="tab-panel" id="tab-akademi" role="tabpanel">
 <div class="tools" id="akademi">
   <h2>Akademisyen rehberi</h2>
   <input type="search" id="qa" placeholder="Ara: hidrojen, perovskit, CO₂…" aria-label="Akademisyen ara">
@@ -211,7 +224,9 @@ input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var
 </div>
 <div class="chips" id="unichips" role="group" aria-label="Üniversite filtresi"></div>
 <div id="unis"></div>
+</div>
 
+<div class="tab-panel" id="tab-yatirim" role="tabpanel">
 <div class="tools" id="yatirim">
   <h2>Yatırımlar</h2>
   <div class="girsay" id="girsay">
@@ -243,18 +258,36 @@ input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var
   </div>
 </div>
 <div class="invlist" id="invlist"></div>
+</div>
 
+<div class="tab-panel" id="tab-dizin" role="tabpanel">
 <div class="tools" id="dizin">
   <h2>Aktör dizini</h2>
   <input type="search" id="q" placeholder="Ara: güneş, atık, ODTÜ, batarya…" aria-label="Aktör ara">
 </div>
 <div class="grid" id="grid"></div>
+</div>
 
+<div class="tab-panel" id="tab-takvim" role="tabpanel">
 <div class="tools" id="takvim"><h2>Destek ve etkinlik takvimi</h2><p>Destekler ulusal programlar; Ankara'daki girişim, KOBİ ve kurumlar başvurabiliyor. Durum bugünün tarihine göre hesaplanıyor.</p></div>
 <div class="timeline" id="timeline"></div>
 </div>
+</div>
 
 <script>
+function switchTab(name){
+  document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));
+  document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected","false"));
+  const panel=document.getElementById("tab-"+name);
+  if(panel) panel.classList.add("active");
+  const btn=document.querySelector(`.tab[data-tab="${name}"]`);
+  if(btn) btn.setAttribute("aria-selected","true");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.getElementById("maintabs").addEventListener("click",e=>{
+  const b=e.target.closest(".tab");
+  if(b) switchTab(b.dataset.tab);
+});
 const CATS={
  tgb:{n:"Teknopark",s:"Teknopark",c:"--c-tgb"}, tek:{n:"TEKMER & kuluçka",s:"TEKMER",c:"--c-tek"}, gir:{n:"Girişim",s:"Girişim",c:"--c-gir"},
  kur:{n:"Şirket projesi",s:"Şirket",c:"--c-kur"}, mrk:{n:"Araştırma merkezi",s:"Ar. merkezi",c:"--c-mrk"}, aka:{n:"Akademisyen",s:"Akademisyen",c:"--c-aka"},
@@ -479,7 +512,7 @@ function select(id,scroll){
    ${x.fr?`<div class="cat" style="margin-top:4px">${x.k==="eko"?"Araçları":"Bu alandaki firmalar"}</div>${x.fr.length?`<ul class="firms">${x.fr.map(f=>`<li>${esc(f)}</li>`).join("")}</ul>`:`<p class="sub" style="margin:4px 0 0">Kaynaklarda sürdürülebilirlik alanında isim bazında firma bulunamadı.</p>`}`:""}
    ${x.p?`<dl class="kv"><dt>Kişiler</dt><dd>${esc(x.p)}</dd></dl>`:""}
    ${x.t&&x.t.length?`<div class="tags">${x.t.map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>`:""}
-   <p class="src"><a href="${x.u}" target="_blank" rel="noopener">${x.k==="aka"?"Akademik profil":"Kaynak"} ↗</a>${x.id==="netzero"?` · <a href="#netzero">NetZero bölümüne git</a>`:""}${x.k==="aka"?` · <a href="#a-${x.id}">Rehberde gör</a>`:""}</p>`;
+   <p class="src"><a href="${x.u}" target="_blank" rel="noopener">${x.k==="aka"?"Akademik profil":"Kaynak"} ↗</a>${x.id==="netzero"?` · <a href="javascript:void(0)" onclick="switchTab('netzero')">NetZero bölümüne git</a>`:""}${x.k==="aka"?` · <a href="javascript:void(0)" onclick="switchTab('akademi');setTimeout(()=>{const el=document.getElementById('a-${x.id}');if(el)el.scrollIntoView({behavior:'smooth',block:'center'})},50)">Rehberde gör</a>`:""}</p>`;
   document.querySelectorAll(".node").forEach(n=>n.classList.toggle("sel",n.dataset.id===id));
   const g=svg.querySelector(`.node[data-id="${id}"] circle`), lab=document.getElementById("sellabel");
   if(g){const cx=+g.getAttribute("cx"),cy=+g.getAttribute("cy"),name=x.nm?x.n:x.n;
@@ -521,7 +554,7 @@ function render(){
   if(!list.length) grid.innerHTML=`<p class="empty">Bu filtreyle eşleşen aktör yok. Aramayı temizleyin ya da başka bir kategori seçin.</p>`;
   list.forEach(x=>{const b=document.createElement("button");b.className="card";b.style.setProperty("--c",`var(${CATS[x.k].c})`);
     b.innerHTML=`<div class="top"><span>${CATS[x.k].n}</span></div><h4>${esc(x.n)}</h4><p>${esc(x.l)}</p>${x.bg?`<p class="bg">${esc(x.bg)}</p>${x.fr&&x.fr.length?`<p class="fr"><b>${x.k==="eko"?"Araçlar":"Firmalar"}:</b> ${x.fr.map(esc).join(", ")}</p>`:`<p class="fr"><b>Uzmanlık:</b> ${esc(x.uz)}</p>`}${x.yon&&x.yon.length?`<p class="fr"><b>Yönetim:</b> ${esc(x.yon[0][0])} · ${esc(x.yon[0][1])}</p>`:""}${x.cp&&x.cp.length?`<p class="fr"><b>Çapa:</b> ${x.cp.slice(0,5).map(esc).join(", ")}${x.cp.length>5?"…":""}</p>`:""}`:`<p>${esc(x.d.length>150?x.d.slice(0,148)+"…":x.d)}</p>`}`;
-    b.onclick=()=>{select(x.id,true); if(!window.matchMedia("(max-width:860px)").matches) document.getElementById("harita").scrollIntoView({behavior:"smooth",block:"start"})};grid.appendChild(b)});
+    b.onclick=()=>{switchTab("harita"); select(x.id,true);};grid.appendChild(b)});
   const tl=document.getElementById("timeline"); tl.innerHTML="";
   const rank={open:0,soon:1,yearly:2,closed:3};
   T.filter(x=>matches({...x,l:x.o,t:[]})).map(x=>({x,s:status(x)})).sort((a,b)=>rank[a.s.c]-rank[b.s.c]||a.x.from.localeCompare(b.x.from)).forEach(({x,s})=>{
