@@ -73,6 +73,14 @@ nav.toc{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px}
 input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);min-width:0;width:min(320px,100%)}
 .grid{display:block}
 .empty{color:var(--muted);padding:20px 0}
+.dir-nav{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:24px}
+.dir-nav-btn{flex:1 1 auto;font:600 13px var(--f-body);padding:12px 10px;background:var(--surface);color:var(--muted);border:none;border-right:1px solid var(--line);cursor:pointer;text-align:center;transition:background .12s,color .12s;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:80px}
+.dir-nav-btn:last-child{border-right:none}
+.dir-nav-btn b{font:700 22px var(--f-display);font-stretch:80%;color:var(--ink);line-height:1}
+.dir-nav-btn span{font-size:11px;line-height:1.2}
+.dir-nav-btn.active,.dir-nav-btn:hover{background:var(--soft);color:var(--ink)}
+.dir-nav-btn.active{border-bottom:3px solid var(--accent)}
+@media(max-width:640px){.dir-nav-btn{min-width:60px;padding:10px 6px}.dir-nav-btn b{font-size:17px}}
 .dir-sec{margin-top:28px}.dir-sec:first-child{margin-top:0}
 .dir-sec-title{font:700 11px var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:0;padding-bottom:8px;border-bottom:2px solid var(--ink);display:flex;align-items:center;gap:8px}
 .dir-sec-title i{width:9px;height:9px;border-radius:50%;background:var(--c);flex-shrink:0}
@@ -299,8 +307,8 @@ input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var
 <div class="tools" id="dizin">
   <h2>Aktör dizini</h2>
   <input type="search" id="q" placeholder="Ara: güneş, atık, ODTÜ, batarya, EV…" aria-label="Aktör ara">
-  <p>Ekosisteme dahil tüm teknoparklar, girişimler, şirketler, araştırma merkezleri ve destekçiler. Kategoriye göre gruplu; harita filtresiyle senkron.</p>
 </div>
+<nav class="dir-nav" id="dir-nav" role="tablist" aria-label="Kategori seç"></nav>
 <div class="grid" id="grid"></div>
 </div>
 
@@ -595,8 +603,31 @@ const ALL=[...D,
   ...A.map(a=>({...a,k:"aka",l:UNIS[a.un]+" · "+a.b,d:a.w,p:null,nm:a.ti+" "+a.n})),
   ...T.map(x=>({...x,l:x.o,t:[],tl:true})),
   ...I.map(x=>({...x,k:"yat",l:x.ty+" · "+x.inv+(x.dt?" · "+x.dt:""),t:[x.a],p:null}))];
-let active=new Set(Object.keys(CATS)), selected=null, query="", aq="", uniSel=null;
+let active=new Set(Object.keys(CATS)), selected=null, query="", aq="", uniSel=null, dizinCat="all";
 document.getElementById("f-aka").textContent=A.length;
+
+// Dizin üst navigasyonu
+(function buildDizinNav(){
+  const nav=document.getElementById("dir-nav");
+  const cats=[["all","Tümü",null],...Object.entries(CATS).map(([k,v])=>[k,v.n,v.c])];
+  cats.forEach(([k,label,col])=>{
+    const count=k==="all"?D.length:D.filter(x=>x.k===k).length;
+    if(k!=="all"&&!count) return;
+    const shortLabel={all:"Tümü",tgb:"Teknopark",tek:"TEKMER",gir:"Girişim",kur:"Şirket",mrk:"Araştırma",aka:"Akademisyen",kam:"Kamu",des:"Destek",etk:"Etkinlik",yat:"Yatırım",eko:"Platform"}[k]||label;
+    const b=document.createElement("button");
+    b.className="dir-nav-btn"+(k==="all"?" active":"");
+    b.dataset.cat=k;b.type="button";
+    b.innerHTML=`<b>${count}</b><span>${shortLabel}</span>`;
+    if(col) b.style.setProperty("--accent-c",`var(${col})`);
+    b.onclick=()=>{
+      dizinCat=k;
+      nav.querySelectorAll(".dir-nav-btn").forEach(x=>x.classList.remove("active"));
+      b.classList.add("active");
+      renderDizin();
+    };
+    nav.appendChild(b);
+  });
+})();
 
 function fmt(d){return new Date(d+"T00:00:00").toLocaleDateString("tr-TR",{day:"numeric",month:"short",year:"numeric"})}
 function status(x){
@@ -705,13 +736,13 @@ function renderUnis(){
   if(!shown) box.innerHTML=`<p class="empty">Bu aramayla eşleşen akademisyen yok. Farklı bir anahtar kelime deneyin.</p>`;
 }
 
-function render(){
-  document.querySelectorAll("#chips .chip").forEach(b=>b.setAttribute("aria-pressed",active.has(b.id.slice(5))?"true":"false"));
-  document.querySelectorAll(".node").forEach(n=>n.classList.toggle("dim",!matches(ALL.find(y=>y.id===n.dataset.id))));
+function renderDizin(){
   const grid=document.getElementById("grid"); grid.innerHTML="";
-  const list=D.filter(matches);
-  if(!list.length) grid.innerHTML=`<p class="empty">Bu filtreyle eşleşen aktör yok. Aramayı temizleyin ya da başka bir kategori seçin.</p>`;
-  Object.keys(CATS).forEach(k=>{
+  const base=D.filter(matches);
+  const list=dizinCat==="all"?base:base.filter(x=>x.k===dizinCat);
+  if(!list.length){grid.innerHTML=`<p class="empty">Bu filtreyle eşleşen aktör yok.</p>`;return;}
+  const keys=dizinCat==="all"?Object.keys(CATS):[dizinCat];
+  keys.forEach(k=>{
     const items=list.filter(x=>x.k===k); if(!items.length) return;
     const sec=document.createElement("div");sec.className="dir-sec";
     sec.innerHTML=`<div class="dir-sec-title" style="--c:var(${CATS[k].c})"><i></i><strong>${CATS[k].n}</strong><span style="font-weight:400">(${items.length})</span></div>`+
@@ -723,6 +754,11 @@ function render(){
       ${x.t&&x.t.length?`<div class="tags" style="margin-top:6px">${x.t.map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>`:""}
       ${x.u?`<div style="margin-top:5px"><a href="${x.u}" target="_blank" rel="noopener" style="font-size:12px">Kaynak ↗</a></div>`:""}</div></div>`).join("");
     grid.appendChild(sec);});
+}
+function render(){
+  document.querySelectorAll("#chips .chip").forEach(b=>b.setAttribute("aria-pressed",active.has(b.id.slice(5))?"true":"false"));
+  document.querySelectorAll(".node").forEach(n=>n.classList.toggle("dim",!matches(ALL.find(y=>y.id===n.dataset.id))));
+  renderDizin();
   const tl=document.getElementById("timeline"); tl.innerHTML="";
   const rank={open:0,soon:1,yearly:2,closed:3};
   T.filter(x=>matches({...x,l:x.o,t:[]})).map(x=>({x,s:status(x)})).sort((a,b)=>rank[a.s.c]-rank[b.s.c]||a.x.from.localeCompare(b.x.from)).forEach(({x,s})=>{
