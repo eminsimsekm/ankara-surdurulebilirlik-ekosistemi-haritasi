@@ -32,9 +32,12 @@ a{color:var(--accent)}
 .eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
 .lede{max-width:68ch;color:var(--muted);margin:10px 0 0}
 header{display:grid;gap:18px;margin-bottom:22px}
-.facts{display:flex;flex-wrap:wrap;gap:10px 28px;border-top:1px solid var(--line);padding-top:14px}
-.fact b{font-family:var(--f-display);font-stretch:80%;font-size:26px;display:block;font-variant-numeric:tabular-nums}
-.fact span{font-size:13px;color:var(--muted)}
+.facts{display:flex;flex-wrap:nowrap;gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:0;overflow-x:auto;scrollbar-width:none;margin-bottom:4px}
+.facts::-webkit-scrollbar{display:none}
+.fact{flex:none;display:flex;align-items:center;gap:6px;padding:8px 16px;border-right:1px solid var(--line);white-space:nowrap}
+.fact:last-child{border-right:none}
+.fact b{font-family:var(--f-display);font-stretch:80%;font-size:19px;font-variant-numeric:tabular-nums;line-height:1}
+.fact span{font-size:12px;color:var(--muted);line-height:1.2}
 .factlink{color:inherit;text-decoration:none}.factlink span{text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
 .girsay{border:1px solid var(--line);border-left:3px solid var(--c-gir,var(--line));padding:14px 16px;margin:14px 0 4px;font-size:14px;line-height:1.55}
 .girsay h3{margin:0 0 8px;font-size:15px}.girsay ul{margin:6px 0 0;padding-left:18px}.girsay li{margin:3px 0}
@@ -190,12 +193,12 @@ input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var
     <h1>Ankara Sürdürülebilirlik Haritası</h1>
   </div>
   <div class="facts">
-    <div class="fact"><b>3.000+</b><span>Ankara'daki teknoloji girişimi (2018–2025)</span></div>
-    <div class="fact"><button class="factlink" type="button" onclick="switchTab('yatirim')"><b>~42</b><span>sürdürülebilirlik girişimi haritada · resmî sayım yok</span></button></div>
-    <div class="fact"><b>$331 mn</b><span>2018–2025, 210 girişime yatırım (tüm sektörler)</span></div>
-    <div class="fact"><b>11</b><span>KOSGEB onaylı TEKMER</span></div>
-    <div class="fact"><b id="f-aka">0</b><span>akademisyen, 11 üniversite</span></div>
-    <div class="fact"><b>22–23 Eki</b><span>Türkiye Hidrojen Zirvesi, AYBÜ</span></div>
+    <div class="fact"><b>3.000+</b><span>teknoloji girişimi · Ankara</span></div>
+    <div class="fact"><button class="factlink" type="button" onclick="switchTab('yatirim')"><b>~52</b><span>sürd. girişim haritada</span></button></div>
+    <div class="fact"><b>$331 mn</b><span>210 girişime yatırım (2018–25)</span></div>
+    <div class="fact"><b>11</b><span>TEKMER</span></div>
+    <div class="fact"><b id="f-aka">0</b><span>akademisyen · 11 üni</span></div>
+    <div class="fact"><b>22–23 Eki</b><span>Hidrojen Zirvesi · AYBÜ</span></div>
   </div>
   <nav class="tabs" id="maintabs" role="tablist" aria-label="Bölümler"><button class="tab" data-tab="harita" role="tab" aria-selected="true" type="button">Harita</button><button class="tab" data-tab="netzero" role="tab" aria-selected="false" type="button">NetZero TEKMER</button><button class="tab" data-tab="akademi" role="tab" aria-selected="false" type="button">Akademisyenler</button><button class="tab" data-tab="yatirim" role="tab" aria-selected="false" type="button">Yatırımlar</button><button class="tab" data-tab="dizin" role="tab" aria-selected="false" type="button">Aktör dizini</button><button class="tab" data-tab="takvim" role="tab" aria-selected="false" type="button">Takvim</button><button class="tab" data-tab="isbirlikleri" role="tab" aria-selected="false" type="button">İş Birlikleri</button></nav>
 </header>
@@ -381,6 +384,16 @@ const D=[
 {id:"inres",k:"gir",n:"INRES · AluAir",l:"Ankara",t:["alüminyum-hava pil","hidrojen","enerji depolama"],d:"Alüminyum-hava pil teknolojisiyle şebeke bağımsız ortamlarda hidrojen ve elektrik üretimi sağlayan AluAir sistemini geliştiriyor; mikromobilite, EV ve off-grid enerji depolama uygulamaları. TechAnkara Proje Pazarı 2024 katılımcısı.",p:"Soheil Malekghasemi",u:"https://inres.com.tr"},
 {id:"carbonit",k:"gir",n:"CarbonIT",l:"Hacettepe Teknokent, Ankara",t:["karbon yönetimi","ESG","sera gazı"],d:"TSE onaylı, TS EN ISO 14064-1:2019 uyumlu kurumsal karbon ayak izi hesaplama ve yönetim yazılımı. OSB'ler ve sanayi odalarıyla çalışıyor. 2007 kuruluş.",u:"https://ankarabt.com/tr"},
 {id:"arisenerji",k:"gir",n:"ARİŞ Enerji",l:"OSTİM Teknopark, Ankara",t:["yenilenebilir enerji","OSTİM ENERJİK"],d:"OSTİM ENERJİK kümesinin üyesi; yenilenebilir enerji alanında ürün ve çözümler geliştiriyor. OSTİM Teknopark portföyü, COP31 Startup Zone katılımcısı.",u:"https://ostimteknopark.com.tr"},
+{id:"meatec",k:"gir",n:"MEATEC Mühendislik",l:"Ankara Teknopark Kuluçka Merkezi",t:["EV batarya yönetimi","BMS yazılımı","YZ"],d:"Elektrikli araç ve enerji depolama sistemleri için makine öğrenimi + bulut tabanlı Batarya Yönetim Sistemi (BMS) yazılımı; şarj süresi, menzil ve ömür optimizasyonu. TechAnkara 2024 seçkisi.",p:"Mehmet Emre Aşlakcı (kurucu)",u:"https://girisimci.ankaraka.org.tr/techankara-proje-pazari-2024"},
+{id:"agriverts",k:"gir",n:"Agriverts",l:"Ankara",t:["dikey tarım","sera yönetimi","YZ+IoT"],d:"Sera ve dikey tarım tesisleri için bitki odaklı YZ + IoT sensör entegrasyonlu SaaS yönetim platformu; su ve enerji kullanımını optimize ediyor. TÜBİTAK BiGG + TechAnkara 2024.",p:"Ahmet Lütfü Yazıcı · Ahmet F. C. Özkan (kurucular)",u:"https://webrazzi.com/2023/09/11/yerli-tarim-teknolojisi-girisimi-agriverts/"},
+{id:"chemcode",k:"gir",n:"ChemCode Biyoteknoloji",l:"Yenimahalle, Ankara",t:["gıda güvenliği","biyosensör","gıda kaybı"],d:"Dijital biyosensör ve yazılım entegrasyonuyla mikotoksin (küf toksini) bazlı gıda güvenliği yönetim sistemi; çiftlikten işlemeye gıda kaybını önlüyor. TechAnkara 2024 finalist.",u:"https://startupmarket.co/chemcode-a-s"},
+{id:"galiboff",k:"gir",n:"Galiboff",l:"Ankara",t:["döngüsel ekonomi","atık dönüşümü","kompozit"],d:"Otomotiv iç döşeme kesim atıklarını ve MDF tozunu plastik-ahşap kompozit profillere dönüştüren döngüsel ekonomi teknolojisi. TechAnkara 2024 + TİM InnovaLig 2024 Top 5.",u:"https://ankaraka.org.tr/techankara-proje-pazari-2024te-sergilenecek-projeler-aciklandi"},
+{id:"asbio",k:"gir",n:"As Biyoteknoloji",l:"Ankara",t:["alg","biyoteknoloji","gıda-kozmetik"],d:"Fermente alg hammaddesi üretimi; gıda, kozmetik ve sağlık sektörlerine ham madde tedariki. TechAnkara 2024'te 2. ödül.",u:"https://ankaraka.org.tr/techankara-proje-pazari-2024te-sergilenecek-projeler-aciklandi"},
+{id:"vsias",k:"gir",n:"VSIAS Mühendislik",l:"Ankara",t:["meteoroloji","çevre sensörü","tarım-enerji"],d:"Çevre, tarım ve enerji sektörleri için kompakt meteoroloji istasyonu; hassas hava ve iklim ölçüm cihazı. TechAnkara 2024 katılımcısı.",u:"https://ankaraka.org.tr/techankara-proje-pazari-2024te-sergilenecek-projeler-aciklandi"},
+{id:"eversarj",k:"gir",n:"Ever Şarj Teknoloji",l:"Balgat, Çankaya",t:["EV şarj","elektrikli mobilite","altyapı"],d:"Elektrikli araç şarj istasyonu teknolojileri ve altyapısı; GO-E CHARGE Türkiye distribütörü. 2006 kuruluş, Ankara Balgat merkez.",u:"https://eversarj.com"},
+{id:"arfbio",k:"kur",n:"ARF Bio Yenilenebilir Enerji",l:"Ankara",t:["biyogaz","biyokütle","GES"],d:"Organik ve hayvansal atıktan biyogaz ile elektrik üretimi + güneş enerjisi entegrasyonu; 4,8 MW biyogaz + GES portföyü. 2015 kuruluş. RePie Portföy yatırımcısı; 2025'te halka arz başvurusu yaptı.",u:"https://www.cnbce.com/sirket-haberleri/arf-bio-halka-arz-icin-spkya-basvurdu-globalde-5-entegre-sirketten-biri-olacak-h10673"},
+{id:"yeotek",k:"kur",n:"YEO Teknoloji",l:"Balgat, Ankara",t:["akıllı şebeke","IoT","enerji yönetimi"],d:"Borsaya kote (YEOTK) Ankara merkezli enerji teknolojisi şirketi; IoT tabanlı akıllı şebeke ve enerji verimliliği yazılımları, BrandIT bulut tabanlı akıllı makine yönetimi. Yeşil hidrojen ekosistemi için iyon değişim membranı geliştiren ION Membranes'e yatırım yaptı.",u:"https://yeo.com.tr"},
+{id:"pomega",k:"kur",n:"Pomega Enerji Depolama",l:"Polatlı, Ankara",t:["LFP batarya","pil fabrikası","enerji depolama"],d:"Türkiye özel sektörünün ilk prizmatik LFP (Lityum-Demir Fosfat) pil hücresi Giga fabrikası; 3 GWh/yıl kapasiteye ulaşmayı hedefliyor, ABD'de ikinci tesis. Kontrolmatik Teknoloji iştiraki.",u:"https://enwair.com/pomega-enerji-depolama-teknolojileri-ankara-polatlida-lityum-iyon-pil-hucresi-ve-enerji-depolama-sistemleri-giga-fabrikasi-insa-etti/"},
 // Ekosistem destekçileri
 {id:"startupcentrum",k:"eko",n:"StartupCentrum",l:"Girişim veri platformu · İstanbul ve Ankara",t:["veri","rapor","melek ağı"],uz:"Girişim, yatırımcı, kuluçka ve yetenek verisini birleştiren platform; yatırım raporları, ekosistem haritası, hibe-teşvik ve işe alım danışmanlığı. 2021'de Müge Bezgin ve Nizamettin Sami Harputlu kurdu.",bg:"Ankara Kalkınma Ajansı'nın Ankara girişimcilik raporlarını hazırlıyor; bu sayfadaki 2025 sürdürülebilirlik yatırım verisi o rapordan. Raporlarında Sürdürülebilirlik & Çevre ayrı sektör: 2023'te Türkiye'de yaklaşık 24 milyon dolar. Ekosistem ödüllerinde 'Yılın Sürdürülebilirlik ve Çevre Girişimi' kategorisi var; 2024'te Ankara TEKMER 'Yılın TEKMER'i' seçildi.",fr:["StartupCentrum Alpha fonu (ARZ Portföy ile)","StartupCentrum Melek Yatırım Ağı (Ankara şubesi)"],d:"2024'te 10 milyon dolar değerlemeyle 440 bin dolar yatırım aldı.",p:"Müge Bezgin · Nizamettin Sami Harputlu (kurucular) · Mustafa Erşad Zor (Ankara raporu ekip lideri)",u:"https://startupcentrum.com/tr/raporlar"},
 {id:"inovest",k:"eko",n:"İnovest",l:"Ankara",t:["hızlandırıcı uygulayıcı"],uz:"Hızlandırma programı tasarımı ve uygulaması; Teknopark Ankara'nın Deep TechAnkara 2026 programının stratejisini yürüttü.",bg:"Programları derin teknoloji ve yapay zekâ odaklı; doğrudan yeşil odak yok.",fr:[],d:"Deep TechAnkara 2026: 98 başvurudan 26 girişim, 11 mentorla 80 saat destek, 18 finalist Demo Day'de.",p:"Dr. Ayşe Kuyrukçu (kurucu & melek yatırımcı)",u:"https://girisimci.ankaraka.org.tr/en/deep-techankara-2026-basladi_85.html"},
