@@ -71,13 +71,20 @@ nav.toc{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px}
 .tools h2{flex:1 1 auto}
 .tools p{flex-basis:100%;margin:0;color:var(--muted);max-width:72ch}
 input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);min-width:0;width:min(320px,100%)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
-.card{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:6px;padding:14px 16px;cursor:pointer;display:flex;flex-direction:column;gap:6px;min-width:0;text-align:left;font:inherit;color:inherit}
-.card:hover{border-color:var(--c)}
-.card .top{display:flex;justify-content:space-between;gap:8px;font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
-.card h4{font-size:17px;font-weight:700;font-stretch:88%}
-.card p{margin:0;font-size:13.5px;color:var(--muted)}
+.grid{display:block}
 .empty{color:var(--muted);padding:20px 0}
+.dir-sec{margin-top:28px}.dir-sec:first-child{margin-top:0}
+.dir-sec-title{font:700 11px var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:0;padding-bottom:8px;border-bottom:2px solid var(--ink);display:flex;align-items:center;gap:8px}
+.dir-sec-title i{width:9px;height:9px;border-radius:50%;background:var(--c);flex-shrink:0}
+.dir-sec-title strong{color:var(--ink)}
+.dir-row{display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:14px;padding:11px 0;border-bottom:1px solid var(--line);align-items:start;font-size:14px}
+.dir-row:last-child{border-bottom:none}
+@media(max-width:640px){.dir-row{grid-template-columns:1fr;gap:3px}}
+.dir-name{font:700 15px var(--f-display);font-stretch:88%;line-height:1.2}
+.dir-loc{font-size:12px;color:var(--muted);margin-top:3px}
+.dir-desc{line-height:1.55;color:var(--muted)}
+.dir-person{font-size:12px;margin-top:5px}
+.dir-person b{color:var(--ink)}
 /* NetZero */
 .nz{background:var(--band);border:1px solid var(--line);border-radius:12px;padding:24px;margin-top:40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
 @media (max-width:860px){.nz{grid-template-columns:1fr}}
@@ -291,7 +298,8 @@ input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var
 <div class="tab-panel" id="tab-dizin" role="tabpanel">
 <div class="tools" id="dizin">
   <h2>Aktör dizini</h2>
-  <input type="search" id="q" placeholder="Ara: güneş, atık, ODTÜ, batarya…" aria-label="Aktör ara">
+  <input type="search" id="q" placeholder="Ara: güneş, atık, ODTÜ, batarya, EV…" aria-label="Aktör ara">
+  <p>Ekosisteme dahil tüm teknoparklar, girişimler, şirketler, araştırma merkezleri ve destekçiler. Kategoriye göre gruplu; harita filtresiyle senkron.</p>
 </div>
 <div class="grid" id="grid"></div>
 </div>
@@ -703,9 +711,18 @@ function render(){
   const grid=document.getElementById("grid"); grid.innerHTML="";
   const list=D.filter(matches);
   if(!list.length) grid.innerHTML=`<p class="empty">Bu filtreyle eşleşen aktör yok. Aramayı temizleyin ya da başka bir kategori seçin.</p>`;
-  list.forEach(x=>{const b=document.createElement("button");b.className="card";b.style.setProperty("--c",`var(${CATS[x.k].c})`);
-    b.innerHTML=`<div class="top"><span>${CATS[x.k].n}</span></div><h4>${esc(x.n)}</h4><p>${esc(x.l)}</p>${x.bg?`<p class="bg">${esc(x.bg)}</p>${x.fr&&x.fr.length?`<p class="fr"><b>${x.k==="eko"?"Araçlar":"Firmalar"}:</b> ${x.fr.map(esc).join(", ")}</p>`:`<p class="fr"><b>Uzmanlık:</b> ${esc(x.uz)}</p>`}${x.yon&&x.yon.length?`<p class="fr"><b>Yönetim:</b> ${esc(x.yon[0][0])} · ${esc(x.yon[0][1])}</p>`:""}${x.cp&&x.cp.length?`<p class="fr"><b>Çapa:</b> ${x.cp.slice(0,5).map(esc).join(", ")}${x.cp.length>5?"…":""}</p>`:""}`:`<p>${esc(x.d.length>150?x.d.slice(0,148)+"…":x.d)}</p>`}`;
-    b.onclick=()=>{switchTab("harita"); select(x.id,true);};grid.appendChild(b)});
+  Object.keys(CATS).forEach(k=>{
+    const items=list.filter(x=>x.k===k); if(!items.length) return;
+    const sec=document.createElement("div");sec.className="dir-sec";
+    sec.innerHTML=`<div class="dir-sec-title" style="--c:var(${CATS[k].c})"><i></i><strong>${CATS[k].n}</strong><span style="font-weight:400">(${items.length})</span></div>`+
+    items.map(x=>`<div class="dir-row">
+      <div><div class="dir-name">${esc(x.n)}</div><div class="dir-loc">${esc(x.l)}</div></div>
+      <div><div class="dir-desc">${esc(x.d||x.uz||"")}</div>
+      ${x.p?`<div class="dir-person"><b>Kişi:</b> ${esc(x.p)}</div>`:""}
+      ${x.bg?`<div class="dir-person" style="margin-top:4px"><b>Sürdürülebilirlik:</b> ${esc(x.bg)}</div>`:""}
+      ${x.t&&x.t.length?`<div class="tags" style="margin-top:6px">${x.t.map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>`:""}
+      ${x.u?`<div style="margin-top:5px"><a href="${x.u}" target="_blank" rel="noopener" style="font-size:12px">Kaynak ↗</a></div>`:""}</div></div>`).join("");
+    grid.appendChild(sec);});
   const tl=document.getElementById("timeline"); tl.innerHTML="";
   const rank={open:0,soon:1,yearly:2,closed:3};
   T.filter(x=>matches({...x,l:x.o,t:[]})).map(x=>({x,s:status(x)})).sort((a,b)=>rank[a.s.c]-rank[b.s.c]||a.x.from.localeCompare(b.x.from)).forEach(({x,s})=>{
