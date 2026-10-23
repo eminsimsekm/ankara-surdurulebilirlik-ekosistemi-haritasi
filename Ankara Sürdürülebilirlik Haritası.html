@@ -159,7 +159,7 @@ input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var
 .note{font-size:13px;color:var(--muted);margin-top:28px;max-width:80ch}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 /* Tabs */
-.tabs{display:flex;flex-wrap:wrap;gap:0;border-bottom:2px solid var(--line);margin-bottom:24px}
+.tabs{display:flex;flex-wrap:nowrap;gap:0;border-bottom:2px solid var(--line);margin-bottom:24px;overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
 .tab{font:600 14px var(--f-body);padding:10px 16px;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;background:none;color:var(--muted);cursor:pointer;border-radius:6px 6px 0 0;transition:color .15s,border-color .15s;white-space:nowrap}
 .tab:hover{color:var(--ink)}
 .tab[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
@@ -207,7 +207,7 @@ input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var
     <div class="fact"><b id="f-aka">0</b><span>akademisyen · 11 üni</span></div>
     <div class="fact"><b>22–23 Eki</b><span>Hidrojen Zirvesi · AYBÜ</span></div>
   </div>
-  <nav class="tabs" id="maintabs" role="tablist" aria-label="Bölümler"><button class="tab" data-tab="harita" role="tab" aria-selected="true" type="button">Harita</button><button class="tab" data-tab="netzero" role="tab" aria-selected="false" type="button">NetZero TEKMER</button><button class="tab" data-tab="akademi" role="tab" aria-selected="false" type="button">Akademisyenler</button><button class="tab" data-tab="yatirim" role="tab" aria-selected="false" type="button">Yatırımlar</button><button class="tab" data-tab="dizin" role="tab" aria-selected="false" type="button">Aktör dizini</button><button class="tab" data-tab="takvim" role="tab" aria-selected="false" type="button">Takvim</button><button class="tab" data-tab="isbirlikleri" role="tab" aria-selected="false" type="button">İş Birlikleri</button></nav>
+  <nav class="tabs" id="maintabs" role="tablist" aria-label="Bölümler"><button class="tab" data-tab="harita" role="tab" aria-selected="true" type="button">Harita</button><button class="tab" data-tab="netzero" role="tab" aria-selected="false" type="button">NetZero TEKMER</button><button class="tab" data-tab="gir" role="tab" aria-selected="false" type="button">Girişimler</button><button class="tab" data-tab="kur" role="tab" aria-selected="false" type="button">Şirketler</button><button class="tab" data-tab="tgb" role="tab" aria-selected="false" type="button">Teknoparklar</button><button class="tab" data-tab="tek" role="tab" aria-selected="false" type="button">TEKMER'ler</button><button class="tab" data-tab="mrk" role="tab" aria-selected="false" type="button">Araştırma</button><button class="tab" data-tab="kam" role="tab" aria-selected="false" type="button">Kamu & Küme</button><button class="tab" data-tab="eko" role="tab" aria-selected="false" type="button">Platform</button><button class="tab" data-tab="akademi" role="tab" aria-selected="false" type="button">Akademisyenler</button><button class="tab" data-tab="yatirim" role="tab" aria-selected="false" type="button">Yatırımlar</button><button class="tab" data-tab="takvim" role="tab" aria-selected="false" type="button">Takvim</button><button class="tab" data-tab="isbirlikleri" role="tab" aria-selected="false" type="button">İş Birlikleri</button></nav>
 </header>
 
 <div class="tab-panel active" id="tab-harita" role="tabpanel">
@@ -305,6 +305,14 @@ input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var
 <div id="grid"></div>
 </div>
 
+<div class="tab-panel" id="tab-gir" role="tabpanel"></div>
+<div class="tab-panel" id="tab-kur" role="tabpanel"></div>
+<div class="tab-panel" id="tab-tgb" role="tabpanel"></div>
+<div class="tab-panel" id="tab-tek" role="tabpanel"></div>
+<div class="tab-panel" id="tab-mrk" role="tabpanel"></div>
+<div class="tab-panel" id="tab-kam" role="tabpanel"></div>
+<div class="tab-panel" id="tab-eko" role="tabpanel"></div>
+
 <div class="tab-panel" id="tab-takvim" role="tabpanel">
 <div class="tools" id="takvim"><h2>Destek ve etkinlik takvimi</h2><p>Destekler ulusal programlar; Ankara'daki girişim, KOBİ ve kurumlar başvurabiliyor. Durum bugünün tarihine göre hesaplanıyor.</p></div>
 <div class="timeline" id="timeline"></div>
@@ -318,6 +326,10 @@ input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var
 </div>
 
 <script>
+const CAT_PANELS=["gir","kur","tgb","tek","mrk","kam","eko"];
+const CAT_TITLES={gir:"Girişimler",kur:"Şirketler",tgb:"Teknoparklar",tek:"TEKMER'ler",mrk:"Araştırma Merkezleri",kam:"Kamu, Küme & Yatırımcı",eko:"Platform, Hızlandırıcı & Ağ"};
+const CAT_DESC={gir:"Ankara'daki sürdürülebilirlik ve iklim teknolojisi girişimleri.",kur:"Büyük şirketlerin sürdürülebilirlik projeleri ve enerji teknolojisi firmaları.",tgb:"Ankara'daki teknoloji geliştirme bölgeleri (TGB).",tek:"KOSGEB kapsamındaki teknoloji geliştirme merkezleri (TEKMER) ve kuluçka merkezleri.",mrk:"Üniversite ve kamu araştırma merkezleri.",kam:"Kamu kurumları, OSB'ler, sektör kümeleri ve yatırım destekçileri.",eko:"Hızlandırıcılar, platformlar, girişim ağları ve ekosistem aktörleri."};
+
 function switchTab(name){
   document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));
   document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected","false"));
@@ -325,7 +337,30 @@ function switchTab(name){
   if(panel) panel.classList.add("active");
   const btn=document.querySelector(`.tab[data-tab="${name}"]`);
   if(btn) btn.setAttribute("aria-selected","true");
+  if(CAT_PANELS.includes(name)) renderCatPanel(name);
   window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function renderCatList(k,q){
+  const items=D.filter(x=>x.k===k&&(!q||hay(x).includes(q)));
+  const box=document.getElementById("list-cat-"+k); if(!box) return;
+  if(!items.length){box.innerHTML=`<p class="empty">Eşleşen kayıt yok.</p>`;return;}
+  box.innerHTML=items.map(x=>`<div class="dir-item">
+    <div class="dir-nm"><b>${esc(x.n)}</b><span>${esc(x.l)}</span></div>
+    <div class="dir-wk">${esc(x.d||x.uz||"")}
+      ${x.p?`<div class="dir-p"><b>Kişi:</b> ${esc(x.p)}</div>`:""}
+      ${x.bg?`<div class="dir-p"><b>Sürdürülebilirlik:</b> ${esc(x.bg)}</div>`:""}
+      <div class="tags" style="margin-top:6px">${(x.t||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join("")}${x.u?` <a href="${x.u}" target="_blank" rel="noopener">Kaynak ↗</a>`:""}</div>
+    </div></div>`).join("");
+}
+
+function renderCatPanel(k){
+  const panel=document.getElementById("tab-"+k); if(!panel||panel.dataset.built) return;
+  panel.dataset.built="1";
+  const total=D.filter(x=>x.k===k).length;
+  panel.innerHTML=`<div class="tools"><h2>${CAT_TITLES[k]}</h2><input type="search" id="q-cat-${k}" placeholder="Ara…" aria-label="Ara"><p>${CAT_DESC[k]}</p></div><div id="list-cat-${k}" class="dir-items"></div>`;
+  renderCatList(k,"");
+  panel.querySelector("#q-cat-"+k).addEventListener("input",e=>{renderCatList(k,e.target.value.trim().toLocaleLowerCase("tr"));});
 }
 document.getElementById("maintabs").addEventListener("click",e=>{
   const b=e.target.closest(".tab");
