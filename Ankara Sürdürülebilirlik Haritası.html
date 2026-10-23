@@ -73,26 +73,18 @@ nav.toc{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px}
 input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);min-width:0;width:min(320px,100%)}
 .grid{display:block}
 .empty{color:var(--muted);padding:20px 0}
-.dir-nav{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:24px}
-.dir-nav-btn{flex:1 1 auto;font:600 13px var(--f-body);padding:12px 10px;background:var(--surface);color:var(--muted);border:none;border-right:1px solid var(--line);cursor:pointer;text-align:center;transition:background .12s,color .12s;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:80px}
-.dir-nav-btn:last-child{border-right:none}
-.dir-nav-btn b{font:700 22px var(--f-display);font-stretch:80%;color:var(--ink);line-height:1}
-.dir-nav-btn span{font-size:11px;line-height:1.2}
-.dir-nav-btn.active,.dir-nav-btn:hover{background:var(--soft);color:var(--ink)}
-.dir-nav-btn.active{border-bottom:3px solid var(--accent)}
-@media(max-width:640px){.dir-nav-btn{min-width:60px;padding:10px 6px}.dir-nav-btn b{font-size:17px}}
-.dir-sec{margin-top:28px}.dir-sec:first-child{margin-top:0}
-.dir-sec-title{font:700 11px var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:0;padding-bottom:8px;border-bottom:2px solid var(--ink);display:flex;align-items:center;gap:8px}
-.dir-sec-title i{width:9px;height:9px;border-radius:50%;background:var(--c);flex-shrink:0}
-.dir-sec-title strong{color:var(--ink)}
-.dir-row{display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:14px;padding:11px 0;border-bottom:1px solid var(--line);align-items:start;font-size:14px}
-.dir-row:last-child{border-bottom:none}
-@media(max-width:640px){.dir-row{grid-template-columns:1fr;gap:3px}}
-.dir-name{font:700 15px var(--f-display);font-stretch:88%;line-height:1.2}
-.dir-loc{font-size:12px;color:var(--muted);margin-top:3px}
-.dir-desc{line-height:1.55;color:var(--muted)}
-.dir-person{font-size:12px;margin-top:5px}
-.dir-person b{color:var(--ink)}
+.dir-cat{margin-top:8px}
+.dir-cat h3{font-size:20px;display:flex;gap:10px;align-items:baseline;padding:18px 0 8px;border-bottom:2px solid var(--ink)}
+.dir-cat h3 small{font-size:14px;font-weight:400;color:var(--muted)}
+
+.dir-item{display:grid;grid-template-columns:minmax(0,240px) minmax(0,1fr);gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+.dir-item:last-child{border-bottom:none}
+@media(max-width:640px){.dir-item{grid-template-columns:1fr;gap:4px}}
+.dir-nm b{font-size:15px;font-weight:700;display:block;line-height:1.25}
+.dir-nm span{font-size:13px;color:var(--muted);display:block;margin-top:3px}
+.dir-wk{font-size:14px;line-height:1.55}
+.dir-wk .dir-p{font-size:13px;color:var(--muted);margin-top:4px}
+.dir-wk .dir-p b{color:var(--ink)}
 /* NetZero */
 .nz{background:var(--band);border:1px solid var(--line);border-radius:12px;padding:24px;margin-top:40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
 @media (max-width:860px){.nz{grid-template-columns:1fr}}
@@ -307,9 +299,10 @@ input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var
 <div class="tools" id="dizin">
   <h2>Aktör dizini</h2>
   <input type="search" id="q" placeholder="Ara: güneş, atık, ODTÜ, batarya, EV…" aria-label="Aktör ara">
+  <p>Kategori seçin ya da arama yapın.</p>
 </div>
-<nav class="dir-nav" id="dir-nav" role="tablist" aria-label="Kategori seç"></nav>
-<div class="grid" id="grid"></div>
+<div class="chips" id="dircats" role="group" aria-label="Kategori seç"></div>
+<div id="grid"></div>
 </div>
 
 <div class="tab-panel" id="tab-takvim" role="tabpanel">
@@ -606,28 +599,25 @@ const ALL=[...D,
 let active=new Set(Object.keys(CATS)), selected=null, query="", aq="", uniSel=null, dizinCat="all";
 document.getElementById("f-aka").textContent=A.length;
 
-// Dizin üst navigasyonu
-(function buildDizinNav(){
-  const nav=document.getElementById("dir-nav");
-  const cats=[["all","Tümü",null],...Object.entries(CATS).map(([k,v])=>[k,v.n,v.c])];
-  cats.forEach(([k,label,col])=>{
-    const count=k==="all"?D.length:D.filter(x=>x.k===k).length;
-    if(k!=="all"&&!count) return;
-    const shortLabel={all:"Tümü",tgb:"Teknopark",tek:"TEKMER",gir:"Girişim",kur:"Şirket",mrk:"Araştırma",aka:"Akademisyen",kam:"Kamu",des:"Destek",etk:"Etkinlik",yat:"Yatırım",eko:"Platform"}[k]||label;
-    const b=document.createElement("button");
-    b.className="dir-nav-btn"+(k==="all"?" active":"");
-    b.dataset.cat=k;b.type="button";
-    b.innerHTML=`<b>${count}</b><span>${shortLabel}</span>`;
-    if(col) b.style.setProperty("--accent-c",`var(${col})`);
-    b.onclick=()=>{
-      dizinCat=k;
-      nav.querySelectorAll(".dir-nav-btn").forEach(x=>x.classList.remove("active"));
-      b.classList.add("active");
-      renderDizin();
-    };
-    nav.appendChild(b);
-  });
-})();
+// Dizin kategori chip'leri
+const dircats=document.getElementById("dircats");
+[["all","Tümü",null],...Object.entries(CATS)].forEach(([k,v])=>{
+  const col=k==="all"?null:v.c;
+  const label=k==="all"?"Tümü":v.n;
+  const count=k==="all"?D.length:D.filter(x=>x.k===k).length;
+  if(k!=="all"&&!count) return;
+  const b=document.createElement("button");b.className="chip";b.type="button";
+  if(col) b.style.setProperty("--c",`var(${col})`); else b.style.setProperty("--c","var(--accent)");
+  b.setAttribute("aria-pressed",k==="all"?"true":"false");b.id="dcat-"+k;
+  b.innerHTML=`${col?`<i></i>`:""}${label}<small>${count}</small>`;
+  b.onclick=()=>{
+    dizinCat=k;
+    dircats.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed","false"));
+    b.setAttribute("aria-pressed","true");
+    renderDizin();
+  };
+  dircats.appendChild(b);
+});
 
 function fmt(d){return new Date(d+"T00:00:00").toLocaleDateString("tr-TR",{day:"numeric",month:"short",year:"numeric"})}
 function status(x){
@@ -737,23 +727,27 @@ function renderUnis(){
 }
 
 function renderDizin(){
-  const grid=document.getElementById("grid"); grid.innerHTML="";
+  const box=document.getElementById("grid"); box.innerHTML="";
   const base=D.filter(matches);
-  const list=dizinCat==="all"?base:base.filter(x=>x.k===dizinCat);
-  if(!list.length){grid.innerHTML=`<p class="empty">Bu filtreyle eşleşen aktör yok.</p>`;return;}
+  const filtered=dizinCat==="all"?base:base.filter(x=>x.k===dizinCat);
+  if(!filtered.length){box.innerHTML=`<p class="empty">Bu filtreyle eşleşen aktör yok.</p>`;return;}
   const keys=dizinCat==="all"?Object.keys(CATS):[dizinCat];
+  let total=0;
   keys.forEach(k=>{
-    const items=list.filter(x=>x.k===k); if(!items.length) return;
-    const sec=document.createElement("div");sec.className="dir-sec";
-    sec.innerHTML=`<div class="dir-sec-title" style="--c:var(${CATS[k].c})"><i></i><strong>${CATS[k].n}</strong><span style="font-weight:400">(${items.length})</span></div>`+
-    items.map(x=>`<div class="dir-row">
-      <div><div class="dir-name">${esc(x.n)}</div><div class="dir-loc">${esc(x.l)}</div></div>
-      <div><div class="dir-desc">${esc(x.d||x.uz||"")}</div>
-      ${x.p?`<div class="dir-person"><b>Kişi:</b> ${esc(x.p)}</div>`:""}
-      ${x.bg?`<div class="dir-person" style="margin-top:4px"><b>Sürdürülebilirlik:</b> ${esc(x.bg)}</div>`:""}
-      ${x.t&&x.t.length?`<div class="tags" style="margin-top:6px">${x.t.map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>`:""}
-      ${x.u?`<div style="margin-top:5px"><a href="${x.u}" target="_blank" rel="noopener" style="font-size:12px">Kaynak ↗</a></div>`:""}</div></div>`).join("");
-    grid.appendChild(sec);});
+    const items=filtered.filter(x=>x.k===k); if(!items.length) return;
+    total+=items.length;
+    const sec=document.createElement("div");sec.className="dir-cat";
+    sec.innerHTML=`<h3>${CATS[k].n}<small>${items.length} kayıt</small></h3><div class="dir-items">${
+      items.map(x=>`<div class="dir-item">
+        <div class="dir-nm"><b>${esc(x.n)}</b><span>${esc(x.l)}</span></div>
+        <div class="dir-wk">${esc(x.d||x.uz||"")}
+          ${x.p?`<div class="dir-p"><b>Kişi:</b> ${esc(x.p)}</div>`:""}
+          ${x.bg?`<div class="dir-p"><b>Sürdürülebilirlik:</b> ${esc(x.bg)}</div>`:""}
+          <div class="tags" style="margin-top:6px">${(x.t||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join("")}${x.u?` <a href="${x.u}" target="_blank" rel="noopener">Kaynak ↗</a>`:""}</div>
+        </div></div>`).join("")
+    }</div>`;
+    box.appendChild(sec);
+  });
 }
 function render(){
   document.querySelectorAll("#chips .chip").forEach(b=>b.setAttribute("aria-pressed",active.has(b.id.slice(5))?"true":"false"));
