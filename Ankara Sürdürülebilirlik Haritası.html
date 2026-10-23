@@ -8,7 +8,7 @@
 :root{
   --bg:#F2F4F1; --surface:#FFFFFF; --ink:#16231F; --muted:#5B6862; --line:#D6DDD8;
   --accent:#1F6F5C; --soft:#E6ECE8; --band:#E3EDE8;
-  --c-tgb:#1F6F5C; --c-tek:#2E7FB0; --c-gir:#B07A1E; --c-kur:#7A4FA0; --c-mrk:#B5473A; --c-aka:#8A3B62; --c-kam:#4E6B2E; --c-des:#C2583E; --c-etk:#3B5BA9; --c-yat:#0E7C86; --c-eko:#9A5B13;
+  --c-tgb:#1F6F5C; --c-tek:#2E7FB0; --c-gir:#B07A1E; --c-kur:#7A4FA0; --c-kob:#3D6B55; --c-mrk:#B5473A; --c-aka:#8A3B62; --c-kam:#4E6B2E; --c-des:#C2583E; --c-etk:#3B5BA9; --c-yat:#0E7C86; --c-eko:#9A5B13;
   --ok:#2F7D4F; --warn:#A86A10; --off:#8A928E;
   --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
   --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -16,11 +16,11 @@
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0F1614; --surface:#17211E; --ink:#E4EBE7; --muted:#9AA8A1; --line:#2A3733; --accent:#5CC0A2; --soft:#1E2A26; --band:#14201C;
-  --c-tgb:#5CC0A2; --c-tek:#6AB4E6; --c-gir:#E0A94A; --c-kur:#B08AD6; --c-mrk:#E8857A; --c-aka:#E089B6; --c-kam:#9CC46A; --c-des:#EE8E72; --c-etk:#8AA6EE; --c-yat:#4FC3CC; --c-eko:#D9A066;
+  --c-tgb:#5CC0A2; --c-tek:#6AB4E6; --c-gir:#E0A94A; --c-kur:#B08AD6; --c-kob:#6DC99E; --c-mrk:#E8857A; --c-aka:#E089B6; --c-kam:#9CC46A; --c-des:#EE8E72; --c-etk:#8AA6EE; --c-yat:#4FC3CC; --c-eko:#D9A066;
   --ok:#6BC58E; --warn:#E3A84A; --off:#6E7874; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0F1614; --surface:#17211E; --ink:#E4EBE7; --muted:#9AA8A1; --line:#2A3733; --accent:#5CC0A2; --soft:#1E2A26; --band:#14201C;
-  --c-tgb:#5CC0A2; --c-tek:#6AB4E6; --c-gir:#E0A94A; --c-kur:#B08AD6; --c-mrk:#E8857A; --c-aka:#E089B6; --c-kam:#9CC46A; --c-des:#EE8E72; --c-etk:#8AA6EE; --c-yat:#4FC3CC; --c-eko:#D9A066;
+  --c-tgb:#5CC0A2; --c-tek:#6AB4E6; --c-gir:#E0A94A; --c-kur:#B08AD6; --c-kob:#6DC99E; --c-mrk:#E8857A; --c-aka:#E089B6; --c-kam:#9CC46A; --c-des:#EE8E72; --c-etk:#8AA6EE; --c-yat:#4FC3CC; --c-eko:#D9A066;
   --ok:#6BC58E; --warn:#E3A84A; --off:#6E7874; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
@@ -201,13 +201,13 @@ input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var
   </div>
   <div class="facts">
     <div class="fact"><b>3.000+</b><span>teknoloji girişimi · Ankara</span></div>
-    <div class="fact"><button class="factlink" type="button" onclick="switchTab('yatirim')"><b>~52</b><span>sürd. girişim haritada</span></button></div>
+    <div class="fact"><button class="factlink" type="button" onclick="switchTab('yatirim')"><b>~64</b><span>sürd. aktör haritada</span></button></div>
     <div class="fact"><b>$331 mn</b><span>210 girişime yatırım (2018–25)</span></div>
     <div class="fact"><b>11</b><span>TEKMER</span></div>
     <div class="fact"><b id="f-aka">0</b><span>akademisyen · 11 üni</span></div>
     <div class="fact"><b>22–23 Eki</b><span>Hidrojen Zirvesi · AYBÜ</span></div>
   </div>
-  <nav class="tabs" id="maintabs" role="tablist" aria-label="Bölümler"><button class="tab" data-tab="harita" role="tab" aria-selected="true" type="button">Harita</button><button class="tab" data-tab="netzero" role="tab" aria-selected="false" type="button">NetZero TEKMER</button><button class="tab" data-tab="gir" role="tab" aria-selected="false" type="button">Girişimler</button><button class="tab" data-tab="kur" role="tab" aria-selected="false" type="button">Şirketler</button><button class="tab" data-tab="tgb" role="tab" aria-selected="false" type="button">Teknoparklar</button><button class="tab" data-tab="tek" role="tab" aria-selected="false" type="button">TEKMER'ler</button><button class="tab" data-tab="mrk" role="tab" aria-selected="false" type="button">Araştırma</button><button class="tab" data-tab="kam" role="tab" aria-selected="false" type="button">Kamu & Küme</button><button class="tab" data-tab="eko" role="tab" aria-selected="false" type="button">Platform</button><button class="tab" data-tab="akademi" role="tab" aria-selected="false" type="button">Akademisyenler</button><button class="tab" data-tab="yatirim" role="tab" aria-selected="false" type="button">Yatırımlar</button><button class="tab" data-tab="takvim" role="tab" aria-selected="false" type="button">Takvim</button><button class="tab" data-tab="isbirlikleri" role="tab" aria-selected="false" type="button">İş Birlikleri</button></nav>
+  <nav class="tabs" id="maintabs" role="tablist" aria-label="Bölümler"><button class="tab" data-tab="harita" role="tab" aria-selected="true" type="button">Harita</button><button class="tab" data-tab="netzero" role="tab" aria-selected="false" type="button">NetZero TEKMER</button><button class="tab" data-tab="gir" role="tab" aria-selected="false" type="button">Girişimler</button><button class="tab" data-tab="kur" role="tab" aria-selected="false" type="button">Şirketler</button><button class="tab" data-tab="kob" role="tab" aria-selected="false" type="button">KOBİ'ler</button><button class="tab" data-tab="tgb" role="tab" aria-selected="false" type="button">Teknoparklar</button><button class="tab" data-tab="tek" role="tab" aria-selected="false" type="button">TEKMER'ler</button><button class="tab" data-tab="mrk" role="tab" aria-selected="false" type="button">Araştırma</button><button class="tab" data-tab="kam" role="tab" aria-selected="false" type="button">Kamu & Küme</button><button class="tab" data-tab="eko" role="tab" aria-selected="false" type="button">Platform</button><button class="tab" data-tab="akademi" role="tab" aria-selected="false" type="button">Akademisyenler</button><button class="tab" data-tab="yatirim" role="tab" aria-selected="false" type="button">Yatırımlar</button><button class="tab" data-tab="takvim" role="tab" aria-selected="false" type="button">Takvim</button><button class="tab" data-tab="isbirlikleri" role="tab" aria-selected="false" type="button">İş Birlikleri</button></nav>
 </header>
 
 <div class="tab-panel active" id="tab-harita" role="tabpanel">
@@ -307,6 +307,7 @@ input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var
 
 <div class="tab-panel" id="tab-gir" role="tabpanel"></div>
 <div class="tab-panel" id="tab-kur" role="tabpanel"></div>
+<div class="tab-panel" id="tab-kob" role="tabpanel"></div>
 <div class="tab-panel" id="tab-tgb" role="tabpanel"></div>
 <div class="tab-panel" id="tab-tek" role="tabpanel"></div>
 <div class="tab-panel" id="tab-mrk" role="tabpanel"></div>
@@ -326,9 +327,9 @@ input[type=search]{font:15px var(--f-body);padding:9px 12px;border:1px solid var
 </div>
 
 <script>
-const CAT_PANELS=["gir","kur","tgb","tek","mrk","kam","eko"];
-const CAT_TITLES={gir:"Girişimler",kur:"Şirketler",tgb:"Teknoparklar",tek:"TEKMER'ler",mrk:"Araştırma Merkezleri",kam:"Kamu, Küme & Yatırımcı",eko:"Platform, Hızlandırıcı & Ağ"};
-const CAT_DESC={gir:"Ankara'daki sürdürülebilirlik ve iklim teknolojisi girişimleri.",kur:"Büyük şirketlerin sürdürülebilirlik projeleri ve enerji teknolojisi firmaları.",tgb:"Ankara'daki teknoloji geliştirme bölgeleri (TGB).",tek:"KOSGEB kapsamındaki teknoloji geliştirme merkezleri (TEKMER) ve kuluçka merkezleri.",mrk:"Üniversite ve kamu araştırma merkezleri.",kam:"Kamu kurumları, OSB'ler, sektör kümeleri ve yatırım destekçileri.",eko:"Hızlandırıcılar, platformlar, girişim ağları ve ekosistem aktörleri."};
+const CAT_PANELS=["gir","kur","kob","tgb","tek","mrk","kam","eko"];
+const CAT_TITLES={gir:"Girişimler",kur:"Şirketler",kob:"KOBİ'ler",tgb:"Teknoparklar",tek:"TEKMER'ler",mrk:"Araştırma Merkezleri",kam:"Kamu, Küme & Yatırımcı",eko:"Platform, Hızlandırıcı & Ağ"};
+const CAT_DESC={gir:"Ankara'daki sürdürülebilirlik ve iklim teknolojisi girişimleri.",kur:"Büyük şirketlerin sürdürülebilirlik projeleri ve enerji teknolojisi firmaları.",kob:"Ankara'daki sürdürülebilirlik alanında faaliyet gösteren küçük ve orta ölçekli işletmeler (KOBİ). Ağırlıklı olarak OSTİM ENERJİK kümesi ve Gazi Teknopark firmaları.",tgb:"Ankara'daki teknoloji geliştirme bölgeleri (TGB).",tek:"KOSGEB kapsamındaki teknoloji geliştirme merkezleri (TEKMER) ve kuluçka merkezleri.",mrk:"Üniversite ve kamu araştırma merkezleri.",kam:"Kamu kurumları, OSB'ler, sektör kümeleri ve yatırım destekçileri.",eko:"Hızlandırıcılar, platformlar, girişim ağları ve ekosistem aktörleri."};
 
 function switchTab(name){
   document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));
@@ -368,7 +369,7 @@ document.getElementById("maintabs").addEventListener("click",e=>{
 });
 const CATS={
  tgb:{n:"Teknopark",s:"Teknopark",c:"--c-tgb"}, tek:{n:"TEKMER & kuluçka",s:"TEKMER",c:"--c-tek"}, gir:{n:"Girişim",s:"Girişim",c:"--c-gir"},
- kur:{n:"Şirket projesi",s:"Şirket",c:"--c-kur"}, mrk:{n:"Araştırma merkezi",s:"Ar. merkezi",c:"--c-mrk"}, aka:{n:"Akademisyen",s:"Akademisyen",c:"--c-aka"},
+ kur:{n:"Şirket projesi",s:"Şirket",c:"--c-kur"}, kob:{n:"KOBİ",s:"KOBİ",c:"--c-kob"}, mrk:{n:"Araştırma merkezi",s:"Ar. merkezi",c:"--c-mrk"}, aka:{n:"Akademisyen",s:"Akademisyen",c:"--c-aka"},
  kam:{n:"Kamu, küme & yatırımcı",s:"Kamu",c:"--c-kam"}, des:{n:"Destek",s:"Destek",c:"--c-des"}, etk:{n:"Etkinlik",s:"Etkinlik",c:"--c-etk"}, yat:{n:"Yatırım",s:"Yatırım",c:"--c-yat"}, eko:{n:"Platform, hızlandırıcı & ağ",s:"Platform",c:"--c-eko"}
 };
 const D=[
@@ -457,6 +458,19 @@ const D=[
 {id:"ronesans",k:"kur",n:"Rönesans × Digital Realty",l:"Temelli, Başkent OSB",t:["veri merkezi"],d:"Ekim 2026'da temeli atılan veri merkezi; ilk etapta 22 MW, yeşil dönüşüm hedefleriyle uyumlu tasarım.",u:"https://yeniankara.com.tr/ankara/ankara-temelli-veri-merkezi-ronesans-ve-digital-realtyden-41-milyar-dolarlik-yatirim-186834"},
 {id:"aryasolar",k:"kur",n:"Arya Solar",l:"İvedik OSB, Yenimahalle",t:["güneş EPC","yüzer GES","hidroelektrik"],d:"İvedik OSB merkezli yenilenebilir enerji şirketi; güneş, yüzer güneş, hidroelektrik ve rüzgâr projelerinde mühendislik, tedarik, inşaat ve finansman hizmetleri (EPC) sunuyor. 200 MW'ın üzerinde proje deneyimi; TÜBİTAK SAGE çatı GES projesini 2023'te tamamladı.",u:"https://www.aryasolar.com.tr"},
 {id:"goenerji",k:"kur",n:"GO Enerji",l:"Çankaya / Temelli, Ankara",t:["güneş + depolama","batarya üretimi","mikro şebeke"],p:"Gökhan Yıldız (kurucu & CEO)",d:"2003'te Göktürk Enerji olarak kurulan, güneş enerjisi sistemleri, GOEN-BESS batarya depolama ve GOiris mikro şebeke çözümleri sunan Ankara merkezli enerji teknolojisi şirketi. LG Energy Solution ile Ankara Temelli'de 45 milyon Euro'luk batarya paketi üretim fabrikası kuruyor (ilk kapasite 2,5 GWh). OSTİM ENERJİK üyesi; COP31 Startup Zone katılımcısı.",u:"https://www.goenerji.com.tr/hakkimizda.html"},
+// KOBİ'ler
+{id:"sesasis",k:"kob",n:"SESASİS Elektronik",l:"Gazi Teknopark, Gölbaşı",t:["enerji verimliliği","IoT","bina otomasyonu"],d:"Gazi Teknopark firması; HASAT adlı IoT tabanlı kablosuz enerji yönetim ve verimlilik sistemi geliştiriyor. Sanayi, hastane ve okul binalarında enerji tüketimini izliyor ve optimize ediyor.",u:"https://www.tgbd.org.tr/content/upload/bulletins/documents/e-bulten-5-sayi-20230323084529.pdf"},
+{id:"teslaware",k:"kob",n:"Teslaware Enerji Danışmanlık",l:"OSTİM Teknopark, Yenimahalle",t:["enerji verimliliği","danışmanlık","OSTİM ENERJİK"],d:"OSTİM ENERJİK kümesi üyesi; endüstriyel tesisler için enerji verimliliği danışmanlığı, enerji etüdü ve ISO 50001 uygulama desteği.",u:"https://ostimteknopark.com.tr/tr/firmalar-119"},
+{id:"ertekno",k:"kob",n:"ERTEKNO Enerji",l:"OSTİM Teknopark, Yenimahalle",t:["yenilenebilir enerji","GES tasarım","OSTİM ENERJİK"],d:"OSTİM ENERJİK kümesi üyesi; güneş enerjisi sistemleri tasarımı, kurulumu ve işletimi; OSB ölçeğinde GES projeleri.",u:"https://ostimteknopark.com.tr/tr/firmalar-119"},
+{id:"atlasnoya",k:"kob",n:"Atlas Noya Enerji",l:"OSTİM Teknopark, Yenimahalle",t:["enerji yatırımları","OSTİM ENERJİK"],d:"OSTİM Teknopark portföyü; yenilenebilir enerji yatırımları ve proje geliştirme.",u:"https://ostimteknopark.com.tr/tr/firmalar-119"},
+{id:"barbiotech",k:"kob",n:"Barbiotech Biyoteknoloji Enerji",l:"OSTİM Teknopark, Yenimahalle",t:["biyoteknoloji","biyoenerji","OSTİM ENERJİK"],d:"OSTİM ENERJİK kümesi üyesi; biyokütle ve biyoenerji alanında Ar-Ge ve üretim faaliyetleri yürüten biyoteknoloji firması.",u:"https://ostimteknopark.com.tr/tr/firmalar-119"},
+{id:"toya",k:"kob",n:"Toya Yazılım & Tarım",l:"OSTİM Teknopark, Yenimahalle",t:["tarım teknolojisi","yenilenebilir enerji","dijital tarım"],d:"OSTİM Teknopark portföyü; akıllı sulama, yenilenebilir enerji entegrasyonu ve tarımsal üretim verimliliği için yazılım çözümleri.",u:"https://ostimteknopark.com.tr/tr/firmalar-119"},
+{id:"tarimart",k:"kob",n:"Tarımart Bilişim",l:"OSTİM Teknopark, Yenimahalle",t:["tarım teknolojisi","dijital tarım","OSTİM ENERJİK"],d:"OSTİM Teknopark portföyü; tarımsal veri yönetimi ve dijital tarım platformu.",u:"https://ostimteknopark.com.tr/tr/firmalar-119"},
+{id:"akura",k:"kob",n:"Akura Madencilik & Çevre Müh.",l:"OSTİM Teknopark, Yenimahalle",t:["çevre mühendisliği","atık yönetimi","ÇED"],d:"OSTİM Teknopark portföyü; ÇED raporları, atık yönetimi planlaması ve çevre danışmanlığı.",u:"https://ostimteknopark.com.tr/tr/firmalar-119"},
+{id:"deftr",k:"kob",n:"DEFTR Teknoloji",l:"OSTİM Teknopark, Yenimahalle",t:["döngüsel ekonomi","atık takip","dijital"],d:"OSTİM Teknopark firması; endüstriyel atıkların dijital takibi ve döngüsel ekonomi entegrasyonu için platform.",u:"https://ostimteknopark.com.tr/tr/firmalar-119"},
+{id:"teknolus",k:"kob",n:"Teknolus Enerji",l:"OSTİM Teknopark, Yenimahalle",t:["enerji verimliliği","akıllı bina","OSTİM ENERJİK"],d:"OSTİM ENERJİK kümesi üyesi; akıllı bina sistemleri ve enerji verimliliği çözümleri.",u:"https://ostimteknopark.com.tr/tr/firmalar-119"},
+{id:"solarbim",k:"kob",n:"Solar BIM Mühendislik",l:"Çankaya, Ankara",t:["güneş EPC","mimari entegrasyon","BIM"],d:"Bina entegre fotovoltaik (BIPV) ve çatı GES projelerinde BIM tabanlı mühendislik ve proje yönetimi; mimari uyum ve statik hesaplar.",u:"https://www.solarbim.com.tr"},
+{id:"enveritas",k:"kob",n:"Enveritas Enerji",l:"Çankaya, Ankara",t:["güneş lisanssız","enerji satış","endüstriyel GES"],d:"Lisanssız elektrik üretimi kapsamında endüstriyel GES kurulumu, bakım ve enerji satış danışmanlığı; OSB'lere odaklanıyor.",u:"https://enveritas.com.tr"},
 // Merkezler
 {id:"gunam",k:"mrk",n:"ODTÜ-GÜNAM",l:"ODTÜ",t:["fotovoltaik","UP2030","TRIUMPH"],d:"2009'da kurulan, Türkiye'nin ilk bütünleşik güneş enerjisi araştırma merkezi. Yedi birim: silisyum PV, gelişen PV, entegre PV, yoğunlaştırılmış ısıl güneş, malzeme ve geri dönüşüm, güç elektroniği ve şebeke, sosyo-ekonomik araştırmalar.",u:"https://odtugunam.org/?p=654"},
 {id:"ruzgem",k:"mrk",n:"ODTÜ RÜZGEM",l:"ODTÜ",t:["rüzgâr","Büyük Rüzgâr Tüneli"],d:"Rüzgâr Enerjisi Teknolojileri Araştırma Merkezi; Büyük Rüzgâr Tüneli devrede.",u:"https://haber.aero/?p=124009"},
