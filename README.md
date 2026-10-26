@@ -56,5 +56,6 @@ Türkçe karaktersiz ve tireli yazın (`netzero-tekmer.md`); yayına çıktıkta
 - `src/styles/tokens.css`: renkler, yazı tipleri, açık/koyu tema. Önizleme: `/tasarim`
 - `src/styles/base.css`: sayfa geneli temel stiller
 - `src/layouts/BaseLayout.astro`: tüm sayfaların iskeleti
-- `legacy/` ve `scripts/migrate-legacy.mjs`: taşınma bitene kadar referans olarak tutulan eski sürüm ve
-  veriyi ondan aktaran tek seferlik script; taşınma bitince ikisi de silinecek
+
+Eski tek dosyalık HTML sürümü ve veriyi ondan aktaran script `df9265a` commit'inde duruyor
+(`legacy/`, `scripts/migrate-legacy.mjs`).
