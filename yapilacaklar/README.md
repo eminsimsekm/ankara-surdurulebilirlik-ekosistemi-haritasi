@@ -6,6 +6,9 @@ neden sade bir dille anlatılır, sonra uygulayacak kişi için adım adım tekn
 | Dosya | İş | Durum |
 |---|---|---|
 | [01-kayitlari-kurumlara-baglama.md](01-kayitlari-kurumlara-baglama.md) | Yatırım, iş birliği, takvim ve akademisyen kayıtlarını kurum sayfalarına bağlamak | Başlanmadı; eşleştirme tablosu onay bekliyor |
+| [02-kurumlara-alan-filtresi.md](02-kurumlara-alan-filtresi.md) | Kurumlara faaliyet alanı (enerji depolama, hidrojen, savunma…) ekleyip kurum sayfalarında filtre çipleri | Başlanmadı; alan listesi onay bekliyor |
+
+İşler birbirinden bağımsız; herhangi bir sırayla yapılabilir.
 
 Bir iş bittiğinde dosya silinir ve bu tablodan çıkarılır (yapılanlar git geçmişinde kalır).
 
