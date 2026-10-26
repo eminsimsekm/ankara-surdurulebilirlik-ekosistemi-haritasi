@@ -1,0 +1,76 @@
+---
+import { isbirligiAramaMetni, type Isbirligi, type IsbirligiTuru } from "../../lib/content";
+
+interface Props {
+  isbirligi: Isbirligi;
+  tur: IsbirligiTuru;
+}
+const { isbirligi, tur } = Astro.props;
+const d = isbirligi.data;
+const [a, b] = d.taraflar;
+---
+
+<li
+  id={isbirligi.id}
+  class="kart kayit-hedefi"
+  data-filter-item
+  data-facet={tur.id}
+  data-search={isbirligiAramaMetni(isbirligi)}
+  style={`--c:var(--c-ib-${tur.id})`}
+>
+  <div class="ust">
+    <span class="rozet">{tur.data.ad}</span>
+    {d.yil && <span class="yil">{d.yil}</span>}
+  </div>
+  <div class="taraflar">
+    <div>{a}</div>
+    <span aria-label="ile">⟷</span>
+    <div>{b}</div>
+  </div>
+  <p class="aciklama">{d.aciklama}</p>
+  {d.etiketler.length > 0 && (
+    <ul class="etiketler">{d.etiketler.map((e) => <li>{e}</li>)}</ul>
+  )}
+</li>
+
+<style>
+  .kart {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: box-shadow .15s;
+  }
+  .kart:hover { box-shadow: 0 2px 12px var(--shadow); }
+  .ust { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .rozet {
+    font: 600 10px var(--f-mono);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    padding: 3px 8px;
+    border-radius: var(--r-pill);
+    color: var(--c);
+    background: color-mix(in srgb, var(--c) 14%, var(--surface));
+  }
+  .yil { font: 400 11px var(--f-mono); color: var(--muted); }
+  .taraflar { display: flex; align-items: stretch; gap: 8px; }
+  .taraflar div {
+    flex: 1;
+    background: var(--soft);
+    border-radius: var(--r-md);
+    padding: 8px 10px;
+    font: 600 12px var(--f-body);
+    text-align: center;
+    line-height: 1.35;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .taraflar span { color: var(--accent); font-size: 20px; display: flex; align-items: center; flex-shrink: 0; }
+  .aciklama { font-size: 13px; color: var(--muted); line-height: 1.55; margin: 0; }
+  .etiketler { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px; }
+  .etiketler li { font: 400 11px var(--f-mono); color: var(--muted); background: var(--bg); padding: 2px 7px; border-radius: var(--r-sm); }
+</style>

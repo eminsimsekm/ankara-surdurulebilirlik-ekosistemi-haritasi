@@ -1,0 +1,25 @@
+---
+// Sayfanın üst başlığı. Üst satır düz metin (`ust`) ya da bağlantı için `ust` slot'u olabilir.
+// Varsayılan slot başlığın altına eklenir (ör. arama kutusu).
+interface Props {
+  baslik: string;
+  ust?: string;
+  lede?: string;
+}
+const { baslik, ust, lede } = Astro.props;
+const ustVar = Boolean(ust) || Astro.slots.has("ust");
+---
+
+<header class="page-header">
+  {ustVar && <div class="eyebrow"><slot name="ust">{ust}</slot></div>}
+  <h1>{baslik}</h1>
+  {lede && <p class="lede">{lede}</p>}
+  <slot />
+</header>
+
+<style>
+  .page-header { display: grid; gap: 8px; margin-bottom: 20px; justify-items: start; }
+  .page-header .lede { margin: 2px 0 0; }
+  .page-header :global(.eyebrow a) { color: inherit; text-decoration: none; }
+  .page-header :global(.eyebrow a:hover) { text-decoration: underline; }
+</style>

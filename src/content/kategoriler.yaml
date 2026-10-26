@@ -1,0 +1,119 @@
+# Ekosistem kategorileri.
+# Anahtar (ör. `tekmer`) içerik dosyalarındaki `kategori:` alanında kullanılır.
+# Renk: tokens.css'te `--c-<anahtar>` token'ı bulunmalı.
+#
+# ad                 çip, detay paneli ve listelerde görünen ad
+# kisaAd             haritadaki dilim etiketi
+# baslik / aciklama  aktör kategorisi sayfasının başlığı ve giriş metni (diğer sayfaların metni sayfalar/*.md)
+# yol                kategorinin sayfası (/tekmerler); haritadaki kayıtlar bu sayfaya bağlanır
+# sira               haritadaki dilim sırası
+# menuAdi, menuSira  üst menüdeki adı ve sırası (menuSira yoksa kategori menüde yer almaz)
+# firmaBasligi       aktörün `firmalar` listesinin başlığı (varsayılan: "Bu alandaki firmalar")
+# yonetimBekleniyor  true ise yönetici bilgisi olmayan aktörde "bulunamadı" notu gösterilir
+
+teknopark:
+  ad: Teknopark
+  kisaAd: Teknopark
+  baslik: Teknoparklar
+  aciklama: Ankara'daki teknoloji geliştirme bölgeleri (TGB).
+  yol: teknoparklar
+  sira: 1
+  menuAdi: Teknoparklar
+  menuSira: 4
+  yonetimBekleniyor: true
+
+tekmer:
+  ad: TEKMER & kuluçka
+  kisaAd: TEKMER
+  baslik: TEKMER'ler
+  aciklama: KOSGEB kapsamındaki teknoloji geliştirme merkezleri (TEKMER) ve kuluçka merkezleri.
+  yol: tekmerler
+  sira: 2
+  menuAdi: TEKMER'ler
+  menuSira: 5
+  yonetimBekleniyor: true
+
+girisim:
+  ad: Girişim
+  kisaAd: Girişim
+  baslik: Girişimler
+  aciklama: Ankara'daki sürdürülebilirlik ve iklim teknolojisi girişimleri.
+  yol: girisimler
+  sira: 3
+  menuAdi: Girişimler
+  menuSira: 1
+
+sirket:
+  ad: Şirket projesi
+  kisaAd: Şirket
+  baslik: Şirketler
+  aciklama: Büyük şirketlerin sürdürülebilirlik projeleri ve enerji teknolojisi firmaları.
+  yol: sirketler
+  sira: 4
+  menuAdi: Şirketler
+  menuSira: 2
+
+kobi:
+  ad: KOBİ
+  kisaAd: KOBİ
+  baslik: KOBİ'ler
+  aciklama: Ankara'daki sürdürülebilirlik alanında faaliyet gösteren küçük ve orta ölçekli işletmeler (KOBİ). Ağırlıklı olarak OSTİM ENERJİK kümesi ve Gazi Teknopark firmaları.
+  yol: kobiler
+  sira: 5
+  menuAdi: KOBİ'ler
+  menuSira: 3
+
+arastirma:
+  ad: Araştırma merkezi
+  kisaAd: Ar. merkezi
+  baslik: Araştırma Merkezleri
+  aciklama: Üniversite ve kamu araştırma merkezleri.
+  yol: arastirma-merkezleri
+  sira: 6
+  menuAdi: Araştırma
+  menuSira: 6
+
+akademisyen:
+  ad: Akademisyen
+  kisaAd: Akademisyen
+  yol: akademisyenler
+  sira: 7
+
+kamu:
+  ad: Kamu, küme & yatırımcı
+  kisaAd: Kamu
+  baslik: Kamu, Küme & Yatırımcı
+  aciklama: Kamu kurumları, OSB'ler, sektör kümeleri ve yatırım destekçileri.
+  yol: kamu
+  sira: 8
+  menuAdi: Kamu & Küme
+  menuSira: 7
+
+destek:
+  ad: Destek
+  kisaAd: Destek
+  yol: takvim
+  sira: 9
+
+etkinlik:
+  ad: Etkinlik
+  kisaAd: Etkinlik
+  yol: takvim
+  sira: 10
+
+yatirim:
+  ad: Yatırım
+  kisaAd: Yatırım
+  yol: yatirimlar
+  sira: 11
+
+platform:
+  ad: Platform, hızlandırıcı & ağ
+  kisaAd: Platform
+  baslik: Platform, Hızlandırıcı & Ağ
+  aciklama: Hızlandırıcılar, platformlar, girişim ağları ve ekosistem aktörleri.
+  yol: platformlar
+  sira: 12
+  menuAdi: Platform
+  menuSira: 8
+  firmaBasligi: Araçları

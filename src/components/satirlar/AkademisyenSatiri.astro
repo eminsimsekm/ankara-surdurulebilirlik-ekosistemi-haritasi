@@ -1,0 +1,52 @@
+---
+import { render } from "astro:content";
+import { akademisyenAramaMetni, akademisyenTamAdi, type Akademisyen, type Universite } from "../../lib/content";
+import ExternalLink from "../ExternalLink.astro";
+import Tags from "../Tags.astro";
+
+interface Props {
+  akademisyen: Akademisyen;
+  universite: Universite;
+}
+const { akademisyen, universite } = Astro.props;
+const d = akademisyen.data;
+const { Content } = await render(akademisyen);
+---
+
+<li
+  id={akademisyen.id}
+  class="satir kayit-hedefi"
+  data-filter-item
+  data-facet={universite.id}
+  data-search={akademisyenAramaMetni(akademisyen, universite)}
+>
+  <div class="kimlik">
+    <b>{akademisyenTamAdi(akademisyen)}</b>
+    <span>{d.birim}</span>
+  </div>
+  <div class="icerik">
+    <div class="aciklama"><Content /></div>
+    <div class="alt">
+      <Tags etiketler={d.etiketler} />
+      {d.profil && <ExternalLink href={d.profil}>Akademik profil</ExternalLink>}
+    </div>
+  </div>
+</li>
+
+<style>
+  .satir {
+    display: grid;
+    grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .satir:last-child { border-bottom: none; }
+  @media (max-width: 640px) { .satir { grid-template-columns: 1fr; gap: 4px; } }
+  .kimlik b { display: block; font-weight: 600; }
+  .kimlik span { font-size: 13px; color: var(--muted); }
+  .icerik { font-size: 14px; min-width: 0; }
+  .aciklama :global(p) { margin: 0; }
+  .aciklama :global(p + p) { margin-top: 6px; }
+  .alt { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-top: 6px; font-size: 12.5px; }
+</style>

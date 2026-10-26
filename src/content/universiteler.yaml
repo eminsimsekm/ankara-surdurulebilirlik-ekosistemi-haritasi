@@ -1,0 +1,36 @@
+# Üniversiteler. Anahtar, akademisyen dosyalarındaki `universite:` alanında kullanılır.
+# `sira`: rehberdeki sıra.
+
+odtu:
+  ad: ODTÜ
+  sira: 1
+bilkent:
+  ad: Bilkent Üniversitesi
+  sira: 2
+hacettepe:
+  ad: Hacettepe Üniversitesi
+  sira: 3
+gazi:
+  ad: Gazi Üniversitesi
+  sira: 4
+atilim:
+  ad: Atılım Üniversitesi
+  sira: 5
+aybu:
+  ad: Ankara Yıldırım Beyazıt Üniversitesi
+  sira: 6
+asbu:
+  ad: Ankara Sosyal Bilimler Üniversitesi
+  sira: 7
+tobb:
+  ad: TOBB ETÜ
+  sira: 8
+ankara:
+  ad: Ankara Üniversitesi
+  sira: 9
+cankaya:
+  ad: Çankaya Üniversitesi
+  sira: 10
+ostimtu:
+  ad: OSTİM Teknik Üniversitesi
+  sira: 11

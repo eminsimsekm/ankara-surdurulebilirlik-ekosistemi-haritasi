@@ -1,0 +1,17 @@
+---
+interface Props {
+  etiketler: readonly string[];
+}
+const { etiketler } = Astro.props;
+---
+
+{etiketler.length > 0 && (
+  <ul class="tags">
+    {etiketler.map((e) => <li>{e}</li>)}
+  </ul>
+)}
+
+<style>
+  .tags { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tags li { font-size: 12px; background: var(--soft); padding: 2px 8px; border-radius: var(--r-sm); }
+</style>

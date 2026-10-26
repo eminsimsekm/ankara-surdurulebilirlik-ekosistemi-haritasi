@@ -1,0 +1,50 @@
+---
+// Açık/koyu tema düğmesi. Seçim localStorage'da tutulur; seçim yoksa sistem tercihi geçerlidir.
+// Sayfa ilk boyanmadan önce temayı uygulayan satır içi script BaseLayout'un <head>'inde.
+---
+
+<button class="theme-toggle" type="button" data-theme-toggle aria-label="Temayı değiştir">
+  <span data-theme-label>Tema</span>
+</button>
+
+<style>
+  .theme-toggle {
+    font: 500 13px var(--f-body);
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    padding: 6px 12px;
+    border-radius: var(--r-pill);
+    cursor: pointer;
+  }
+  .theme-toggle:hover { border-color: var(--ink); }
+</style>
+
+<script>
+  const KEY = "tema";
+  const root = document.documentElement;
+  const darkQuery = matchMedia("(prefers-color-scheme: dark)");
+
+  function effectiveTheme(): "light" | "dark" {
+    const chosen = root.dataset.theme;
+    if (chosen === "light" || chosen === "dark") return chosen;
+    return darkQuery.matches ? "dark" : "light";
+  }
+
+  function updateLabels() {
+    const next = effectiveTheme() === "dark" ? "Açık tema" : "Koyu tema";
+    document.querySelectorAll("[data-theme-label]").forEach((el) => (el.textContent = next));
+  }
+
+  document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const next = effectiveTheme() === "dark" ? "light" : "dark";
+      root.dataset.theme = next;
+      try { localStorage.setItem(KEY, next); } catch {}
+      updateLabels();
+    });
+  });
+
+  darkQuery.addEventListener("change", updateLabels);
+  updateLabels();
+</script>

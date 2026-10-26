@@ -1,0 +1,46 @@
+---
+import { takvimAramaMetni, type Kategori, type TakvimKaydi } from "../../lib/content";
+import { isoGun, tarihAraligi } from "../../lib/takvim";
+import ExternalLink from "../ExternalLink.astro";
+import TakvimDurumu from "../TakvimDurumu.astro";
+
+interface Props {
+  kayit: TakvimKaydi;
+  kategori: Kategori;
+}
+const { kayit, kategori } = Astro.props;
+const d = kayit.data;
+---
+
+<li
+  id={kayit.id}
+  class="satir kayit-hedefi"
+  data-filter-item
+  data-facet={kategori.id}
+  data-search={takvimAramaMetni(kayit)}
+  data-baslangic={isoGun(d.baslangic)}
+>
+  <time datetime={isoGun(d.baslangic)}>{tarihAraligi(d.baslangic, d.bitis)}</time>
+  <TakvimDurumu kayit={kayit} />
+  <div>
+    <b>{d.ad}</b> <span class="sub">· {kategori.data.ad}</span>
+    <div class="sub">
+      {d.duzenleyen}. {d.aciklama}
+      {d.kaynak && <ExternalLink href={d.kaynak} />}
+    </div>
+  </div>
+</li>
+
+<style>
+  .satir {
+    display: grid;
+    grid-template-columns: 150px 190px minmax(0, 1fr);
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+  @media (max-width: 620px) { .satir { grid-template-columns: 1fr; gap: 4px; } }
+  time { font-family: var(--f-mono); font-size: 13px; font-variant-numeric: tabular-nums; }
+  b { font-weight: 600; }
+</style>

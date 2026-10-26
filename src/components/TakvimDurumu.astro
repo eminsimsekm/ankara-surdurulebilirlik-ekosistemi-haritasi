@@ -1,0 +1,42 @@
+---
+// Takvim kaydının durum rozeti. Build tarihine göre yazılır, tarayıcıda güncellenir.
+import type { TakvimKaydi } from "../lib/content";
+import { bugun, isoGun, takvimDurumu, type DurumGirdisi } from "../lib/takvim";
+
+interface Props {
+  kayit: TakvimKaydi;
+}
+const d = Astro.props.kayit.data;
+const girdi: DurumGirdisi = {
+  tur: d.tur,
+  baslangic: isoGun(d.baslangic),
+  bitis: isoGun(d.bitis),
+  yillik: d.yillik,
+  durumNotu: d.durumNotu,
+};
+const durum = takvimDurumu(girdi, bugun());
+---
+
+<span class="pill" data-takvim-durum={JSON.stringify(girdi)} data-durum={durum.kod}>{durum.etiket}</span>
+
+<style>
+  .pill {
+    font: 600 11px var(--f-mono);
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: var(--r-pill);
+    border: 1px solid currentColor;
+    justify-self: start;
+    max-width: 100%;
+    line-height: 1.5;
+  }
+  .pill[data-durum="acik"] { color: var(--ok); }
+  .pill[data-durum="yaklasiyor"] { color: var(--warn); }
+  .pill[data-durum="kapandi"] { color: var(--off); }
+  .pill[data-durum="yillik"] { color: var(--accent); }
+</style>
+
+<script>
+  import "../scripts/takvim-durum";
+</script>

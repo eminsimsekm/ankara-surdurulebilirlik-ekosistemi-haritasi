@@ -1,0 +1,55 @@
+---
+import FiltreCipleri from "../components/FiltreCipleri.astro";
+import ListeGrubu from "../components/ListeGrubu.astro";
+import PageHeader from "../components/PageHeader.astro";
+import SearchBox from "../components/SearchBox.astro";
+import IsbirligiKarti from "../components/satirlar/IsbirligiKarti.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getIsbirligiTurleri, getIsbirlikleri, getSayfa } from "../lib/content";
+
+const [sayfa, isbirlikleri, turler] = await Promise.all([getSayfa("isbirlikleri"), getIsbirlikleri(), getIsbirligiTurleri()]);
+const gruplar = turler
+  .map((tur) => ({ tur, liste: isbirlikleri.filter((x) => x.data.tur === tur.id) }))
+  .filter((g) => g.liste.length > 0);
+const { baslik, ozet } = sayfa.data;
+---
+
+<BaseLayout title={baslik} description={ozet}>
+  <div data-filter-root>
+    <PageHeader baslik={baslik} ust={`${isbirlikleri.length} iş birliği`} lede={ozet}>
+      <SearchBox etiket="İş birliklerinde ara" placeholder="Ara: ODTÜ, hidrojen, fon…" />
+    </PageHeader>
+
+    <FiltreCipleri
+      etiket="İş birliği türü"
+      parametre="tur"
+      tumuSayi={isbirlikleri.length}
+      secenekler={gruplar.map((g) => ({
+        deger: g.tur.id,
+        ad: g.tur.data.ad,
+        sayi: g.liste.length,
+        renk: `--c-ib-${g.tur.id}`,
+      }))}
+    />
+
+    {gruplar.map(({ tur, liste }) => (
+      <ListeGrubu baslik={tur.data.ad} sayi={liste.length} birim="kayıt">
+        <ul class="kartlar">
+          {liste.map((x) => <IsbirligiKarti isbirligi={x} tur={tur} />)}
+        </ul>
+      </ListeGrubu>
+    ))}
+    <p class="empty" data-filter-empty hidden>Eşleşen iş birliği yok.</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .kartlar {
+    list-style: none;
+    margin: 12px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr));
+    gap: 14px;
+  }
+</style>

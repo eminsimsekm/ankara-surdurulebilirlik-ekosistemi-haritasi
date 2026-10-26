@@ -1,0 +1,126 @@
+---
+/*
+  Öne çıkan bir kurumun tanıtım bölümü (ör. NetZero TEKMER). sayfalar/<id>.md'deki
+  bloklardan dolu olanları çizer: kartlar, vurgu, liste, bilgiler, bağlantılar.
+  Yeni bir kurum sayfası için yeni bir .md ve bu bileşeni kullanan kısa bir sayfa yeterli.
+*/
+import { render } from "astro:content";
+import { aktorYolu, getAktor, type Sayfa } from "../../lib/content";
+import ExternalLink from "../ExternalLink.astro";
+import { aktorDugumId, haritadaGosterYolu } from "../harita/kaynaklar";
+
+interface Props {
+  sayfa: Sayfa;
+}
+const { sayfa } = Astro.props;
+const d = sayfa.data;
+const { Content } = await render(sayfa);
+
+// İlgili aktör: kendi sayfasına ve haritadaki yerine bağlantı
+const aktorBaglantilari: { ad: string; yol: string }[] = [];
+if (d.aktor) {
+  const { aktor, kategori } = await getAktor(d.aktor);
+  aktorBaglantilari.push(
+    { ad: "Dizindeki kaydı", yol: aktorYolu(kategori, aktor) },
+    { ad: "Haritada gör", yol: haritadaGosterYolu(aktorDugumId(aktor.id)) },
+  );
+}
+---
+
+<section class="kurum">
+  <div>
+    {d.ust && <div class="eyebrow">{d.ust}</div>}
+    <h1>{d.baslik}</h1>
+    <div class="giris"><Content /></div>
+
+    {d.kartlar && (
+      <ul class="kartlar">
+        {d.kartlar.map((k) => <li><b>{k.ad}</b><span>{k.aciklama}</span></li>)}
+      </ul>
+    )}
+
+    {d.vurgu && (
+      <div class="vurgu">
+        <b>{d.vurgu.baslik}</b>
+        {d.vurgu.metin} {d.vurgu.kaynak && <ExternalLink href={d.vurgu.kaynak} />}
+      </div>
+    )}
+  </div>
+
+  <div>
+    {d.liste && (
+      <>
+        <div class="eyebrow">{d.liste.baslik}</div>
+        <ul class="liste">
+          {d.liste.ogeler.map((o) => <li><b>{o.ad}</b><span class="sub">{o.aciklama}</span></li>)}
+        </ul>
+      </>
+    )}
+
+    {d.bilgiler && (
+      <dl class="bilgiler">
+        {d.bilgiler.map((b) => <><dt>{b.etiket}</dt><dd>{b.deger}</dd></>)}
+      </dl>
+    )}
+
+    {(d.baglantilar || aktorBaglantilari.length > 0) && (
+      <p class="baglantilar">
+        {d.baglantilar?.map((b) => <ExternalLink href={b.url}>{b.ad}</ExternalLink>)}
+        {aktorBaglantilari.map((b) => <a href={b.yol}>{b.ad}</a>)}
+      </p>
+    )}
+  </div>
+</section>
+
+<style>
+  .kurum {
+    background: var(--band);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    padding: 24px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+    --c: var(--c-tekmer);
+  }
+  @media (max-width: 860px) { .kurum { grid-template-columns: 1fr; } }
+  @media (max-width: 520px) { .kurum { padding: 18px 16px; } }
+  h1 { font-size: clamp(30px, 4.5vw, 40px); margin-top: 4px; }
+  .giris { max-width: 62ch; }
+  .giris :global(p) { margin: 10px 0 0; }
+
+  .kartlar { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 16px 0 0; }
+  @media (max-width: 520px) { .kartlar { grid-template-columns: 1fr; } }
+  .kartlar li { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: 12px; }
+  .kartlar b { display: block; font: 700 16px var(--f-display); font-stretch: 88%; margin-bottom: 2px; }
+  .kartlar span { font-size: 13.5px; color: var(--muted); }
+
+  .vurgu {
+    margin-top: 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--c);
+    border-radius: var(--r-md);
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+  .vurgu b { font: 700 18px var(--f-display); font-stretch: 85%; display: block; }
+
+  .liste { list-style: none; padding: 0; margin: 10px 0 0; border-top: 1px solid var(--line); }
+  .liste li {
+    display: grid;
+    grid-template-columns: minmax(0, 170px) minmax(0, 1fr);
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+  }
+  @media (max-width: 520px) { .liste li { grid-template-columns: 1fr; gap: 2px; } }
+  .liste b { font-weight: 600; }
+
+  .bilgiler { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 14px; margin: 12px 0; }
+  .bilgiler dt { color: var(--muted); font-size: 13px; }
+  .bilgiler dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+
+  .baglantilar { font-size: 13px; display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0; }
+</style>

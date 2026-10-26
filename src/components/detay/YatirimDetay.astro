@@ -1,0 +1,30 @@
+---
+import type { Kategori, Yatirim, YatirimTuru } from "../../lib/content";
+import ExternalLink from "../ExternalLink.astro";
+import DetayKabuk from "./DetayKabuk.astro";
+
+interface Props {
+  yatirim: Yatirim;
+  tur: YatirimTuru;
+  kategori: Kategori;
+  baslikSeviyesi?: "h1" | "h2" | "h3";
+  /** Haritada: başlık kaydın sayfasındaki satırına bağlantı olur */
+  sayfaYolu?: string;
+}
+const { yatirim, tur, kategori, baslikSeviyesi, sayfaYolu } = Astro.props;
+const d = yatirim.data;
+const alt = [tur.data.ad, d.yatirimci, d.tarih].filter(Boolean).join(" · ");
+---
+
+<DetayKabuk
+  kategoriId={kategori.id}
+  kategoriAdi={kategori.data.ad}
+  baslik={d.ad}
+  altBaslik={alt}
+  baslikYolu={sayfaYolu}
+  baslikSeviyesi={baslikSeviyesi}
+>
+  <dl class="kv"><dt>Tutar</dt><dd>{d.tutar}</dd></dl>
+  <div class="aciklama"><p>{d.aciklama}</p></div>
+  {d.kaynak && <p class="src"><ExternalLink href={d.kaynak} /></p>}
+</DetayKabuk>

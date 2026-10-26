@@ -1,0 +1,28 @@
+---
+// Başlıklı liste grubu (ör. bir üniversitenin akademisyenleri). Süzmede içi boşalırsa gizlenir.
+interface Props {
+  baslik: string;
+  sayi: number;
+  birim: string;
+}
+const { baslik, sayi, birim } = Astro.props;
+---
+
+<section class="grup" data-filter-group>
+  <h2>{baslik}<small>{sayi} {birim}</small></h2>
+  <slot />
+</section>
+
+<style>
+  .grup { margin-top: 8px; }
+  h2 {
+    font-size: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    padding: 18px 0 8px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 4px;
+  }
+  small { font: 500 12px var(--f-mono); color: var(--muted); letter-spacing: .04em; }
+</style>

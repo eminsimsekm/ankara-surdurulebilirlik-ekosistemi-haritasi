@@ -1,0 +1,61 @@
+---
+/*
+  Ana sayfadaki sayı şeridi: one-cikan-sayilar.yaml'daki elle girilen değerler
+  ve içerikten hesaplanan sayılar (yeni kayıt eklendikçe kendiliğinden güncellenir).
+*/
+import { getAkademisyenler, getAktorGruplari, getOneCikanSayilar, getUniversiteler } from "../../lib/content";
+
+const [elle, gruplar, akademisyenler, universiteler] = await Promise.all([
+  getOneCikanSayilar(),
+  getAktorGruplari(),
+  getAkademisyenler(),
+  getUniversiteler(),
+]);
+const sayiBicimi = new Intl.NumberFormat("tr-TR");
+
+const sayilar = [
+  ...elle.map((s) => s.data),
+  {
+    deger: sayiBicimi.format(gruplar.reduce((n, g) => n + g.aktorler.length, 0)),
+    etiket: "aktör haritada",
+    yol: "/",
+  },
+  {
+    deger: sayiBicimi.format(akademisyenler.length),
+    etiket: `akademisyen · ${universiteler.length} üniversite`,
+    yol: "/akademisyenler/",
+  },
+];
+---
+
+<ul class="sayilar">
+  {sayilar.map((s) => {
+    const Etiket = s.yol ? "a" : "div";
+    return (
+      <li>
+        <Etiket href={s.yol}><b>{s.deger}</b><span>{s.etiket}</span></Etiket>
+      </li>
+    );
+  })}
+</ul>
+
+<style>
+  .sayilar {
+    list-style: none;
+    margin: 0 0 18px;
+    padding: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    border-block: 1px solid var(--line);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .sayilar::-webkit-scrollbar { display: none; }
+  li { flex: none; border-right: 1px solid var(--line); }
+  li:last-child { border-right: none; }
+  a, div { display: flex; align-items: center; gap: 6px; padding: 8px 16px; white-space: nowrap; color: inherit; text-decoration: none; }
+  b { font: 800 19px var(--f-display); font-stretch: 80%; font-variant-numeric: tabular-nums; line-height: 1; }
+  span { font-size: 12px; color: var(--muted); line-height: 1.2; }
+  a span { text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+  a:hover span { color: var(--ink); text-decoration-color: currentColor; }
+</style>

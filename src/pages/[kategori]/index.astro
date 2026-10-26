@@ -1,0 +1,36 @@
+---
+// Her aktör kategorisi için liste sayfası (/teknoparklar, /tekmerler, …).
+import type { GetStaticPaths } from "astro";
+import AktorSatiri from "../../components/satirlar/AktorSatiri.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import SearchBox from "../../components/SearchBox.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getAktorGruplari, type AktorGrubu } from "../../lib/content";
+
+export const getStaticPaths = (async () => {
+  const gruplar = await getAktorGruplari();
+  return gruplar.map((grup) => ({ params: { kategori: grup.kategori.data.yol }, props: grup }));
+}) satisfies GetStaticPaths;
+
+type Props = AktorGrubu;
+const { kategori, aktorler } = Astro.props;
+const k = kategori.data;
+const baslik = k.baslik ?? k.ad;
+---
+
+<BaseLayout title={baslik} description={k.aciklama}>
+  <div data-filter-root>
+    <PageHeader baslik={baslik} ust={`${aktorler.length} kayıt`} lede={k.aciklama}>
+      <SearchBox etiket={`${baslik} içinde ara`} placeholder="Ara: ad, konu, konum…" />
+    </PageHeader>
+
+    <ul class="liste">
+      {aktorler.map((aktor) => <AktorSatiri aktor={aktor} kategori={kategori} />)}
+    </ul>
+    <p class="empty" data-filter-empty hidden>Eşleşen kayıt yok. Farklı bir kelime deneyin.</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .liste { list-style: none; padding: 0; margin: 0; border-top: 2px solid var(--ink); }
+</style>

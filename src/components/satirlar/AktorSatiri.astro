@@ -1,0 +1,54 @@
+---
+// Kategori listesindeki bir aktör satırı. Bir [data-filter-root] içindeki <ul> içinde kullanılır.
+import { render } from "astro:content";
+import { aktorAramaMetni, aktorYolu, type Aktor, type Kategori } from "../../lib/content";
+import ExternalLink from "../ExternalLink.astro";
+import Tags from "../Tags.astro";
+
+interface Props {
+  aktor: Aktor;
+  kategori: Kategori;
+}
+const { aktor, kategori } = Astro.props;
+const d = aktor.data;
+const { Content } = await render(aktor);
+---
+
+<li class="aktor" data-filter-item data-search={aktorAramaMetni(aktor)}>
+  <div class="kimlik">
+    <a href={aktorYolu(kategori, aktor)}>{d.ad}</a>
+    <span>{d.konum}</span>
+  </div>
+  <div class="icerik">
+    <div class="aciklama"><Content /></div>
+    {d.kisiler && <p class="ek"><b>Kişi:</b> {d.kisiler}</p>}
+    {d.surdurulebilirlik && <p class="ek"><b>Sürdürülebilirlik:</b> {d.surdurulebilirlik}</p>}
+    <div class="alt">
+      <Tags etiketler={d.etiketler} />
+      {d.kaynak && <ExternalLink href={d.kaynak} />}
+    </div>
+  </div>
+</li>
+
+<style>
+  .aktor {
+    display: grid;
+    grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .aktor:last-child { border-bottom: none; }
+  @media (max-width: 640px) { .aktor { grid-template-columns: 1fr; gap: 4px; } }
+
+  .kimlik a { font-size: 15px; font-weight: 700; display: block; line-height: 1.25; color: var(--ink); text-decoration: none; }
+  .kimlik a:hover { color: var(--accent); text-decoration: underline; }
+  .kimlik span { font-size: 13px; color: var(--muted); display: block; margin-top: 3px; }
+
+  .icerik { font-size: 14px; line-height: 1.55; }
+  .aciklama :global(p) { margin: 0; }
+  .aciklama :global(p + p) { margin-top: 6px; }
+  .ek { font-size: 13px; color: var(--muted); margin: 4px 0 0; }
+  .ek b { color: var(--ink); }
+  .alt { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-top: 6px; font-size: 12.5px; }
+</style>

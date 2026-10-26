@@ -1,0 +1,19 @@
+# Ana sayfadaki sayı şeridinin elle girilen değerleri (dış kaynaklı rakamlar).
+# Aktör ve akademisyen sayıları içerikten hesaplanır, buraya yazılmaz.
+# `yol` verilirse sayı o sayfaya bağlantı olur. `sira`: şeritteki sıra.
+
+girisim-sayisi:
+  deger: 3.000+
+  etiket: teknoloji girişimi · Ankara
+  yol: /yatirimlar/
+  sira: 1
+yatirim-toplami:
+  deger: $331 mn
+  etiket: 210 girişime yatırım (2018–25)
+  yol: /yatirimlar/
+  sira: 2
+tekmer-sayisi:
+  deger: "11"
+  etiket: TEKMER (KOSGEB listesi)
+  yol: /tekmerler/
+  sira: 3

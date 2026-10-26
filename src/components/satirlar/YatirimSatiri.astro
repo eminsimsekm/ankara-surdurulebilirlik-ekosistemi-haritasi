@@ -1,0 +1,52 @@
+---
+import { yatirimAramaMetni, type Yatirim, type YatirimTuru } from "../../lib/content";
+import ExternalLink from "../ExternalLink.astro";
+
+interface Props {
+  yatirim: Yatirim;
+  tur: YatirimTuru;
+}
+const { yatirim, tur } = Astro.props;
+const d = yatirim.data;
+---
+
+<li
+  id={yatirim.id}
+  class="satir kayit-hedefi"
+  data-filter-item
+  data-facet={tur.id}
+  data-search={yatirimAramaMetni(yatirim, tur)}
+>
+  <time>{d.tarih ?? "—"}</time>
+  <span class="tur">{tur.data.ad}</span>
+  <div>
+    <b>{d.ad}</b>
+    <div class="sub">
+      {d.yatirimci}. {d.aciklama}
+      {d.kaynak && <ExternalLink href={d.kaynak} />}
+    </div>
+  </div>
+  <span class="tutar">{d.tutar}</span>
+</li>
+
+<style>
+  .satir {
+    display: grid;
+    grid-template-columns: 96px 110px minmax(0, 1fr) minmax(0, 150px);
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+  @media (max-width: 760px) { .satir { grid-template-columns: 1fr; gap: 3px; } }
+  time { font-family: var(--f-mono); font-size: 13px; }
+  .tur { font: 600 11px var(--f-mono); letter-spacing: .05em; text-transform: uppercase; color: var(--c-yatirim); }
+  b { font-weight: 600; }
+  .tutar {
+    font: 700 17px var(--f-display);
+    font-stretch: 85%;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  @media (max-width: 760px) { .tutar { text-align: left; } }
+</style>

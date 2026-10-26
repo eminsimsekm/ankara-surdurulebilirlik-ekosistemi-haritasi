@@ -1,0 +1,21 @@
+# İş birliği türleri. Anahtar, isbirlikleri/*.yaml dosyalarındaki `tur:` alanında kullanılır.
+# Renk: tokens.css'te `--c-ib-<anahtar>` token'ı bulunmalı.
+
+ar-ge:
+  ad: Ar-Ge & Araştırma
+  sira: 1
+program:
+  ad: Program & Hızlandırıcı
+  sira: 2
+yatirim:
+  ad: Yatırım & Fon
+  sira: 3
+kamu:
+  ad: Kamu-Özel Ortaklık
+  sira: 4
+transfer:
+  ad: Teknoloji Transfer
+  sira: 5
+uluslararasi:
+  ad: Uluslararası
+  sira: 6

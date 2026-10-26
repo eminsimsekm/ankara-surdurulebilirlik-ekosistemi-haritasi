@@ -1,0 +1,56 @@
+---
+// Üst menü. Kategori bağlantıları kategoriler.yaml'daki menuAdi/menuSira'dan gelir;
+// kategori olmayan sayfalar aşağıdaki listelerde.
+import { getMenuKategorileri, kategoriYolu } from "../lib/content";
+
+interface Baglanti {
+  ad: string;
+  yol: string;
+}
+
+const once: Baglanti[] = [
+  { ad: "Harita", yol: "/" },
+  { ad: "NetZero TEKMER", yol: "/netzero/" },
+];
+const sonra: Baglanti[] = [
+  { ad: "Akademisyenler", yol: "/akademisyenler/" },
+  { ad: "Yatırımlar", yol: "/yatirimlar/" },
+  { ad: "Takvim", yol: "/takvim/" },
+  { ad: "İş Birlikleri", yol: "/isbirlikleri/" },
+];
+
+const kategoriler = (await getMenuKategorileri()).map((k) => ({ ad: k.data.menuAdi!, yol: kategoriYolu(k) }));
+const baglantilar = [...once, ...kategoriler, ...sonra];
+
+const simdiki = Astro.url.pathname.replace(/\/?$/, "/");
+const aktifMi = (yol: string) => (yol === "/" ? simdiki === "/" : simdiki.startsWith(yol));
+---
+
+<nav class="site-nav" aria-label="Bölümler">
+  <ul>
+    {baglantilar.map((b) => (
+      <li><a href={b.yol} aria-current={aktifMi(b.yol) ? "page" : undefined}>{b.ad}</a></li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .site-nav { border-bottom: 2px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+  .site-nav::-webkit-scrollbar { display: none; }
+  ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: nowrap; }
+  /* Geniş ekranda tüm bağlantılar görünsün (alt satıra geçer); dar ekranda yatay kaydırılır */
+  @media (min-width: 861px) { ul { flex-wrap: wrap; } }
+  a {
+    display: block;
+    font: 600 14px var(--f-body);
+    padding: 10px 16px;
+    margin-bottom: -2px;
+    border-bottom: 3px solid transparent;
+    color: var(--muted);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color .15s, border-color .15s;
+  }
+  a:hover { color: var(--ink); }
+  a[aria-current="page"] { color: var(--accent); border-bottom-color: var(--accent); }
+</style>

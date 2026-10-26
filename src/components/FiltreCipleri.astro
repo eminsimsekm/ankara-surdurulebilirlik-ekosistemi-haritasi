@@ -1,0 +1,36 @@
+---
+// Tek seçimli filtre çipleri ("Tümü" + seçenekler). Bir [data-filter-root] içine konur;
+// öğeler data-facet ile eşleşir. Mantık scripts/list-filter.ts'te.
+import Cip from "./Cip.astro";
+
+export interface FiltreSecenegi {
+  deger: string;
+  ad: string;
+  sayi: number;
+  renk?: string;
+}
+
+interface Props {
+  etiket: string;
+  secenekler: FiltreSecenegi[];
+  tumuSayi: number;
+  /** Seçimin adres çubuğunda tutulacağı parametre (ör. "universite") */
+  parametre: string;
+}
+const { etiket, secenekler, tumuSayi, parametre } = Astro.props;
+---
+
+<div class="chips" role="group" aria-label={etiket} data-filter-facet={parametre}>
+  <Cip basili={true} sayi={tumuSayi} data-filter-chip data-deger="">Tümü</Cip>
+  {secenekler.map((s) => (
+    <Cip basili={false} renk={s.renk} sayi={s.sayi} data-filter-chip data-deger={s.deger}>{s.ad}</Cip>
+  ))}
+</div>
+
+<style>
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+</style>
+
+<script>
+  import "../scripts/list-filter";
+</script>

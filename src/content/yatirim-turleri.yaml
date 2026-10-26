@@ -1,0 +1,15 @@
+# Yatırım türleri. Anahtar, yatirimlar/*.yaml dosyalarındaki `tur:` alanında kullanılır.
+# `sira`: yatırım listesindeki grup sırası.
+
+girisim:
+  ad: Girişim
+  sira: 1
+kurumsal:
+  ad: Kurumsal
+  sira: 2
+altyapi:
+  ad: Altyapı
+  sira: 3
+fon:
+  ad: Fon
+  sira: 4

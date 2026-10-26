@@ -1,0 +1,32 @@
+---
+import { render } from "astro:content";
+import { akademisyenTamAdi, type Akademisyen, type Kategori, type Universite } from "../../lib/content";
+import ExternalLink from "../ExternalLink.astro";
+import Tags from "../Tags.astro";
+import DetayKabuk from "./DetayKabuk.astro";
+
+interface Props {
+  akademisyen: Akademisyen;
+  universite: Universite;
+  kategori: Kategori;
+  baslikSeviyesi?: "h1" | "h2" | "h3";
+  /** Haritada: başlık kaydın sayfasındaki satırına bağlantı olur */
+  sayfaYolu?: string;
+}
+const { akademisyen, universite, kategori, baslikSeviyesi, sayfaYolu } = Astro.props;
+const d = akademisyen.data;
+const { Content } = await render(akademisyen);
+---
+
+<DetayKabuk
+  kategoriId={kategori.id}
+  kategoriAdi={kategori.data.ad}
+  baslik={akademisyenTamAdi(akademisyen)}
+  altBaslik={`${universite.data.ad} · ${d.birim}`}
+  baslikYolu={sayfaYolu}
+  baslikSeviyesi={baslikSeviyesi}
+>
+  <div class="aciklama"><Content /></div>
+  <Tags etiketler={d.etiketler} />
+  {d.profil && <p class="src"><ExternalLink href={d.profil}>Akademik profil</ExternalLink></p>}
+</DetayKabuk>

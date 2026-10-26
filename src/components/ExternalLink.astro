@@ -1,0 +1,10 @@
+---
+// Site dışına giden bağlantı: yeni sekmede açılır, metnin sonuna ↗ eklenir.
+interface Props {
+  href: string;
+  class?: string;
+}
+const { href, class: className } = Astro.props;
+---
+
+<a href={href} class={className} target="_blank" rel="noopener"><slot>Kaynak</slot> ↗</a>

@@ -1,0 +1,33 @@
+---
+import type { Kategori, TakvimKaydi } from "../../lib/content";
+import { tarihAraligi } from "../../lib/takvim";
+import ExternalLink from "../ExternalLink.astro";
+import TakvimDurumu from "../TakvimDurumu.astro";
+import DetayKabuk from "./DetayKabuk.astro";
+
+interface Props {
+  kayit: TakvimKaydi;
+  kategori: Kategori;
+  baslikSeviyesi?: "h1" | "h2" | "h3";
+  /** Haritada: başlık kaydın sayfasındaki satırına bağlantı olur */
+  sayfaYolu?: string;
+}
+const { kayit, kategori, baslikSeviyesi, sayfaYolu } = Astro.props;
+const d = kayit.data;
+---
+
+<DetayKabuk
+  kategoriId={kategori.id}
+  kategoriAdi={kategori.data.ad}
+  baslik={d.ad}
+  altBaslik={d.duzenleyen}
+  baslikYolu={sayfaYolu}
+  baslikSeviyesi={baslikSeviyesi}
+>
+  <dl class="kv">
+    <dt>Tarih</dt><dd>{tarihAraligi(d.baslangic, d.bitis)}</dd>
+    <dt>Durum</dt><dd><TakvimDurumu kayit={kayit} /></dd>
+  </dl>
+  <div class="aciklama"><p>{d.aciklama}</p></div>
+  {d.kaynak && <p class="src"><ExternalLink href={d.kaynak} /></p>}
+</DetayKabuk>

@@ -1,0 +1,149 @@
+---
+/*
+  Radyal ekosistem haritası. Tamamı build sırasında çizilir:
+  - geometri: lib/harita-yerlesim.ts
+  - düğümler ve detayları: ./kaynaklar.ts
+  - renkler CSS değişkeni olduğu için tema değişince yeniden çizim gerekmez
+  Tarayıcıdaki script (scripts/harita.ts) yalnızca seçim, süzme ve soluklaştırma yapar.
+*/
+import { getKategoriler } from "../../lib/content";
+import Cip from "../Cip.astro";
+import { haritaYerlesimi, HARITA_VIEWBOX } from "../../lib/harita-yerlesim";
+import { haritaDugumleri } from "./kaynaklar";
+
+const [kategoriler, dugumler] = await Promise.all([getKategoriler(), haritaDugumleri()]);
+
+const yerlesim = haritaYerlesimi(
+  kategoriler.map((k) => ({
+    kategori: k.id,
+    etiket: k.data.kisaAd,
+    dugumIdleri: dugumler.filter((n) => n.kategori === k.id).map((n) => n.id),
+  })),
+);
+const dugumById = new Map(dugumler.map((n) => [n.id, n]));
+const sayi = (kategori: string) => dugumler.filter((n) => n.kategori === kategori).length;
+const varsayilan = (dugumler.find((n) => n.oneCikan) ?? dugumler[0])?.id;
+const { merkez } = yerlesim;
+---
+
+<div class="harita" data-harita data-varsayilan={varsayilan} data-merkez-x={merkez.x}>
+  <div class="araclar">
+    <div class="chips" role="group" aria-label="Kategori filtresi">
+      {kategoriler.filter((k) => sayi(k.id) > 0).map((k) => (
+        <Cip basili={true} renk={`--c-${k.id}`} sayi={sayi(k.id)} data-kategori-chip={k.id}>{k.data.ad}</Cip>
+      ))}
+    </div>
+    <input type="search" class="ara" name="ara" data-harita-ara placeholder="Haritada ara: hidrojen, ODTÜ, atık…" aria-label="Haritada ara" />
+  </div>
+
+  <div class="izgara">
+    <div class="kutu">
+      <svg viewBox={HARITA_VIEWBOX} role="group" aria-label="Kategori dilimlerine ayrılmış Ankara ekosistem haritası">
+        {yerlesim.halkalar.map((r) => <circle class="halka" cx={merkez.x} cy={merkez.y} r={r} />)}
+        <circle class="merkez" cx={merkez.x} cy={merkez.y} r={yerlesim.merkezYaricap} />
+        <text class="merkez-yazi" x={merkez.x} y={merkez.y + 6} text-anchor="middle">ANKARA</text>
+
+        {yerlesim.dilimler.map((d) => (
+          <>
+            <line class="dilim-cizgi" x1={d.cizgi.bas.x} y1={d.cizgi.bas.y} x2={d.cizgi.son.x} y2={d.cizgi.son.y} />
+            <text class="dilim-etiket" x={d.etiket.x} y={d.etiket.y + 4} text-anchor={d.etiket.hiza} style={`--c:var(--c-${d.kategori})`}>
+              {d.etiket.metin}
+            </text>
+          </>
+        ))}
+
+        {yerlesim.dugumler.map((p) => {
+          const n = dugumById.get(p.id)!;
+          return (
+            <g
+              class="node"
+              tabindex="0"
+              role="button"
+              aria-label={n.ad}
+              data-id={n.id}
+              data-ad={n.ad}
+              data-kategori={n.kategori}
+              data-search={n.aramaMetni}
+              style={`--c:var(--c-${n.kategori})`}
+            >
+              <circle class="vurus" cx={p.x} cy={p.y} r="11" />
+              <circle class="nokta" cx={p.x} cy={p.y} r="7" />
+              <title>{n.ad}</title>
+            </g>
+          );
+        })}
+
+        <text class="secim-etiket" data-secim-etiket></text>
+      </svg>
+    </div>
+    <aside class="panel" data-detay-panel aria-live="polite"></aside>
+  </div>
+
+  {dugumler.map(({ id, detay: { Bilesen, props } }) => (
+    <template id={`detay:${id}`}>
+      <Bilesen {...props} baslikSeviyesi="h2" />
+    </template>
+  ))}
+</div>
+
+<style>
+  .araclar { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: center; justify-content: space-between; margin: 0 0 14px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .ara {
+    font: 15px var(--f-body);
+    padding: 9px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    color: var(--ink);
+    min-width: 0;
+    width: min(320px, 100%);
+  }
+
+  .izgara { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+  @media (max-width: 860px) { .izgara { grid-template-columns: 1fr; } }
+
+  .kutu { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 8px; }
+  svg { width: 100%; height: auto; display: block; }
+
+  .halka, .dilim-cizgi { fill: none; stroke: var(--line); }
+  .merkez { fill: var(--soft); stroke: var(--line); }
+  .merkez-yazi { fill: var(--ink); font: 800 18px var(--f-display); }
+  .dilim-etiket { fill: var(--c); font: 600 12px var(--f-mono); letter-spacing: .04em; text-transform: uppercase; }
+
+  .node { cursor: pointer; }
+  /* Görünmez geniş daire: telefonda dokunma alanı (düğümler 22 birim aralıklı, 11 yarıçap çakışmaz) */
+  .vurus { fill: transparent; }
+  .nokta { fill: var(--c); stroke: var(--surface); stroke-width: 1.5; }
+  .node { transition: opacity .15s; }
+  .node.dim { opacity: .14; }
+  .node.sel .nokta { stroke: var(--ink); stroke-width: 2.5; }
+  .node:focus-visible { outline: none; }
+  .node:focus-visible .nokta { stroke: var(--accent); stroke-width: 3; }
+
+  .secim-etiket {
+    font: 600 12px var(--f-body);
+    fill: var(--ink);
+    pointer-events: none;
+    paint-order: stroke;
+    stroke: var(--surface);
+    stroke-width: 4px;
+  }
+
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 20px;
+    position: sticky;
+    top: calc(env(safe-area-inset-top, 0px) + 12px);
+    max-height: calc(100vh - 24px);
+    overflow-y: auto;
+  }
+  @media (max-width: 860px) { .panel { position: static; max-height: none; } }
+</style>
+
+<script>
+  import "../../scripts/harita";
+</script>

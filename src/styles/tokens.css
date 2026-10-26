@@ -1,0 +1,74 @@
+/*
+  Tasarım token'ları: sitenin tek renk, yazı tipi ve ölçü kaynağı.
+
+  Açık/koyu tema `light-dark(açık, koyu)` ile tek satırda tanımlanır.
+  Hangi değerin seçileceğini `color-scheme` belirler:
+    - varsayılan: kullanıcının sistem tercihi (light dark)
+    - <html data-theme="light|dark">: kullanıcının sitedeki seçimi (ThemeToggle)
+
+  Kural: her kategorinin rengi `--c-<kategori-id>` adını taşır
+  (id'ler src/content/kategoriler.yaml'daki anahtarlardır). İş birliği türleri
+  için aynı kural `--c-ib-<tur-id>` biçimindedir. Yeni kategori eklerken buraya
+  token'ını eklemek yeterli; /tasarim sayfası eksik rengi boş kutu olarak gösterir.
+*/
+:root {
+  color-scheme: light dark;
+
+  /* Yüzeyler ve metin */
+  --bg: light-dark(#F2F4F1, #0F1614);
+  --surface: light-dark(#FFFFFF, #17211E);
+  --ink: light-dark(#16231F, #E4EBE7);
+  --muted: light-dark(#5B6862, #9AA8A1);
+  --line: light-dark(#D6DDD8, #2A3733);
+  --accent: light-dark(#1F6F5C, #5CC0A2);
+  --on-accent: light-dark(#FFFFFF, #0F1614);
+  --soft: light-dark(#E6ECE8, #1E2A26);
+  --band: light-dark(#E3EDE8, #14201C);
+  --shadow: light-dark(rgb(0 0 0 / .08), rgb(0 0 0 / .4));
+
+  /* Ekosistem kategorileri (harita, çipler, etiketler) */
+  --c-teknopark: light-dark(#1F6F5C, #5CC0A2);
+  --c-tekmer: light-dark(#2E7FB0, #6AB4E6);
+  --c-girisim: light-dark(#B07A1E, #E0A94A);
+  --c-sirket: light-dark(#7A4FA0, #B08AD6);
+  --c-kobi: light-dark(#3D6B55, #6DC99E);
+  --c-arastirma: light-dark(#B5473A, #E8857A);
+  --c-akademisyen: light-dark(#8A3B62, #E089B6);
+  --c-kamu: light-dark(#4E6B2E, #9CC46A);
+  --c-destek: light-dark(#C2583E, #EE8E72);
+  --c-etkinlik: light-dark(#3B5BA9, #8AA6EE);
+  --c-yatirim: light-dark(#0E7C86, #4FC3CC);
+  --c-platform: light-dark(#9A5B13, #D9A066);
+
+  /* İş birliği türleri (rozet zemini color-mix ile bu renkten türetilir) */
+  --c-ib-ar-ge: light-dark(#1F6F5C, #5CC0A2);
+  --c-ib-program: light-dark(#1A5296, #8AB4F0);
+  --c-ib-yatirim: light-dark(#B85C00, #F0A75A);
+  --c-ib-kamu: light-dark(#6B3FA0, #B99AE0);
+  --c-ib-transfer: light-dark(#2E7D32, #7CCB80);
+  --c-ib-uluslararasi: light-dark(#8B4513, #D9A070);
+
+  /* Durum (takvim) */
+  --ok: light-dark(#2F7D4F, #6BC58E);
+  --warn: light-dark(#A86A10, #E3A84A);
+  --off: light-dark(#8A928E, #6E7874);
+
+  /* Yazı tipleri (dosyalar BaseLayout'ta Fontsource'tan yüklenir) */
+  --f-display: "Archivo Variable", "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans Variable", "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+  /* Köşe yarıçapları */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 10px;
+  --r-xl: 12px;
+  --r-pill: 999px;
+
+  /* Yerleşim */
+  --wrap-max: 1180px;
+  --gutter: 16px;
+}
+
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }

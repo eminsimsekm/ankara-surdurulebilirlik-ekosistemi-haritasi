@@ -1,0 +1,20 @@
+---
+interface Props {
+  istatistikler: { deger: string; etiket: string; vurgu: boolean }[];
+}
+const { istatistikler } = Astro.props;
+---
+
+<ul class="istatistikler">
+  {istatistikler.map((s) => (
+    <li class:list={{ vurgu: s.vurgu }}><b>{s.deger}</b><span>{s.etiket}</span></li>
+  ))}
+</ul>
+
+<style>
+  .istatistikler { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  li { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: 12px 14px; }
+  li.vurgu { border-color: var(--c-yatirim); box-shadow: inset 3px 0 0 var(--c-yatirim); }
+  b { display: block; font: 700 24px var(--f-display); font-stretch: 80%; font-variant-numeric: tabular-nums; }
+  span { font-size: 13px; color: var(--muted); }
+</style>

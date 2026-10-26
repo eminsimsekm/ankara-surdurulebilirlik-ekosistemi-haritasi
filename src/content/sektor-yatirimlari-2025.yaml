@@ -1,0 +1,41 @@
+# 2025 Ankara girişim yatırımları, sektöre göre.
+# Kaynak: Ankara Kalkınma Ajansı, 2025 Yılsonu Ankara Girişimcilik Ekosistemi.
+# `vurgu: true` olan satır grafikte öne çıkarılır.
+
+fintech:
+  ad: FinTech
+  islem: 6
+  tutarMilyonDolar: 23.3
+malzeme-uretim:
+  ad: Malzeme & Üretim
+  islem: 9
+  tutarMilyonDolar: 6.1
+otomotiv:
+  ad: Otomotiv
+  islem: 3
+  tutarMilyonDolar: 4.9
+siber-guvenlik:
+  ad: Siber güvenlik
+  islem: 3
+  tutarMilyonDolar: 2.5
+savunma:
+  ad: Savunma
+  islem: 2
+  tutarMilyonDolar: 1.5
+saglik-biyotek:
+  ad: Sağlık & Biyotek
+  islem: 14
+  tutarMilyonDolar: 1
+surdurulebilirlik-cevre:
+  ad: Sürdürülebilirlik & Çevre
+  islem: 4
+  tutarMilyonDolar: 0.65
+  vurgu: true
+robotik:
+  ad: Robotik
+  islem: 3
+  tutarMilyonDolar: 0.36
+oyun:
+  ad: Oyun
+  islem: 1
+  tutarMilyonDolar: 0.085

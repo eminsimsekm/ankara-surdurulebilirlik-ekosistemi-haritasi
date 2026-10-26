@@ -1,0 +1,29 @@
+---
+// Bir [data-filter-root] içine konur; süzme mantığı scripts/list-filter.ts'te.
+interface Props {
+  etiket: string;
+  placeholder?: string;
+  /** Sorgunun adres çubuğunda tutulacağı parametre; sayfada birden çok arama kutusu varsa farklı verilmeli */
+  parametre?: string;
+}
+const { etiket, placeholder = "Ara…", parametre = "ara" } = Astro.props;
+---
+
+<input type="search" class="search" name={parametre} data-filter-input placeholder={placeholder} aria-label={etiket} />
+
+<style>
+  .search {
+    font: 15px var(--f-body);
+    padding: 9px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    color: var(--ink);
+    min-width: 0;
+    width: min(320px, 100%);
+  }
+</style>
+
+<script>
+  import "../scripts/list-filter";
+</script>

@@ -1,0 +1,68 @@
+---
+import "@fontsource-variable/archivo/wdth.css";
+import "@fontsource-variable/ibm-plex-sans";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/500.css";
+import "../styles/tokens.css";
+import "../styles/base.css";
+import SiteNav from "../components/SiteNav.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const SITE_NAME = "Ankara Sürdürülebilirlik Haritası";
+const { title, description = "Ankara'nın sürdürülebilirlik ekosistemi: teknoparklar, TEKMER'ler, girişimler, akademisyenler, yatırımlar ve destekler." } = Astro.props;
+const fullTitle = title === SITE_NAME ? title : `${title} · ${SITE_NAME}`;
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <script is:inline>
+      // Kayıtlı tema seçimini ilk boyamadan önce uygula (yanıp sönmeyi önler).
+      try {
+        const t = localStorage.getItem("tema");
+        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <header class="site-header wrap">
+      <div class="topbar">
+        <a class="brand" href="/">{SITE_NAME}</a>
+        <ThemeToggle />
+      </div>
+      <SiteNav />
+    </header>
+    <main class="wrap">
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style>
+  .site-header { padding-top: 12px; }
+  main { padding-block: 28px 56px; }
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .brand {
+    font: 600 13px var(--f-mono);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .brand:hover { color: var(--ink); }
+</style>

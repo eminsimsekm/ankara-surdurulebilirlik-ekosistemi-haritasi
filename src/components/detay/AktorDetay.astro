@@ -1,0 +1,95 @@
+---
+// Bir aktörün tüm bilgileri. Aktör sayfasında ve haritanın yan panelinde kullanılır.
+import { render } from "astro:content";
+import type { Aktor, Kategori } from "../../lib/content";
+import ExternalLink from "../ExternalLink.astro";
+import Tags from "../Tags.astro";
+import DetayKabuk from "./DetayKabuk.astro";
+
+interface Props {
+  aktor: Aktor;
+  kategori: Kategori;
+  baslikSeviyesi?: "h1" | "h2" | "h3";
+  /** Haritada: başlık aktörün kendi sayfasına bağlantı olur */
+  sayfaYolu?: string;
+}
+const { aktor, kategori, baslikSeviyesi, sayfaYolu } = Astro.props;
+const d = aktor.data;
+const k = kategori.data;
+const { Content } = await render(aktor);
+---
+
+<DetayKabuk
+  kategoriId={kategori.id}
+  kategoriAdi={k.ad}
+  baslik={d.ad}
+  baslikYolu={sayfaYolu}
+  altBaslik={d.konum}
+  baslikSeviyesi={baslikSeviyesi}
+>
+  <div class="aciklama"><Content /></div>
+
+  {(d.uzmanlik || d.surdurulebilirlik) && (
+    <dl class="kv">
+      {d.uzmanlik && <><dt>Uzmanlık</dt><dd>{d.uzmanlik}</dd></>}
+      {d.surdurulebilirlik && <><dt>Sürdürülebilirlik</dt><dd>{d.surdurulebilirlik}</dd></>}
+    </dl>
+  )}
+
+  {d.yonetim?.length ? (
+    <section>
+      <h4 class="cat">Yönetim</h4>
+      <ul class="yonetim">
+        {d.yonetim.map((y) => (
+          <li>
+            <b>{y.ad}</b>
+            <span class="rol">{y.rol}</span>
+            {y.ozgecmis && <span>{y.ozgecmis} </span>}
+            {y.kaynak && <ExternalLink href={y.kaynak} />}
+          </li>
+        ))}
+      </ul>
+    </section>
+  ) : (
+    k.yonetimBekleniyor && <p class="sub">Yönetici bilgisi açık kaynaklarda bulunamadı.</p>
+  )}
+
+  {d.capaFirmalar && (
+    <section>
+      <h4 class="cat">Çapa firmalar</h4>
+      <p class="capa">
+        {d.capaFirmalar.firmalar.join(", ")}
+        {d.capaFirmalar.not && <span class="sub"> · {d.capaFirmalar.not}</span>}
+        {d.capaFirmalar.kaynak && <> <ExternalLink href={d.capaFirmalar.kaynak} /></>}
+      </p>
+    </section>
+  )}
+
+  {d.firmalar && (
+    <section>
+      <h4 class="cat">{k.firmaBasligi}</h4>
+      {d.firmalar.length ? (
+        <ul class="firmalar">{d.firmalar.map((f) => <li>{f}</li>)}</ul>
+      ) : (
+        <p class="sub">Kaynaklarda sürdürülebilirlik alanında isim bazında firma bulunamadı.</p>
+      )}
+    </section>
+  )}
+
+  {d.kisiler && (
+    <dl class="kv"><dt>Kişiler</dt><dd>{d.kisiler}</dd></dl>
+  )}
+
+  <Tags etiketler={d.etiketler} />
+
+  {d.kaynak && <p class="src"><ExternalLink href={d.kaynak} /></p>}
+</DetayKabuk>
+
+<style>
+  .yonetim { list-style: none; padding: 0; margin: 8px 0 4px; display: grid; gap: 10px; }
+  .yonetim li { border-left: 2px solid var(--line); padding-left: 10px; font-size: 13.5px; }
+  .yonetim b { font-weight: 600; }
+  .yonetim .rol { color: var(--muted); font-size: 12.5px; display: block; }
+  .capa { font-size: 13.5px; margin: 6px 0 0; }
+  .firmalar { margin: 8px 0 0; padding-left: 18px; font-size: 14px; }
+</style>

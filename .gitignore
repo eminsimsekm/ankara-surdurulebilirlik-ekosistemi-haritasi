@@ -1,0 +1,20 @@
+# build çıktısı
+dist/
+.astro/
+
+# bağımlılıklar
+node_modules/
+
+# loglar
+npm-debug.log*
+
+# ortam değişkenleri
+.env
+.env.*
+!.env.example
+
+# işletim sistemi / editör
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
