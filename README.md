@@ -58,5 +58,7 @@ Türkçe karaktersiz ve tireli yazın (`netzero-tekmer.md`); yayına çıktıkta
 - `src/styles/base.css`: sayfa geneli temel stiller
 - `src/layouts/BaseLayout.astro`: tüm sayfaların iskeleti
 
+Henüz yapılmamış işlerin adım adım tarifleri `yapilacaklar/` klasöründe.
+
 Eski tek dosyalık HTML sürümü ve veriyi ondan aktaran script `df9265a` commit'inde duruyor
 (`legacy/`, `scripts/migrate-legacy.mjs`).
