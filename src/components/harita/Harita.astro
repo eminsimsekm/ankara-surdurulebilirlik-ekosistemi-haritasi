@@ -7,7 +7,7 @@
   Tarayıcıdaki script (scripts/harita.ts) yalnızca seçim, süzme ve soluklaştırma yapar.
 */
 import { getKategoriler } from "../../lib/content";
-import Cip from "../Cip.astro";
+import FiltreCipleri from "../FiltreCipleri.astro";
 import { haritaYerlesimi, HARITA_VIEWBOX } from "../../lib/harita-yerlesim";
 import { haritaDugumleri } from "./kaynaklar";
 
@@ -28,11 +28,14 @@ const { merkez } = yerlesim;
 
 <div class="harita" data-harita data-varsayilan={varsayilan} data-merkez-x={merkez.x}>
   <div class="araclar">
-    <div class="chips" role="group" aria-label="Kategori filtresi">
-      {kategoriler.filter((k) => sayi(k.id) > 0).map((k) => (
-        <Cip basili={true} renk={`--c-${k.id}`} sayi={sayi(k.id)} data-kategori-chip={k.id}>{k.data.ad}</Cip>
-      ))}
-    </div>
+    <FiltreCipleri
+      etiket="Kategori filtresi"
+      parametre="kategori"
+      tumuSayi={dugumler.length}
+      secenekler={kategoriler
+        .filter((k) => sayi(k.id) > 0)
+        .map((k) => ({ deger: k.id, ad: k.data.ad, sayi: sayi(k.id), renk: `--c-${k.id}` }))}
+    />
     <input type="search" class="ara" name="ara" data-harita-ara placeholder="Haritada ara: hidrojen, ODTÜ, atık…" aria-label="Haritada ara" />
   </div>
 
@@ -88,7 +91,7 @@ const { merkez } = yerlesim;
 
 <style>
   .araclar { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: center; justify-content: space-between; margin: 0 0 14px; }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .araclar :global(.chips) { margin: 0; }
 
   .ara {
     font: 15px var(--f-body);

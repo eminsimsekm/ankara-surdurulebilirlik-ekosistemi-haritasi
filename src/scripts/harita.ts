@@ -1,7 +1,11 @@
 /*
   Haritanın tarayıcı tarafı: kategori çipleri, arama, düğüm seçimi.
   Detaylar sunucuda <template id="detay:<id>"> olarak hazır; burada yalnızca
-  panele kopyalanır. Seçim ve arama adres çubuğunda tutulur (?secim=…&ara=…).
+  panele kopyalanır. Kategori, arama ve seçim adres çubuğunda tutulur
+  (?kategori=…&ara=…&secim=…).
+
+  Kategori çipleri FiltreCipleri bileşenidir (tek seçimli: "Tümü" ya da bir kategori).
+  Listelerden farkı: eşleşmeyen düğümler gizlenmez, soluklaştırılır.
 */
 import { matchesQuery, searchKey } from "../lib/text";
 import { durumlariGuncelle } from "./takvim-durum";
@@ -9,15 +13,16 @@ import { durumlariGuncelle } from "./takvim-durum";
 const ETIKET_UZUNLUGU = 28;
 
 function kur(root: HTMLElement) {
-  const chips = [...root.querySelectorAll<HTMLButtonElement>("[data-kategori-chip]")];
+  const facet = root.querySelector<HTMLElement>("[data-filter-facet]");
+  const chips = [...root.querySelectorAll<HTMLButtonElement>("[data-filter-chip]")];
   const nodes = [...root.querySelectorAll<SVGGElement>("[data-id]")];
   const panel = root.querySelector<HTMLElement>("[data-detay-panel]")!;
   const etiket = root.querySelector<SVGTextElement>("[data-secim-etiket]")!;
   const ara = root.querySelector<HTMLInputElement>("[data-harita-ara]");
   const merkezX = Number(root.dataset.merkezX);
+  const kategoriParam = facet?.dataset.filterFacet ?? "kategori";
 
-  const tumu = chips.map((c) => c.dataset.kategoriChip!);
-  let aktif = new Set(tumu);
+  let seciliKategori = ""; // "" = tümü
   let sorgu = "";
 
   const adresiGuncelle = (param: string, deger: string | null) => {
@@ -28,24 +33,24 @@ function kur(root: HTMLElement) {
   };
 
   function suz() {
-    for (const chip of chips) chip.setAttribute("aria-pressed", String(aktif.has(chip.dataset.kategoriChip!)));
+    for (const chip of chips) chip.setAttribute("aria-pressed", String((chip.dataset.deger ?? "") === seciliKategori));
     for (const n of nodes) {
-      const gorunur = aktif.has(n.dataset.kategori!) && matchesQuery(n.dataset.search ?? "", sorgu);
+      const gorunur =
+        (!seciliKategori || n.dataset.kategori === seciliKategori) && matchesQuery(n.dataset.search ?? "", sorgu);
       n.classList.toggle("dim", !gorunur);
     }
   }
 
-  // Hepsi açıkken tıklanan kategoriyi tek başına göster; sonra tıklananları ekle/çıkar;
-  // hiçbiri kalmazsa hepsine dön.
+  // Tek seçim: tıklanan çip seçilir, öncekinin seçimi kalkar. "Tümü" (deger="") hepsini gösterir.
+  const kategoriSec = (deger: string) => {
+    seciliKategori = chips.some((c) => c.dataset.deger === deger) ? deger : "";
+  };
+  kategoriSec(new URLSearchParams(location.search).get(kategoriParam) ?? "");
   for (const chip of chips) {
     chip.addEventListener("click", () => {
-      const k = chip.dataset.kategoriChip!;
-      if (aktif.size === tumu.length) aktif = new Set([k]);
-      else if (aktif.has(k)) {
-        aktif.delete(k);
-        if (!aktif.size) aktif = new Set(tumu);
-      } else aktif.add(k);
+      kategoriSec(chip.dataset.deger ?? "");
       suz();
+      adresiGuncelle(kategoriParam, seciliKategori || null);
     });
   }
 
