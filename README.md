@@ -52,7 +52,8 @@ Türkçe karaktersiz ve tireli yazın (`netzero-tekmer.md`); yayına çıktıkta
   (yeni bir içerik türünü haritaya eklemek için oraya bir kaynak eklenir)
 - `src/scripts/`: yalnızca tarayıcıda çalışan kod (liste süzme, harita etkileşimi, takvim durumu)
 - `src/pages/[kategori]/`: tüm kategori ve aktör sayfalarını üreten iki şablon
-- `src/pages/*.astro`: harita (ana sayfa), NetZero, akademisyenler, yatırımlar, takvim, iş birlikleri
+- `src/pages/*.astro`: harita (ana sayfa), kurumlar, NetZero, akademisyenler, yatırımlar, takvim, iş birlikleri
+- `src/components/SiteNav.astro`: iki katmanlı menü; kurum kategorileri yalnızca Kurumlar bölümünde alt satırda
 - `src/styles/tokens.css`: renkler, yazı tipleri, açık/koyu tema. Önizleme: `/tasarim`
 - `src/styles/base.css`: sayfa geneli temel stiller
 - `src/layouts/BaseLayout.astro`: tüm sayfaların iskeleti

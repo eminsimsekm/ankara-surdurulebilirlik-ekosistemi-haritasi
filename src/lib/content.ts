@@ -34,11 +34,13 @@ export async function getKategoriler(): Promise<Kategori[]> {
   return (await getCollection("kategoriler")).sort(siraya);
 }
 
-/** Üst menüdeki kategoriler (menuSira'sı olanlar), menü sırasıyla. */
+/** Menü sırası; menuSira'sı olmayanlar sona. */
+const menuSirasina = (a: Kategori, b: Kategori) =>
+  (a.data.menuSira ?? Infinity) - (b.data.menuSira ?? Infinity) || a.data.sira - b.data.sira;
+
+/** Kurumlar menüsündeki kategoriler (menuSira'sı olanlar), menü sırasıyla. */
 export async function getMenuKategorileri(): Promise<Kategori[]> {
-  return (await getKategoriler())
-    .filter((k) => k.data.menuSira !== undefined)
-    .sort((a, b) => a.data.menuSira! - b.data.menuSira!);
+  return (await getKategoriler()).filter((k) => k.data.menuSira !== undefined).sort(menuSirasina);
 }
 
 /** Öne çıkanlar önce, sonra ada göre (Türkçe alfabe). */
@@ -66,6 +68,11 @@ export async function getAktorGruplari(): Promise<AktorGrubu[]> {
   return gruplar;
 }
 
+/** Kurumlar sayfası için: aktör grupları menü sırasıyla. */
+export async function getKurumGruplari(): Promise<AktorGrubu[]> {
+  return (await getAktorGruplari()).sort((a, b) => menuSirasina(a.kategori, b.kategori));
+}
+
 export async function getAktor(id: string): Promise<{ aktor: Aktor; kategori: Kategori }> {
   for (const { kategori, aktorler } of await getAktorGruplari()) {
     const aktor = aktorler.find((a) => a.id === id);
@@ -73,6 +80,9 @@ export async function getAktor(id: string): Promise<{ aktor: Aktor; kategori: Ka
   }
   throw new Error(`"${id}" aktörü bulunamadı (src/content/aktorler/**/${id}.md).`);
 }
+
+/** Kategori sayfasının başlığı; tanımlı değilse kategori adı. */
+export const kategoriBasligi = (kategori: Kategori) => kategori.data.baslik ?? kategori.data.ad;
 
 export const kategoriYolu = (kategori: Kategori) => `/${kategori.data.yol}/`;
 export const aktorYolu = (kategori: Kategori, aktor: Aktor) => `/${kategori.data.yol}/${aktor.id}/`;

@@ -14,7 +14,7 @@ const d = aktor.data;
 const { Content } = await render(aktor);
 ---
 
-<li class="aktor" data-filter-item data-search={aktorAramaMetni(aktor)}>
+<li class="aktor" data-filter-item data-facet={kategori.id} data-search={aktorAramaMetni(aktor)}>
   <div class="kimlik">
     <a href={aktorYolu(kategori, aktor)}>{d.ad}</a>
     <span>{d.konum}</span>

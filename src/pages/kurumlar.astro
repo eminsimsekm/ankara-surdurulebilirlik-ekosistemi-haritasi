@@ -1,0 +1,47 @@
+---
+// Tüm kurumlar tek listede: kategori çipleri ve arama. Kategorilerin kendi sayfaları [kategori]/'da.
+import FiltreCipleri from "../components/FiltreCipleri.astro";
+import ListeGrubu from "../components/ListeGrubu.astro";
+import PageHeader from "../components/PageHeader.astro";
+import SearchBox from "../components/SearchBox.astro";
+import AktorSatiri from "../components/satirlar/AktorSatiri.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getKurumGruplari, getSayfa, kategoriBasligi } from "../lib/content";
+
+const [sayfa, gruplar] = await Promise.all([getSayfa("kurumlar"), getKurumGruplari()]);
+const toplam = gruplar.reduce((n, g) => n + g.aktorler.length, 0);
+const { baslik, ozet } = sayfa.data;
+---
+
+<BaseLayout title={baslik} description={ozet}>
+  <div data-filter-root>
+    <PageHeader baslik={baslik} ust={`${toplam} kurum · ${gruplar.length} kategori`} lede={ozet}>
+      <SearchBox etiket="Kurumlarda ara" placeholder="Ara: güneş, atık, ODTÜ, batarya…" />
+    </PageHeader>
+
+    <FiltreCipleri
+      etiket="Kategori filtresi"
+      parametre="kategori"
+      tumuSayi={toplam}
+      secenekler={gruplar.map(({ kategori, aktorler }) => ({
+        deger: kategori.id,
+        ad: kategoriBasligi(kategori),
+        sayi: aktorler.length,
+        renk: `--c-${kategori.id}`,
+      }))}
+    />
+
+    {gruplar.map(({ kategori, aktorler }) => (
+      <ListeGrubu baslik={kategoriBasligi(kategori)} sayi={aktorler.length} birim="kayıt">
+        <ul class="liste">
+          {aktorler.map((aktor) => <AktorSatiri aktor={aktor} kategori={kategori} />)}
+        </ul>
+      </ListeGrubu>
+    ))}
+    <p class="empty" data-filter-empty hidden>Bu filtreyle eşleşen kurum yok.</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .liste { list-style: none; margin: 0; padding: 0; }
+</style>

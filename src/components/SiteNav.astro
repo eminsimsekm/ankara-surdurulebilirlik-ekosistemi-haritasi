@@ -1,6 +1,10 @@
 ---
-// Üst menü. Kategori bağlantıları kategoriler.yaml'daki menuAdi/menuSira'dan gelir;
-// kategori olmayan sayfalar aşağıdaki listelerde.
+/*
+  Üst menü, iki katman:
+  - Ana satır: sitenin bölümleri.
+  - Kurumlar alt satırı: kurum kategorileri; yalnızca Kurumlar bölümündeyken görünür.
+    Kategoriler kategoriler.yaml'daki menuAdi/menuSira'dan gelir.
+*/
 import { getMenuKategorileri, kategoriYolu } from "../lib/content";
 
 interface Baglanti {
@@ -8,31 +12,58 @@ interface Baglanti {
   yol: string;
 }
 
-const once: Baglanti[] = [
+const KURUMLAR_YOLU = "/kurumlar/";
+
+const kurumKategorileri: Baglanti[] = (await getMenuKategorileri()).map((k) => ({
+  ad: k.data.menuAdi!,
+  yol: kategoriYolu(k),
+}));
+
+const anaBaglantilar: Baglanti[] = [
   { ad: "Harita", yol: "/" },
-  { ad: "NetZero TEKMER", yol: "/netzero/" },
-];
-const sonra: Baglanti[] = [
+  { ad: "Kurumlar", yol: KURUMLAR_YOLU },
   { ad: "Akademisyenler", yol: "/akademisyenler/" },
   { ad: "Yatırımlar", yol: "/yatirimlar/" },
   { ad: "Takvim", yol: "/takvim/" },
   { ad: "İş Birlikleri", yol: "/isbirlikleri/" },
+  { ad: "NetZero TEKMER", yol: "/netzero/" },
 ];
 
-const kategoriler = (await getMenuKategorileri()).map((k) => ({ ad: k.data.menuAdi!, yol: kategoriYolu(k) }));
-const baglantilar = [...once, ...kategoriler, ...sonra];
-
 const simdiki = Astro.url.pathname.replace(/\/?$/, "/");
-const aktifMi = (yol: string) => (yol === "/" ? simdiki === "/" : simdiki.startsWith(yol));
+const altinda = (yol: string) => (yol === "/" ? simdiki === "/" : simdiki.startsWith(yol));
+const kurumlardaMi = altinda(KURUMLAR_YOLU) || kurumKategorileri.some((k) => altinda(k.yol));
+
+const anaAktif = (b: Baglanti) => (b.yol === KURUMLAR_YOLU ? kurumlardaMi : altinda(b.yol));
+const altBaglantilar: Baglanti[] = [{ ad: "Tümü", yol: KURUMLAR_YOLU }, ...kurumKategorileri];
+const altAktif = (b: Baglanti) => (b.yol === KURUMLAR_YOLU ? simdiki === KURUMLAR_YOLU : altinda(b.yol));
 ---
 
 <nav class="site-nav" aria-label="Bölümler">
-  <ul>
-    {baglantilar.map((b) => (
-      <li><a href={b.yol} aria-current={aktifMi(b.yol) ? "page" : undefined}>{b.ad}</a></li>
+  <ul class="ana">
+    {anaBaglantilar.map((b) => (
+      <li>
+        <a href={b.yol} aria-current={anaAktif(b) ? "page" : undefined}>
+          {b.ad}
+          {b.yol === KURUMLAR_YOLU && (
+            <svg class:list={["ok", { acik: kurumlardaMi }]} viewBox="0 0 10 6" aria-hidden="true">
+              <path d="M1 1l4 4 4-4" />
+            </svg>
+          )}
+        </a>
+      </li>
     ))}
   </ul>
 </nav>
+
+{kurumlardaMi && (
+  <nav class="site-nav alt" aria-label="Kurum kategorileri">
+    <ul>
+      {altBaglantilar.map((b) => (
+        <li><a href={b.yol} aria-current={altAktif(b) ? "page" : undefined}>{b.ad}</a></li>
+      ))}
+    </ul>
+  </nav>
+)}
 
 <style>
   .site-nav { border-bottom: 2px solid var(--line); overflow-x: auto; scrollbar-width: none; }
@@ -53,4 +84,23 @@ const aktifMi = (yol: string) => (yol === "/" ? simdiki === "/" : simdiki.starts
   }
   a:hover { color: var(--ink); }
   a[aria-current="page"] { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* Kurumlar'ın alt menüsü olduğunu gösteren ok; alt menü açıkken yukarı döner */
+  .ok {
+    width: 10px;
+    height: 6px;
+    margin-left: 6px;
+    vertical-align: middle;
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform .15s;
+  }
+  .ok.acik { transform: rotate(180deg); }
+
+  /* Alt satır: daha küçük, ana satırın altında hafif zeminli */
+  .alt { background: var(--soft); border-bottom-width: 1px; border-radius: 0 0 var(--r-md) var(--r-md); }
+  .alt a { font: 500 13px var(--f-body); padding: 8px 12px; margin-bottom: -1px; border-bottom-width: 2px; }
 </style>

@@ -26,7 +26,7 @@ grafik:
 
 Bunun resmî bir sayısı yok. Ankara Kalkınma Ajansı'nın 3.000+ rakamı 2018–2025 arası tüm teknoloji girişimlerini kapsıyor ve sektöre göre girişim sayısı vermiyor; startups.watch ve Invest in Türkiye raporlarında da Ankara için iklim veya sürdürülebilirlik girişimi sayımı bulunmuyor. Elimizdeki göstergeler:
 
-- **Haritada \~21 girişim/firma** sürdürülebilirlik alanında: 10'u ayrı girişim kartı (Evreka, Inavitas, FarmLabs, MicroFert, TRIPY, Sine Enerji, Biomass Enerji, DOA Smart, CFL, AISField), diğerleri teknopark firma listelerinde (ONO Yazılım, SESASİS, Sputek, OSTİM Teknopark'taki 8 enerji/tarım/çevre firması). Bu bir alt sınır; tam bir tarama değil.
+- **Haritada \~51 girişim/firma** sürdürülebilirlik alanında: 10'u ayrı girişim kartı (Evreka, Inavitas, FarmLabs, MicroFert, TRIPY, Sine Enerji, Biomass Enerji, DOA Smart, CFL, AISField), diğerleri teknopark firma listelerinde (ONO Yazılım, SESASİS, Sputek, OSTİM Teknopark'taki 8 enerji/tarım/çevre firması). Bu bir alt sınır; tam bir tarama değil.
 - **Yatırım alanlarda \~%9:** 2025'te sektörü belirtilen 46 yatırım işleminin 4'ü "Sürdürülebilirlik & Çevre". Tutarda pay çok düşük: 41 milyon doların \~650 bini (\~%1,6).
 - **Türkiye geneliyle kıyas:** startups.watch 2025'te ülke genelinde 18 "Enerji" ve 10 "Sürdürülebilirlik" etiketli işlem saydı (etiketler çakışabilir).
 
