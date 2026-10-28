@@ -71,7 +71,7 @@ const aktorler: HaritaKaynagi = async () =>
           aramaMetni: aktorAramaMetni(aktor, alanlar),
           oneCikan: aktor.data.oneCikan,
           altGrup: { id: birincil.id, etiket: birincil.data.ad, sira: birincil.data.sira },
-          detay: { Bilesen: AktorDetay, props: { aktor, kategori, sayfaYolu: aktorYolu(kategori, aktor) } },
+          detay: { Bilesen: AktorDetay, props: { aktor, kategori, sayfaYolu: aktorYolu(kategori, aktor), ozet: true } },
         };
       }),
     ),

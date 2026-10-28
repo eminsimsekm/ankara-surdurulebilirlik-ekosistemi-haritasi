@@ -1,5 +1,5 @@
 ---
-// Bir aktörün tüm bilgileri. Aktör sayfasında ve haritanın yan panelinde kullanılır.
+// Bir aktörün bilgileri. Aktör sayfasında tamamı, haritanın yan panelinde özeti (ozet) gösterilir.
 import { render } from "astro:content";
 import { aktorAlanlari, type Aktor, type Kategori } from "../../lib/content";
 import AlanBaglantilari from "../AlanBaglantilari.astro";
@@ -13,8 +13,13 @@ interface Props {
   baslikSeviyesi?: "h1" | "h2" | "h3";
   /** Haritada: başlık aktörün kendi sayfasına bağlantı olur */
   sayfaYolu?: string;
+  /**
+   * Haritanın yan paneli için kısa hâl: açıklama, alanlar ve etiketler. Yönetim, firmalar,
+   * uzmanlık gibi uzun bölümler yalnızca aktörün kendi sayfasında; panelde oraya bağlantı verilir.
+   */
+  ozet?: boolean;
 }
-const { aktor, kategori, baslikSeviyesi, sayfaYolu } = Astro.props;
+const { aktor, kategori, baslikSeviyesi, sayfaYolu, ozet = false } = Astro.props;
 const d = aktor.data;
 const k = kategori.data;
 const { Content } = await render(aktor);
@@ -31,15 +36,15 @@ const alanlar = await aktorAlanlari(aktor);
 >
   <div class="aciklama"><Content /></div>
 
-  {(alanlar.length > 0 || d.uzmanlik || d.surdurulebilirlik) && (
+  {(alanlar.length > 0 || (!ozet && (d.uzmanlik || d.surdurulebilirlik))) && (
     <dl class="kv">
       {alanlar.length > 0 && <><dt>Alan</dt><dd><AlanBaglantilari alanlar={alanlar} /></dd></>}
-      {d.uzmanlik && <><dt>Uzmanlık</dt><dd>{d.uzmanlik}</dd></>}
-      {d.surdurulebilirlik && <><dt>Sürdürülebilirlik</dt><dd>{d.surdurulebilirlik}</dd></>}
+      {!ozet && d.uzmanlik && <><dt>Uzmanlık</dt><dd>{d.uzmanlik}</dd></>}
+      {!ozet && d.surdurulebilirlik && <><dt>Sürdürülebilirlik</dt><dd>{d.surdurulebilirlik}</dd></>}
     </dl>
   )}
 
-  {d.yonetim?.length ? (
+  {ozet ? null : d.yonetim?.length ? (
     <section>
       <h4 class="cat">Yönetim</h4>
       <ul class="yonetim">
@@ -57,7 +62,7 @@ const alanlar = await aktorAlanlari(aktor);
     k.yonetimBekleniyor && <p class="sub">Yönetici bilgisi açık kaynaklarda bulunamadı.</p>
   )}
 
-  {d.capaFirmalar && (
+  {!ozet && d.capaFirmalar && (
     <section>
       <h4 class="cat">Çapa firmalar</h4>
       <p class="capa">
@@ -68,7 +73,7 @@ const alanlar = await aktorAlanlari(aktor);
     </section>
   )}
 
-  {d.firmalar && (
+  {!ozet && d.firmalar && (
     <section>
       <h4 class="cat">{k.firmaBasligi}</h4>
       {d.firmalar.length ? (
@@ -79,13 +84,15 @@ const alanlar = await aktorAlanlari(aktor);
     </section>
   )}
 
-  {d.kisiler && (
+  {!ozet && d.kisiler && (
     <dl class="kv"><dt>Kişiler</dt><dd>{d.kisiler}</dd></dl>
   )}
 
   <Tags etiketler={d.etiketler} />
 
-  {d.kaynak && <p class="src"><ExternalLink href={d.kaynak} /></p>}
+  {!ozet && d.kaynak && <p class="src"><ExternalLink href={d.kaynak} /></p>}
+
+  {ozet && sayfaYolu && <p class="devami"><a href={sayfaYolu}>Tüm ayrıntılar →</a></p>}
 </DetayKabuk>
 
 <style>
@@ -95,4 +102,5 @@ const alanlar = await aktorAlanlari(aktor);
   .yonetim .rol { color: var(--muted); font-size: 12.5px; display: block; }
   .capa { font-size: 13.5px; margin: 6px 0 0; }
   .firmalar { margin: 8px 0 0; padding-left: 18px; font-size: 14px; }
+  .devami { margin: 14px 0 0; font-size: 14px; font-weight: 600; }
 </style>
