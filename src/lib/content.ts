@@ -112,6 +112,14 @@ export async function getAlanlar(): Promise<Alan[]> {
   return (await getCollection("alanlar")).sort(siraya);
 }
 
+/**
+ * Kurumun birincil alanı (dosyadaki ilk alan). "Bu alanda kaç kurum var" sorusunun TEK tanımı:
+ * alan sayıları, alan filtresi ve haritadaki dilim bundan beslenir. İkincil alanlar yalnızca
+ * gösterim ve arama içindir; sayıma ve filtreye girmez. Böylece alan toplamları her yerde
+ * kurum sayısına eşittir.
+ */
+export const birincilAlanId = (aktor: Aktor): string => aktor.data.alanlar[0]!; // şema en az bir alan istiyor
+
 /** Aktörün alanları, dosyadaki sırayla (ilki birincil alan). */
 export async function aktorAlanlari(aktor: Aktor): Promise<Alan[]> {
   const alanlar = idSozlugu(await getAlanlar());
@@ -121,11 +129,17 @@ export async function aktorAlanlari(aktor: Aktor): Promise<Alan[]> {
 /** Kurumlar sayfasını bu alana süzülmüş açan adres. */
 export const alanYolu = (alan: Alan) => yol(`/kurumlar/?alan=${alan.id}`);
 
-/** Listedeki aktörlerin kullandığı alanlar ve kaçar aktörde geçtikleri; alan sırasıyla, boşlar hariç. */
+/** Listedeki aktörlerin birincil alanlarına göre sayıları; alan sırasıyla, boşlar hariç. */
 export async function alanSayilari(aktorler: Aktor[]): Promise<{ alan: Alan; sayi: number }[]> {
-  return (await getAlanlar())
-    .map((alan) => ({ alan, sayi: aktorler.filter((a) => a.data.alanlar.includes(alan.id)).length }))
+  const sayilar = (await getAlanlar())
+    .map((alan) => ({ alan, sayi: aktorler.filter((a) => birincilAlanId(a) === alan.id).length }))
     .filter((x) => x.sayi > 0);
+  // Değişmez kural: her kurum tam bir alanda sayılır. Tutmazsa sayım tanımı bir yerde bozulmuştur.
+  const toplam = sayilar.reduce((n, x) => n + x.sayi, 0);
+  if (toplam !== aktorler.length) {
+    throw new Error(`Alan sayıları (${toplam}) kurum sayısını (${aktorler.length}) tutmuyor; birincilAlanId() tanımına bakın.`);
+  }
+  return sayilar;
 }
 
 // Akademisyenler

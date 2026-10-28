@@ -38,7 +38,7 @@ const alanlar = await aktorAlanlari(aktor);
 
   {(alanlar.length > 0 || (!ozet && (d.uzmanlik || d.surdurulebilirlik))) && (
     <dl class="kv">
-      {alanlar.length > 0 && <><dt>Alan</dt><dd><AlanBaglantilari alanlar={alanlar} /></dd></>}
+      {alanlar.length > 0 && <><dt>Alan</dt><dd><AlanBaglantilari aktor={aktor} /></dd></>}
       {!ozet && d.uzmanlik && <><dt>Uzmanlık</dt><dd>{d.uzmanlik}</dd></>}
       {!ozet && d.surdurulebilirlik && <><dt>Sürdürülebilirlik</dt><dd>{d.surdurulebilirlik}</dd></>}
     </dl>

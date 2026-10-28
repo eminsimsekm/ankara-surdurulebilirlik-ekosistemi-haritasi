@@ -1,7 +1,7 @@
 ---
 // Kategori listesindeki bir aktör satırı. Bir [data-filter-root] içindeki <ul> içinde kullanılır.
 import { render } from "astro:content";
-import { aktorAlanlari, aktorAramaMetni, aktorYolu, type Aktor, type Kategori } from "../../lib/content";
+import { aktorAlanlari, aktorAramaMetni, aktorYolu, birincilAlanId, type Aktor, type Kategori } from "../../lib/content";
 import AlanBaglantilari from "../AlanBaglantilari.astro";
 import ExternalLink from "../ExternalLink.astro";
 import Tags from "../Tags.astro";
@@ -20,7 +20,7 @@ const alanlar = await aktorAlanlari(aktor);
   class="aktor"
   data-filter-item
   data-facet-kategori={kategori.id}
-  data-facet-alan={d.alanlar.join(" ")}
+  data-facet-alan={birincilAlanId(aktor)}
   data-search={aktorAramaMetni(aktor, alanlar)}
 >
   <div class="kimlik">
@@ -32,7 +32,7 @@ const alanlar = await aktorAlanlari(aktor);
     {d.kisiler && <p class="ek"><b>Kişi:</b> {d.kisiler}</p>}
     {d.surdurulebilirlik && <p class="ek"><b>Sürdürülebilirlik:</b> {d.surdurulebilirlik}</p>}
     <div class="alt">
-      <AlanBaglantilari alanlar={alanlar} />
+      <AlanBaglantilari aktor={aktor} />
       <Tags etiketler={d.etiketler} />
       {d.kaynak && <ExternalLink href={d.kaynak} />}
     </div>

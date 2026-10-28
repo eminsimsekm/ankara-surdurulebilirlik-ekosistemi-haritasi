@@ -45,6 +45,10 @@ alanlar: [enerji-depolama, e-mobilite]   # filtre çipi olur, kurumlar sayfasın
 etiketler: [LFP batarya, enerji depolama, EV şarj]   # serbest ayrıntı; filtre olmaz
 ```
 
+Sayım, alan filtresi ve haritadaki dilim **yalnızca birincil alana** göredir; böylece alan sayılarının
+toplamı her zaman kurum sayısına eşittir (tutmazsa build durur). İkincil alanlar kurum satırında ve
+sayfasında bilgi olarak görünür ve aramada bulunur. Tanım tek yerde: `birincilAlanId()` (`src/lib/content.ts`).
+
 ### Kayıtları kurumlara bağlamak
 
 Yatırım, takvim ve akademisyen kayıtlarına `aktorler` alanı yazılırsa kayıt, o kurumların sayfasında

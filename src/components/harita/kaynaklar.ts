@@ -11,6 +11,7 @@ import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 import {
   akademisyenAramaMetni,
   aktorAlanlari,
+  birincilAlanId,
   aktorAramaMetni,
   aktorYolu,
   getAkademisyenler,
@@ -63,7 +64,7 @@ const aktorler: HaritaKaynagi = async () =>
     (await getAktorGruplari()).flatMap(({ kategori, aktorler }) =>
       aktorler.map(async (aktor) => {
         const alanlar = await aktorAlanlari(aktor);
-        const birincil = alanlar[0]!; // şema en az bir alan istiyor
+        const birincil = alanlar.find((a) => a.id === birincilAlanId(aktor))!;
         return {
           id: aktorDugumId(aktor.id),
           kategori: kategori.id,

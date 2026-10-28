@@ -1,25 +1,33 @@
 ---
-// Bir kurumun faaliyet alanları; her biri Kurumlar sayfasını o alana süzülmüş açar.
-// Etiketlerden (Tags) görsel olarak ayrışır: etiket bilgi, alan filtre bağlantısı.
-import { alanYolu, type Alan } from "../lib/content";
+// Bir kurumun faaliyet alanları. Birincil alan, Kurumlar sayfasını o alana süzülmüş açan bağlantıdır;
+// ikincil alanlar yalnızca bilgidir (filtre ve sayım birincil alana göre, bkz. birincilAlanId).
+// Etiketlerden (Tags) görsel olarak ayrışır: etiket serbest ayrıntı, alan kontrollü liste.
+import { aktorAlanlari, alanYolu, birincilAlanId, type Aktor } from "../lib/content";
 
 interface Props {
-  alanlar: readonly Alan[];
+  aktor: Aktor;
 }
-const { alanlar } = Astro.props;
+const { aktor } = Astro.props;
+const alanlar = await aktorAlanlari(aktor);
+const birincil = birincilAlanId(aktor);
 ---
 
 {alanlar.length > 0 && (
   <ul class="alanlar">
-    {alanlar.map((alan) => (
-      <li><a href={alanYolu(alan)} title={`${alan.data.ad} alanındaki tüm kurumlar`}>{alan.data.ad}</a></li>
-    ))}
+    {alanlar.map((alan) =>
+      alan.id === birincil ? (
+        <li><a href={alanYolu(alan)} title={`${alan.data.ad} alanındaki tüm kurumlar`}>{alan.data.ad}</a></li>
+      ) : (
+        <li><span title="İkincil alan">{alan.data.ad}</span></li>
+      ),
+    )}
   </ul>
 )}
 
 <style>
   .alanlar { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
-  .alanlar a {
+  .alanlar a,
+  .alanlar span {
     display: block;
     font-size: 12px;
     font-weight: 600;
@@ -27,8 +35,10 @@ const { alanlar } = Astro.props;
     padding: 1px 8px;
     border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
     border-radius: var(--r-pill);
-    color: var(--accent);
     text-decoration: none;
   }
+  .alanlar a { color: var(--accent); }
   .alanlar a:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  /* İkincil alan: bağlantı değil, daha soluk */
+  .alanlar span { color: var(--muted); font-weight: 500; border-style: dashed; border-color: var(--line); }
 </style>
