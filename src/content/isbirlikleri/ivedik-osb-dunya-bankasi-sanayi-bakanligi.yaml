@@ -1,6 +1,7 @@
 taraflar:
-  - İvedik OSB
-  - Dünya Bankası · Sanayi Bakanlığı
+  - ad: İvedik OSB
+  - ad: Dünya Bankası
+  - ad: Sanayi Bakanlığı
 tur: kamu
 aciklama: 250 milyon Euro AB finansmanlı Türkiye OSB Projesi; İvedik'te çatı GES ve akıllı SCADA kurulumları.
 etiketler:

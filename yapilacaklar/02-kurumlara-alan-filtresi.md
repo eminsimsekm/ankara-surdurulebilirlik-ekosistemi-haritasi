@@ -1,7 +1,7 @@
 # Kurumlara faaliyet alanı filtresi
 
 **Durum:** Başlanmadı. 5. bölümdeki alan listesi ve 6. bölümdeki kararlar onay bekliyor.
-**Bağımlılık:** Yok. `01-kayitlari-kurumlara-baglama.md` ile herhangi bir sırayla yapılabilir.
+**Bağımlılık:** Yok.
 
 ---
 

@@ -2,6 +2,7 @@
 // Her aktörün kendi sayfası (/tekmerler/netzero-tekmer).
 import type { GetStaticPaths } from "astro";
 import AktorDetay from "../../components/detay/AktorDetay.astro";
+import IliskiliBolumler from "../../components/iliskiler/IliskiliBolumler.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getAktorGruplari, kategoriBasligi, kategoriYolu, kisaOzet, type Aktor, type Kategori } from "../../lib/content";
 
@@ -29,6 +30,7 @@ const { aktor, kategori } = Astro.props;
   <div class="kutu">
     <AktorDetay aktor={aktor} kategori={kategori} />
   </div>
+  <IliskiliBolumler aktorId={aktor.id} />
 </BaseLayout>
 
 <style>

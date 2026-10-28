@@ -1,0 +1,33 @@
+---
+// Kurum sayfasının altındaki ilgili kayıt bölümleri (yatırımlar, iş birlikleri…). Bölümler ./kaynaklar.ts'ten gelir.
+import ListeGrubu from "../ListeGrubu.astro";
+import { iliskiliBolumler } from "./kaynaklar";
+
+interface Props {
+  aktorId: string;
+}
+const bolumler = await iliskiliBolumler(Astro.props.aktorId);
+---
+
+{bolumler.length > 0 && (
+  <div class="bolumler">
+    {bolumler.map(({ baslik, birim, duzen, ogeler }) => (
+      <ListeGrubu baslik={baslik} sayi={ogeler.length} birim={birim}>
+        <ul class={duzen}>
+          {ogeler.map(({ Bilesen, props }) => <Bilesen {...props} />)}
+        </ul>
+      </ListeGrubu>
+    ))}
+  </div>
+)}
+
+<style>
+  .bolumler { margin-top: 12px; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  .kartlar {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr));
+    gap: 14px;
+  }
+</style>

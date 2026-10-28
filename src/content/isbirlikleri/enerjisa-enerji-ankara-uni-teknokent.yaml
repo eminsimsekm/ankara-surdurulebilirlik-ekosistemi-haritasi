@@ -1,6 +1,6 @@
 taraflar:
-  - Enerjisa Enerji
-  - Ankara Üni Teknokent
+  - ad: Enerjisa Enerji
+  - aktor: ankara-universitesi-teknokent
 tur: kamu
 aciklama: Türkiye'nin ilk Yeşil Teknokent sözleşmesi; 2,6 GWh/yıl yenilenebilir elektrik, ~1.200 ton CO₂ azaltımı hedefi.
 etiketler:

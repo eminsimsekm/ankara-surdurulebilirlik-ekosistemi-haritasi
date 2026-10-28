@@ -10,6 +10,7 @@
 import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 import {
   akademisyenAramaMetni,
+  aktorAlanlari,
   aktorAramaMetni,
   aktorYolu,
   getAkademisyenler,
@@ -56,15 +57,17 @@ async function kategoriBul(id: string): Promise<Kategori> {
 }
 
 const aktorler: HaritaKaynagi = async () =>
-  (await getAktorGruplari()).flatMap(({ kategori, aktorler }) =>
-    aktorler.map((aktor) => ({
-      id: aktorDugumId(aktor.id),
-      kategori: kategori.id,
-      ad: aktor.data.ad,
-      aramaMetni: aktorAramaMetni(aktor),
-      oneCikan: aktor.data.oneCikan,
-      detay: { Bilesen: AktorDetay, props: { aktor, kategori, sayfaYolu: aktorYolu(kategori, aktor) } },
-    })),
+  Promise.all(
+    (await getAktorGruplari()).flatMap(({ kategori, aktorler }) =>
+      aktorler.map(async (aktor) => ({
+        id: aktorDugumId(aktor.id),
+        kategori: kategori.id,
+        ad: aktor.data.ad,
+        aramaMetni: aktorAramaMetni(aktor, await aktorAlanlari(aktor)),
+        oneCikan: aktor.data.oneCikan,
+        detay: { Bilesen: AktorDetay, props: { aktor, kategori, sayfaYolu: aktorYolu(kategori, aktor) } },
+      })),
+    ),
   );
 
 const akademisyenler: HaritaKaynagi = async () => {

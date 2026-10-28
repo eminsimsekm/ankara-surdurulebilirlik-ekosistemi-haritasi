@@ -17,6 +17,7 @@ export type YatirimTuru = CollectionEntry<"yatirimTurleri">;
 export type Isbirligi = CollectionEntry<"isbirlikleri">;
 export type IsbirligiTuru = CollectionEntry<"isbirligiTurleri">;
 export type Sayfa = CollectionEntry<"sayfalar">;
+export type Alan = CollectionEntry<"alanlar">;
 
 /** Kimliğe göre arama için. */
 export const idSozlugu = <T extends { id: string }>(liste: T[]) => new Map(liste.map((x) => [x.id, x]));
@@ -90,10 +91,41 @@ export const aktorYolu = (kategori: Kategori, aktor: Aktor) => yol(`/${kategori.
 /** Kendi sayfası olmayan kayıtlar (akademisyen, takvim, yatırım) için kategori sayfasındaki satırı. */
 export const kayitYolu = (kategori: Kategori, id: string) => yol(`/${kategori.data.yol}/#${id}`);
 
-/** Aktörün aramada eşleşeceği tüm metin. */
-export function aktorAramaMetni(aktor: Aktor): string {
+/** Aktörün aramada eşleşeceği tüm metin. `alanlar`: aktorAlanlari() sonucu; "hidrojen" araması alanı Hidrojen olanları da bulur. */
+export function aktorAramaMetni(aktor: Aktor, alanlar: Alan[]): string {
   const d = aktor.data;
-  return searchKey(d.ad, d.konum, aktor.body, d.etiketler, d.kisiler, d.uzmanlik, d.surdurulebilirlik);
+  return searchKey(
+    d.ad,
+    d.konum,
+    aktor.body,
+    d.etiketler,
+    alanlar.map((a) => a.data.ad),
+    d.kisiler,
+    d.uzmanlik,
+    d.surdurulebilirlik,
+  );
+}
+
+// Faaliyet alanları
+
+export async function getAlanlar(): Promise<Alan[]> {
+  return (await getCollection("alanlar")).sort(siraya);
+}
+
+/** Aktörün alanları, dosyadaki sırayla (ilki birincil alan). */
+export async function aktorAlanlari(aktor: Aktor): Promise<Alan[]> {
+  const alanlar = idSozlugu(await getAlanlar());
+  return aktor.data.alanlar.map((id) => alanlar.get(id)!);
+}
+
+/** Kurumlar sayfasını bu alana süzülmüş açan adres. */
+export const alanYolu = (alan: Alan) => yol(`/kurumlar/?alan=${alan.id}`);
+
+/** Listedeki aktörlerin kullandığı alanlar ve kaçar aktörde geçtikleri; alan sırasıyla, boşlar hariç. */
+export async function alanSayilari(aktorler: Aktor[]): Promise<{ alan: Alan; sayi: number }[]> {
+  return (await getAlanlar())
+    .map((alan) => ({ alan, sayi: aktorler.filter((a) => a.data.alanlar.includes(alan.id)).length }))
+    .filter((x) => x.sayi > 0);
 }
 
 // Akademisyenler
@@ -166,8 +198,31 @@ export async function getIsbirlikleri(): Promise<Isbirligi[]> {
   return liste.sort((a, b) => sira.get(a.data.tur)! - sira.get(b.data.tur)! || (b.data.yil ?? 0) - (a.data.yil ?? 0));
 }
 
-export function isbirligiAramaMetni(x: Isbirligi): string {
-  return searchKey(x.data.taraflar, x.data.aciklama, x.data.etiketler);
+export type IsbirligiTarafi = Isbirligi["data"]["taraflar"][number];
+
+/** Ekranda gösterilecek taraf: ad ve (kurum ya da üniversiteyse) bağlantı. */
+export interface CozulmusTaraf {
+  ad: string;
+  yol?: string;
+}
+
+/** Kurum tarafının adı kurum dosyasından gelir; üniversite akademisyen rehberine süzülmüş haline bağlanır. */
+export async function tarafCoz(taraf: IsbirligiTarafi): Promise<CozulmusTaraf> {
+  if (taraf.aktor) {
+    const { aktor, kategori } = await getAktor(taraf.aktor);
+    return { ad: aktor.data.ad, yol: aktorYolu(kategori, aktor) };
+  }
+  if (taraf.universite) {
+    const universite = (await getUniversiteler()).find((u) => u.id === taraf.universite)!;
+    return { ad: universite.data.ad, yol: yol(`/akademisyenler/?universite=${universite.id}`) };
+  }
+  return { ad: taraf.ad! };
+}
+
+export const taraflariCoz = (x: Isbirligi) => Promise.all(x.data.taraflar.map(tarafCoz));
+
+export function isbirligiAramaMetni(x: Isbirligi, taraflar: CozulmusTaraf[]): string {
+  return searchKey(taraflar.map((t) => t.ad), x.data.aciklama, x.data.etiketler);
 }
 
 // Sayfa metinleri ve ana sayfa

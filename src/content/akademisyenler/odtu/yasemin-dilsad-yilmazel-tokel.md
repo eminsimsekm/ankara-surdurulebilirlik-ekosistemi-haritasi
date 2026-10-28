@@ -10,6 +10,7 @@ etiketler:
   - mikrobiyal elektrokimya
   - atıksu
 profil: https://avesis.metu.edu.tr/dilsad
+aktorler: [odtu-iklim]
 ---
 
 Mikrobiyal elektrokimyasal sistemler, biyohidrojen, atık sudan besin geri kazanımı; CO₂'yi değerli organik bileşiklere dönüştüren termofilik biyoelektrokimyasal sistemler.

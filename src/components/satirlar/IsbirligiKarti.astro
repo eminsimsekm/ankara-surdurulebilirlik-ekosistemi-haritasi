@@ -1,5 +1,5 @@
 ---
-import { isbirligiAramaMetni, type Isbirligi, type IsbirligiTuru } from "../../lib/content";
+import { isbirligiAramaMetni, taraflariCoz, type Isbirligi, type IsbirligiTuru } from "../../lib/content";
 
 interface Props {
   isbirligi: Isbirligi;
@@ -7,15 +7,15 @@ interface Props {
 }
 const { isbirligi, tur } = Astro.props;
 const d = isbirligi.data;
-const [a, b] = d.taraflar;
+const taraflar = await taraflariCoz(isbirligi);
 ---
 
 <li
   id={isbirligi.id}
   class="kart kayit-hedefi"
   data-filter-item
-  data-facet={tur.id}
-  data-search={isbirligiAramaMetni(isbirligi)}
+  data-facet-tur={tur.id}
+  data-search={isbirligiAramaMetni(isbirligi, taraflar)}
   style={`--c:var(--c-ib-${tur.id})`}
 >
   <div class="ust">
@@ -23,9 +23,12 @@ const [a, b] = d.taraflar;
     {d.yil && <span class="yil">{d.yil}</span>}
   </div>
   <div class="taraflar">
-    <div>{a}</div>
-    <span aria-label="ile">⟷</span>
-    <div>{b}</div>
+    {taraflar.map((t, i) => (
+      <>
+        {i > 0 && <span aria-label="ile">⟷</span>}
+        {t.yol ? <a class="taraf" href={t.yol}>{t.ad}</a> : <div class="taraf">{t.ad}</div>}
+      </>
+    ))}
   </div>
   <p class="aciklama">{d.aciklama}</p>
   {d.etiketler.length > 0 && (
@@ -57,7 +60,7 @@ const [a, b] = d.taraflar;
   }
   .yil { font: 400 11px var(--f-mono); color: var(--muted); }
   .taraflar { display: flex; align-items: stretch; gap: 8px; }
-  .taraflar div {
+  .taraf {
     flex: 1;
     background: var(--soft);
     border-radius: var(--r-md);
@@ -68,7 +71,10 @@ const [a, b] = d.taraflar;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: inherit;
   }
+  a.taraf { text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+  a.taraf:hover { color: var(--accent); text-decoration-color: currentColor; }
   .taraflar span { color: var(--accent); font-size: 20px; display: flex; align-items: center; flex-shrink: 0; }
   .aciklama { font-size: 13px; color: var(--muted); line-height: 1.55; margin: 0; }
   .etiketler { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px; }

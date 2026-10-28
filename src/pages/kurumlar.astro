@@ -6,10 +6,11 @@ import PageHeader from "../components/PageHeader.astro";
 import SearchBox from "../components/SearchBox.astro";
 import AktorSatiri from "../components/satirlar/AktorSatiri.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getKurumGruplari, getSayfa, kategoriBasligi } from "../lib/content";
+import { alanSayilari, getKurumGruplari, getSayfa, kategoriBasligi } from "../lib/content";
 
 const [sayfa, gruplar] = await Promise.all([getSayfa("kurumlar"), getKurumGruplari()]);
 const toplam = gruplar.reduce((n, g) => n + g.aktorler.length, 0);
+const alanlar = await alanSayilari(gruplar.flatMap((g) => g.aktorler));
 const { baslik, ozet } = sayfa.data;
 ---
 
@@ -21,6 +22,7 @@ const { baslik, ozet } = sayfa.data;
 
     <FiltreCipleri
       etiket="Kategori filtresi"
+      baslik={alanlar.length > 0 ? "Kategori" : undefined}
       parametre="kategori"
       tumuSayi={toplam}
       secenekler={gruplar.map(({ kategori, aktorler }) => ({
@@ -30,6 +32,15 @@ const { baslik, ozet } = sayfa.data;
         renk: `--c-${kategori.id}`,
       }))}
     />
+    {alanlar.length > 0 && (
+      <FiltreCipleri
+        etiket="Alan filtresi"
+        baslik="Alan"
+        parametre="alan"
+        tumuSayi={toplam}
+        secenekler={alanlar.map(({ alan, sayi }) => ({ deger: alan.id, ad: alan.data.ad, sayi }))}
+      />
+    )}
 
     {gruplar.map(({ kategori, aktorler }) => (
       <ListeGrubu baslik={kategoriBasligi(kategori)} sayi={aktorler.length} birim="kayıt">

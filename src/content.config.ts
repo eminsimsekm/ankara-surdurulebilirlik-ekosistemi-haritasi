@@ -10,7 +10,7 @@
   (aktorler/tekmer/, akademisyenler/odtu/) yalnızca düzen içindir; kategori ve
   üniversite frontmatter'dan okunur.
 */
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { defineCollection } from "astro:content";
 import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
@@ -21,6 +21,7 @@ const SOZLUKLER = {
   universiteler: "src/content/universiteler.yaml",
   isbirligiTurleri: "src/content/isbirligi-turleri.yaml",
   yatirimTurleri: "src/content/yatirim-turleri.yaml",
+  alanlar: "src/content/alanlar.yaml",
 } as const;
 
 /*
@@ -35,6 +36,23 @@ const idIn = (sozluk: keyof typeof SOZLUKLER) => {
     error: (issue) => `"${String(issue.input)}" ${SOZLUKLER[sozluk]} içinde yok. Geçerli değerler: ${ids.join(", ")}`,
   });
 };
+
+/*
+  Bir kurum kimliği olmalı (src/content/aktorler altındaki bir .md dosyasının adı).
+  Yatırım, takvim, akademisyen ve iş birliği kayıtlarını kurumlara bağlar; yanlış
+  yazılan kimlik build'i durdurur.
+*/
+const aktorId = () => {
+  const ids = (readdirSync("src/content/aktorler", { recursive: true }) as string[])
+    .filter((f) => f.endsWith(".md"))
+    .map((f) => f.replace(/^.*[\\/]/, "").replace(/\.md$/, ""));
+  return z.string().refine((v) => ids.includes(v), {
+    error: (issue) => `"${String(issue.input)}" adında bir kurum yok (src/content/aktorler/<kategori>/${String(issue.input)}.md dosyası bulunamadı).`,
+  });
+};
+
+/** Kaydın ilgili olduğu kurumlar. Kurum sayfasında ilgili bölümde listelenir. */
+const ilgiliAktorler = () => z.array(aktorId()).default([]);
 
 const idFromFileName = ({ entry }: { entry: string }) =>
   entry.replace(/^.*\//, "").replace(/\.(md|ya?ml)$/, "");
@@ -85,6 +103,16 @@ const yatirimTurleri = defineCollection({
   loader: file(SOZLUKLER.yatirimTurleri),
   schema: z.object({
     ad: z.string(),
+    sira: z.number().int(),
+  }),
+});
+
+/** Kurumların faaliyet alanları (filtre çipleri). */
+const alanlar = defineCollection({
+  loader: file(SOZLUKLER.alanlar),
+  schema: z.object({
+    ad: z.string(),
+    aciklama: z.string().optional(),
     sira: z.number().int(),
   }),
 });
@@ -153,6 +181,8 @@ const aktorler = defineCollection({
     ad: z.string(),
     kategori: idIn("kategoriler"),
     konum: z.string(),
+    // Faaliyet alanları (alanlar.yaml); ilki birincil alan. Etiketlerden farkı: kontrollü liste, filtre olur.
+    alanlar: z.array(idIn("alanlar")).max(3, "Kurum başına en fazla 3 alan yazılabilir.").default([]),
     etiketler: z.array(z.string()).default([]),
     uzmanlik: z.string().optional(),
     surdurulebilirlik: z.string().optional(),
@@ -182,6 +212,8 @@ const akademisyenler = defineCollection({
     birim: z.string(),
     etiketler: z.array(z.string()).default([]),
     profil: z.url().optional(),
+    // Çalıştığı merkez(ler); merkezin kurum sayfasında "Araştırmacılar" altında görünür
+    aktorler: ilgiliAktorler(),
   }),
 });
 
@@ -200,6 +232,7 @@ const takvim = defineCollection({
       durumNotu: z.string().optional(),
       aciklama: z.string(),
       kaynak: z.url().optional(),
+      aktorler: ilgiliAktorler(),
     })
     .refine((x) => x.bitis >= x.baslangic, { message: "bitis, baslangic'tan önce olamaz", path: ["bitis"] }),
 });
@@ -214,13 +247,29 @@ const yatirimlar = defineCollection({
     yatirimci: z.string(),
     aciklama: z.string(),
     kaynak: z.url().optional(),
+    // Yatırımı alan kurum(lar); yatırımcılar değil
+    aktorler: ilgiliAktorler(),
   }),
 });
+
+/*
+  İş birliği tarafı: haritadaki bir kurum, bir üniversite (akademisyen rehberine
+  bağlanır) ya da haritada karşılığı olmayan düz bir ad. Tam olarak biri yazılır.
+*/
+const taraf = z
+  .object({
+    aktor: aktorId().optional(),
+    universite: idIn("universiteler").optional(),
+    ad: z.string().optional(),
+  })
+  .refine((t) => [t.aktor, t.universite, t.ad].filter(Boolean).length === 1, {
+    message: "Taraf için aktor, universite ya da ad alanlarından tam olarak biri yazılmalı.",
+  });
 
 const isbirlikleri = defineCollection({
   loader: recordsIn("isbirlikleri", "**/*.yaml"),
   schema: z.object({
-    taraflar: z.tuple([z.string(), z.string()]),
+    taraflar: z.array(taraf).min(2),
     tur: idIn("isbirligiTurleri"),
     aciklama: z.string(),
     etiketler: z.array(z.string()).default([]),
@@ -233,6 +282,7 @@ export const collections = {
   universiteler,
   isbirligiTurleri,
   yatirimTurleri,
+  alanlar,
   sektorYatirimlari,
   oneCikanSayilar,
   sayfalar,

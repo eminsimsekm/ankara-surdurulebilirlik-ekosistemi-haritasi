@@ -31,6 +31,28 @@ Her kayıt ayrı bir dosyadır; yeni kayıt için kod değiştirmek gerekmez. Al
 | Ana sayfadaki sayı şeridi | `src/content/one-cikan-sayilar.yaml` (aktör ve akademisyen sayıları otomatik) | YAML |
 | Sektör grafiği | `src/content/sektor-yatirimlari-2025.yaml` | YAML |
 
+### Kayıtları kurumlara bağlamak
+
+Yatırım, takvim ve akademisyen kayıtlarına `aktorler` alanı yazılırsa kayıt, o kurumların sayfasında
+ilgili bölümde (Yatırımlar, Etkinlikler ve çağrılar, Araştırmacılar) görünür. Değer kurumun dosya adıdır:
+
+```yaml
+aktorler: [evreka]                    # yatırım: yatırımı alan kurum (yatırımcılar değil)
+aktorler: [netzero-tekmer, sparklabs-group]   # takvim: düzenleyen / ilgili kurumlar
+aktorler: [odtu-gunam]                # akademisyen: çalıştığı merkez
+```
+
+İş birliklerinde her taraf üç biçimden biriyle yazılır; kurum ve üniversite tarafları bağlantı olur:
+
+```yaml
+taraflar:
+  - aktor: odtu-teknokent     # haritadaki kurum (adı kurum dosyasından gelir)
+  - universite: odtu          # universiteler.yaml'daki üniversite (akademisyen rehberine bağlanır)
+  - ad: Dünya Bankası         # haritada karşılığı olmayan taraf
+```
+
+Yanlış yazılan kurum kimliği build'i durdurur ve hangi dosyada olduğunu söyler.
+
 Markdown metinlerinde `~` işareti üstü çizili yazı başlatabilir; "yaklaşık" anlamında `\~` yazın.
 
 En kolay yol, aynı klasördeki benzer bir dosyayı kopyalayıp düzenlemektir.
@@ -48,6 +70,8 @@ Türkçe karaktersiz ve tireli yazın (`netzero-tekmer.md`); yayına çıktıkta
 - `src/components/satirlar/`: liste satırları ve kartlar (aktör, akademisyen, takvim, yatırım, iş birliği)
 - `src/components/detay/`: aktör, akademisyen, takvim ve yatırım detayları (ortak kabuk: `DetayKabuk.astro`)
 - `src/components/bloklar/`: sayfa blokları (sayı şeridi, istatistikler, grafik, kurum sayfası, Markdown metni)
+- `src/components/iliskiler/`: kurum sayfasındaki ilgili kayıt bölümleri; `kaynaklar.ts` hangi kaydın
+  kurum sayfasında nasıl görüneceğini tanımlar (yeni bir ilişki türü için oraya bir kaynak eklenir)
 - `src/components/harita/`: harita; `kaynaklar.ts` hangi içeriğin haritada nasıl görüneceğini tanımlar
   (yeni bir içerik türünü haritaya eklemek için oraya bir kaynak eklenir)
 - `src/scripts/`: yalnızca tarayıcıda çalışan kod (liste süzme, harita etkileşimi, takvim durumu)

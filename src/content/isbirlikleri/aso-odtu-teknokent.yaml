@@ -1,6 +1,7 @@
 taraflar:
-  - ASO
-  - ODTÜ Teknokent
+  - aktor: ankara-sanayi-odasi
+  - aktor: odtu-teknokent
+  - aktor: aso-teknopark
 tur: program
 aciklama: ASO Teknopark Sincan; ASO 2. OSB bünyesinde ODTÜ Teknokent operatörlüğüyle kurulan teknoloji geliştirme bölgesi.
 etiketler:

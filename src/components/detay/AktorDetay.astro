@@ -1,7 +1,8 @@
 ---
 // Bir aktörün tüm bilgileri. Aktör sayfasında ve haritanın yan panelinde kullanılır.
 import { render } from "astro:content";
-import type { Aktor, Kategori } from "../../lib/content";
+import { aktorAlanlari, type Aktor, type Kategori } from "../../lib/content";
+import AlanBaglantilari from "../AlanBaglantilari.astro";
 import ExternalLink from "../ExternalLink.astro";
 import Tags from "../Tags.astro";
 import DetayKabuk from "./DetayKabuk.astro";
@@ -17,6 +18,7 @@ const { aktor, kategori, baslikSeviyesi, sayfaYolu } = Astro.props;
 const d = aktor.data;
 const k = kategori.data;
 const { Content } = await render(aktor);
+const alanlar = await aktorAlanlari(aktor);
 ---
 
 <DetayKabuk
@@ -29,8 +31,9 @@ const { Content } = await render(aktor);
 >
   <div class="aciklama"><Content /></div>
 
-  {(d.uzmanlik || d.surdurulebilirlik) && (
+  {(alanlar.length > 0 || d.uzmanlik || d.surdurulebilirlik) && (
     <dl class="kv">
+      {alanlar.length > 0 && <><dt>Alan</dt><dd><AlanBaglantilari alanlar={alanlar} /></dd></>}
       {d.uzmanlik && <><dt>Uzmanlık</dt><dd>{d.uzmanlik}</dd></>}
       {d.surdurulebilirlik && <><dt>Sürdürülebilirlik</dt><dd>{d.surdurulebilirlik}</dd></>}
     </dl>

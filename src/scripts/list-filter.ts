@@ -3,15 +3,18 @@
 
     [data-filter-root]                    süzmenin kapsamı
       [data-filter-input]                 (isteğe bağlı) arama kutusu
-      [data-filter-facet="param"]         (isteğe bağlı) tek seçimli çip grubu (FiltreCipleri)
+      [data-filter-facet="param"]         (isteğe bağlı, birden çok olabilir) tek seçimli çip grubu (FiltreCipleri)
         [data-filter-chip][data-deger]    çip; data-deger="" = tümü
       [data-filter-group]                 (isteğe bağlı) içinde görünür öğe kalmazsa gizlenir
         [data-filter-item][data-search]   süzülen öğe; data-search = searchKey(...) çıktısı,
-                         [data-facet]     çip grubu varsa öğenin değeri
+                  [data-facet-<param>]    her çip grubu için öğenin değer(ler)i, boşlukla ayrılmış
       [data-filter-empty]                 (isteğe bağlı) hiç sonuç yoksa gösterilir
 
-  Yalnızca `hidden` değiştirilir; HTML üretilmez. Sorgu ve çip seçimi adres
-  çubuğunda tutulur (arama kutusunun `name`'i ve çip grubunun parametresiyle).
+  Öğe, seçimi olan her grupta eşleşiyorsa görünür (gruplar arası VE); bir grupta
+  eşleşmek, seçili değerin öğenin değer listesinde bulunmasıdır.
+
+  Yalnızca `hidden` değiştirilir; HTML üretilmez. Sorgu ve çip seçimleri adres
+  çubuğunda tutulur (arama kutusunun `name`'i ve her çip grubunun parametresiyle).
 */
 import { matchesQuery, searchKey } from "../lib/text";
 
@@ -23,41 +26,55 @@ function adresiGuncelle(param: string | undefined, deger: string) {
   history.replaceState(history.state, "", url);
 }
 
+interface CipGrubu {
+  param: string;
+  chips: HTMLButtonElement[];
+  secili: string; // "" = tümü
+}
+
 function setup(root: HTMLElement) {
   const input = root.querySelector<HTMLInputElement>("[data-filter-input]");
-  const facet = root.querySelector<HTMLElement>("[data-filter-facet]");
-  const chips = [...root.querySelectorAll<HTMLButtonElement>("[data-filter-chip]")];
   const items = [...root.querySelectorAll<HTMLElement>("[data-filter-item]")];
   const groups = [...root.querySelectorAll<HTMLElement>("[data-filter-group]")];
   const empty = root.querySelector<HTMLElement>("[data-filter-empty]");
   const adres = new URLSearchParams(location.search);
-  const facetParam = facet?.dataset.filterFacet;
 
-  let secili = "";
+  const cipGruplari: CipGrubu[] = [...root.querySelectorAll<HTMLElement>("[data-filter-facet]")].map((facet) => ({
+    param: facet.dataset.filterFacet!,
+    chips: [...facet.querySelectorAll<HTMLButtonElement>("[data-filter-chip]")],
+    secili: "",
+  }));
+
+  const eslesir = (item: HTMLElement, g: CipGrubu) =>
+    !g.secili || (item.getAttribute(`data-facet-${g.param}`) ?? "").split(" ").includes(g.secili);
 
   const apply = () => {
     const query = searchKey(input?.value ?? "");
     let shown = 0;
     for (const item of items) {
-      const match = matchesQuery(item.dataset.search ?? "", query) && (!secili || item.dataset.facet === secili);
+      const match = matchesQuery(item.dataset.search ?? "", query) && cipGruplari.every((g) => eslesir(item, g));
       item.hidden = !match;
       if (match) shown++;
     }
     for (const group of groups) group.hidden = !group.querySelector("[data-filter-item]:not([hidden])");
-    for (const chip of chips) chip.setAttribute("aria-pressed", String((chip.dataset.deger ?? "") === secili));
+    for (const g of cipGruplari) {
+      for (const chip of g.chips) chip.setAttribute("aria-pressed", String((chip.dataset.deger ?? "") === g.secili));
+    }
     if (empty) empty.hidden = shown > 0;
   };
 
-  const sec = (deger: string) => {
-    secili = chips.some((c) => c.dataset.deger === deger) ? deger : "";
-    apply();
+  const sec = (g: CipGrubu, deger: string) => {
+    g.secili = g.chips.some((c) => c.dataset.deger === deger) ? deger : "";
   };
 
-  for (const chip of chips) {
-    chip.addEventListener("click", () => {
-      sec(chip.dataset.deger ?? "");
-      adresiGuncelle(facetParam, secili);
-    });
+  for (const g of cipGruplari) {
+    for (const chip of g.chips) {
+      chip.addEventListener("click", () => {
+        sec(g, chip.dataset.deger ?? "");
+        apply();
+        adresiGuncelle(g.param, g.secili);
+      });
+    }
   }
 
   if (input) {
@@ -68,7 +85,9 @@ function setup(root: HTMLElement) {
     });
   }
 
-  sec(facetParam ? (adres.get(facetParam) ?? "") : ""); // adresteki ya da geri tuşuyla korunmuş durumu uygula
+  // Adresteki ya da geri tuşuyla korunmuş durumu uygula
+  for (const g of cipGruplari) sec(g, adres.get(g.param) ?? "");
+  apply();
 }
 
 document.querySelectorAll<HTMLElement>("[data-filter-root]").forEach(setup);

@@ -1,6 +1,6 @@
 ---
 // Tek seçimli filtre çipleri ("Tümü" + seçenekler). Bir [data-filter-root] içine konur;
-// öğeler data-facet ile eşleşir. Mantık scripts/list-filter.ts'te.
+// öğeler data-facet-<parametre> ile eşleşir. Mantık scripts/list-filter.ts'te.
 import Cip from "./Cip.astro";
 
 export interface FiltreSecenegi {
@@ -16,11 +16,14 @@ interface Props {
   tumuSayi: number;
   /** Seçimin adres çubuğunda tutulacağı parametre (ör. "universite") */
   parametre: string;
+  /** Görünür grup başlığı; bir sayfada birden çok çip grubu varken gruplar ayırt edilsin diye */
+  baslik?: string;
 }
-const { etiket, secenekler, tumuSayi, parametre } = Astro.props;
+const { etiket, secenekler, tumuSayi, parametre, baslik } = Astro.props;
 ---
 
 <div class="chips" role="group" aria-label={etiket} data-filter-facet={parametre}>
+  {baslik && <span class="baslik" aria-hidden="true">{baslik}</span>}
   <Cip basili={true} sayi={tumuSayi} data-filter-chip data-deger="">Tümü</Cip>
   {secenekler.map((s) => (
     <Cip basili={false} renk={s.renk} sayi={s.sayi} data-filter-chip data-deger={s.deger}>{s.ad}</Cip>
@@ -28,7 +31,8 @@ const { etiket, secenekler, tumuSayi, parametre } = Astro.props;
 </div>
 
 <style>
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+  .chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 14px; }
+  .baslik { font: 600 11px var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); min-width: 72px; }
 </style>
 
 <script>

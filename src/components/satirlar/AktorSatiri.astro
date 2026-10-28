@@ -1,7 +1,8 @@
 ---
 // Kategori listesindeki bir aktör satırı. Bir [data-filter-root] içindeki <ul> içinde kullanılır.
 import { render } from "astro:content";
-import { aktorAramaMetni, aktorYolu, type Aktor, type Kategori } from "../../lib/content";
+import { aktorAlanlari, aktorAramaMetni, aktorYolu, type Aktor, type Kategori } from "../../lib/content";
+import AlanBaglantilari from "../AlanBaglantilari.astro";
 import ExternalLink from "../ExternalLink.astro";
 import Tags from "../Tags.astro";
 
@@ -12,9 +13,16 @@ interface Props {
 const { aktor, kategori } = Astro.props;
 const d = aktor.data;
 const { Content } = await render(aktor);
+const alanlar = await aktorAlanlari(aktor);
 ---
 
-<li class="aktor" data-filter-item data-facet={kategori.id} data-search={aktorAramaMetni(aktor)}>
+<li
+  class="aktor"
+  data-filter-item
+  data-facet-kategori={kategori.id}
+  data-facet-alan={d.alanlar.join(" ")}
+  data-search={aktorAramaMetni(aktor, alanlar)}
+>
   <div class="kimlik">
     <a href={aktorYolu(kategori, aktor)}>{d.ad}</a>
     <span>{d.konum}</span>
@@ -24,6 +32,7 @@ const { Content } = await render(aktor);
     {d.kisiler && <p class="ek"><b>Kişi:</b> {d.kisiler}</p>}
     {d.surdurulebilirlik && <p class="ek"><b>Sürdürülebilirlik:</b> {d.surdurulebilirlik}</p>}
     <div class="alt">
+      <AlanBaglantilari alanlar={alanlar} />
       <Tags etiketler={d.etiketler} />
       {d.kaynak && <ExternalLink href={d.kaynak} />}
     </div>

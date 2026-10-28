@@ -7,6 +7,7 @@ etiketler:
   - enerji dönüşümü
   - sosyo-ekonomi
 profil: https://avesis.metu.edu.tr/bilges
+aktorler: [odtu-gunam]
 ---
 
 Güneş enerjisinin sosyal, ekonomik ve çevresel boyutları; sürdürülebilir tarım uygulamalarının benimsenmesi üzerine proje.

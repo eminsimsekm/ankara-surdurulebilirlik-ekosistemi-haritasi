@@ -1,0 +1,53 @@
+# Kurumların faaliyet alanları. Anahtar, kurum dosyalarındaki `alanlar:` listesinde kullanılır.
+# Kurum başına 1–3 alan; listenin ilki kurumun birincil alanıdır (haritada o alanın diliminde durur).
+# Etiketlerden farkı: kontrollü liste, filtre çipi olur. Etiketler serbest ayrıntıdır.
+# `sira`: çiplerin sırası.
+
+yenilenebilir-enerji:
+  ad: Yenilenebilir enerji
+  aciklama: Güneş, rüzgâr, biyogaz ve diğer temiz enerji üretimi
+  sira: 1
+enerji-depolama:
+  ad: Enerji depolama
+  aciklama: Batarya, batarya yönetimi ve depolama sistemleri
+  sira: 2
+hidrojen:
+  ad: Hidrojen
+  aciklama: Yeşil hidrojen üretimi, yakıt hücresi ve hidrojen depolama
+  sira: 3
+enerji-verimliligi:
+  ad: Enerji verimliliği ve akıllı şebeke
+  aciklama: Enerji verimliliği, akıllı şebeke, akıllı bina ve enerji yönetimi
+  sira: 4
+e-mobilite:
+  ad: Elektrikli ulaşım
+  aciklama: Elektrikli araç şarjı, e-bisiklet ve mikromobilite
+  sira: 5
+atik-dongusel:
+  ad: Atık ve döngüsel ekonomi
+  aciklama: Atık yönetimi, geri dönüşüm ve döngüsel üretim
+  sira: 6
+karbon-iklim:
+  ad: Karbon ve iklim
+  aciklama: Karbon yönetimi, ESG, sera gazı, karbon yakalama ve iklim bilimi
+  sira: 7
+tarim-gida:
+  ad: Tarım ve gıda
+  aciklama: Akıllı tarım, dikey tarım, biyogübre ve gıda güvenliği
+  sira: 8
+su-cevre:
+  ad: Su, hava ve çevre
+  aciklama: Su teknolojileri, hava kalitesi ve çevre izleme
+  sira: 9
+biyoteknoloji-malzeme:
+  ad: Biyoteknoloji ve malzeme
+  aciklama: Biyoteknoloji, alg, biyobozunur ve ileri malzemeler
+  sira: 10
+savunma-havacilik:
+  ad: Savunma ve havacılık
+  aciklama: Savunma, havacılık, uzay ve çift kullanımlı teknolojiler
+  sira: 11
+genel:
+  ad: Sektörden bağımsız
+  aciklama: Belirli bir alana odaklanmayan kuluçka, hızlandırıcı ve yatırımcı yapıları
+  sira: 12
