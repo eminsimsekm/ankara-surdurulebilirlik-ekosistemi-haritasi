@@ -11,6 +11,7 @@ tablonun en üstüne bir satır eklenir.
 
 | Tarih | İş | Özet |
 |---|---|---|
+| 2026-10-28 | [Haritada dilim vurgusu](2026-10-28-harita-dilim-vurgusu.md) | Fareyle üzerine gelinen dilim büyür, noktaları öne çıkar, merkezde kayıt sayısı |
 | 2026-10-28 | [Kategoriye bağlı alan çipleri](2026-10-28-bagli-alan-cipleri.md) | Kurumlar sayfasında kategori seçilince yalnızca o kategorinin alanları ve sayıları |
 | 2026-10-28 | [Harita panelinde kısa kurum kartı](2026-10-28-harita-paneli-ozet.md) | Panelde yalnızca önemli bilgiler, ayrıntılar kurum sayfasında |
 | 2026-10-28 | [Haritada kategori görünümü](2026-10-28-haritada-kategori-gorunumu.md) | Seçilen kategori tüm daireye yayılır, alanlara göre dilimlenir; mobilde numaralı lejant |

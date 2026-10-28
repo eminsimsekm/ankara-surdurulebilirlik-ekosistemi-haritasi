@@ -28,6 +28,8 @@ export interface Yerlesim {
     anahtar: string;
     /** Dilimin başındaki ayırıcı; tek dilimde yok */
     cizgi?: { bas: Nokta; son: Nokta };
+    /** Dilimin kapladığı halka parçası (SVG path); üzerine gelince vurgulanır */
+    alan: string;
     etiket: Nokta & { metin: string; hiza: "start" | "middle" | "end" };
   }[];
   dugumler: (Nokta & { id: string; anahtar: string })[];
@@ -54,6 +56,24 @@ const kutupsal = (aci: number, r: number): Nokta => ({
   y: yuvarla(C + Math.sin(aci) * r),
 });
 
+/** a0'dan a1'e (saat yönünde) iç ve dış yarıçap arasındaki halka parçası. Tam daire için iki yarım yay. */
+function halkaParcasi(a0: number, a1: number, ic: number, dis: number): string {
+  const yay = (r: number, bas: number, son: number, yon: 0 | 1) => {
+    const p = kutupsal(son, r);
+    return `A${r} ${r} 0 ${Math.abs(son - bas) > Math.PI ? 1 : 0} ${yon} ${p.x} ${p.y}`;
+  };
+  const m = (r: number, a: number) => {
+    const p = kutupsal(a, r);
+    return `M${p.x} ${p.y}`;
+  };
+  if (a1 - a0 >= 2 * Math.PI - 1e-6) {
+    const orta = a0 + Math.PI;
+    return `${m(dis, a0)} ${yay(dis, a0, orta, 1)} ${yay(dis, orta, a0 + 2 * Math.PI, 1)}Z ${m(ic, a0)} ${yay(ic, a0, orta, 1)} ${yay(ic, orta, a0 + 2 * Math.PI, 1)}Z`;
+  }
+  const ic1 = kutupsal(a1, ic);
+  return `${m(dis, a0)} ${yay(dis, a0, a1, 1)} L${ic1.x} ${ic1.y} ${yay(ic, a1, a0, 0)}Z`;
+}
+
 /**
  * `halka`: düğümlerin yerleştiği halkalar. Az düğümlü görünümlerde (kategori görünümü)
  * daha dıştan başlatılırsa düğümler merkeze yığılmaz, etiketlerine yaklaşır.
@@ -74,6 +94,7 @@ export function haritaYerlesimi(girdiler: DilimGirdisi[], halka: HalkaAyari = HA
     dilimler.push({
       anahtar: g.anahtar,
       cizgi: girdiler.length > 1 ? { bas: kutupsal(a0, CIZGI.ic), son: kutupsal(a0, CIZGI.dis) } : undefined,
+      alan: halkaParcasi(a0, a0 + aralik, CIZGI.ic, CIZGI.dis),
       etiket: {
         ...kutupsal(orta, ETIKET_YARICAP),
         metin: g.etiket,

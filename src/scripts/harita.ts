@@ -9,7 +9,8 @@
   düğümleri gizlenir (.gizli), seçilenin düğümleri CSS ile kendi görünümündeki
   yerlerine kayar ve o görünümün dilim çizgileri açılır (.acik). Konumlar build
   sırasında hesaplanmıştır (Harita.astro). Arama ise listelerden farklı olarak
-  eşleşmeyen düğümleri gizlemez, soluklaştırır (.dim).
+  eşleşmeyen düğümleri gizlemez, soluklaştırır (.dim). Fareyle üzerine gelinen
+  dilim (ya da düğümün dilimi) vurgulanır (.vurgulu, diğerleri .soluk).
 */
 import { matchesQuery, searchKey } from "../lib/text";
 import { durumlariGuncelle } from "./takvim-durum";
@@ -21,6 +22,8 @@ function kur(root: HTMLElement) {
   const chips = [...root.querySelectorAll<HTMLButtonElement>("[data-filter-chip]")];
   const nodes = [...root.querySelectorAll<SVGGElement>("[data-id]")];
   const gorunumler = [...root.querySelectorAll<SVGGElement>("[data-gorunum-anahtari]")];
+  const merkezSayi = root.querySelector<SVGTextElement>("[data-merkez-sayi]")!;
+  const merkezBirim = root.querySelector<SVGTextElement>("[data-merkez-birim]")!;
   const panel = root.querySelector<HTMLElement>("[data-detay-panel]")!;
   const etiket = root.querySelector<SVGTextElement>("[data-secim-etiket]")!;
   const ara = root.querySelector<HTMLInputElement>("[data-harita-ara]");
@@ -47,8 +50,57 @@ function kur(root: HTMLElement) {
       n.classList.toggle("gizli", gizli);
       n.classList.toggle("dim", !gizli && !matchesQuery(n.dataset.search ?? "", sorgu));
     }
+    vurgula((vurguluDilim = null)); // görünüm değişince eski dilimin vurgusu kalmasın
     etiketiKonumla();
   }
+
+  /** Açık görünümde verilen dilimi ve noktalarını vurgular; null vurguyu kaldırır. */
+  function vurgula(dilim: string | null) {
+    const kategoride = root.dataset.gorunum === "kategori";
+    const acik = gorunumler.find((g) => g.matches("g.acik")); // lejant (<ol>) değil, SVG görünümü
+    for (const d of root.querySelectorAll<SVGGElement>(".dilim")) {
+      d.classList.toggle("vurgulu", !!dilim && d.dataset.dilim === dilim && acik?.contains(d) === true);
+    }
+    let toplam = 0;
+    let eslesen = 0;
+    for (const n of nodes) {
+      const nDilim = kategoride ? n.dataset.dilimKategori : n.dataset.dilimGenel;
+      const etkin = !!dilim && !n.classList.contains("gizli"); // başka kategorinin gizli noktası etkilenmez
+      n.classList.toggle("vurgulu", etkin && nDilim === dilim);
+      n.classList.toggle("soluk", etkin && nDilim !== dilim);
+      if (etkin && nDilim === dilim) {
+        toplam++;
+        if (!n.classList.contains("dim")) eslesen++;
+      }
+    }
+
+    // Merkezde dilimin kayıt sayısı; arama varsa eşleşen/toplam
+    if (dilim) {
+      const renkli = acik?.querySelector<SVGGElement>(`.dilim[data-dilim="${CSS.escape(dilim)}"]`);
+      merkezSayi.textContent = eslesen < toplam ? `${eslesen}/${toplam}` : String(toplam);
+      merkezBirim.textContent = acik?.dataset.birim ?? "";
+      merkezSayi.style.setProperty("--c", renkli ? getComputedStyle(renkli).getPropertyValue("--c") : "");
+      root.dataset.vurgu = "";
+    } else {
+      delete root.dataset.vurgu;
+    }
+  }
+
+  // Yalnızca fare: dokunmatikte "üzerine gelme" yok, vurgu dokunuştan sonra takılı kalırdı
+  const svg = root.querySelector("svg")!;
+  let vurguluDilim: string | null = null;
+  svg.addEventListener("pointerover", (e) => {
+    if (e.pointerType !== "mouse") return;
+    const hedef = (e.target as Element).closest<SVGGElement>(".dilim, .node");
+    const kategoride = root.dataset.gorunum === "kategori";
+    const dilim = !hedef
+      ? null
+      : hedef.classList.contains("node")
+        ? ((kategoride ? hedef.dataset.dilimKategori : hedef.dataset.dilimGenel) ?? null)
+        : (hedef.dataset.dilim ?? null);
+    if (dilim !== vurguluDilim) vurgula((vurguluDilim = dilim));
+  });
+  svg.addEventListener("pointerleave", () => vurgula((vurguluDilim = null)));
 
   /** Seçili düğümün ad etiketi; düğüm o anki görünümde yoksa gizlenir (panel olduğu gibi kalır). */
   function etiketiKonumla() {

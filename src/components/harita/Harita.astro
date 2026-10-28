@@ -53,12 +53,12 @@ const kategoriGorunumleri: { kategori: (typeof kategoriler)[number]; girdiler: D
     return { kategori, girdiler, yerlesim: haritaYerlesimi(girdiler, KATEGORI_HALKASI) };
   });
 
-/** Düğümün kategori görünümündeki konumunun genel konumdan farkı. */
-const fark = new Map<string, { dx: number; dy: number }>();
+/** Düğümün kategori görünümündeki konumunun genel konumdan farkı ve o görünümde girdiği dilim. */
+const fark = new Map<string, { dx: number; dy: number; dilim: string }>();
 for (const { yerlesim: ky } of kategoriGorunumleri) {
   for (const q of ky.dugumler) {
     const p = yerlesim.dugumler.find((d) => d.id === q.id)!;
-    fark.set(q.id, { dx: Math.round((q.x - p.x) * 10) / 10, dy: Math.round((q.y - p.y) * 10) / 10 });
+    fark.set(q.id, { dx: Math.round((q.x - p.x) * 10) / 10, dy: Math.round((q.y - p.y) * 10) / 10, dilim: q.anahtar });
   }
 }
 const sayi = (kategori: string) => dugumler.filter((n) => n.kategori === kategori).length;
@@ -84,6 +84,8 @@ function satirlara(metin: string, hiza: "start" | "middle" | "end"): string[] {
 interface GorunumCizimi {
   anahtar: string; // "" = genel
   merkezYazi: string;
+  /** Dilim vurgulanınca merkezde sayının altında yazan birim ("kurum", "akademisyen"…) */
+  birim: string;
   /** Kategori görünümünde tek renk; genel görünümde her dilim kendi kategorisinin rengi */
   renk?: string;
   dilimler: (Yerlesim["dilimler"][number] & { satirlar: string[]; ad: string; sayi: number })[];
@@ -93,6 +95,7 @@ const gorunumler: GorunumCizimi[] = [
   {
     anahtar: "",
     merkezYazi: "ANKARA",
+    birim: "kayıt",
     dilimler: yerlesim.dilimler.map((d, i) => {
       const k = kategoriler[i]!;
       return { ...d, satirlar: [k.data.kisaAd], ad: k.data.ad, sayi: sayi(k.id) };
@@ -101,6 +104,8 @@ const gorunumler: GorunumCizimi[] = [
   ...kategoriGorunumleri.map(({ kategori, girdiler, yerlesim: ky }) => ({
     anahtar: kategori.id,
     merkezYazi: kategori.data.kisaAd,
+    // Menüde yer alan kategoriler kurumdur; akademisyen kendi adıyla, diğerleri "kayıt"
+    birim: kategori.data.menuSira !== undefined ? "kurum" : kategori.id === "akademisyen" ? "akademisyen" : "kayıt",
     renk: `--c-${kategori.id}`,
     dilimler: ky.dilimler.map((d, i) => {
       const g = girdiler[i]!;
@@ -129,11 +134,17 @@ const SATIR_ARALIGI = 16;
       <svg viewBox={HARITA_VIEWBOX} role="group" aria-label="Kategori dilimlerine ayrılmış Ankara ekosistem haritası">
         {yerlesim.halkalar.map((r) => <circle class="halka" cx={merkez.x} cy={merkez.y} r={r} />)}
         <circle class="merkez" cx={merkez.x} cy={merkez.y} r={yerlesim.merkezYaricap} />
+        {/* Vurgulanan dilimin kayıt sayısı; vurgu yokken gizli, merkez yazısının yerini alır */}
+        <g class="merkez-bilgi" aria-hidden="true">
+          <text class="merkez-sayi" x={merkez.x} y={merkez.y + 6} text-anchor="middle" data-merkez-sayi></text>
+          <text class="merkez-birim" x={merkez.x} y={merkez.y + 22} text-anchor="middle" data-merkez-birim></text>
+        </g>
 
         {gorunumler.map((g) => (
           <g
             class:list={["gorunum", { acik: g.anahtar === "", kategoride: !!g.anahtar }]}
             data-gorunum-anahtari={g.anahtar}
+            data-birim={g.birim}
             style={g.renk ? `--c:var(${g.renk})` : undefined}
           >
             <text class:list={["merkez-yazi", { "kategori-adi": !!g.anahtar }]} x={merkez.x} y={merkez.y + (g.anahtar ? 5 : 6)} text-anchor="middle">
@@ -142,7 +153,8 @@ const SATIR_ARALIGI = 16;
             {g.dilimler.map((d, i) => (
               <>
                 {d.cizgi && <line class="dilim-cizgi" x1={d.cizgi.bas.x} y1={d.cizgi.bas.y} x2={d.cizgi.son.x} y2={d.cizgi.son.y} />}
-                <g style={g.renk ? undefined : `--c:var(--c-${d.anahtar})`}>
+                <g class="dilim" data-dilim={d.anahtar} style={g.renk ? undefined : `--c:var(--c-${d.anahtar})`}>
+                  <path class="dilim-alan" d={d.alan} />
                   <text class="dilim-etiket" x={d.etiket.x} y={d.etiket.y + 4} text-anchor={d.etiket.hiza}>
                     {d.satirlar.map((s, j) => (
                       <tspan x={d.etiket.x} dy={j === 0 ? (-(d.satirlar.length - 1) * SATIR_ARALIGI) / 2 : SATIR_ARALIGI}>{s}</tspan>
@@ -160,7 +172,7 @@ const SATIR_ARALIGI = 16;
 
         {yerlesim.dugumler.map((p) => {
           const n = dugumById.get(p.id)!;
-          const { dx, dy } = fark.get(p.id)!;
+          const { dx, dy, dilim } = fark.get(p.id)!;
           return (
             <g
               class="node"
@@ -173,6 +185,8 @@ const SATIR_ARALIGI = 16;
               data-search={n.aramaMetni}
               data-dx={dx}
               data-dy={dy}
+              data-dilim-genel={p.anahtar}
+              data-dilim-kategori={dilim}
               style={`--c:var(--c-${n.kategori}); --dx:${dx}; --dy:${dy}`}
             >
               <circle class="vurus" cx={p.x} cy={p.y} r="11" />
@@ -234,7 +248,12 @@ const SATIR_ARALIGI = 16;
 
   .halka, .dilim-cizgi { fill: none; stroke: var(--line); }
   .merkez { fill: var(--soft); stroke: var(--line); }
-  .merkez-yazi { fill: var(--ink); font: 800 18px var(--f-display); }
+  .merkez-yazi { fill: var(--ink); font: 800 18px var(--f-display); transition: opacity .2s; }
+  .merkez-bilgi { opacity: 0; transition: opacity .2s; pointer-events: none; }
+  .merkez-sayi { fill: var(--c, var(--ink)); font: 800 28px var(--f-display); font-variant-numeric: tabular-nums; }
+  .merkez-birim { fill: var(--muted); font: 500 10px var(--f-mono); letter-spacing: .06em; text-transform: uppercase; }
+  .harita[data-vurgu] .merkez-yazi { opacity: 0; }
+  .harita[data-vurgu] .merkez-bilgi { opacity: 1; }
   .dilim-etiket { fill: var(--c); font: 600 12px var(--f-mono); letter-spacing: .04em; text-transform: uppercase; }
   .kategori-adi { fill: var(--c); font-size: 10px; letter-spacing: .02em; text-transform: uppercase; }
   /* Kategori görünümünde dilimler tam adla, birkaç satır olabilir: büyük harf ve mono yerine gövde yazısı */
@@ -271,6 +290,30 @@ const SATIR_ARALIGI = 16;
   .harita[data-gorunum="kategori"] .node { transform: translate(calc(var(--dx) * 1px), calc(var(--dy) * 1px)); }
   /* Başka kategorinin düğümü: görünmez ve Tab ile ulaşılamaz */
   .node.gizli { opacity: 0; visibility: hidden; }
+
+  /*
+    Fareyle üzerine gelinen dilim (scripts/harita.ts, .vurgulu): alanı hafifçe renklenip büyür,
+    noktaları büyür, etiketi kalınlaşır; diğer dilimlerin noktaları solar. Dokunmatikte yok.
+  */
+  .dilim-alan {
+    fill: var(--c);
+    fill-opacity: 0;
+    fill-rule: evenodd;
+    transform-box: view-box;
+    transform-origin: 360px 360px;
+    transition: fill-opacity .25s ease, transform .25s ease;
+  }
+  .dilim.vurgulu .dilim-alan { fill-opacity: .1; transform: scale(1.04); }
+  .dilim-etiket { transition: font-size .2s ease; }
+  .dilim.vurgulu .dilim-etiket { font-weight: 800; font-size: 13.5px; }
+  .kategoride .dilim.vurgulu .dilim-etiket { font-size: 15.5px; }
+  .nokta { transition: r .2s ease; }
+  .node.vurgulu .nokta { r: 9; }
+  .node.soluk:not(.gizli):not(.sel):not(.dim) { opacity: .4; }
+  @media (prefers-reduced-motion: reduce) {
+    .dilim-alan, .dilim-etiket, .nokta { transition: none; }
+    .dilim.vurgulu .dilim-alan { transform: none; }
+  }
   /* Görünmez geniş daire: telefonda dokunma alanı (düğümler 22 birim aralıklı, 11 yarıçap çakışmaz) */
   .vurus { fill: transparent; }
   .nokta { fill: var(--c); stroke: var(--surface); stroke-width: 1.5; }
