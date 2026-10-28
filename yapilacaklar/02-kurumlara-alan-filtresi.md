@@ -205,7 +205,9 @@ Bu adımdan sonra mevcut sayfaların hepsi eskisi gibi çalışmalı (kontrol: 7
 2. Öneri, kurum adı · kategori · önerilen alanlar sütunlarıyla bir tablo olarak çıkarılır ve
    **onaylanır**. Otomatik öneri hatalı olabilir; özellikle teknopark ve TEKMER gibi geniş kurumlar
    elle bakılmalı (6. bölüm, 3. karar).
-3. Onaylanan tablo dosyalara işlenir; şemada `.min(1)` açılır.
+3. Onaylanan tablo dosyalara işlenir; şemada `.min(1)` açılır. **Kurumun en belirgin alanı listenin
+   başına yazılır:** `03-haritada-kategori-gorunumu.md` ilk alanı "birincil alan" sayar ve kurumun
+   haritadaki yerini ona göre belirler.
 
 ### Adım 8: Belgeler
 
@@ -251,7 +253,8 @@ filtre olarak ayırt edici değil. Etiketlerde kalmaya devam eder ve aramayla bu
    (b) **barındırdığı firmaların alanları**: ODTÜ Teknokent → birçok alan.
    **Öneri: (a).** (b) her teknoparkı her filtrede gösterir.
 4. **Haritaya da alan filtresi?** Haritadaki çipler şu an kategori. İkinci bir çip grubu eklenebilir,
-   ama haritanın üstü kalabalıklaşır. **Öneri: şimdilik hayır**; Kurumlar sayfası bu ihtiyacı karşılıyor.
+   ama haritanın üstü kalabalıklaşır. **Öneri: şimdilik hayır**; Kurumlar sayfası bu ihtiyacı karşılıyor. (Haritada kategori seçilince
+   alanlara göre gruplama ayrı iş olarak planlandı: `03-haritada-kategori-gorunumu.md`.)
 5. **Etiketler ne olacak?** **Öneri: aynen kalsın** (ayrıntı ve arama için). İleride tek kullanımlık
    ve çakışan etiketler ayrı bir temizlikle sadeleştirilebilir; bu işin kapsamında değil.
 
