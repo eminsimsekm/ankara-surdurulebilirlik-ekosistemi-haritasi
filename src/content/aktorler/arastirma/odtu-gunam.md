@@ -2,6 +2,7 @@
 ad: ODTÜ-GÜNAM
 kategori: arastirma
 konum: ODTÜ
+alanlar: [yenilenebilir-enerji]
 etiketler:
   - fotovoltaik
   - UP2030

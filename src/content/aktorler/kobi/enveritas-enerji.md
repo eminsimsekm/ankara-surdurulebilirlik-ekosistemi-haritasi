@@ -2,6 +2,7 @@
 ad: Enveritas Enerji
 kategori: kobi
 konum: Çankaya, Ankara
+alanlar: [yenilenebilir-enerji]
 etiketler:
   - güneş lisanssız
   - enerji satış

@@ -2,6 +2,7 @@
 ad: Kybele's Garden
 kategori: girisim
 konum: ODTÜ Teknokent
+alanlar: [biyoteknoloji-malzeme, tarim-gida]
 etiketler:
   - alg biyoteknolojisi
   - sürdürülebilir tarım

@@ -2,6 +2,7 @@
 ad: Loopyon
 kategori: girisim
 konum: Ankara Teknopark, Kahramankazan
+alanlar: [tarim-gida, su-cevre]
 etiketler:
   - soğuk plazma
   - su teknolojisi

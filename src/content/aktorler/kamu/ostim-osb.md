@@ -2,6 +2,7 @@
 ad: OSTİM OSB
 kategori: kamu
 konum: Yenimahalle
+alanlar: [yenilenebilir-enerji]
 etiketler:
   - Yeşil OSB
 kisiler: Orhan Aydın (YK Başkanı)

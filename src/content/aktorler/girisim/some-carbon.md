@@ -2,6 +2,7 @@
 ad: Some Carbon
 kategori: girisim
 konum: Çankaya, Ankara
+alanlar: [karbon-iklim]
 etiketler:
   - CO2 yakalama
   - yeşil metanol

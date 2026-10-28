@@ -2,6 +2,7 @@
 ad: Ankara Üniversitesi TEKMER
 kategori: tekmer
 konum: Dögol Cad., Yenimahalle
+alanlar: [genel]
 etiketler:
   - sektörden bağımsız
 uzmanlik: Sektörden bağımsız; yapay zekâ, sağlık, enerji, tarım-gıda, yazılım ve malzeme örnek alanlar.

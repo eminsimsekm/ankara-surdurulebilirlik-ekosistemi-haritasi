@@ -2,6 +2,7 @@
 ad: FarmLabs
 kategori: girisim
 konum: ODTÜ Teknokent
+alanlar: [tarim-gida]
 etiketler:
   - akıllı tarım
   - yapay zekâ

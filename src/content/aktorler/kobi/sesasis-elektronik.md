@@ -2,6 +2,7 @@
 ad: SESASİS Elektronik
 kategori: kobi
 konum: Gazi Teknopark, Gölbaşı
+alanlar: [enerji-verimliligi]
 etiketler:
   - enerji verimliliği
   - IoT

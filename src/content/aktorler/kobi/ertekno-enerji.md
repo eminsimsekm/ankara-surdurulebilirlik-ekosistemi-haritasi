@@ -2,6 +2,7 @@
 ad: ERTEKNO Enerji
 kategori: kobi
 konum: OSTİM Teknopark, Yenimahalle
+alanlar: [yenilenebilir-enerji]
 etiketler:
   - yenilenebilir enerji
   - GES tasarım

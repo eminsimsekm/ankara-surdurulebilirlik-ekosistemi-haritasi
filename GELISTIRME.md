@@ -107,6 +107,7 @@ Yeni bir şey eklemek, var olan kodu değiştirmeden mümkün olmalı.
 | Yeni kurum | `src/content/aktorler/<kategori>/<ad>.md` | Kodun tamamı |
 | Yeni kategori | `kategoriler.yaml` + `tokens.css`'te renk | Sayfalar, menü, harita |
 | Haritaya yeni içerik türü | `harita/kaynaklar.ts`'te `HARITA_KAYNAKLARI`'na bir kaynak | `Harita.astro`, `harita.ts` |
+| Haritada kategori görünümünün gruplaması | İlgili kaynağın `altGrup`'u (`harita/kaynaklar.ts`) | `Harita.astro`, `harita.ts`, geometri |
 | Kurum sayfasına yeni ilişki bölümü | `iliskiler/kaynaklar.ts`'te `ILISKI_KAYNAKLARI`'na bir kaynak | Kurum sayfası, satır bileşenleri |
 | Bir kaydı kuruma bağlamak | Kaydın dosyasına `aktorler: [kimlik]` | Kodun tamamı |
 | Kategoriye özel davranış | `kategoriler.yaml`'a bir alan (ör. `menuAdi`, `menuSira`) | Bileşenlerde `if` dalı |

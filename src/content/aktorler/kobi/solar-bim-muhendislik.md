@@ -2,6 +2,7 @@
 ad: Solar BIM Mühendislik
 kategori: kobi
 konum: Çankaya, Ankara
+alanlar: [yenilenebilir-enerji]
 etiketler:
   - güneş EPC
   - mimari entegrasyon

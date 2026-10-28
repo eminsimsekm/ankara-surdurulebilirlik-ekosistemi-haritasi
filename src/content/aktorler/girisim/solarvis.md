@@ -2,6 +2,7 @@
 ad: solarVis
 kategori: girisim
 konum: ODTÜ Teknokent, Çankaya
+alanlar: [yenilenebilir-enerji]
 etiketler:
   - güneş enerjisi
   - yapay zeka

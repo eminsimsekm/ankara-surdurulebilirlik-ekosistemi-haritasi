@@ -2,6 +2,7 @@
 ad: As Biyoteknoloji
 kategori: girisim
 konum: Ankara
+alanlar: [biyoteknoloji-malzeme, tarim-gida]
 etiketler:
   - alg
   - biyoteknoloji

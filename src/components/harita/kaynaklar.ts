@@ -41,6 +41,8 @@ export interface HaritaDugumu {
   aramaMetni: string;
   /** Sayfa açıldığında seçili gelecek düğüm adayı */
   oneCikan?: boolean;
+  /** Kategori görünümünde girdiği dilim. Yoksa kategorinin tamamı tek dilimdir. */
+  altGrup?: { id: string; etiket: string; sira: number };
   detay: { Bilesen: AstroComponentFactory; props: Record<string, unknown> };
 }
 
@@ -59,14 +61,19 @@ async function kategoriBul(id: string): Promise<Kategori> {
 const aktorler: HaritaKaynagi = async () =>
   Promise.all(
     (await getAktorGruplari()).flatMap(({ kategori, aktorler }) =>
-      aktorler.map(async (aktor) => ({
-        id: aktorDugumId(aktor.id),
-        kategori: kategori.id,
-        ad: aktor.data.ad,
-        aramaMetni: aktorAramaMetni(aktor, await aktorAlanlari(aktor)),
-        oneCikan: aktor.data.oneCikan,
-        detay: { Bilesen: AktorDetay, props: { aktor, kategori, sayfaYolu: aktorYolu(kategori, aktor) } },
-      })),
+      aktorler.map(async (aktor) => {
+        const alanlar = await aktorAlanlari(aktor);
+        const birincil = alanlar[0]!; // şema en az bir alan istiyor
+        return {
+          id: aktorDugumId(aktor.id),
+          kategori: kategori.id,
+          ad: aktor.data.ad,
+          aramaMetni: aktorAramaMetni(aktor, alanlar),
+          oneCikan: aktor.data.oneCikan,
+          altGrup: { id: birincil.id, etiket: birincil.data.ad, sira: birincil.data.sira },
+          detay: { Bilesen: AktorDetay, props: { aktor, kategori, sayfaYolu: aktorYolu(kategori, aktor) } },
+        };
+      }),
     ),
   );
 
@@ -83,6 +90,7 @@ const akademisyenler: HaritaKaynagi = async () => {
       kategori: kategori.id,
       ad: akademisyen.data.ad,
       aramaMetni: akademisyenAramaMetni(akademisyen, universite),
+      altGrup: { id: universite.id, etiket: universite.data.ad, sira: universite.data.sira },
       detay: {
         Bilesen: AkademisyenDetay,
         props: { akademisyen, universite, kategori, sayfaYolu: kayitYolu(kategori, akademisyen.id) },
@@ -122,6 +130,7 @@ const yatirimlar: HaritaKaynagi = async () => {
       kategori: kategori.id,
       ad: yatirim.data.ad,
       aramaMetni: yatirimAramaMetni(yatirim, tur),
+      altGrup: { id: tur.id, etiket: tur.data.ad, sira: tur.data.sira },
       detay: {
         Bilesen: YatirimDetay,
         props: { yatirim, tur, kategori, sayfaYolu: kayitYolu(kategori, yatirim.id) },

@@ -2,6 +2,7 @@
 ad: Theta Temiz Enerji
 kategori: girisim
 konum: Teknopark Ankara, Kahramankazan
+alanlar: [yenilenebilir-enerji, tarim-gida]
 etiketler:
   - güneş enerjisi
   - gıda kurutma

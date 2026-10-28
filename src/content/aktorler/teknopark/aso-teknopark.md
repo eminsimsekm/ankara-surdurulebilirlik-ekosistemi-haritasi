@@ -2,6 +2,7 @@
 ad: ASO Teknopark
 kategori: teknopark
 konum: Sincan, ASO 1. OSB
+alanlar: [sanayi]
 etiketler:
   - sanayi
   - ileri imalat

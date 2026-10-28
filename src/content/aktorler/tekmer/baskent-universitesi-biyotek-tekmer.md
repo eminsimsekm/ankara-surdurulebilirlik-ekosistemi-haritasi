@@ -2,6 +2,7 @@
 ad: Başkent Üniversitesi Biyotek TEKMER
 kategori: tekmer
 konum: Etimesgut
+alanlar: [biyoteknoloji-malzeme, saglik]
 etiketler:
   - biyoteknoloji
 uzmanlik: Adından biyoteknoloji; tematik alan doğrulanamadı.

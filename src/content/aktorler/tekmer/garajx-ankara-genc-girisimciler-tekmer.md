@@ -2,6 +2,7 @@
 ad: GarajX Ankara Genç Girişimciler TEKMER
 kategori: tekmer
 konum: Beştepe, Yenimahalle
+alanlar: [genel]
 etiketler:
   - genç girişimci
   - Founder Institute

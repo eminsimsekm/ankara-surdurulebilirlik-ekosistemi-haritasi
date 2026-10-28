@@ -2,6 +2,7 @@
 ad: Spacelis
 kategori: girisim
 konum: Teknopark Ankara
+alanlar: [yenilenebilir-enerji, savunma-havacilik]
 etiketler:
   - perovskit güneş
   - uzay teknolojisi

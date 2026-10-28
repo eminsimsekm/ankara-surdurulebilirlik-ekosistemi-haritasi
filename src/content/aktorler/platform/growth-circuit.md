@@ -2,6 +2,7 @@
 ad: Growth Circuit
 kategori: platform
 konum: ODTÜ Teknokent
+alanlar: [finans]
 etiketler:
   - hızlandırma
   - yatırım

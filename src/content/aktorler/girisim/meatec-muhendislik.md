@@ -2,6 +2,7 @@
 ad: MEATEC Mühendislik
 kategori: girisim
 konum: Ankara Teknopark Kuluçka Merkezi
+alanlar: [enerji-depolama, e-mobilite]
 etiketler:
   - EV batarya yönetimi
   - BMS yazılımı

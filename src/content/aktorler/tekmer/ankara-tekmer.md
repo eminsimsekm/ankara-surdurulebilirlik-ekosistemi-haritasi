@@ -2,6 +2,7 @@
 ad: Ankara TEKMER
 kategori: tekmer
 konum: Yıldırım Kule, Çankaya
+alanlar: [genel, finans]
 etiketler:
   - LEAP Investment
   - 100 mn TL fon

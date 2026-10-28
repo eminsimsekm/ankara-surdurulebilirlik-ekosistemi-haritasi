@@ -2,6 +2,7 @@
 ad: Bilkent YES
 kategori: platform
 konum: Bilkent Üniversitesi
+alanlar: [genel]
 etiketler:
   - öğrenci topluluğu
   - Ankara Start-Up Zirvesi

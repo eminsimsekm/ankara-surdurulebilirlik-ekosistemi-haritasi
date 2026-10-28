@@ -2,6 +2,7 @@
 ad: Medipol MEDİTEK TEKMER
 kategori: tekmer
 konum: Hacı Bayram, Altındağ
+alanlar: [saglik]
 etiketler:
   - medikal teknoloji
 uzmanlik: Tematik merkez; adından medikal teknoloji. 29 kapalı ofis.

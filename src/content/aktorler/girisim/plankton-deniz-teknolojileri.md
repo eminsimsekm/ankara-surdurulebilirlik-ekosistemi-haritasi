@@ -2,6 +2,7 @@
 ad: Plankton Deniz Teknolojileri
 kategori: girisim
 konum: Bilkent CYBERPARK
+alanlar: [su-cevre, atik-dongusel]
 etiketler:
   - okyanus sağlığı
   - plastik atık

@@ -2,6 +2,7 @@
 ad: OSTİM Teknopark
 kategori: teknopark
 konum: Yenimahalle
+alanlar: [yenilenebilir-enerji]
 etiketler:
   - yeşil enerji temalı
   - 176 firma

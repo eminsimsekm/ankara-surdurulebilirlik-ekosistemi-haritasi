@@ -2,6 +2,7 @@
 ad: Toya Yazılım & Tarım
 kategori: kobi
 konum: OSTİM Teknopark, Yenimahalle
+alanlar: [tarim-gida, yenilenebilir-enerji]
 etiketler:
   - tarım teknolojisi
   - yenilenebilir enerji

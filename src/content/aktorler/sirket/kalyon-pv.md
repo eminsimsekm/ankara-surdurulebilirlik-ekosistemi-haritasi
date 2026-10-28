@@ -2,6 +2,7 @@
 ad: Kalyon PV
 kategori: sirket
 konum: Başkent OSB, Malıköy
+alanlar: [yenilenebilir-enerji]
 etiketler:
   - güneş paneli
   - dikey entegre

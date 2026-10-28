@@ -2,6 +2,7 @@
 ad: qbivio · Gözalıcı Enerji
 kategori: girisim
 konum: OSTİM OSB, Yenimahalle
+alanlar: [enerji-verimliligi]
 etiketler:
   - Mikro ORC
   - atık ısı geri kazanım

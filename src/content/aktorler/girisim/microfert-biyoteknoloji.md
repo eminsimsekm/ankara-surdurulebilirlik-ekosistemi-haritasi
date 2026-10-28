@@ -2,6 +2,7 @@
 ad: MicroFert Biyoteknoloji
 kategori: girisim
 konum: Gazi Teknopark
+alanlar: [tarim-gida, biyoteknoloji-malzeme]
 etiketler:
   - biyogübre
   - BİGG Yeşil Büyüme

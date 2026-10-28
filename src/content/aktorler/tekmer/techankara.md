@@ -2,6 +2,7 @@
 ad: TechAnkara
 kategori: tekmer
 konum: Ankara Kalkınma Ajansı
+alanlar: [genel]
 etiketler:
   - hızlandırıcı
   - proje pazarı

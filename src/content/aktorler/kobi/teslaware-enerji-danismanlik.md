@@ -2,6 +2,7 @@
 ad: Teslaware Enerji Danışmanlık
 kategori: kobi
 konum: OSTİM Teknopark, Yenimahalle
+alanlar: [enerji-verimliligi]
 etiketler:
   - enerji verimliliği
   - danışmanlık

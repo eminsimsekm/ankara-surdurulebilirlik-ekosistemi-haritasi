@@ -2,6 +2,7 @@
 ad: Lokman Hekim TEKMER (LHUSTEK)
 kategori: tekmer
 konum: Söğütözü, Çankaya
+alanlar: [saglik]
 etiketler:
   - sağlık
   - ilaç

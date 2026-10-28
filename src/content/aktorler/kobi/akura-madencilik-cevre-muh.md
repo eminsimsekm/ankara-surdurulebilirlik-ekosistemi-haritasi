@@ -2,6 +2,7 @@
 ad: Akura Madencilik & Çevre Müh.
 kategori: kobi
 konum: OSTİM Teknopark, Yenimahalle
+alanlar: [su-cevre, atik-dongusel]
 etiketler:
   - çevre mühendisliği
   - atık yönetimi

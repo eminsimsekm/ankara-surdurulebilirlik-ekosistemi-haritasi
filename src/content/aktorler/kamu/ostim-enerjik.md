@@ -2,6 +2,7 @@
 ad: OSTİM ENERJİK
 kategori: kamu
 konum: OSTİM
+alanlar: [yenilenebilir-enerji, su-cevre]
 etiketler:
   - kümelenme
 kisiler: Mehmet Suphi İnal (koordinatör)

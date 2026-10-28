@@ -2,6 +2,7 @@
 ad: Greenlife Danışmanlık
 kategori: girisim
 konum: NetZero TEKMER, Çankaya
+alanlar: [karbon-iklim]
 etiketler:
   - sürdürülebilirlik danışmanlığı
   - ESG

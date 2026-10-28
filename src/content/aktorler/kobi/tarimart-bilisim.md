@@ -2,6 +2,7 @@
 ad: Tarımart Bilişim
 kategori: kobi
 konum: OSTİM Teknopark, Yenimahalle
+alanlar: [tarim-gida]
 etiketler:
   - tarım teknolojisi
   - dijital tarım

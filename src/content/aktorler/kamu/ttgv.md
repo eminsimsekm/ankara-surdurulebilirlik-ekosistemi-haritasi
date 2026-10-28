@@ -2,6 +2,7 @@
 ad: TTGV
 kategori: kamu
 konum: Ankara
+alanlar: [karbon-iklim, finans]
 etiketler:
   - İklim Öncüsü VC Fonu
 kisiler: Değerhan Usluel (Başkan) · Evren Bükülmez

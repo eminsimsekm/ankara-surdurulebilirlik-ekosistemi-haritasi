@@ -2,6 +2,7 @@
 ad: Hacettepe Teknokent
 kategori: teknopark
 konum: Beytepe
+alanlar: [genel]
 etiketler:
   - ISO 14001
   - akıllı kampüs

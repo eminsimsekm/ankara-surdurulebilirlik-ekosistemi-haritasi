@@ -2,6 +2,7 @@
 ad: ODTÜ Teknokent
 kategori: teknopark
 konum: Çankaya
+alanlar: [genel]
 etiketler:
   - enerji-çevre %6
   - girişimcilik tüneli

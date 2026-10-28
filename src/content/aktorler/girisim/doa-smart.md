@@ -2,6 +2,7 @@
 ad: DOA Smart
 kategori: girisim
 konum: Ankara
+alanlar: [su-cevre]
 etiketler:
   - iç hava kalitesi
 kaynak: https://startupcentrum.com/tr/girisimler

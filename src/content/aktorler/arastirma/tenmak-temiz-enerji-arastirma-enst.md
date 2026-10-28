@@ -2,6 +2,7 @@
 ad: TENMAK Temiz Enerji Araştırma Enst.
 kategori: arastirma
 konum: Sarayköy
+alanlar: [hidrojen, karbon-iklim]
 etiketler:
   - yeşil hidrojen
   - CCUS

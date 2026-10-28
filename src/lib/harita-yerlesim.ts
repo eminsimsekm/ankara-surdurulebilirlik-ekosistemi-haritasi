@@ -1,14 +1,16 @@
 /*
-  Radyal ekosistem haritasının geometrisi. Saf fonksiyon: kategorileri ve
+  Radyal ekosistem haritasının geometrisi. Saf fonksiyon: dilimleri ve
   düğüm kimliklerini alır, koordinatları döndürür. Çizim (SVG) ve renkler
   Harita.astro'da; bu dosya hiçbir şey çizmez.
 
-  Her kategori bir dilimdir; dilim genişliği kayıt sayısıyla büyür ama en az
-  3 kayıtlık yer kaplar. Düğümler içten dışa halkalara yerleştirilir.
+  Her dilim bir gruptur: genel görünümde kategoriler, kategori görünümünde o
+  kategorinin alt grupları (ör. kurumların alanları). Dilim genişliği kayıt
+  sayısıyla büyür ama en az 3 kayıtlık yer kaplar. Düğümler içten dışa
+  halkalara yerleştirilir. Tek dilim tüm daireyi kaplar ve ayırıcı çizgisi olmaz.
 */
 
 export interface DilimGirdisi {
-  kategori: string;
+  anahtar: string;
   etiket: string;
   dugumIdleri: string[];
 }
@@ -23,11 +25,12 @@ export interface Yerlesim {
   halkalar: number[];
   merkezYaricap: number;
   dilimler: {
-    kategori: string;
-    cizgi: { bas: Nokta; son: Nokta };
+    anahtar: string;
+    /** Dilimin başındaki ayırıcı; tek dilimde yok */
+    cizgi?: { bas: Nokta; son: Nokta };
     etiket: Nokta & { metin: string; hiza: "start" | "middle" | "end" };
   }[];
-  dugumler: (Nokta & { id: string; kategori: string })[];
+  dugumler: (Nokta & { id: string; anahtar: string })[];
 }
 
 const C = 360; // merkez
@@ -36,7 +39,13 @@ const MERKEZ_YARICAP = 46;
 const CIZGI = { ic: 50, dis: 330 };
 const ETIKET_YARICAP = 358;
 const DUGUM_ARALIGI = 22; // halka üzerinde düğümler arası en az mesafe
-const HALKA = { ilk: 78, son: 318, adim: 24 };
+/** Düğüm halkaları: ilk yarıçap, son yarıçap, adım. */
+export interface HalkaAyari {
+  ilk: number;
+  son: number;
+  adim: number;
+}
+const HALKA: HalkaAyari = { ilk: 78, son: 318, adim: 24 };
 const DILIM_DOLULUK = 0.86; // dilimin kenarlarında boşluk kalsın
 
 const yuvarla = (n: number) => Math.round(n * 10) / 10;
@@ -45,7 +54,11 @@ const kutupsal = (aci: number, r: number): Nokta => ({
   y: yuvarla(C + Math.sin(aci) * r),
 });
 
-export function haritaYerlesimi(girdiler: DilimGirdisi[]): Yerlesim {
+/**
+ * `halka`: düğümlerin yerleştiği halkalar. Az düğümlü görünümlerde (kategori görünümü)
+ * daha dıştan başlatılırsa düğümler merkeze yığılmaz, etiketlerine yaklaşır.
+ */
+export function haritaYerlesimi(girdiler: DilimGirdisi[], halka: HalkaAyari = HALKA): Yerlesim {
   const agirlik = (g: DilimGirdisi) => Math.max(3, g.dugumIdleri.length ** 0.8);
   const toplam = girdiler.reduce((s, g) => s + agirlik(g), 0);
 
@@ -59,8 +72,8 @@ export function haritaYerlesimi(girdiler: DilimGirdisi[]): Yerlesim {
     const cos = Math.cos(orta);
 
     dilimler.push({
-      kategori: g.kategori,
-      cizgi: { bas: kutupsal(a0, CIZGI.ic), son: kutupsal(a0, CIZGI.dis) },
+      anahtar: g.anahtar,
+      cizgi: girdiler.length > 1 ? { bas: kutupsal(a0, CIZGI.ic), son: kutupsal(a0, CIZGI.dis) } : undefined,
       etiket: {
         ...kutupsal(orta, ETIKET_YARICAP),
         metin: g.etiket,
@@ -69,16 +82,16 @@ export function haritaYerlesimi(girdiler: DilimGirdisi[]): Yerlesim {
     });
 
     let i = 0;
-    for (let r = HALKA.ilk; i < g.dugumIdleri.length && r <= HALKA.son; r += HALKA.adim) {
+    for (let r = halka.ilk; i < g.dugumIdleri.length && r <= halka.son; r += halka.adim) {
       const kapasite = Math.max(1, Math.floor((aralik * r * DILIM_DOLULUK) / DUGUM_ARALIGI));
       const n = Math.min(kapasite, g.dugumIdleri.length - i);
       for (let j = 0; j < n; j++, i++) {
         const aci = a0 + aralik * ((1 - DILIM_DOLULUK) / 2) + aralik * DILIM_DOLULUK * ((j + 0.5) / n);
-        dugumler.push({ id: g.dugumIdleri[i]!, kategori: g.kategori, ...kutupsal(aci, r) });
+        dugumler.push({ id: g.dugumIdleri[i]!, anahtar: g.anahtar, ...kutupsal(aci, r) });
       }
     }
     if (i < g.dugumIdleri.length) {
-      throw new Error(`Harita: "${g.kategori}" dilimine ${g.dugumIdleri.length - i} düğüm sığmadı; halka sayısını artırın.`);
+      throw new Error(`Harita: "${g.anahtar}" dilimine ${g.dugumIdleri.length - i} düğüm sığmadı; halka sayısını artırın.`);
     }
     a0 += aralik;
   }

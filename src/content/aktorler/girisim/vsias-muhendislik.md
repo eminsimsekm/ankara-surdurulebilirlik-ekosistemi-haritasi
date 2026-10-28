@@ -2,6 +2,7 @@
 ad: VSIAS Mühendislik
 kategori: girisim
 konum: Ankara
+alanlar: [su-cevre, tarim-gida]
 etiketler:
   - meteoroloji
   - çevre sensörü

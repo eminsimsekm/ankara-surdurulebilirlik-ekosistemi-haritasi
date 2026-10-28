@@ -2,6 +2,7 @@
 ad: Werer Energy
 kategori: girisim
 konum: Çukurambar, Ankara
+alanlar: [enerji-depolama, e-mobilite]
 etiketler:
   - LFP batarya
   - enerji depolama

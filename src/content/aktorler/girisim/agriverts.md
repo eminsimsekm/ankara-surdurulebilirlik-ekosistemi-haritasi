@@ -2,6 +2,7 @@
 ad: Agriverts
 kategori: girisim
 konum: Ankara
+alanlar: [tarim-gida]
 etiketler:
   - dikey tarım
   - sera yönetimi

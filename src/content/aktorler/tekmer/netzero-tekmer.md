@@ -2,6 +2,7 @@
 ad: NetZero TEKMER
 kategori: tekmer
 konum: Çiğdem, Çankaya
+alanlar: [karbon-iklim, yenilenebilir-enerji, atik-dongusel]
 etiketler:
   - iklim teknolojisi
   - döngüsel ekonomi

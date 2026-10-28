@@ -2,6 +2,7 @@
 ad: CFL Malzeme Teknolojileri
 kategori: girisim
 konum: Ankara
+alanlar: [biyoteknoloji-malzeme]
 etiketler:
   - biyoteknoloji
   - malzeme

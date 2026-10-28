@@ -1,7 +1,7 @@
 # Kurumların faaliyet alanları. Anahtar, kurum dosyalarındaki `alanlar:` listesinde kullanılır.
 # Kurum başına 1–3 alan; listenin ilki kurumun birincil alanıdır (haritada o alanın diliminde durur).
 # Etiketlerden farkı: kontrollü liste, filtre çipi olur. Etiketler serbest ayrıntıdır.
-# `sira`: çiplerin sırası.
+# `sira`: çiplerin ve haritadaki dilimlerin sırası.
 
 yenilenebilir-enerji:
   ad: Yenilenebilir enerji
@@ -47,7 +47,28 @@ savunma-havacilik:
   ad: Savunma ve havacılık
   aciklama: Savunma, havacılık, uzay ve çift kullanımlı teknolojiler
   sira: 11
+saglik:
+  ad: Sağlık ve biyomedikal
+  aciklama: Sağlık teknolojileri, ilaç, tıbbi cihaz ve biyomedikal
+  sira: 12
+egitim:
+  ad: Eğitim teknolojileri
+  aciklama: Eğitim teknolojileri (EdTech) ve öğrenme çözümleri
+  sira: 13
+bilisim:
+  ad: Bilişim ve yapay zekâ
+  # Yalnızca odağı bu olan kurumlar için; yazılımı araç olarak kullanan her girişime verilmez
+  aciklama: Yazılım, bilgi-iletişim teknolojileri ve yapay zekâ odaklı yapılar
+  sira: 14
+sanayi:
+  ad: Sanayi ve ileri imalat
+  aciklama: Sanayiye dönük üretim, prototipleme ve ileri imalat
+  sira: 15
+finans:
+  ad: Yatırım ve finansman
+  aciklama: Girişim sermayesi, fonlar, yatırımcı ağları ve kitle fonlama
+  sira: 16
 genel:
   ad: Sektörden bağımsız
-  aciklama: Belirli bir alana odaklanmayan kuluçka, hızlandırıcı ve yatırımcı yapıları
-  sira: 12
+  aciklama: Belirli bir alana odaklanmayan kuluçka ve hızlandırıcı yapıları
+  sira: 17

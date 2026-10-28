@@ -2,6 +2,7 @@
 ad: Orion TEKMER
 kategori: tekmer
 konum: Kızılırmak, Çankaya
+alanlar: [savunma-havacilik]
 etiketler:
   - savunma
   - akıllı şehir

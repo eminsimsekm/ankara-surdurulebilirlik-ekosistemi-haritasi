@@ -2,6 +2,7 @@
 ad: EnergyHUB TR
 kategori: girisim
 konum: ASO Teknopark, Sincan
+alanlar: [enerji-depolama, e-mobilite, enerji-verimliligi]
 etiketler:
   - dijital ikiz
   - yapay zekâ

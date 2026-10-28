@@ -27,9 +27,23 @@ Her kayıt ayrı bir dosyadır; yeni kayıt için kod değiştirmek gerekmez. Al
 | İş birliği | `src/content/isbirlikleri/<taraf-a>-<taraf-b>.yaml` | YAML |
 | Yeni kategori | `src/content/kategoriler.yaml` + `tokens.css`'e `--c-<anahtar>` rengi | YAML |
 | Yeni üniversite | `src/content/universiteler.yaml` | YAML |
+| Yeni faaliyet alanı (kurum filtresi) | `src/content/alanlar.yaml` | YAML |
 | Sayfa metinleri (NetZero, Yatırımlar, Takvim, Akademisyenler, İş Birlikleri) | `src/content/sayfalar/<sayfa>.md` | frontmatter + Markdown |
 | Ana sayfadaki sayı şeridi | `src/content/one-cikan-sayilar.yaml` (aktör ve akademisyen sayıları otomatik) | YAML |
 | Sektör grafiği | `src/content/sektor-yatirimlari-2025.yaml` | YAML |
+
+### Kurumların faaliyet alanı
+
+Her kurum dosyasında 1–3 alan zorunludur. Değerler `alanlar.yaml`'daki anahtarlardır; **ilk yazılan birincil
+alandır**, bu yüzden kurumun en belirgin alanı başa yazılır:
+
+```yaml
+ad: Werer Energy
+kategori: girisim
+konum: Çukurambar, Ankara
+alanlar: [enerji-depolama, e-mobilite]   # filtre çipi olur, kurumlar sayfasına bağlanır
+etiketler: [LFP batarya, enerji depolama, EV şarj]   # serbest ayrıntı; filtre olmaz
+```
 
 ### Kayıtları kurumlara bağlamak
 
@@ -72,7 +86,8 @@ Türkçe karaktersiz ve tireli yazın (`netzero-tekmer.md`); yayına çıktıkta
 - `src/components/bloklar/`: sayfa blokları (sayı şeridi, istatistikler, grafik, kurum sayfası, Markdown metni)
 - `src/components/iliskiler/`: kurum sayfasındaki ilgili kayıt bölümleri; `kaynaklar.ts` hangi kaydın
   kurum sayfasında nasıl görüneceğini tanımlar (yeni bir ilişki türü için oraya bir kaynak eklenir)
-- `src/components/harita/`: harita; `kaynaklar.ts` hangi içeriğin haritada nasıl görüneceğini tanımlar
+- `src/components/harita/`: harita; bir kategori seçilince yalnızca o kategori kalır ve düğümler `altGrup`'larına
+  (kurumlarda birincil alan, akademisyenlerde üniversite, yatırımlarda tür) göre dilimlenir; `kaynaklar.ts` hangi içeriğin haritada nasıl görüneceğini tanımlar
   (yeni bir içerik türünü haritaya eklemek için oraya bir kaynak eklenir)
 - `src/scripts/`: yalnızca tarayıcıda çalışan kod (liste süzme, harita etkileşimi, takvim durumu)
 - `src/pages/[kategori]/`: tüm kategori ve aktör sayfalarını üreten iki şablon

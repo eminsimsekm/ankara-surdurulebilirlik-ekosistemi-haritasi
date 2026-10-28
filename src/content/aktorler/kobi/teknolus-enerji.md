@@ -2,6 +2,7 @@
 ad: Teknolus Enerji
 kategori: kobi
 konum: OSTİM Teknopark, Yenimahalle
+alanlar: [enerji-verimliligi]
 etiketler:
   - enerji verimliliği
   - akıllı bina

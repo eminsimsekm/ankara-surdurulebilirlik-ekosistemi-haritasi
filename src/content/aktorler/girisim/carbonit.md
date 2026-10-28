@@ -2,6 +2,7 @@
 ad: CarbonIT
 kategori: girisim
 konum: Hacettepe Teknokent, Ankara
+alanlar: [karbon-iklim]
 etiketler:
   - karbon yönetimi
   - ESG

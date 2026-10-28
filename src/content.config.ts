@@ -182,7 +182,10 @@ const aktorler = defineCollection({
     kategori: idIn("kategoriler"),
     konum: z.string(),
     // Faaliyet alanları (alanlar.yaml); ilki birincil alan. Etiketlerden farkı: kontrollü liste, filtre olur.
-    alanlar: z.array(idIn("alanlar")).max(3, "Kurum başına en fazla 3 alan yazılabilir.").default([]),
+    alanlar: z
+      .array(idIn("alanlar"))
+      .min(1, "Kurumun en az bir alanı olmalı (alanlar.yaml).")
+      .max(3, "Kurum başına en fazla 3 alan yazılabilir."),
     etiketler: z.array(z.string()).default([]),
     uzmanlik: z.string().optional(),
     surdurulebilirlik: z.string().optional(),
