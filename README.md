@@ -99,7 +99,7 @@ Türkçe karaktersiz ve tireli yazın (`netzero-tekmer.md`); yayına çıktıkta
 
 Kod yazarken uyulacak kurallar (Django'ya hazırlık, SOLID) [GELISTIRME.md](GELISTIRME.md) dosyasında.
 
-Henüz yapılmamış işlerin adım adım tarifleri `yapilacaklar/` klasöründe.
+Henüz yapılmamış işlerin adım adım tarifleri `yapilacaklar/`, bitmiş işlerin kısa özetleri `yapilanlar/` klasöründe.
 
 Eski tek dosyalık HTML sürümü ve veriyi ondan aktaran script `df9265a` commit'inde duruyor
 (`legacy/`, `scripts/migrate-legacy.mjs`).

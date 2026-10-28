@@ -152,6 +152,7 @@ PR açmadan önce:
 - [ ] Astro sunucu özelliği (SSR, Actions, middleware) kullanılmadı.
 - [ ] Giriş, favori, mail gibi Django işi gerektiren bir şey sahte biçimde yapılmadı.
 - [ ] `npm run build` hatasız geçiyor.
+- [ ] İşin kısa özeti `yapilanlar/` klasörüne eklendi (dosya + tablo satırı).
 - [ ] Yeni bir uzatma noktası açıldıysa README'deki "İçerik ekleme" tablosu ya da bu dosya güncellendi.
 
 ---
