@@ -4,6 +4,8 @@
     [data-filter-root]                    süzmenin kapsamı
       [data-filter-input]                 (isteğe bağlı) arama kutusu
       [data-filter-facet="param"]         (isteğe bağlı, birden çok olabilir) tek seçimli çip grubu (FiltreCipleri)
+        [data-filter-bagli="ust"]         (isteğe bağlı) bu grup "ust" grubuna bağlı: ust'teki seçime göre
+                                          yalnızca öğesi olan çipler görünür, sayıları (<small>) güncellenir
         [data-filter-chip][data-deger]    çip; data-deger="" = tümü
       [data-filter-group]                 (isteğe bağlı) içinde görünür öğe kalmazsa gizlenir
         [data-filter-item][data-search]   süzülen öğe; data-search = searchKey(...) çıktısı,
@@ -30,6 +32,8 @@ interface CipGrubu {
   param: string;
   chips: HTMLButtonElement[];
   secili: string; // "" = tümü
+  /** Bağlı olduğu grubun parametresi */
+  bagli?: string;
 }
 
 function setup(root: HTMLElement) {
@@ -43,12 +47,35 @@ function setup(root: HTMLElement) {
     param: facet.dataset.filterFacet!,
     chips: [...facet.querySelectorAll<HTMLButtonElement>("[data-filter-chip]")],
     secili: "",
+    bagli: facet.dataset.filterBagli || undefined,
   }));
 
-  const eslesir = (item: HTMLElement, g: CipGrubu) =>
-    !g.secili || (item.getAttribute(`data-facet-${g.param}`) ?? "").split(" ").includes(g.secili);
+  const degerler = (item: HTMLElement, param: string) => (item.getAttribute(`data-facet-${param}`) ?? "").split(" ");
+  const eslesir = (item: HTMLElement, g: CipGrubu) => !g.secili || degerler(item, g.param).includes(g.secili);
+
+  /**
+   * Bağlı grubun çiplerini üst gruptaki seçime göre günceller: sayılar yalnızca üst seçime uyan
+   * öğelerden sayılır, sayısı 0 olan çip gizlenir. Seçili çip gizlenirse seçim "Tümü"ye döner.
+   */
+  const bagliyiGuncelle = (g: CipGrubu) => {
+    const ust = cipGruplari.find((u) => u.param === g.bagli);
+    if (!ust) return;
+    const kapsam = items.filter((item) => eslesir(item, ust));
+    for (const chip of g.chips) {
+      const deger = chip.dataset.deger ?? "";
+      const sayi = deger ? kapsam.filter((item) => degerler(item, g.param).includes(deger)).length : kapsam.length;
+      const small = chip.querySelector("small");
+      if (small) small.textContent = String(sayi);
+      chip.hidden = !!deger && sayi === 0;
+    }
+    if (g.chips.find((c) => c.dataset.deger === g.secili)?.hidden) {
+      g.secili = "";
+      adresiGuncelle(g.param, "");
+    }
+  };
 
   const apply = () => {
+    for (const g of cipGruplari) if (g.bagli) bagliyiGuncelle(g);
     const query = searchKey(input?.value ?? "");
     let shown = 0;
     for (const item of items) {

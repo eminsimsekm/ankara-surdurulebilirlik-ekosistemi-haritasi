@@ -18,11 +18,16 @@ interface Props {
   parametre: string;
   /** Görünür grup başlığı; bir sayfada birden çok çip grubu varken gruplar ayırt edilsin diye */
   baslik?: string;
+  /**
+   * Bağlı olduğu çip grubunun parametresi (ör. "kategori"). Verilirse o gruptaki seçime göre
+   * yalnızca öğesi olan çipler görünür ve sayıları seçime göre güncellenir.
+   */
+  bagli?: string;
 }
-const { etiket, secenekler, tumuSayi, parametre, baslik } = Astro.props;
+const { etiket, secenekler, tumuSayi, parametre, baslik, bagli } = Astro.props;
 ---
 
-<div class="chips" role="group" aria-label={etiket} data-filter-facet={parametre}>
+<div class="chips" role="group" aria-label={etiket} data-filter-facet={parametre} data-filter-bagli={bagli}>
   {baslik && <span class="baslik" aria-hidden="true">{baslik}</span>}
   <Cip basili={true} sayi={tumuSayi} data-filter-chip data-deger="">Tümü</Cip>
   {secenekler.map((s) => (
@@ -32,6 +37,8 @@ const { etiket, secenekler, tumuSayi, parametre, baslik } = Astro.props;
 
 <style>
   .chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 14px; }
+  /* Bağlı grupta öğesi kalmayan çip gizlenir (Cip'in display'i hidden'ı ezmesin) */
+  .chips :global(.chip[hidden]) { display: none; }
   .baslik { font: 600 11px var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); min-width: 72px; }
 </style>
 

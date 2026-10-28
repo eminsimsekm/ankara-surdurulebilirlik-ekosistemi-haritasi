@@ -11,6 +11,7 @@ tablonun en üstüne bir satır eklenir.
 
 | Tarih | İş | Özet |
 |---|---|---|
+| 2026-10-28 | [Kategoriye bağlı alan çipleri](2026-10-28-bagli-alan-cipleri.md) | Kurumlar sayfasında kategori seçilince yalnızca o kategorinin alanları ve sayıları |
 | 2026-10-28 | [Harita panelinde kısa kurum kartı](2026-10-28-harita-paneli-ozet.md) | Panelde yalnızca önemli bilgiler, ayrıntılar kurum sayfasında |
 | 2026-10-28 | [Haritada kategori görünümü](2026-10-28-haritada-kategori-gorunumu.md) | Seçilen kategori tüm daireye yayılır, alanlara göre dilimlenir; mobilde numaralı lejant |
 | 2026-10-28 | [Kurumlara faaliyet alanı](2026-10-28-kurumlara-alan-filtresi.md) | 17 alanlık kontrollü liste, alan filtre çipleri |
