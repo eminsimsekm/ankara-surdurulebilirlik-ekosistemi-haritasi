@@ -6,13 +6,15 @@
     Kategoriler kategoriler.yaml'daki menuAdi/menuSira'dan gelir.
 */
 import { getMenuKategorileri, kategoriYolu } from "../lib/content";
+import { yol } from "../lib/yol";
 
 interface Baglanti {
   ad: string;
   yol: string;
 }
 
-const KURUMLAR_YOLU = "/kurumlar/";
+const ANA_YOL = yol("/");
+const KURUMLAR_YOLU = yol("/kurumlar/");
 
 const kurumKategorileri: Baglanti[] = (await getMenuKategorileri()).map((k) => ({
   ad: k.data.menuAdi!,
@@ -20,17 +22,17 @@ const kurumKategorileri: Baglanti[] = (await getMenuKategorileri()).map((k) => (
 }));
 
 const anaBaglantilar: Baglanti[] = [
-  { ad: "Harita", yol: "/" },
+  { ad: "Harita", yol: ANA_YOL },
   { ad: "Kurumlar", yol: KURUMLAR_YOLU },
-  { ad: "Akademisyenler", yol: "/akademisyenler/" },
-  { ad: "Yatırımlar", yol: "/yatirimlar/" },
-  { ad: "Takvim", yol: "/takvim/" },
-  { ad: "İş Birlikleri", yol: "/isbirlikleri/" },
-  { ad: "NetZero TEKMER", yol: "/netzero/" },
+  { ad: "Akademisyenler", yol: yol("/akademisyenler/") },
+  { ad: "Yatırımlar", yol: yol("/yatirimlar/") },
+  { ad: "Takvim", yol: yol("/takvim/") },
+  { ad: "İş Birlikleri", yol: yol("/isbirlikleri/") },
+  { ad: "NetZero TEKMER", yol: yol("/netzero/") },
 ];
 
 const simdiki = Astro.url.pathname.replace(/\/?$/, "/");
-const altinda = (yol: string) => (yol === "/" ? simdiki === "/" : simdiki.startsWith(yol));
+const altinda = (hedef: string) => (hedef === ANA_YOL ? simdiki === ANA_YOL : simdiki.startsWith(hedef));
 const kurumlardaMi = altinda(KURUMLAR_YOLU) || kurumKategorileri.some((k) => altinda(k.yol));
 
 const anaAktif = (b: Baglanti) => (b.yol === KURUMLAR_YOLU ? kurumlardaMi : altinda(b.yol));

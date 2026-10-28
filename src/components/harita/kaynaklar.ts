@@ -25,6 +25,7 @@ import {
   yatirimAramaMetni,
   type Kategori,
 } from "../../lib/content";
+import { yol } from "../../lib/yol";
 import AkademisyenDetay from "../detay/AkademisyenDetay.astro";
 import AktorDetay from "../detay/AktorDetay.astro";
 import TakvimDetay from "../detay/TakvimDetay.astro";
@@ -46,7 +47,7 @@ type HaritaKaynagi = () => Promise<HaritaDugumu[]>;
 
 export const aktorDugumId = (aktorId: string) => `aktor:${aktorId}`;
 /** Haritayı verilen düğüm seçili olarak açan adres. */
-export const haritadaGosterYolu = (dugumId: string) => `/?secim=${encodeURIComponent(dugumId)}`;
+export const haritadaGosterYolu = (dugumId: string) => yol(`/?secim=${encodeURIComponent(dugumId)}`);
 
 async function kategoriBul(id: string): Promise<Kategori> {
   const kategori = (await getKategoriler()).find((k) => k.id === id);

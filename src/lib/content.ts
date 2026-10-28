@@ -5,6 +5,7 @@
 */
 import { getCollection, type CollectionEntry } from "astro:content";
 import { searchKey } from "./text";
+import { yol } from "./yol";
 
 export type Kategori = CollectionEntry<"kategoriler">;
 export type Aktor = CollectionEntry<"aktorler">;
@@ -84,10 +85,10 @@ export async function getAktor(id: string): Promise<{ aktor: Aktor; kategori: Ka
 /** Kategori sayfasının başlığı; tanımlı değilse kategori adı. */
 export const kategoriBasligi = (kategori: Kategori) => kategori.data.baslik ?? kategori.data.ad;
 
-export const kategoriYolu = (kategori: Kategori) => `/${kategori.data.yol}/`;
-export const aktorYolu = (kategori: Kategori, aktor: Aktor) => `/${kategori.data.yol}/${aktor.id}/`;
+export const kategoriYolu = (kategori: Kategori) => yol(`/${kategori.data.yol}/`);
+export const aktorYolu = (kategori: Kategori, aktor: Aktor) => yol(`/${kategori.data.yol}/${aktor.id}/`);
 /** Kendi sayfası olmayan kayıtlar (akademisyen, takvim, yatırım) için kategori sayfasındaki satırı. */
-export const kayitYolu = (kategori: Kategori, id: string) => `/${kategori.data.yol}/#${id}`;
+export const kayitYolu = (kategori: Kategori, id: string) => yol(`/${kategori.data.yol}/#${id}`);
 
 /** Aktörün aramada eşleşeceği tüm metin. */
 export function aktorAramaMetni(aktor: Aktor): string {

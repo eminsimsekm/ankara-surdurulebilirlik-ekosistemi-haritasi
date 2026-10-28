@@ -4,6 +4,7 @@
   ve içerikten hesaplanan sayılar (yeni kayıt eklendikçe kendiliğinden güncellenir).
 */
 import { getAkademisyenler, getAktorGruplari, getOneCikanSayilar, getUniversiteler } from "../../lib/content";
+import { yol } from "../../lib/yol";
 
 const [elle, gruplar, akademisyenler, universiteler] = await Promise.all([
   getOneCikanSayilar(),
@@ -33,7 +34,7 @@ const sayilar = [
     const Etiket = s.yol ? "a" : "div";
     return (
       <li>
-        <Etiket href={s.yol}><b>{s.deger}</b><span>{s.etiket}</span></Etiket>
+        <Etiket href={s.yol && yol(s.yol)}><b>{s.deger}</b><span>{s.etiket}</span></Etiket>
       </li>
     );
   })}

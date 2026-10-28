@@ -7,6 +7,7 @@ import "../styles/tokens.css";
 import "../styles/base.css";
 import SiteNav from "../components/SiteNav.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
+import { yol } from "../lib/yol";
 
 interface Props {
   title: string;
@@ -36,7 +37,7 @@ const fullTitle = title === SITE_NAME ? title : `${title} · ${SITE_NAME}`;
   <body>
     <header class="site-header wrap">
       <div class="topbar">
-        <a class="brand" href="/">{SITE_NAME}</a>
+        <a class="brand" href={yol("/")}>{SITE_NAME}</a>
         <ThemeToggle />
       </div>
       <SiteNav />
