@@ -106,4 +106,4 @@ Kod yazarken uyulacak kurallar (Django'ya hazırlık, SOLID) [GELISTIRME.md](GEL
 Henüz yapılmamış işlerin adım adım tarifleri `yapilacaklar/`, bitmiş işlerin kısa özetleri `yapilanlar/` klasöründe.
 
 Eski tek dosyalık HTML sürümü ve veriyi ondan aktaran script `df9265a` commit'inde duruyor
-(`legacy/`, `scripts/migrate-legacy.mjs`).
+(`legacy/`, `scripts/migrate-legacy.mjs`). 
