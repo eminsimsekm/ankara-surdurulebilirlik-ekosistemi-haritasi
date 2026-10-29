@@ -1,7 +1,7 @@
 # TASK-07: Sitede Excel indirme ve build zinciri
 
 **WP:** [WP-01](../WP.md)
-**Durum:** `review`
+**Durum:** `done`
 **Bağımlı:** TASK-04, TASK-06
 **Tahmini efor:** ~0.5g
 

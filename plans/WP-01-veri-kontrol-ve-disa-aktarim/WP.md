@@ -1,6 +1,6 @@
 # WP-01: Veri kontrolü ve dışa aktarım
 
-**Durum:** `review`
+**Durum:** `done`
 **Bağımlı:** -
 **Tahmini efor:** ~3.5g
 

@@ -1,7 +1,7 @@
 # TASK-06: Komutlar, yayın kararı, CI özeti, belgeler
 
 **WP:** [WP-01](../WP.md)
-**Durum:** `review`
+**Durum:** `done`
 **Bağımlı:** TASK-03, TASK-04, TASK-05
 **Tahmini efor:** ~0.5g
 
