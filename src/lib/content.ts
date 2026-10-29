@@ -88,6 +88,8 @@ export const kategoriBasligi = (kategori: Kategori) => kategori.data.baslik ?? k
 
 export const kategoriYolu = (kategori: Kategori) => yol(`/${kategori.data.yol}/`);
 export const aktorYolu = (kategori: Kategori, aktor: Aktor) => yol(`/${kategori.data.yol}/${aktor.id}/`);
+/** Sitede indirilebilen genel Excel (src/pages/indir/; üretim kodu lib/veri-excel.ts). */
+export const genelExcelYolu = () => yol("/indir/ankara-surdurulebilirlik-haritasi.xlsx");
 /** Kendi sayfası olmayan kayıtlar (akademisyen, takvim, yatırım) için kategori sayfasındaki satırı. */
 export const kayitYolu = (kategori: Kategori, id: string) => yol(`/${kategori.data.yol}/#${id}`);
 

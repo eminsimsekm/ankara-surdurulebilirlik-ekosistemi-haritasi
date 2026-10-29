@@ -33,6 +33,14 @@ jobs:
           # Ör. /ankara-surdurulebilirlik-ekosistemi-haritasi ; özel alan adında boş gelir
           BASE_PATH: ${{ steps.pages.outputs.base_path }}
           SITE_URL: ${{ steps.pages.outputs.origin }}
+      # npm run build sorun özetini iş özetine de yazar (uyarılar iş akışını durdurmaz).
+      # İç çıktılar (veri.xlsx/json/md) indirilebilir artifact; siteyle yayınlanmaz (WP-01 kararı).
+      # Sitedeki genel Excel dist/indir/ altında; o yayınlanır.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: veri-ciktilari
+          path: dist/veri
+      - run: rm -rf dist/veri
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

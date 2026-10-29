@@ -1,7 +1,7 @@
 # TASK-02: Sorun kuralları ve raporu
 
 **WP:** [WP-01](../WP.md)
-**Durum:** `todo`
+**Durum:** `done`
 **Bağımlı:** TASK-01
 **Tahmini efor:** ~0.75g
 
@@ -57,6 +57,8 @@ içeriyor ya da düzenleme mesafesi ≤ 2. Yanlış alarm verirse eşik kuralın
 
 ## Açık kararlar
 
+Kapandı (2026-10-29): 8 kuralla başlanır; uyarılar build'i durdurmaz.
+
 1. **Kural listesi.** Yukarıdaki 8 kural uygun mu; çıkarılacak/eklenecek var mı?
    Öneri: bu liste ile başlansın, veri incelendikçe kural eklensin.
 2. **Uyarılar build'i durdursun mu?** Öneri: **hayır**; uyarılar rapordur, kesin hatalar zaten
@@ -64,11 +66,21 @@ içeriyor ya da düzenleme mesafesi ≤ 2. Yanlış alarm verirse eşik kuralın
 
 ## Kabul kriterleri
 
-- [ ] 8 kural çalışıyor; her biri için mevcut verideki sonuç sayısı task'a not edildi
-- [ ] K02 ve K03 için yanlış alarmlar elle kontrol edildi
-- [ ] Kurallar saf fonksiyon; `KURALLAR` dizisine eklemekle yeni kural geliyor
-- [ ] `npm run build` 0 hata, 0 uyarı
+- [x] 8 kural çalışıyor; her biri için mevcut verideki sonuç sayısı task'a not edildi
+- [x] K02 ve K03 için yanlış alarmlar elle kontrol edildi
+- [x] Kurallar saf fonksiyon; `KURALLAR` dizisine eklemekle yeni kural geliyor
+- [x] `npm run build` 0 hata, 0 uyarı
 
 ## Notlar
+
+- Uygulandı: `src/lib/veri-kontrol.ts` (2026-10-29).
+- İlk çalıştırmada (2026-10-29 verisi): K01 2 (M-Based, VULCAN), K02 0, K03 0, K04 20, K05 3
+  (HANE GSYF, TENMAK hidrojen merkezi, TTGV İklim Öncüsü fonu), K06 66, K07 3, K08 94 kurum.
+  Toplam 25 uyarı (K01, K04, K05), 163 bilgi (K06, K07, K08).
+- K02 ilk hâlinde (≤ 2 harf fark) "iNOVAT" ile "İnovest"i tekrar sandı; eşik ada göre ölçeklendi
+  (her ~7 harfte 1 fark). Sonra K02 ve K03, veriye geçici yazım hataları eklenerek denendi; ikisi de
+  yakaladı, test değişiklikleri geri alındı.
+- K04'ün bulduğu 20 kurumun çoğu teknopark, TEKMER ve platform: açıklamaları tek cümle. İçerik işi.
+- K08 bir etiket başına değil kurum başına tek satır üretir (etiket başına ~170 satır olurdu).
 
 - Kaynak bağlantılarının açılıp açılmadığı (ölü bağlantı) bu task'ta yok; ağ gerektirir. Ayrı bir task/WP olabilir.

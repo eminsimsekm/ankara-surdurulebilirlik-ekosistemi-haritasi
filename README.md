@@ -78,6 +78,31 @@ En kolay yol, aynı klasördeki benzer bir dosyayı kopyalayıp düzenlemektir.
 **Dosya adı kaydın kalıcı kimliğidir** (sayfa adresi ve ileride favoriler bunu kullanır). Küçük harf,
 Türkçe karaktersiz ve tireli yazın (`netzero-tekmer.md`); yayına çıktıktan sonra değiştirmeyin.
 
+## Veriyi incelemek
+
+```sh
+npm run build    # site + veri-cikti/ klasörüne üç dosya + konsola sorun özeti
+```
+
+| Dosya | Ne için |
+|---|---|
+| `veri-cikti/veri.xlsx` | İnsan incelemesi ve paylaşım: Kurumlar (ilişki sayılarıyla), İlişkiler, kayıt türleri, Sözlükler, **Sorunlar** |
+| `veri-cikti/veri.md` | Tüm veri ve ilişkiler tek okunaklı dosyada; bir AI'a "incele, hataları bul" diye verilir |
+| `veri-cikti/veri.json` | Normalize tablolar; araçlar ve ileride Django veritabanına ilk yükleme için |
+
+Üçü de üretilen, **salt okunur** kopyalardır: düzeltme her satırdaki "kaynak dosya"da yapılır, bir
+sonraki `npm run build` ile çıktılar güncellenir. Sorunlar iki seviyededir: *uyarı* (bakılmalı:
+kaynaksız kayıt, olası tekrar, çok kısa açıklama…) ve *bilgi* (temizlik listesi: ilişkisiz kurum,
+tek kullanımlık etiket…). Kesin hatalar zaten build'i durdurur; uyarılar durdurmaz.
+
+GitHub'da her push'ta özet, Actions iş özetinde görünür; üç dosya o çalıştırmanın `veri-ciktilari`
+artifact'ından indirilir. Bu iç çıktılar siteyle birlikte yayınlanmaz.
+
+**Sitede herkese açık Excel:** Kurumlar sayfasındaki "Excel olarak indir" butonu
+`/indir/ankara-surdurulebilirlik-haritasi.xlsx` dosyasını indirir. Aynı koddan (`src/lib/veri-excel.ts`)
+üretilir ama Sorunlar sayfası, uyarı sayıları ve kaynak dosya yolları yoktur. Site her derlendiğinde
+yeniden üretildiği için sitede ne varsa dosyada da o vardır.
+
 ## Yapı
 
 - `src/content/`: tüm içerik (yukarıya bakın)
@@ -93,6 +118,11 @@ Türkçe karaktersiz ve tireli yazın (`netzero-tekmer.md`); yayına çıktıkta
 - `src/components/harita/`: harita; bir kategori seçilince yalnızca o kategori kalır ve düğümler `altGrup`'larına
   (kurumlarda birincil alan, akademisyenlerde üniversite, yatırımlarda tür) göre dilimlenir; `kaynaklar.ts` hangi içeriğin haritada nasıl görüneceğini tanımlar
   (yeni bir içerik türünü haritaya eklemek için oraya bir kaynak eklenir)
+- `src/lib/veri-paketi.ts`: tüm verinin normalize tablolar hâli (Excel/JSON/MD'nin tek kaynağı);
+  `src/lib/veri-kontrol.ts`: sorun kuralları (yeni kural `KURALLAR` dizisine eklenir)
+- `src/lib/veri-excel.ts`: Excel çalışma kitabı, iki kapsam (iç / genel)
+- `src/pages/veri/`: iç çıktılar `veri.json`, `veri.xlsx`, `veri.md`; `src/pages/indir/`: sitedeki genel Excel
+- `scripts/veri-cikti.mjs`: `npm run build`'in son adımı; iç çıktıları `veri-cikti/`'ye kopyalar, sorun özetini yazar
 - `src/scripts/`: yalnızca tarayıcıda çalışan kod (liste süzme, harita etkileşimi, takvim durumu)
 - `src/pages/[kategori]/`: tüm kategori ve aktör sayfalarını üreten iki şablon
 - `src/pages/*.astro`: harita (ana sayfa), kurumlar, NetZero, akademisyenler, yatırımlar, takvim, iş birlikleri

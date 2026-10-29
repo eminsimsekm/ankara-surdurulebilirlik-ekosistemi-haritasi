@@ -1,7 +1,7 @@
 # TASK-06: Komutlar, yayın kararı, CI özeti, belgeler
 
 **WP:** [WP-01](../WP.md)
-**Durum:** `todo`
+**Durum:** `review`
 **Bağımlı:** TASK-03, TASK-04, TASK-05
 **Tahmini efor:** ~0.5g
 
@@ -40,6 +40,8 @@ okur, veriyi kendisi yorumlamaz.
 
 ## Açık kararlar
 
+Kapandı (2026-10-29): (b) yayınlanmasın.
+
 1. **Çıktılar GitHub Pages'te yayınlansın mı?** `dist/veri/` olduğu gibi kalırsa `…/veri/veri.xlsx`
    herkese açık indirilebilir olur. Verinin kendisi sitede zaten açık, ama sorun listesi iç
    çalışma notudur.
@@ -49,12 +51,21 @@ okur, veriyi kendisi yorumlamaz.
 
 ## Kabul kriterleri
 
-- [ ] `npm run veri` üç dosyayı `veri-cikti/`'ye koyuyor ve özeti yazıyor
+- [x] `npm run veri` üç dosyayı `veri-cikti/`'ye koyuyor ve özeti yazıyor
 - [ ] Push sonrası Actions iş özetinde sorun sayıları görünüyor
 - [ ] Yayın kararı uygulandı ve canlıda doğrulandı
-- [ ] README ve GELISTIRME.md güncel
-- [ ] `npm run build` 0 hata, 0 uyarı
+- [x] README ve GELISTIRME.md güncel
+- [x] `npm run build` 0 hata, 0 uyarı
 
 ## Notlar
+
+- **TASK-07 ile değişti (2026-10-29):** ayrı `npm run veri` komutu kaldırıldı; aynı işi artık
+  `npm run build`'in son adımı yapıyor. Actions'taki ayrı özet adımı da kaldırıldı (build yazıyor).
+
+- Uygulandı (2026-10-29): `scripts/veri-cikti.mjs`, `npm run veri`, `.gitignore`'da `veri-cikti/`,
+  `pages.yml`'de özet + `veri-ciktilari` artifact'ı + yüklemeden önce `rm -rf dist/veri`,
+  README "Veriyi incelemek", GELISTIRME.md O tablosu ve Django bölümü.
+- İş özeti Markdown'ı yerelde `GITHUB_STEP_SUMMARY` ile denendi. **Push sonrası Actions'ta ve canlıda
+  `/veri/` adreslerinin 404 verdiği doğrulanmalı** (`review` nedeni).
 
 - Altun Hosting'e geçişte de aynı karar geçerli: `dist/veri/` yüklenmez (karar (b) ise).

@@ -1,7 +1,7 @@
 # TASK-03: JSON çıktısı
 
 **WP:** [WP-01](../WP.md)
-**Durum:** `todo`
+**Durum:** `done`
 **Bağımlı:** TASK-02
 **Tahmini efor:** ~0.25g
 
@@ -38,10 +38,12 @@ Yok. (Yayınlanıp yayınlanmayacağı TASK-06'da.)
 
 ## Kabul kriterleri
 
-- [ ] `dist/veri/veri.json` üretiliyor ve geçerli JSON
-- [ ] Üst bilgideki `sayilar`, tablo uzunluklarıyla aynı
-- [ ] `npm run build` 0 hata, 0 uyarı
+- [x] `dist/veri/veri.json` üretiliyor ve geçerli JSON
+- [x] Üst bilgideki `sayilar`, tablo uzunluklarıyla aynı
+- [x] `npm run build` 0 hata, 0 uyarı
 
 ## Notlar
 
+- Uygulandı: `src/pages/veri/veri.json.ts` (2026-10-29). Dosya ~280 KB; üst düzey anahtarlar
+  `surum`, `uretildi`, `sayilar`, `tablolar`, `iliskiler`, `sorunlar`.
 - Paket biçimi değişirse `surum` artırılır; JSON'u okuyan araçlar buna bakar.

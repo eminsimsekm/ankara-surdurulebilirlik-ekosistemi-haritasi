@@ -110,6 +110,8 @@ Yeni bir şey eklemek, var olan kodu değiştirmeden mümkün olmalı.
 | Haritada kategori görünümünün gruplaması | İlgili kaynağın `altGrup`'u (`harita/kaynaklar.ts`) | `Harita.astro`, `harita.ts`, geometri |
 | Kurum sayfasına yeni ilişki bölümü | `iliskiler/kaynaklar.ts`'te `ILISKI_KAYNAKLARI`'na bir kaynak | Kurum sayfası, satır bileşenleri |
 | Bir kaydı kuruma bağlamak | Kaydın dosyasına `aktorler: [kimlik]` | Kodun tamamı |
+| Yeni veri kontrolü (sorun kuralı) | `src/lib/veri-kontrol.ts`'te `KURALLAR`'a bir öğe | Excel, JSON, MD çıktıları (kendiliğinden gelir) |
+| Yeni kayıt türü ya da alan | `content.config.ts` + `content.ts`, sonra `veri-paketi.ts`'e tablo/sütun | Çıktı dosyaları yalnızca yeni sütunu göstermek için |
 | Kategoriye özel davranış | `kategoriler.yaml`'a bir alan (ör. `menuAdi`, `menuSira`) | Bileşenlerde `if` dalı |
 
 Yeni bir özellik "her kategori için ayrı ayrı şunu da değiştir" gerektiriyorsa önce bu tabloya uyan bir uzatma noktası tasarlanır.
@@ -166,6 +168,9 @@ PR açmadan önce:
 | Giriş / çıkış | Yok | Django oturumu (çerez + CSRF) | `api.ts` + menüde küçük bir bileşen |
 | Mail ve mail kayıtları | Yok | Django gönderir ve kaydeder | `api.ts` + form bileşeni |
 | Yayın | GitHub Pages (geçici) | Altun Hosting: `dist/` + Django uygulaması | `pages.yml` silinir, Altun için deploy eklenir |
+
+Veritabanına ilk yükleme `veri.json`'dan yapılır (`npm run build` → `veri-cikti/`): tabloları ve alan adları Django
+modellerine birebir karşılık gelecek şekilde tasarlandı (`src/lib/veri-paketi.ts`).
 
 İçerik Django admin'e taşınırsa (Seçenek B), veri değiştiğinde siteyi yeniden derleyen bir tetikleyici gerekir (Django'dan GitHub Actions'a ya da sunucudaki build betiğine istek). Bileşenler yine değişmez.
 

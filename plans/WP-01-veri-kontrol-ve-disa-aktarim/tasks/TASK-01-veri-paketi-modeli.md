@@ -1,7 +1,7 @@
 # TASK-01: Veri paketi modeli (normalize tablolar)
 
 **WP:** [WP-01](../WP.md)
-**Durum:** `todo`
+**Durum:** `done`
 **Bağımlı:** -
 **Tahmini efor:** ~0.5g
 
@@ -68,13 +68,21 @@ Yok.
 
 ## Kabul kriterleri
 
-- [ ] `veriPaketi()` yalnızca `content.ts` üzerinden okuyor
-- [ ] Satır sayıları: 105 kurum, 63 akademisyen, 17 yatırım, 13 takvim, 27 iş birliği
+- [x] `veriPaketi()` yalnızca `content.ts` üzerinden okuyor
+- [x] Satır sayıları: 105 kurum, 63 akademisyen, 17 yatırım, 13 takvim, 27 iş birliği
       (o günkü veriyle; sayılar değişmişse sitedeki sayılarla aynı)
-- [ ] `iliskiler` satır sayısı = dört ilişki tablosunun toplamı (iş birliğinde yalnızca `kurum` olan taraflar)
-- [ ] Tutarlılık denetimleri geçiyor
-- [ ] `npm run build` 0 hata, 0 uyarı
+- [x] `iliskiler` satır sayısı = dört ilişki tablosunun toplamı (iş birliğinde yalnızca `kurum` olan taraflar)
+- [x] Tutarlılık denetimleri geçiyor
+- [x] `npm run build` 0 hata, 0 uyarı
 
 ## Notlar
 
+- Uygulandı: `src/lib/veri-paketi.ts` (2026-10-29). Tutarlılık denetimi `tutarlilikDenetle()`,
+  her build'de çalışır; tutmazsa build durur.
+- O günkü sayılar: 12 kategori, 17 alan, 11 üniversite, 105 kurum, 149 kurum-alan, 20 yönetici,
+  63 akademisyen (19 kurum bağı), 17 yatırım (16 bağ), 13 takvim (7 bağ), 27 iş birliği (60 taraf,
+  32'si kurum). `iliskiler` 74 satır.
+- `kaynakDosya`, Content Collections'ın verdiği `filePath`'ten geliyor; ayrıca kurulması gerekmedi.
+- Sözlük tabloları dosyadaki alanları olduğu gibi taşır (`{ id, ...data }`); sözlüğe alan eklenince
+  pakete de kendiliğinden girer.
 - Django'ya geçişte bu tablolar modellere birebir karşılık gelir; JSON'dan fixture üretmek mekanik bir iş olur.

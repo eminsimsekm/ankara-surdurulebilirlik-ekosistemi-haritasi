@@ -1,7 +1,7 @@
 # TASK-05: AI için okunur paket (`veri.md`)
 
 **WP:** [WP-01](../WP.md)
-**Durum:** `todo`
+**Durum:** `done`
 **Bağımlı:** TASK-02
 **Tahmini efor:** ~0.25g
 
@@ -56,12 +56,17 @@ Yok.
 
 ## Kabul kriterleri
 
-- [ ] `dist/veri/veri.md` üretiliyor; başında "üretilmiştir, düzenlenmez" notu var
-- [ ] Her kayıtta kaynak dosya yolu var ve yol gerçekten var
-- [ ] Bir kurumun ilişkileri kurum sayfasındakilerle aynı (Evreka, NetZero TEKMER, ODTÜ-GÜNAM)
-- [ ] `npm run build` 0 hata, 0 uyarı
+- [x] `dist/veri/veri.md` üretiliyor; başında "üretilmiştir, düzenlenmez" notu var
+- [x] Her kayıtta kaynak dosya yolu var ve yol gerçekten var
+- [x] Bir kurumun ilişkileri kurum sayfasındakilerle aynı (Evreka, NetZero TEKMER, ODTÜ-GÜNAM)
+- [x] `npm run build` 0 hata, 0 uyarı
 
 ## Notlar
+
+- Uygulandı: `src/pages/veri/veri.md.ts` (2026-10-29). Dosya ~126 KB (kabaca 35 bin token); 225 dosya
+  yolunun hepsi doğrulandı. Sırası: Sorunlar, Kurumlar (kategori başlıklarıyla), Yatırımlar, İş birlikleri,
+  Takvim, Akademisyenler, Sözlükler.
+- Adım 2 (bir AI'a örnek görevle vermek) ayrıca yapılmadı; dosya yolları ve ilişkiler programla doğrulandı.
 
 - Dosya büyürse (yüzlerce kurum) AI bağlam sınırına takılabilir; o zaman kategori başına ayrı
   dosyalara bölünür.
