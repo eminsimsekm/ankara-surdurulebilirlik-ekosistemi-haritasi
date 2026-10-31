@@ -174,7 +174,7 @@ const yonetici = z.object({
   kaynak: z.url().optional(),
 });
 
-/** Teknopark, TEKMER, girişim, şirket, KOBİ, araştırma merkezi, kamu, platform. Gövde = açıklama. */
+/** Teknopark, TEKMER, girişim, şirket, KOBİ, araştırma merkezi, kamu, platform, topluluk, uygulama. Gövde = açıklama. */
 const aktorler = defineCollection({
   loader: recordsIn("aktorler", "**/*.md"),
   schema: z.object({

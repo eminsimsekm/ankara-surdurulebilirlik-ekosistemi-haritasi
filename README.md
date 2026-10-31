@@ -20,7 +20,7 @@ Her kayıt ayrı bir dosyadır; yeni kayıt için kod değiştirmek gerekmez. Al
 
 | Ne eklenecek | Nereye | Biçim |
 |---|---|---|
-| Teknopark, TEKMER, girişim, şirket, KOBİ, araştırma merkezi, kamu, platform | `src/content/aktorler/<kategori>/<ad>.md` | frontmatter + açıklama metni |
+| Teknopark, TEKMER, girişim, şirket, KOBİ, araştırma merkezi, kamu, platform, topluluk, uygulama | `src/content/aktorler/<kategori>/<ad>.md` | frontmatter + açıklama metni |
 | Akademisyen | `src/content/akademisyenler/<universite>/<ad-soyad>.md` | frontmatter + çalışma alanları |
 | Etkinlik ya da destek çağrısı | `src/content/takvim/<ad>.yaml` | YAML |
 | Yatırım | `src/content/yatirimlar/<ad>.yaml` | YAML |

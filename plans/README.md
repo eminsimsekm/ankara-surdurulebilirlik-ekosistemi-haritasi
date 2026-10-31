@@ -64,10 +64,12 @@ Hem WP hem Task dosyalarında aynı durum sözlüğü kullanılır:
 | WP | Başlık | Bağımlı | Task | Tahmini efor | Durum |
 |----|--------|---------|------|--------------|-------|
 | [WP-01](WP-01-veri-kontrol-ve-disa-aktarim/WP.md) | Veri kontrolü ve dışa aktarım (sorun raporu, JSON, Excel) | - | 7 | ~3.5g | `review` |
+| [WP-02](WP-02-topluluklar/WP.md) | Topluluklar ve uygulamalar (yapay zekâ, girişimcilik, enerji, sürdürülebilirlik toplulukları; etkinlik platformları) | - | 7 | ~2.5g | `in-progress` |
 
 Bu yapıdan önce yapılan işler (Astro'ya geçiş, kayıtları kurumlara bağlama, alan filtresi,
 harita kategori görünümü…) git geçmişinde.
 
 ```
 WP-01
+WP-02
 ```
