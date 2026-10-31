@@ -29,7 +29,7 @@ bir kısmı buradan geliyor. Sürdürülebilirlik ve iklim toplulukları da ayn�
 - Toplulukların kurumlara, üniversitelere ve takvim kayıtlarına bağlanması
 
 **Kapsam dışı:**
-- Topluluklara üyelik, takip ya da bildirim (Django işi, GELISTIRME.md 3)
+- Topluluklara üyelik, takip ya da bildirim (Django işi, CLAUDE.md 3)
 - Topluluk etkinliklerinin otomatik çekilmesi (Luma, community.dev vb.); takvime elle girilir
 - Türkiye geneli topluluklar; yalnızca Ankara'da faaliyeti ya da buluşması olanlar alınır
 - Spor ve hobi toplulukları (ör. bisiklet dernekleri); ekosistemle bağı zayıf
@@ -40,7 +40,7 @@ bir kısmı buradan geliyor. Sürdürülebilirlik ve iklim toplulukları da ayn�
 | Karar | Sonuç | Nerede |
 |-------|-------|--------|
 | Ayrı kategori mi, platform'un altı mı | Ayrı kategori (`topluluk`, `/topluluklar/`). Platform kategorisi hızlandırıcı ve programlar içindir; topluluklar gönüllü ve üyelik temelli (2026-10-30). | TASK-01 |
-| Kod değişikliği | Gerekmez: `kategoriler.yaml` + `tokens.css` rengi yeterli (GELISTIRME.md 4-O). | TASK-01 |
+| Kod değişikliği | Gerekmez: `kategoriler.yaml` + `tokens.css` rengi yeterli (CLAUDE.md 4-O). | TASK-01 |
 | Topluluk türü (öğrenci kulübü, dernek, meetup) | Şimdilik `etiketler`'de. Filtre gerekirse ayrı alan açılır. | TASK-02 |
 | Faaliyet alanı | Yapay zekâ toplulukları `bilisim`. Yeni alan açılmadı. | TASK-02 |
 | Kayıt alma ölçütü | Ankara'da faaliyeti/buluşması olan ve en az bir doğrulanabilir kaynak bağlantısı olan topluluklar. Yalnızca tek etkinlik sayfası olanlar alınmaz. | TASK-02 |

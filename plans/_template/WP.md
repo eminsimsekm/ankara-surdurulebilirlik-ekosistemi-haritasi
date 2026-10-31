@@ -42,5 +42,5 @@ TASK-01 → TASK-02
 
 - [ ] Tüm task'lar `done` ya da `cancelled`
 - [ ] `npm run build` 0 hata, 0 uyarı
-- [ ] Belgeler güncel (README, GELISTIRME.md gerekiyorsa)
+- [ ] Belgeler güncel (README, CLAUDE.md gerekiyorsa)
 - [ ] Task notları ve WP kararları güncel (yapılan işin kaydı burası)

@@ -13,7 +13,7 @@ bilir. Bunlar topluluk değil, topluluğun kullandığı araç olduğu için ayr
 
 ## Teknik tarif
 
-GELISTIRME.md 4-O "Yeni kategori" satırı; kod değişmez.
+CLAUDE.md 4-O "Yeni kategori" satırı; kod değişmez.
 
 - `kategoriler.yaml`: `uygulama` (`yol: uygulamalar`, `sira: 14`, `menuSira: 10`).
 - `tokens.css`: `--c-uygulama: light-dark(#5E6A75, #A9B6C2)` (nötr gri; kurum renklerinden ayrışsın).

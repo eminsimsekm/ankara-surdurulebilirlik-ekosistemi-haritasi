@@ -157,7 +157,7 @@ yeniden üretildiği için sitede ne varsa dosyada da o vardır.
 - `src/styles/base.css`: sayfa geneli temel stiller
 - `src/layouts/BaseLayout.astro`: tüm sayfaların iskeleti
 
-Kod yazarken uyulacak kurallar (Django'ya hazırlık, SOLID) [GELISTIRME.md](GELISTIRME.md) dosyasında.
+Kod yazarken uyulacak kurallar (Django'ya hazırlık, SOLID, dil desteğinin işleyişi) [CLAUDE.md](CLAUDE.md) dosyasında.
 
 İş planı Work Package (WP) yapısıyla [`plans/`](plans/) klasöründe; bitmiş WP'ler de kararları ve notlarıyla orada kalır.
 

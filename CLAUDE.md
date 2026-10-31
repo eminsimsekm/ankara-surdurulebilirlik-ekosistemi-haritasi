@@ -6,6 +6,9 @@ Bu dosya, siteye yeni bir şey eklerken uyulacak kuralları anlatır. İki amac�
 2. **Kod büyüdükçe dağılmasın.** Yeni bir özellik eklemek, var olan dosyaların çoğuna dokunmayı gerektirmesin (SOLID).
 
 Kod yazan herkes (Claude Code dahil) bu kurallara uyar. Bir kurala uyulamıyorsa nedeni PR açıklamasına yazılır.
+Claude Code bu dosyayı her oturumda kendiliğinden okur; kurallar ve yapı burada güncel tutulur.
+
+İçerik ekleme (hangi kayıt hangi dosyaya) README'de, planlama ve yapılan işin kaydı `plans/` altında (`plans/README.md`).
 
 ---
 
@@ -146,7 +149,86 @@ Bileşen yalnızca ihtiyaç duyduğunu ister.
 
 ---
 
-## 5. Yeni özellik eklerken kontrol listesi
+## 5. Dil desteği (Türkçe / İngilizce)
+
+Site iki dilde yayınlanır: Türkçe kökte (`/kurumlar/`), İngilizce `/en/` altında (`/en/kurumlar/`). Her dil ayrı
+statik HTML'dir; tarayıcıda metin değiştirme yoktur. Planı ve kararları: `plans/WP-03-ingilizce-dil-destegi/`.
+
+**Neden bu yapıda:** Türkçe kayıt dosyaları dile dair hiçbir şey taşımaz; İngilizce ayrı dosyalarda durur ve
+kimlikle eşleşir. Django'ya geçince bu, ayrı bir çeviri tablosuna (`kayit_slug`, `dil`, alanlar) birebir
+karşılık gelir ve birleştirme yalnızca `content.ts`'te olduğu için bileşenler değişmez. Bu yapı bilinçli
+olarak böyle bırakıldı; çeviriyi Türkçe dosyaların içine taşımayın.
+
+### Üç katman
+
+| Katman | Dosyalar | İşi |
+|---|---|---|
+| Adres ve rota | `src/lib/dil.ts`, `src/lib/yol.ts`, `src/pages/[...dil]/` | Diller (`DILLER`), `/en/` öneki, sayfanın dilini adresten bulma, öbür dildeki adres |
+| Arayüz metinleri | `src/i18n/tr.ts`, `src/i18n/en.ts`, `src/i18n/index.ts` | Menü, düğme, filtre, boş liste, durum rozeti gibi sabit metinler |
+| İçerik çevirileri | `src/content/en/`, şemaları `content.config.ts` (`*En` koleksiyonları), birleştirme `src/lib/content.ts` | Kayıtların, sözlüklerin ve sayfa metinlerinin İngilizcesi |
+
+### Akış
+
+1. Her sayfa `src/pages/[...dil]/` altında **tek dosyadır**. `getStaticPaths` iki dili üretir: düz sayfalarda
+   `export const getStaticPaths = dilYollari;`, dinamik sayfalarda `DILLER.map(...)` + `params: { dil: dilParametresi(dil), ... }`
+   (örnek: `[kategori]/[aktor].astro`). Türkçe için `dil` parametresi `undefined`'dır, sayfa kökte çıkar.
+2. Sayfa ve bileşen dili adresten alır: `const dil = sayfaDili(Astro.url);`. Dil prop olarak taşınmaz.
+3. Arayüz metni: `const t = metinler(dil);` → `t.kurumlar.ara`. Sayıya bağlı metinler fonksiyondur:
+   `` `${n} ${t.birim.kurum(n)}` `` (İngilizcede tekil/çoğul burada çözülür).
+4. Veri: `content.ts`'teki her fonksiyon `dil` alır ve **zorunludur** (`getAktorGruplari(dil)`, `getSayfa("kurumlar", dil)`).
+   İngilizcede çeviri, Türkçe kaydın üzerine bindirilip **aynı biçimde** döner; çevrilmemiş alan Türkçe kalır.
+5. Bağlantı: `yol("/kurumlar/", dil)`, `aktorYolu(kategori, aktor, dil)` → İngilizce sayfada `/en/...`.
+6. Tarih ve sayı biçimi: `YEREL_AYAR[dil]` (`tr-TR`, `en-GB`) ile `Intl.*Format`.
+7. `BaseLayout` `<html lang>` ve `hreflang` bağlantılarını, `DilSecici.astro` bayrakları çizer; seçici aynı
+   sayfanın öbür diline gider ve `?…#…` (arama, filtre, seçili kayıt) korunur.
+
+### İçerik çevirileri: ne nereye yazılır
+
+| Çevrilen | Dosya | Eşleşme | Birleştirme |
+|---|---|---|---|
+| Kurum | `en/aktorler.yaml` | Anahtar = kayıt kimliği (dosya adı) | Yazılan alan Türkçenin yerine geçer |
+| Akademisyen | `en/akademisyenler.yaml` | Kimlik | Aynı; unvan ve birim ayrıca sözlükten |
+| Takvim, yatırım, iş birliği | `en/takvim.yaml`, `en/yatirimlar.yaml`, `en/isbirlikleri.yaml` | Kimlik | Aynı |
+| Kategori, alan, yatırım türü, iş birliği türü | `en/sozluk.yaml` | Sözlük kimliği | Aynı |
+| Öne çıkan sayılar, sektör yatırımları | `en/sozluk.yaml` (`oneCikanSayilar`, `sektorYatirimlari`) | Kimlik | Aynı |
+| Etiket, unvan, birim | `en/sozluk.yaml` (`etiketler`, `unvanlar`, `birimler`) | **Türkçe metnin kendisi** (`"su yönetimi": water management`) | Sözlükte yoksa olduğu gibi kalır |
+| Sayfa metni (`sayfalar/*.md`) | `en/sayfalar/<aynı-ad>.md` | Dosya adı | Türkçe sayfanın **tamamının** yerine geçer |
+
+Kurallar:
+
+- **Adlar çevrilmez:** kurum, kişi, üniversite, program, etkinlik adları; çeviri şemalarında `ad` alanı yoktur
+  (istisna: yatırımda açıklayıcı başlık, takvimde hedef kitle olan `duzenleyen`). Metin içindeki Türk kurum adları da
+  Türkçe kalır, gerekirse parantezde İngilizce açıklama: `Yeşil Yaka Personel Programı (Green Collar Staff Programme)`.
+- `govde` Markdown'dır. İçindeki site içi bağlantılar `/en/...` ile yazılır.
+- `yonetim` listesi Türkçedeki sırayla yazılır (yalnızca `rol`, `ozgecmis`; ad yazılmaz).
+- Çeviri şemaları `strictObject`'tir: bilinmeyen alan ya da Türkçesi olmayan kimlik build'i durdurur.
+- Çevirisi olmayan kayıt sitede Türkçe görünür, site kırılmaz; veri kontrolünde **K09** (bilgi) olarak listelenir.
+- Excel, `veri.json` ve `veri.md` Türkçe kalır; `/tasarim` sayfası yalnızca Türkçedir.
+
+### Sık yapılan değişiklikler
+
+| Değişiklik | Yapılacak |
+|---|---|
+| Yeni kaydın İngilizcesi | İlgili `en/<tür>.yaml`'a kimlikle bir giriş. Kod değişmez. |
+| Yeni etiket / unvan / birim | Türkçe değeri anahtar olarak `en/sozluk.yaml`'daki ilgili bölüme ekle (özel isimse ekleme). |
+| Türkçe etiketi düzeltmek | `en/sozluk.yaml`'daki anahtarı da aynı biçimde düzelt; yoksa İngilizcesi sessizce düşer. |
+| Yeni kategori / alan / tür | Türkçe sözlüğe ek + `en/sozluk.yaml`'da aynı kimlikle İngilizcesi. |
+| Yeni arayüz metni | Aynı anahtarı `tr.ts` ve `en.ts`'e ekle; bileşende `t.<bolum>.<anahtar>`. `en.ts`'te eksik anahtar `astro check`'te hata verir. |
+| Yeni sayfa | `src/pages/[...dil]/<ad>.astro` + `getStaticPaths = dilYollari`; metni `sayfalar/<ad>.md` ve `en/sayfalar/<ad>.md`. Menüye eklenecekse `tr.ts`/`en.ts` `menu`. |
+| Kayda yeni çevrilebilir alan | (1) `content.config.ts`'te ilgili `*En` şemasına alan, (2) `content.ts`'teki `get*` fonksiyonunda bindirme (kurum, akademisyen ve iş birliğinde alan alan elle yazılır; takvim ve yatırımda `sozlukBindir` kendiliğinden alır), (3) `en/*.yaml`'a değerler. |
+| Yeni dil | `dil.ts`'te `DILLER` ve `YEREL_AYAR`, `i18n/<dil>.ts` + `index.ts`, `content/<dil>/` ve karşılık koleksiyonlar. Dikkat: `content.ts` (`dil === "tr"`, `getSayfa`'da `dil === "en"`, `sozlukEn`/`*En` adları) ve `DilSecici.astro`'daki bayrak iki dile göre yazılmış; bunlar da genelleştirilmeli. |
+
+Yapılmayacaklar:
+
+- Bileşen ya da sayfaya sabit Türkçe (veya İngilizce) metin yazmak; `if (dil === "en") "..."` ile metin seçmek. Metin `src/i18n/`'e gider.
+- Bileşende `getCollection("aktorlerEn")` gibi çeviri koleksiyonunu doğrudan okumak; birleştirme yalnızca `content.ts`'te.
+- `/en/` önekini elle yazmak (`href="/en/kurumlar/"`); `yol(..., dil)` kullanılır.
+- Türkçe kayıt dosyasına `en:` alanı ya da İngilizce metin eklemek.
+- Adresleri (slug) çevirmek: `/en/tekmerler/` kalır, kimlikler kalıcıdır (3.3).
+
+---
+
+## 6. Yeni özellik eklerken kontrol listesi
 
 PR açmadan önce:
 
@@ -165,7 +247,7 @@ PR açmadan önce:
 
 ---
 
-## 6. Django geldiğinde ne değişecek
+## 7. Django geldiğinde ne değişecek
 
 | Parça | Bugün | Django sonrası | Etkilenen dosyalar |
 |---|---|---|---|
@@ -182,7 +264,7 @@ modellerine birebir karşılık gelecek şekilde tasarlandı (`src/lib/veri-pake
 
 ---
 
-## 7. Bilinen borçlar
+## 8. Bilinen borçlar
 
 Kurallara henüz tam uymayan yerler. Bu dosyalara dokunulurken düzeltilir.
 

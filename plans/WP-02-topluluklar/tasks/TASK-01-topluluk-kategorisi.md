@@ -12,7 +12,7 @@ adıyla, haritada kendi renginde bir dilim olarak ve `/topluluklar/` liste sayfa
 
 ## Teknik tarif
 
-GELISTIRME.md 4-O tablosundaki "Yeni kategori" satırı: yalnızca veri ve renk değişir.
+CLAUDE.md 4-O tablosundaki "Yeni kategori" satırı: yalnızca veri ve renk değişir.
 
 - `src/content/kategoriler.yaml`: `topluluk` anahtarı (`yol: topluluklar`, `sira: 13`, `menuSira: 9`).
   `menuSira` olduğu için Kurumlar menüsüne ve kurum sayısına kendiliğinden girer.

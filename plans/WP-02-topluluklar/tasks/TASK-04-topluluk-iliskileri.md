@@ -42,7 +42,7 @@ Bilinen bağlantılar ve mevcut yapıyla nasıl kurulacakları:
     Kod değişmez, ama "iş birliği" anlamı zorlanır ve 25+ yapay kayıt oluşur.
   - B) Aktör şemasına isteğe bağlı `universite: idIn("universiteler")` alanı. `content.config.ts`,
     `content.ts`, `iliskiler/kaynaklar.ts` (yeni ilişki kaynağı) ve `veri-paketi.ts`'e sütun eklenir.
-  - **Öneri: B.** İlişki gerçek bir aidiyet; GELISTIRME.md 3.5'e uygun olarak kimlikle kurulur ve
+  - **Öneri: B.** İlişki gerçek bir aidiyet; CLAUDE.md 3.5'e uygun olarak kimlikle kurulur ve
     Django'da `ForeignKey` olur. Ayrıca üniversitenin akademisyen rehberinden kulüplerine bağlantı verir.
 
 ## Kabul kriterleri

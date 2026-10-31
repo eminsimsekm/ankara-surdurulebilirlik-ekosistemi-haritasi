@@ -31,7 +31,7 @@ plans/
   task tablosu güncellenir. WP'nin durumu, task'larının durumundan çıkar.
 - Bir WP `done` olunca klasörü silinmez: plan, kararlar ve task notları yapılan işin kaydı
   olarak burada kalır. Uygulama sırasında öğrenilenler task'ın **Notlar** bölümüne yazılır.
-- Kod yazılırken [`GELISTIRME.md`](../GELISTIRME.md) kuralları geçerlidir; task'ın
+- Kod yazılırken [`CLAUDE.md`](../CLAUDE.md) kuralları geçerlidir; task'ın
   kabul kriterleri bunlara ek olarak sağlanır.
 
 ## Yeni bir Work Package oluşturmak

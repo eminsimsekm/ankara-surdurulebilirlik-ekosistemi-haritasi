@@ -4,7 +4,7 @@
 
   Tablolar ileride kurulacak veritabanının tablolarına birebir karşılık gelir:
   her kayıt türü bir tablo, her ilişki ayrı bir ilişki tablosu. Alan adları içerik
-  dosyalarındakiyle aynıdır (GELISTIRME.md 3.4). Veriye yalnızca content.ts üzerinden
+  dosyalarındakiyle aynıdır (CLAUDE.md 3.4). Veriye yalnızca content.ts üzerinden
   erişilir; birincil alan, sıralama ve URL kuralları orada tanımlıdır.
 
   Düzeltme bu tablolarda değil, her satırdaki `kaynakDosya`da yapılır.

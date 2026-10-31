@@ -13,7 +13,7 @@ yazacağını bilsin.
 ## Teknik tarif
 
 - `veri-kontrol.ts`'e yeni kural: "İngilizce çevirisi yok" (bilgi seviyesi; build durmaz).
-- README "İçerik ekleme" tablosu ve GELISTIRME.md 4-O tablosuna İngilizce satırları.
+- README "İçerik ekleme" tablosu ve CLAUDE.md 4-O tablosuna İngilizce satırları.
 
 ## Adımlar
 
@@ -35,4 +35,4 @@ Yok.
 - Uygulandı (2026-10-30): K09 kuralı. Bir takvim çevirisi geçici olarak silinerek denendi: rapor
   `K09 (bilgi): 1` ve doğru dosya yolunu gösterdi; dosya geri kondu.
 - Veri paketine `ingilizce` (çevirisi olan kimlikler) eklendi; `VERI_PAKETI_SURUMU` 2.
-- README "İçerik ekleme" tablosu ve "İngilizce" bölümü, GELISTIRME.md katman tablosu, 4-O tablosu ve kontrol listesi güncellendi.
+- README "İçerik ekleme" tablosu ve "İngilizce" bölümü, CLAUDE.md katman tablosu, 4-O tablosu ve kontrol listesi güncellendi.

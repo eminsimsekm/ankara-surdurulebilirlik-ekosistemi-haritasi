@@ -26,7 +26,7 @@ ekosistemini dışarıya tanıtmanın aracı olarak da kullanılmak isteniyor.
 - Çevirisi olmayan kayıtta Türkçeye düşme (site kırılmaz)
 
 **Kapsam dışı:**
-- Adreslerin (slug) çevrilmesi: `/en/tekmerler/` kalır; kimlikler kalıcıdır (GELISTIRME.md 3.3)
+- Adreslerin (slug) çevrilmesi: `/en/tekmerler/` kalır; kimlikler kalıcıdır (CLAUDE.md 3.3)
 - İndirilen Excel, `veri.json` ve `veri.md` çıktılarının İngilizcesi
 - `/tasarim` önizleme sayfası (iç sayfa, yalnızca Türkçe)
 - Otomatik/makine çevirisinin build sırasında yapılması; çeviriler dosyada durur ve elle düzeltilebilir
@@ -39,7 +39,7 @@ ekosistemini dışarıya tanıtmanın aracı olarak da kullanılmak isteniyor.
 | Rotalar | Sayfalar `src/pages/[...dil]/` altına taşınır; her sayfa tek dosya, `getStaticPaths` iki dili üretir. Kopya sayfa dosyası yok. | TASK-01 |
 | Çeviriler nerede | Türkçe dosyalara dokunulmaz. İngilizce içerik `src/content/en/` altında ayrı dosyalarda; arayüz metinleri `src/i18n/tr.ts` ve `src/i18n/en.ts`. | TASK-03, 04 |
 | Neler Türkçe kalır | Kayıt adları (`ad`), kişi adları, üniversite adları, düzenleyen kurum, yatırımcı adları, konumdaki yer adları. | WP |
-| Çeviri birleştirme | `content.ts` İngilizce alanları Türkçe kaydın üzerine bindirir; bileşenler verinin hangi dilde olduğunu bilmez (GELISTIRME.md 4-L). Eksik alan Türkçe kalır. | TASK-04 |
+| Çeviri birleştirme | `content.ts` İngilizce alanları Türkçe kaydın üzerine bindirir; bileşenler verinin hangi dilde olduğunu bilmez (CLAUDE.md 4-L). Eksik alan Türkçe kalır. | TASK-04 |
 | Etiket çevirisi | Tek sözlükten (`etiketler: tr → en`); sözlükte olmayan etiket (özel isim) olduğu gibi kalır. | TASK-05 |
 | Bayraklar | Satır içi SVG (emoji bayrak Windows'ta görünmüyor). İngilizce için Birleşik Krallık bayrağı. | TASK-02 |
 | Metin içindeki kurum adları | İngilizce metinde de Türkçe ("Ankara Kalkınma Ajansı", "Hacettepe Üniversitesi"); anlam gerekirse parantez içinde İngilizce açıklama. Yabancı kurumlar kendi adıyla. Akademik bölüm adları (Makine Mühendisliği…) unvan gibi çevrilir. (2026-10-30) | TASK-06 |
@@ -74,5 +74,5 @@ TASK-01 ─┬─► TASK-02
 - [x] Her Türkçe sayfanın `/en/` karşılığı var; bayrakla aynı sayfaya geçiliyor
 - [x] İngilizce sayfalarda Türkçe arayüz metni kalmadı (özel isimler hariç)
 - [x] `npm run build` 0 hata, 0 uyarı
-- [x] README ve GELISTIRME.md'de yeni kayıt eklerken İngilizcenin nereye yazılacağı anlatılıyor
+- [x] README ve CLAUDE.md'de yeni kayıt eklerken İngilizcenin nereye yazılacağı anlatılıyor
 - [x] Task notları ve WP kararları güncel

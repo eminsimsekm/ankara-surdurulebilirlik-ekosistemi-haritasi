@@ -27,7 +27,7 @@ okur, veriyi kendisi yorumlamaz.
 
 **Belgeler:**
 - Kök `README.md`: "Veriyi incelemek" bölümü (komut, üç dosya, ne için hangisi, "düzeltme kaynak dosyada").
-- `GELISTIRME.md`: yeni sorun kuralı ve yeni tablo eklemenin yeri (O tablosu); Django bölümünde
+- `CLAUDE.md`: yeni sorun kuralı ve yeni tablo eklemenin yeri (O tablosu); Django bölümünde
   "ilk yükleme `veri.json`'dan".
 
 ## Adımlar
@@ -54,7 +54,7 @@ Kapandı (2026-10-29): (b) yayınlanmasın.
 - [x] `npm run veri` üç dosyayı `veri-cikti/`'ye koyuyor ve özeti yazıyor
 - [ ] Push sonrası Actions iş özetinde sorun sayıları görünüyor
 - [ ] Yayın kararı uygulandı ve canlıda doğrulandı
-- [x] README ve GELISTIRME.md güncel
+- [x] README ve CLAUDE.md güncel
 - [x] `npm run build` 0 hata, 0 uyarı
 
 ## Notlar
@@ -64,7 +64,7 @@ Kapandı (2026-10-29): (b) yayınlanmasın.
 
 - Uygulandı (2026-10-29): `scripts/veri-cikti.mjs`, `npm run veri`, `.gitignore`'da `veri-cikti/`,
   `pages.yml`'de özet + `veri-ciktilari` artifact'ı + yüklemeden önce `rm -rf dist/veri`,
-  README "Veriyi incelemek", GELISTIRME.md O tablosu ve Django bölümü.
+  README "Veriyi incelemek", CLAUDE.md O tablosu ve Django bölümü.
 - İş özeti Markdown'ı yerelde `GITHUB_STEP_SUMMARY` ile denendi. **Push sonrası Actions'ta ve canlıda
   `/veri/` adreslerinin 404 verdiği doğrulanmalı** (`review` nedeni).
 

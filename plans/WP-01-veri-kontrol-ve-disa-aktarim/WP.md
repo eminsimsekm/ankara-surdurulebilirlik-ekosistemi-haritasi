@@ -44,7 +44,7 @@ yapısı şimdiden netleşmeli.
 | Çıktılar nerede üretilir | Astro build içinde statik endpoint'ler (`src/pages/veri/*.ts`). Sitenin veri katmanını (`content.ts`) aynen kullanır; ayrı Node script'i `astro:content`'e erişemeyeceği için veriyi ikinci kez yorumlamak zorunda kalırdı. | TASK-01 |
 | Excel düzenlenebilir mi | Hayır, salt okunur. | WP |
 | İnceleme sayfası | Yok; Excel + sorun raporu yeterli. | WP |
-| Tablo ve alan adları | İçerik dosyalarındaki adlarla aynı (`ad`, `konum`, `birincilAlan`…); Django modeli ve API'si de bunları kullanacak (GELISTIRME.md 3.4). | TASK-01 |
+| Tablo ve alan adları | İçerik dosyalarındaki adlarla aynı (`ad`, `konum`, `birincilAlan`…); Django modeli ve API'si de bunları kullanacak (CLAUDE.md 3.4). | TASK-01 |
 | Çıktılar GitHub Pages'te yayınlansın mı | İç çıktılar (`veri.xlsx/json/md`) hayır: Pages'e yüklemeden önce `dist/veri/` silinir. Güncellendi (2026-10-29): sorunlar ve dosya yolları olmayan **genel bir Excel** sitede indirilebilir. | TASK-06, TASK-07 |
 | Komut | Ayrı `npm run veri` yok; `npm run build` iç çıktıları da üretir (2026-10-29). | TASK-07 |
 | Sorun kuralları | TASK-02'deki 8 kuralla başlanır; uyarılar build'i durdurmaz, yalnızca rapordur (2026-10-29). | TASK-02 |
@@ -76,5 +76,5 @@ TASK-03, 04 ve 05 birbirinden bağımsızdır, herhangi bir sırayla yapılabili
 - [x] `npm run build` tek komutla siteyi, iç çıktıları ve sorun özetini üretiyor; sitede genel Excel indirilebiliyor
 - [x] Excel'deki sayılar sitedekiyle aynı (kurum, alan, ilişki sayıları; örneklerle kontrol)
 - [x] `npm run build` 0 hata, 0 uyarı
-- [x] README ve GELISTIRME.md güncel
+- [x] README ve CLAUDE.md güncel
 - [x] Task notları ve WP kararları güncel (yapılan işin kaydı burası)
