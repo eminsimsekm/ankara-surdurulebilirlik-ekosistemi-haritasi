@@ -1,10 +1,15 @@
 ---
 // Açık/koyu tema düğmesi. Seçim localStorage'da tutulur; seçim yoksa sistem tercihi geçerlidir.
 // Sayfa ilk boyanmadan önce temayı uygulayan satır içi script BaseLayout'un <head>'inde.
+// Düğme metinleri sayfanın dilinde data-* ile gelir; script dil bilmez.
+import { metinler } from "../i18n";
+import { sayfaDili } from "../lib/yol";
+
+const t = metinler(sayfaDili(Astro.url)).tema;
 ---
 
-<button class="theme-toggle" type="button" data-theme-toggle aria-label="Temayı değiştir">
-  <span data-theme-label>Tema</span>
+<button class="theme-toggle" type="button" data-theme-toggle aria-label={t.dugme} data-acik={t.acik} data-koyu={t.koyu}>
+  <span data-theme-label>{t.etiket}</span>
 </button>
 
 <style>
@@ -16,6 +21,7 @@
     padding: 6px 12px;
     border-radius: var(--r-pill);
     cursor: pointer;
+    white-space: nowrap;
   }
   .theme-toggle:hover { border-color: var(--ink); }
 </style>
@@ -32,8 +38,11 @@
   }
 
   function updateLabels() {
-    const next = effectiveTheme() === "dark" ? "Açık tema" : "Koyu tema";
-    document.querySelectorAll("[data-theme-label]").forEach((el) => (el.textContent = next));
+    const koyu = effectiveTheme() === "dark";
+    document.querySelectorAll<HTMLElement>("[data-theme-toggle]").forEach((button) => {
+      const label = button.querySelector("[data-theme-label]");
+      if (label) label.textContent = (koyu ? button.dataset.acik : button.dataset.koyu) ?? "";
+    });
   }
 
   document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((button) => {

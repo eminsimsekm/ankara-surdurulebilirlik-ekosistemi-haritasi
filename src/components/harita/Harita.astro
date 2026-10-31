@@ -20,8 +20,12 @@ import { getKategoriler } from "../../lib/content";
 import FiltreCipleri from "../FiltreCipleri.astro";
 import { haritaYerlesimi, HARITA_VIEWBOX, type DilimGirdisi, type HalkaAyari, type Yerlesim } from "../../lib/harita-yerlesim";
 import { haritaDugumleri, type HaritaDugumu } from "./kaynaklar";
+import { metinler } from "../../i18n";
+import { sayfaDili } from "../../lib/yol";
 
-const [kategoriler, dugumler] = await Promise.all([getKategoriler(), haritaDugumleri()]);
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil);
+const [kategoriler, dugumler] = await Promise.all([getKategoriler(dil), haritaDugumleri(dil)]);
 
 const yerlesim = haritaYerlesimi(
   kategoriler.map((k) => ({
@@ -94,8 +98,8 @@ interface GorunumCizimi {
 const gorunumler: GorunumCizimi[] = [
   {
     anahtar: "",
-    merkezYazi: "ANKARA",
-    birim: "kayıt",
+    merkezYazi: t.harita.merkez,
+    birim: t.birim.kayit(2),
     dilimler: yerlesim.dilimler.map((d, i) => {
       const k = kategoriler[i]!;
       return { ...d, satirlar: [k.data.kisaAd], ad: k.data.ad, sayi: sayi(k.id) };
@@ -105,7 +109,7 @@ const gorunumler: GorunumCizimi[] = [
     anahtar: kategori.id,
     merkezYazi: kategori.data.kisaAd,
     // Menüde yer alan kategoriler kurumdur; akademisyen kendi adıyla, diğerleri "kayıt"
-    birim: kategori.data.menuSira !== undefined ? "kurum" : kategori.id === "akademisyen" ? "akademisyen" : "kayıt",
+    birim: (kategori.data.menuSira !== undefined ? t.birim.kurum : kategori.id === "akademisyen" ? t.birim.akademisyen : t.birim.kayit)(2),
     renk: `--c-${kategori.id}`,
     dilimler: ky.dilimler.map((d, i) => {
       const g = girdiler[i]!;
@@ -119,19 +123,19 @@ const SATIR_ARALIGI = 16;
 <div class="harita" data-harita data-gorunum="genel" data-varsayilan={varsayilan} data-merkez-x={merkez.x}>
   <div class="araclar">
     <FiltreCipleri
-      etiket="Kategori filtresi"
+      etiket={t.filtre.kategoriFiltresi}
       parametre="kategori"
       tumuSayi={dugumler.length}
       secenekler={kategoriler
         .filter((k) => sayi(k.id) > 0)
         .map((k) => ({ deger: k.id, ad: k.data.ad, sayi: sayi(k.id), renk: `--c-${k.id}` }))}
     />
-    <input type="search" class="ara" name="ara" data-harita-ara placeholder="Haritada ara: hidrojen, ODTÜ, atık…" aria-label="Haritada ara" />
+    <input type="search" class="ara" name="ara" data-harita-ara placeholder={t.harita.araOrnek} aria-label={t.harita.ara} />
   </div>
 
   <div class="izgara">
     <div class="kutu">
-      <svg viewBox={HARITA_VIEWBOX} role="group" aria-label="Kategori dilimlerine ayrılmış Ankara ekosistem haritası">
+      <svg viewBox={HARITA_VIEWBOX} role="group" aria-label={t.harita.svg}>
         {yerlesim.halkalar.map((r) => <circle class="halka" cx={merkez.x} cy={merkez.y} r={r} />)}
         <circle class="merkez" cx={merkez.x} cy={merkez.y} r={yerlesim.merkezYaricap} />
         {/* Vurgulanan dilimin kayıt sayısı; vurgu yokken gizli, merkez yazısının yerini alır */}
@@ -204,7 +208,7 @@ const SATIR_ARALIGI = 16;
         <ol
           class:list={["lejant", { acik: g.anahtar === "" }]}
           data-gorunum-anahtari={g.anahtar}
-          aria-label="Harita dilimleri"
+          aria-label={t.harita.lejant}
           style={g.renk ? `--c:var(${g.renk})` : undefined}
         >
           {g.dilimler.map((d) => (

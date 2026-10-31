@@ -1,0 +1,15 @@
+---
+import KurumSayfasi from "../../components/bloklar/KurumSayfasi.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getSayfa } from "../../lib/content";
+import { dilYollari } from "../../lib/dil";
+import { sayfaDili } from "../../lib/yol";
+
+export const getStaticPaths = dilYollari;
+
+const sayfa = await getSayfa("netzero", sayfaDili(Astro.url));
+---
+
+<BaseLayout title={sayfa.data.baslik} description={sayfa.data.ozet}>
+  <KurumSayfasi sayfa={sayfa} />
+</BaseLayout>

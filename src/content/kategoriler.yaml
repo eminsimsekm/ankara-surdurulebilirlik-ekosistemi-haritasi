@@ -117,3 +117,23 @@ platform:
   menuAdi: Platform
   menuSira: 8
   firmaBasligi: Araçları
+
+topluluk:
+  ad: Topluluk
+  kisaAd: Topluluk
+  baslik: Topluluklar
+  aciklama: Ankara'daki üniversite kulüpleri (yapay zekâ, girişimcilik, enerji, sürdürülebilirlik), gönüllü topluluklar, dernekler ve meetup grupları.
+  yol: topluluklar
+  sira: 13
+  menuAdi: Topluluklar
+  menuSira: 9
+
+uygulama:
+  ad: Uygulama & etkinlik platformu
+  kisaAd: Uygulama
+  baslik: Uygulamalar
+  aciklama: Toplulukların etkinliklerini duyurduğu ve üyelerini topladığı uygulama ve web platformları (Meetup, Luma, Kommunity, Masqot…). Ankara'daki toplulukları ve buluşmaları takip etmek için başlangıç noktaları.
+  yol: uygulamalar
+  sira: 14
+  menuAdi: Uygulamalar
+  menuSira: 10

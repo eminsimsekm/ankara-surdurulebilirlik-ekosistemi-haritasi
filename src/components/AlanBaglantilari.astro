@@ -3,12 +3,16 @@
 // ikincil alanlar yalnızca bilgidir (filtre ve sayım birincil alana göre, bkz. birincilAlanId).
 // Etiketlerden (Tags) görsel olarak ayrışır: etiket serbest ayrıntı, alan kontrollü liste.
 import { aktorAlanlari, alanYolu, birincilAlanId, type Aktor } from "../lib/content";
+import { metinler } from "../i18n";
+import { sayfaDili } from "../lib/yol";
 
 interface Props {
   aktor: Aktor;
 }
 const { aktor } = Astro.props;
-const alanlar = await aktorAlanlari(aktor);
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil);
+const alanlar = await aktorAlanlari(aktor, dil);
 const birincil = birincilAlanId(aktor);
 ---
 
@@ -16,9 +20,9 @@ const birincil = birincilAlanId(aktor);
   <ul class="alanlar">
     {alanlar.map((alan) =>
       alan.id === birincil ? (
-        <li><a href={alanYolu(alan)} title={`${alan.data.ad} alanındaki tüm kurumlar`}>{alan.data.ad}</a></li>
+        <li><a href={alanYolu(alan, dil)} title={t.aktor.alanBaglantisi(alan.data.ad)}>{alan.data.ad}</a></li>
       ) : (
-        <li><span title="İkincil alan">{alan.data.ad}</span></li>
+        <li><span title={t.aktor.ikincilAlan}>{alan.data.ad}</span></li>
       ),
     )}
   </ul>

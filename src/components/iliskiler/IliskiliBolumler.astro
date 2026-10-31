@@ -1,12 +1,13 @@
 ---
 // Kurum sayfasının altındaki ilgili kayıt bölümleri (yatırımlar, iş birlikleri…). Bölümler ./kaynaklar.ts'ten gelir.
 import ListeGrubu from "../ListeGrubu.astro";
+import { sayfaDili } from "../../lib/yol";
 import { iliskiliBolumler } from "./kaynaklar";
 
 interface Props {
   aktorId: string;
 }
-const bolumler = await iliskiliBolumler(Astro.props.aktorId);
+const bolumler = await iliskiliBolumler(Astro.props.aktorId, sayfaDili(Astro.url));
 ---
 
 {bolumler.length > 0 && (

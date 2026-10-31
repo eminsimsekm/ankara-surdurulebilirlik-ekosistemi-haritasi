@@ -1,0 +1,61 @@
+# Yatırımların İngilizce çevirileri. Anahtar = src/content/yatirimlar/<kimlik>.yaml.
+# aciklama, tutar (gösterim metni); ad yalnızca açıklayıcı başlık olduğunda ("Evreka · büyüme turu"). Özel isim olan ad ve yatırımcı adları çevrilmez.
+
+aisfield:
+  tutar: Undisclosed
+  aciklama: Ankara-based robotics company; one of the direct investments in Tüpraş Ventures' energy transition portfolio (as of June 2026).
+ankara-universitesi-teknokent-yesil-elektrik:
+  ad: Ankara Üniversitesi Teknokent green electricity
+  tutar: 2.6 GWh/year
+  aciklama: The technopark's electricity comes from renewable sources; targets about 1,200 tonnes of avoided emissions a year.
+baskent-edas-sebeke-yatirimlari:
+  ad: Başkent EDAŞ grid investments
+  tutar: TRY 3.485 bn
+  aciklama: Maintenance, renewal and digital transformation investment in the Ankara grid in the first nine months of 2025.
+cfl-malzeme-teknolojileri:
+  tutar: Undisclosed
+  aciklama: Materials and biotechnology startup founded with BİGG investment.
+evreka-buyume-turu:
+  ad: Evreka · growth round
+  tutar: $2.2 mn
+  aciklama: For expansion into new markets abroad and local teams; revenue tripled in 2021.
+evreka-ilk-tur:
+  ad: Evreka · first round
+  tutar: $740K
+  aciklama: First investment round for smart waste collection sensors and route optimisation.
+evreka-kurumsal-yatirim:
+  ad: Evreka · corporate investment
+  tutar: Undisclosed
+  aciklama: Driventure's first sustainability-focused investment; a continuation of the waste management collaboration at the paint shop of the Gölcük plant.
+hane-gsyf:
+  aciklama: Venture capital fund available to Bilkent TEKMER startups; no green focus stated.
+kalyon-pv-entegre-gunes-fabrikasi:
+  ad: Kalyon PV integrated solar factory
+  aciklama: A total investment of $500 million in the vertically integrated plant in Başkent OSB, plus $100 million in additional capacity for 2024. The company is listed under the ticker KLYPV.
+leap-yatirim-fonu:
+  ad: LEAP investment fund
+  tutar: TRY 100 mn
+  aciklama: Fund for Ankara TEKMER startups; no sector restriction.
+microfert-biyoteknoloji:
+  tutar: Undisclosed
+  aciklama: Its siderophore-producing microbial inoculant project was funded under the BİGG Yeşil Büyüme call.
+ostim-otopark-gesleri:
+  ad: OSTİM car park solar plants
+  aciklama: Solar plants built on open car parks raise OSTİM's installed renewable capacity to 5 MW.
+temelli-veri-merkezi:
+  ad: Temelli data centre
+  tutar: $4.1 bn
+  aciklama: $450 million and 22 MW in the first phase; a design based on energy and resource efficiency. To be tracked as an energy-intensive infrastructure investment, not a sustainability investment.
+tenmak-hidrojen-ar-ge-merkezi:
+  ad: TENMAK hydrogen R&D centre
+  tutar: 8,000 m²
+  aciklama: Fuel cell testing, green hydrogen production and a hydrogen refuelling station with a daily capacity of 65 kg at the Sarayköy campus; open to universities and companies.
+tt-ventures-gsyf:
+  tutar: Portfolio $600 mn+
+  aciklama: Investments in 12 startups; energy and mobility technologies are the priority in the new period.
+ttgv-iklim-oncusu-vc-fonu:
+  aciklama: Invests in first-of-a-kind commercial demonstration projects and pioneering startups in climate technologies.
+yeka-2026-ruzgar-ve-gunes-yarismalari:
+  ad: YEKA 2026 wind and solar tenders
+  tutar: ~$2 bn
+  aciklama: Tenders for a total capacity of 2,400 MW in 13 provinces, including Ankara.

@@ -2,6 +2,9 @@
 // Sektöre göre yatırım tutarları: yatay çubuk grafik (sektor-yatirimlari-2025.yaml).
 import { getSektorYatirimlari } from "../../lib/content";
 import ExternalLink from "../ExternalLink.astro";
+import { metinler } from "../../i18n";
+import { YEREL_AYAR } from "../../lib/dil";
+import { sayfaDili } from "../../lib/yol";
 
 interface Props {
   baslik: string;
@@ -9,9 +12,12 @@ interface Props {
   kaynak?: string;
 }
 const { baslik, not, kaynak } = Astro.props;
-const satirlar = await getSektorYatirimlari();
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil);
+const satirlar = await getSektorYatirimlari(dil);
 const enBuyuk = Math.max(...satirlar.map((s) => s.data.tutarMilyonDolar));
-const tutar = (v: number) => (v < 1 ? v.toFixed(2) : v.toFixed(1)).replace(".", ",");
+const tutar = (v: number) =>
+  new Intl.NumberFormat(YEREL_AYAR[dil], { minimumFractionDigits: v < 1 ? 2 : 1, maximumFractionDigits: v < 1 ? 2 : 1 }).format(v);
 ---
 
 <figure class="grafik">
@@ -21,11 +27,11 @@ const tutar = (v: number) => (v < 1 ? v.toFixed(2) : v.toFixed(1)).replace(".", 
       <li class:list={{ vurgu: s.vurgu }}>
         <span>{s.ad}</span>
         <div class="iz"><div class="dolgu" style={`width:${((s.tutarMilyonDolar / enBuyuk) * 100).toFixed(1)}%`}></div></div>
-        <span class="deger">{tutar(s.tutarMilyonDolar)} · {s.islem} işlem</span>
+        <span class="deger">{tutar(s.tutarMilyonDolar)} · {s.islem} {t.birim.islem(s.islem)}</span>
       </li>
     ))}
   </ul>
-  <p class="not">{not} {kaynak && <ExternalLink href={kaynak}>Rapor</ExternalLink>}</p>
+  <p class="not">{not} {kaynak && <ExternalLink href={kaynak}>{t.yatirimlar.rapor}</ExternalLink>}</p>
 </figure>
 
 <style>

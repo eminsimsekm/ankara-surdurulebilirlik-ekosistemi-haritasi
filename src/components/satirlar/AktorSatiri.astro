@@ -5,6 +5,8 @@ import { aktorAlanlari, aktorAramaMetni, aktorYolu, birincilAlanId, type Aktor, 
 import AlanBaglantilari from "../AlanBaglantilari.astro";
 import ExternalLink from "../ExternalLink.astro";
 import Tags from "../Tags.astro";
+import { metinler } from "../../i18n";
+import { sayfaDili } from "../../lib/yol";
 
 interface Props {
   aktor: Aktor;
@@ -12,8 +14,10 @@ interface Props {
 }
 const { aktor, kategori } = Astro.props;
 const d = aktor.data;
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil);
 const { Content } = await render(aktor);
-const alanlar = await aktorAlanlari(aktor);
+const alanlar = await aktorAlanlari(aktor, dil);
 ---
 
 <li
@@ -24,13 +28,13 @@ const alanlar = await aktorAlanlari(aktor);
   data-search={aktorAramaMetni(aktor, alanlar)}
 >
   <div class="kimlik">
-    <a href={aktorYolu(kategori, aktor)}>{d.ad}</a>
+    <a href={aktorYolu(kategori, aktor, dil)}>{d.ad}</a>
     <span>{d.konum}</span>
   </div>
   <div class="icerik">
     <div class="aciklama"><Content /></div>
-    {d.kisiler && <p class="ek"><b>Kişi:</b> {d.kisiler}</p>}
-    {d.surdurulebilirlik && <p class="ek"><b>Sürdürülebilirlik:</b> {d.surdurulebilirlik}</p>}
+    {d.kisiler && <p class="ek"><b>{t.aktor.kisi}</b> {d.kisiler}</p>}
+    {d.surdurulebilirlik && <p class="ek"><b>{t.aktor.surdurulebilirlikSatir}</b> {d.surdurulebilirlik}</p>}
     <div class="alt">
       <AlanBaglantilari aktor={aktor} />
       <Tags etiketler={d.etiketler} />

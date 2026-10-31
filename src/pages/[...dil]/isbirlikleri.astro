@@ -1,0 +1,62 @@
+---
+import FiltreCipleri from "../../components/FiltreCipleri.astro";
+import ListeGrubu from "../../components/ListeGrubu.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import SearchBox from "../../components/SearchBox.astro";
+import IsbirligiKarti from "../../components/satirlar/IsbirligiKarti.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getIsbirligiTurleri, getIsbirlikleri, getSayfa } from "../../lib/content";
+import { dilYollari } from "../../lib/dil";
+import { sayfaDili } from "../../lib/yol";
+import { metinler } from "../../i18n";
+
+export const getStaticPaths = dilYollari;
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil);
+
+const [sayfa, isbirlikleri, turler] = await Promise.all([getSayfa("isbirlikleri", dil), getIsbirlikleri(dil), getIsbirligiTurleri(dil)]);
+const gruplar = turler
+  .map((tur) => ({ tur, liste: isbirlikleri.filter((x) => x.data.tur === tur.id) }))
+  .filter((g) => g.liste.length > 0);
+const { baslik, ozet } = sayfa.data;
+---
+
+<BaseLayout title={baslik} description={ozet}>
+  <div data-filter-root>
+    <PageHeader baslik={baslik} ust={`${isbirlikleri.length} ${t.birim.isbirligi(isbirlikleri.length)}`} lede={ozet}>
+      <SearchBox etiket={t.isbirlikleri.ara} placeholder={t.isbirlikleri.araOrnek} />
+    </PageHeader>
+
+    <FiltreCipleri
+      etiket={t.filtre.isbirligiTuru}
+      parametre="tur"
+      tumuSayi={isbirlikleri.length}
+      secenekler={gruplar.map((g) => ({
+        deger: g.tur.id,
+        ad: g.tur.data.ad,
+        sayi: g.liste.length,
+        renk: `--c-ib-${g.tur.id}`,
+      }))}
+    />
+
+    {gruplar.map(({ tur, liste }) => (
+      <ListeGrubu baslik={tur.data.ad} sayi={liste.length} birim={t.birim.kayit(liste.length)}>
+        <ul class="kartlar">
+          {liste.map((x) => <IsbirligiKarti isbirligi={x} tur={tur} />)}
+        </ul>
+      </ListeGrubu>
+    ))}
+    <p class="empty" data-filter-empty hidden>{t.isbirlikleri.bos}</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .kartlar {
+    list-style: none;
+    margin: 12px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr));
+    gap: 14px;
+  }
+</style>

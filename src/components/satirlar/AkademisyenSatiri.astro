@@ -3,6 +3,8 @@ import { render } from "astro:content";
 import { akademisyenAramaMetni, akademisyenTamAdi, type Akademisyen, type Universite } from "../../lib/content";
 import ExternalLink from "../ExternalLink.astro";
 import Tags from "../Tags.astro";
+import { metinler } from "../../i18n";
+import { sayfaDili } from "../../lib/yol";
 
 interface Props {
   akademisyen: Akademisyen;
@@ -10,6 +12,8 @@ interface Props {
 }
 const { akademisyen, universite } = Astro.props;
 const d = akademisyen.data;
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil);
 const { Content } = await render(akademisyen);
 ---
 
@@ -28,7 +32,7 @@ const { Content } = await render(akademisyen);
     <div class="aciklama"><Content /></div>
     <div class="alt">
       <Tags etiketler={d.etiketler} />
-      {d.profil && <ExternalLink href={d.profil}>Akademik profil</ExternalLink>}
+      {d.profil && <ExternalLink href={d.profil}>{t.ortak.akademikProfil}</ExternalLink>}
     </div>
   </div>
 </li>

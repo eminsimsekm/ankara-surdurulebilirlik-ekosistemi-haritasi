@@ -1,0 +1,573 @@
+# İngilizce sözlük çevirileri. Türkçe sözlüklerin (kategoriler.yaml, alanlar.yaml, …) yerine geçmez,
+# üzerine bindirilir: anahtarlar Türkçe dosyalardaki anahtarlardır. Yazılmayan değer Türkçe kalır.
+#
+# kategoriler / alanlar / yatirimTurleri / isbirligiTurleri   anahtar = sözlük kimliği
+# oneCikanSayilar / sektorYatirimlari                          anahtar = one-cikan-sayilar.yaml / sektor-yatirimlari-2025.yaml kimliği
+# unvanlar / birimler / etiketler                              anahtar = Türkçe değerin kendisi
+#
+# Etiketler: özel isim olanlar (AI Fest, LEAP Investment, TÜBİTAK 1071 TRANSMIT…) buraya yazılmaz, olduğu gibi kalır.
+# Üniversite adları özel isim olduğu için çevrilmez.
+
+kategoriler:
+  teknopark:
+    ad: Technopark
+    kisaAd: Technopark
+    baslik: Technoparks
+    aciklama: Technology development zones (TGB) in Ankara.
+    menuAdi: Technoparks
+    firmaBasligi: Companies in this field
+  tekmer:
+    ad: TEKMER & incubation
+    kisaAd: TEKMER
+    baslik: TEKMERs
+    aciklama: Technology development centres (TEKMER) under KOSGEB and incubation centres.
+    menuAdi: TEKMERs
+    firmaBasligi: Companies in this field
+  girisim:
+    ad: Startup
+    kisaAd: Startup
+    baslik: Startups
+    aciklama: Sustainability and climate-tech startups in Ankara.
+    menuAdi: Startups
+    firmaBasligi: Companies in this field
+  sirket:
+    ad: Corporate project
+    kisaAd: Company
+    baslik: Companies
+    aciklama: Sustainability projects of large companies and energy technology firms.
+    menuAdi: Companies
+    firmaBasligi: Companies in this field
+  kobi:
+    ad: SME
+    kisaAd: SME
+    baslik: SMEs
+    aciklama: Small and medium-sized enterprises (SMEs) working on sustainability in Ankara, mostly from the OSTİM ENERJİK cluster and Gazi Teknopark.
+    menuAdi: SMEs
+    firmaBasligi: Companies in this field
+  arastirma:
+    ad: Research centre
+    kisaAd: Research
+    baslik: Research Centres
+    aciklama: University and public research centres.
+    menuAdi: Research
+    firmaBasligi: Companies in this field
+  akademisyen:
+    ad: Academic
+    kisaAd: Academic
+  kamu:
+    ad: Public, cluster & investor
+    kisaAd: Public
+    baslik: Public, Clusters & Investors
+    aciklama: Public institutions, organised industrial zones (OSB), sector clusters and investment supporters.
+    menuAdi: Public & Clusters
+    firmaBasligi: Companies in this field
+  destek:
+    ad: Support
+    kisaAd: Support
+  etkinlik:
+    ad: Event
+    kisaAd: Event
+  yatirim:
+    ad: Investment
+    kisaAd: Investment
+  platform:
+    ad: Platform, accelerator & network
+    kisaAd: Platform
+    baslik: Platforms, Accelerators & Networks
+    aciklama: Accelerators, platforms, startup networks and ecosystem builders.
+    menuAdi: Platforms
+    firmaBasligi: Tools
+  topluluk:
+    ad: Community
+    kisaAd: Community
+    baslik: Communities
+    aciklama: University clubs in Ankara (AI, entrepreneurship, energy, sustainability), volunteer communities, associations and meetup groups.
+    menuAdi: Communities
+    firmaBasligi: Companies in this field
+  uygulama:
+    ad: App & event platform
+    kisaAd: App
+    baslik: Apps
+    aciklama: Apps and web platforms where communities announce their events and gather members (Meetup, Luma, Kommunity, Masqot…). Starting points for following communities and meetups in Ankara.
+    menuAdi: Apps
+    firmaBasligi: Companies in this field
+alanlar:
+  yenilenebilir-enerji:
+    ad: Renewable energy
+    aciklama: Solar, wind, biogas and other clean energy generation
+  enerji-depolama:
+    ad: Energy storage
+    aciklama: Batteries, battery management and storage systems
+  hidrojen:
+    ad: Hydrogen
+    aciklama: Green hydrogen production, fuel cells and hydrogen storage
+  enerji-verimliligi:
+    ad: Energy efficiency & smart grid
+    aciklama: Energy efficiency, smart grids, smart buildings and energy management
+  e-mobilite:
+    ad: Electric mobility
+    aciklama: EV charging, e-bikes and micromobility
+  atik-dongusel:
+    ad: Waste & circular economy
+    aciklama: Waste management, recycling and circular production
+  karbon-iklim:
+    ad: Carbon & climate
+    aciklama: Carbon management, ESG, greenhouse gases, carbon capture and climate science
+  tarim-gida:
+    ad: Agriculture & food
+    aciklama: Smart farming, vertical farming, biofertilisers and food security
+  su-cevre:
+    ad: Water, air & environment
+    aciklama: Water technologies, air quality and environmental monitoring
+  biyoteknoloji-malzeme:
+    ad: Biotech & materials
+    aciklama: Biotechnology, algae, biodegradable and advanced materials
+  savunma-havacilik:
+    ad: Defence & aerospace
+    aciklama: Defence, aviation, space and dual-use technologies
+  saglik:
+    ad: Health & biomedical
+    aciklama: Health technologies, pharmaceuticals, medical devices and biomedicine
+  egitim:
+    ad: Education technology
+    aciklama: Education technology (EdTech) and learning solutions
+  bilisim:
+    ad: ICT & AI
+    aciklama: Organisations focused on software, information and communication technologies and artificial intelligence
+  sanayi:
+    ad: Industry & advanced manufacturing
+    aciklama: Industrial production, prototyping and advanced manufacturing
+  finans:
+    ad: Investment & finance
+    aciklama: Venture capital, funds, investor networks and crowdfunding
+  genel:
+    ad: Sector-agnostic
+    aciklama: Incubators and accelerators without a specific sector focus
+yatirimTurleri:
+  girisim:
+    ad: Startup
+  kurumsal:
+    ad: Corporate
+  altyapi:
+    ad: Infrastructure
+  fon:
+    ad: Fund
+isbirligiTurleri:
+  ar-ge:
+    ad: R&D & research
+  program:
+    ad: Programme & accelerator
+  yatirim:
+    ad: Investment & funding
+  kamu:
+    ad: Public-private partnership
+  transfer:
+    ad: Technology transfer
+  uluslararasi:
+    ad: International
+oneCikanSayilar:
+  girisim-sayisi:
+    deger: 3,000+
+    etiket: tech startups · Ankara
+  yatirim-toplami:
+    etiket: invested in 210 startups (2018–25)
+  tekmer-sayisi:
+    etiket: TEKMERs (KOSGEB list)
+sektorYatirimlari:
+  fintech:
+    ad: FinTech
+  malzeme-uretim:
+    ad: Materials & manufacturing
+  otomotiv:
+    ad: Automotive
+  siber-guvenlik:
+    ad: Cybersecurity
+  savunma:
+    ad: Defence
+  saglik-biyotek:
+    ad: Health & biotech
+  surdurulebilirlik-cevre:
+    ad: Sustainability & environment
+  robotik:
+    ad: Robotics
+  oyun:
+    ad: Gaming
+unvanlar:
+  Prof. Dr.: Prof. Dr.
+  Doç. Dr.: Assoc. Prof. Dr.
+  Dr. Öğr. Üyesi: Asst. Prof. Dr.
+  Arş. Gör.: Res. Asst.
+  Arş. Gör. Dr.: Res. Asst. Dr.
+  Dr.: Dr.
+birimler:
+  AYBÜ Hidrojen Teknolojileri ve Enerji Uygulama ve Araştırma Merkezi (H2TEAM) Müdürü: Director, AYBÜ Hidrojen Teknolojileri ve Enerji Uygulama ve Araştırma Merkezi (H2TEAM)
+  Deniz Bilimleri Enstitüsü Müdürü · ODTÜ İKLİM Müdürü: Director, Deniz Bilimleri Enstitüsü (Institute of Marine Sciences) · Director, ODTÜ İKLİM
+  Deniz Bilimleri Enstitüsü müdür yardımcısı: Deputy Director, Deniz Bilimleri Enstitüsü (Institute of Marine Sciences)
+  Elektrik-Elektronik Müh. ve Fizik · UNAM Müdürü · TÜBA asli üyesi: Electrical-Electronics Eng. and Physics · Director, UNAM · Full member of TÜBA
+  Elektrik-Elektronik Müh. · ODTÜ RÜZGEM: Electrical-Electronics Eng. · ODTÜ RÜZGEM
+  Elektrik-Elektronik Müh. · ODTÜ-GÜNAM YK Başkanı (Ekim 2025'ten) · Test ve Karakterizasyon birimi: Electrical-Electronics Eng. · Chair of the Board, ODTÜ-GÜNAM (from October 2025) · Testing and Characterisation unit
+  Endüstri Mühendisliği: Industrial Engineering
+  Enerji Sistemleri Mühendisliği: Energy Systems Engineering
+  Enerji Sistemleri Mühendisliği · Hidrojen Enerjisi ve Yakıt Pilleri Araştırma Grubu kurucusu: Energy Systems Engineering · Founder, Hidrojen Enerjisi ve Yakıt Pilleri Araştırma Grubu
+  Fen Fakültesi · Biyoloji Bölümü (Ekoloji ve Çevre Biyolojisi ABD Başkanı): Faculty of Science · Department of Biology (Head of Ecology and Environmental Biology)
+  Fizik · ODTÜ-GÜNAM kurucusu, SiPV koordinatörü: Physics · Founder of ODTÜ-GÜNAM, SiPV coordinator
+  Gazi Teknopark YK Başkan Vekili (2015 kaydı): Deputy Chair of the Board, Gazi Teknopark (2015 record)
+  Havacılık ve Uzay Müh. · ODTÜ RÜZGEM: Aerospace Eng. · ODTÜ RÜZGEM
+  Kentleşme ve Çevre Sorunları ABD · Siyaset Bilimi ve Kamu Yönetimi: Urbanisation and Environmental Problems · Political Science and Public Administration
+  Kimya / UNAM: Chemistry / UNAM
+  Kimya Mühendisliği: Chemical Engineering
+  MSN Lisansüstü Programı / UNAM: MSN Graduate Programme / UNAM
+  Makine Mühendisliği: Mechanical Engineering
+  Makine Mühendisliği · Enerji Anabilim Dalı: Mechanical Engineering · Energy Division
+  Malzeme Bilimi ve Nanoteknoloji Mühendisliği: Materials Science and Nanotechnology Engineering
+  Malzeme Bilimi ve Nanoteknoloji Mühendisliği (Bölüm Başkanı): Materials Science and Nanotechnology Engineering (Head of Department)
+  Matematik ve Fen Bilimleri Eğitimi · ODTÜ İKLİM yönetim kurulu: Mathematics and Science Education · Board member, ODTÜ İKLİM
+  Mimarlık Bölümü: Department of Architecture
+  Mimarlık Fakültesi: Faculty of Architecture
+  Mimarlık ve Tasarım Fakültesi · İç Mimarlık ve Çevre Tasarımı: Faculty of Architecture and Design · Interior Architecture and Environmental Design
+  Mimarlık · ODTÜ İKLİM müdür yardımcısı: Architecture · Deputy Director, ODTÜ İKLİM
+  ODTÜ RÜZGEM: ODTÜ RÜZGEM
+  ODTÜ-GÜNAM · Gelişmiş Fotovoltaik birimi koordinatörü: ODTÜ-GÜNAM · Coordinator, Advanced Photovoltaics unit
+  ODTÜ-GÜNAM · Modül Teknolojileri birimi koordinatörü: ODTÜ-GÜNAM · Coordinator, Module Technologies unit
+  ODTÜ-GÜNAM · ODAK birimi koordinatörü: ODTÜ-GÜNAM · Coordinator, ODAK unit
+  ODTÜ-GÜNAM · Powering birimi koordinatörü: ODTÜ-GÜNAM · Coordinator, Powering unit
+  ODTÜ-GÜNAM · SolarSEED (sosyo-ekonomik araştırmalar): ODTÜ-GÜNAM · SolarSEED (socio-economic research)
+  Siyaset Bilimi ve Uluslararası İlişkiler: Political Science and International Relations
+  Sosyal Bilimler Enstitüsü · Enerji Ekonomisi ve Yönetimi: Sosyal Bilimler Enstitüsü · Energy Economics and Management
+  Su Yönetimi Enstitüsü Müdürü · Su Politikaları ve Güvenliği ABD Başkanı: Director, Su Yönetimi Enstitüsü (Water Management Institute) · Head of Water Policy and Security
+  Su Yönetimi Enstitüsü · Entegre Su Yönetimi ABD: Su Yönetimi Enstitüsü · Integrated Water Management
+  Teknoloji Fakültesi · Enerji Sistemleri Mühendisliği: Faculty of Technology · Energy Systems Engineering
+  Ziraat Fakültesi · Tarımsal Yapılar ve Sulama (Bölüm Başkanı): Faculty of Agriculture · Agricultural Structures and Irrigation (Head of Department)
+  Çevre Mühendisliği: Environmental Engineering
+  Çevre Mühendisliği (Bölüm Başkanı): Environmental Engineering (Head of Department)
+  Çevre Mühendisliği · ODTÜ İKLİM yönetim kurulu: Environmental Engineering · Board member, ODTÜ İKLİM
+  Çevre Mühendisliği · Çevre Teknolojisi: Environmental Engineering · Environmental Technology
+  Çevre Teknolojileri Araştırma Laboratuvarı: Çevre Teknolojileri Araştırma Laboratuvarı (Environmental Technologies Research Laboratory)
+  İdare Hukuku ABD · Hukuk Fakültesi Dekanı: Administrative Law · Dean, Faculty of Law
+  İktisat Bölümü · Siyasal Bilgiler Fakültesi: Department of Economics · Faculty of Political Science
+  İktisat · ODTÜ İKLİM yönetim kurulu: Economics · Board member, ODTÜ İKLİM
+  İnşaat Mühendisliği · ODTÜ İKLİM müdür yardımcısı: Civil Engineering · Deputy Director, ODTÜ İKLİM
+  Şehir ve Bölge Planlama: City and Regional Planning
+  Şehir ve Bölge Planlama · Afet Yönetimi Merkezi Müdürü: City and Regional Planning · Director, Afet Yönetimi Merkezi (Disaster Management Centre)
+etiketler:
+  0–3 yaş girişim: 0–3 year-old startups
+  100 mn TL fon: TRY 100 mn fund
+  176 firma: 176 companies
+  2D malzemeler: 2D materials
+  AB fonu: EU funding
+  adil dönüşüm: just transition
+  aerodinamik: aerodynamics
+  afet yönetimi: disaster management
+  AI/ML eğitimi: AI/ML training
+  akademi: academy
+  akıllı bina: smart building
+  akıllı kampüs: smart campus
+  akıllı şebeke: smart grid
+  akıllı şehir: smart city
+  akıllı tarım: smart farming
+  alg: algae
+  alg biyoteknolojisi: algae biotechnology
+  altyapı: infrastructure
+  altyapı finansmanı: infrastructure finance
+  alüminyum-hava pil: aluminium-air battery
+  anaerobik biyoteknoloji: anaerobic biotechnology
+  analitik ölçüm: analytical measurement
+  Ar-Ge: R&D
+  araştırma GES: research solar plant
+  atık dönüşümü: waste conversion
+  atık ısı geri kazanım: waste heat recovery
+  atık su: wastewater
+  atık takip: waste tracking
+  atık yönetimi: waste management
+  atıksu: wastewater
+  atıksu arıtma: wastewater treatment
+  atıktan enerji: waste-to-energy
+  batarya: battery
+  batarya depolama: battery storage
+  batarya test: battery testing
+  batarya testi: battery testing
+  batarya üretimi: battery manufacturing
+  belediye GES: municipal solar plant
+  bilişimde kadınlar: women in computing
+  bina enerjisi: building energy
+  bina otomasyonu: building automation
+  biyobazlı malzeme: bio-based materials
+  biyobozunma: biodegradation
+  biyobozunur: biodegradable
+  biyoenerji: bioenergy
+  biyogaz: biogas
+  biyogübre: biofertiliser
+  biyohidrojen: biohydrogen
+  biyokömür: biochar
+  biyokütle: biomass
+  biyosensör: biosensor
+  biyoteknoloji: biotechnology
+  blokzincir IoT: blockchain IoT
+  BMS yazılımı: BMS software
+  CO₂ dönüşümü: CO₂ conversion
+  CO2 yakalama: CO2 capture
+  CO₂ yakalama: CO₂ capture
+  ÇED: EIA
+  çevre: environment
+  çevre değerlendirmesi: environmental assessment
+  çevre ekonomisi: environmental economics
+  çevre katalizi: environmental catalysis
+  çevre mühendisliği: environmental engineering
+  çevre sensörleri: environmental sensors
+  çevre sensörü: environmental sensor
+  çevre teknolojisi: environmental technology
+  çevre yönetimi: environmental management
+  çok fazlı akış: multiphase flow
+  dalga enerjisi: wave energy
+  danışmanlık: consulting
+  deniz ısınması: ocean warming
+  deniz seviyesi: sea level
+  derin teknoloji: deep tech
+  dernek: association
+  dezenfeksiyon: disinfection
+  dijital: digital
+  dijital ikiz: digital twin
+  dijital tarım: digital farming
+  dikey entegre: vertically integrated
+  dikey tarım: vertical farming
+  dirençli kent: resilient city
+  döngüsel ekonomi: circular economy
+  döngüsel malzeme: circular materials
+  e-bisiklet: e-bike
+  e-mobilite: e-mobility
+  eğitim: education
+  eğitim teknolojileri: education technology
+  ekoloji: ecology
+  ekosistem: ecosystem
+  elektrik piyasası: electricity market
+  elektrikli araç: electric vehicle
+  elektrikli mobilite: electric mobility
+  endüstriyel GES: industrial solar plant
+  enerji: energy
+  enerji & mobilite: energy & mobility
+  enerji depolama: energy storage
+  enerji dönüşümü: energy transition
+  enerji ekonomisi: energy economics
+  enerji güvenliği: energy security
+  enerji hukuku: energy law
+  enerji optimizasyonu: energy optimisation
+  enerji politikası: energy policy
+  enerji satış: energy sales
+  enerji sistemleri: energy systems
+  enerji verimliliği: energy efficiency
+  enerji yatırımları: energy investments
+  enerji yönetimi: energy management
+  enerji zekâsı: energy intelligence
+  enerji-çevre %6: energy-environment 6%
+  entegre PV: integrated PV
+  ESG yazılımı: ESG software
+  etkinlik platformu: event platform
+  EV batarya yönetimi: EV battery management
+  EV şarj: EV charging
+  fitoıslah: phytoremediation
+  fon: fund
+  fotoelektrokimya: photoelectrochemistry
+  fotokataliz: photocatalysis
+  fotovoltaik: photovoltaics
+  gazlaştırma: gasification
+  genç girişimci: young entrepreneurs
+  genel denge: general equilibrium
+  GES: solar power plant
+  GES tasarım: solar plant design
+  gıda güvenliği: food security
+  gıda kaybı: food loss
+  gıda kurutma: food drying
+  gıda-kozmetik: food & cosmetics
+  girişimcilik: entrepreneurship
+  girişimcilik tüneli: entrepreneurship tunnel
+  gönüllü: volunteer
+  gözlem: observation
+  güç elektroniği: power electronics
+  güneş + depolama: solar + storage
+  güneş enerjisi: solar energy
+  güneş EPC: solar EPC
+  güneş hücresi: solar cell
+  güneş ısısı: solar heat
+  güneş lisanssız: unlicensed solar
+  güneş paneli: solar panel
+  güneş termal: solar thermal
+  güneş yakıtı: solar fuels
+  güneşten hidrojen: solar-to-hydrogen
+  hava kalitesi: air quality
+  hava kirliliği: air pollution
+  havza: river basin
+  hızlandırıcı: accelerator
+  hızlandırıcı uygulayıcı: accelerator operator
+  hızlandırma: acceleration
+  hibrit enerji: hybrid energy
+  hidroelektrik: hydropower
+  hidrojen: hydrogen
+  hidrojen depolama: hydrogen storage
+  ihracat: exports
+  ısıl davranış: thermal behaviour
+  ısıl sistemler: thermal systems
+  iç hava kalitesi: indoor air quality
+  iklim: climate
+  iklim bilimi: climate science
+  iklim değişikliği: climate change
+  iklim eğitimi: climate education
+  iklim ekonomisi: climate economics
+  iklim modellemesi: climate modelling
+  iklim müzakereleri: climate negotiations
+  iklim teknolojisi: climate tech
+  iklim uyum: climate adaptation
+  iklim uyumu: climate adaptation
+  ilaç: pharmaceuticals
+  ileri imalat: advanced manufacturing
+  ilk yeşil teknopark: first green technopark
+  ince film: thin film
+  inovasyon: innovation
+  kalkınma: development
+  kampüs GES: campus solar plant
+  kamu araştırma: public research
+  karbon: carbon
+  karbon ayak izi: carbon footprint
+  karbon azaltım: carbon reduction
+  karbon izleme: carbon monitoring
+  karbon nötr şehir: carbon-neutral city
+  karbon yakalama: carbon capture
+  karbon yönetimi: carbon management
+  kariyer platformu: career platform
+  kataliz: catalysis
+  katalizör: catalyst
+  kayıt: registration
+  kentsel çevre: urban environment
+  kentsel dönüşüm: urban regeneration
+  kentsel enerji: urban energy
+  kentsel sürdürülebilirlik: urban sustainability
+  kentsel teknoloji: urban technology
+  kıyı: coastal
+  kitle fonlama: crowdfunding
+  KOBİ yeşil dönüşüm: SME green transition
+  kompozit: composites
+  konut: housing
+  kuluçka: incubation
+  kümelenme: clustering
+  küresel: global
+  LFP batarya: LFP battery
+  lityum-kükürt batarya: lithium-sulphur battery
+  makine: machinery
+  makine öğrenmesi: machine learning
+  malzeme: materials
+  malzeme bilimi: materials science
+  mantar derisi: mycelium leather
+  medikal: medical
+  medikal teknoloji: medical technology
+  melek ağı: angel network
+  melek yatırım: angel investment
+  mentorluk: mentoring
+  meteoroloji: meteorology
+  mikro şebeke: microgrid
+  mikrobiyal elektrokimya: microbial electrochemistry
+  mikromobilite: micromobility
+  mimari entegrasyon: architectural integration
+  nanokristal: nanocrystals
+  nanomalzeme: nanomaterials
+  nanoteknoloji: nanotechnology
+  NetZero TEKMER paydaşı: NetZero TEKMER stakeholder
+  okyanus: ocean
+  okyanus sağlığı: ocean health
+  organik atık: organic waste
+  OSB küme: OSB cluster
+  oyun: gaming
+  öğrenci kulübü: student club
+  öğrenci kulüpleri: student clubs
+  öğrenci topluluğu: student society
+  özel sermaye: private equity
+  pasif tasarım: passive design
+  PEM yakıt pili: PEM fuel cell
+  perovskit: perovskite
+  perovskit güneş: perovskite solar
+  pil fabrikası: battery factory
+  plastik atık: plastic waste
+  politika: policy
+  proje pazarı: project marketplace
+  PV geri dönüşümü: PV recycling
+  rapor: report
+  regülasyon: regulation
+  robotik: robotics
+  rüzgâr: wind
+  rüzgâr çiftliği: wind farm
+  rüzgar enerjisi: wind energy
+  rüzgâr jeneratörü: wind generator
+  rüzgâr tüneli: wind tunnel
+  sağlık: health
+  sağlık bilimleri: health sciences
+  sanayi: industry
+  sanayi odası: chamber of industry
+  sanayi-üniversite: industry-university
+  savunma: defence
+  sektörden bağımsız: sector-agnostic
+  sera gazı: greenhouse gas
+  sera yönetimi: greenhouse management
+  silisyum PV: silicon PV
+  SKA: SDGs
+  soğuk plazma: cold plasma
+  sosyal etki: social impact
+  sosyo-ekonomi: socio-economics
+  STK: NGO
+  su arıtma: water treatment
+  su ayak izi: water footprint
+  su ayrıştırma: water splitting
+  su kalitesi: water quality
+  su oksidasyonu: water oxidation
+  su teknolojisi: water technology
+  su yönetimi: water management
+  sürdürülebilir kalkınma: sustainable development
+  sürdürülebilir tarım: sustainable agriculture
+  sürdürülebilir tasarım: sustainable design
+  sürdürülebilirlik: sustainability
+  sürdürülebilirlik danışmanlığı: sustainability consulting
+  şebeke: grid
+  şebeke entegrasyonu: grid integration
+  tandem PV: tandem PV
+  tarım: agriculture
+  tarım teknolojisi: agritech
+  tarım-enerji: agri-energy
+  tarımsal sulama: agricultural irrigation
+  teknopark: technopark
+  temiz enerji: clean energy
+  termal: thermal
+  termodinamik: thermodynamics
+  topluluk platformu: community platform
+  topluluk yönetimi: community management
+  uluslararası hızlandırıcı: international accelerator
+  uluslararası ilişkiler: international relations
+  uzaktan algılama: remote sensing
+  uzay teknolojisi: space technology
+  üniversite-sanayi: university-industry
+  veri: data
+  veri bilimi: data science
+  veri merkezi: data centre
+  verimli aydınlatma: efficient lighting
+  verimlilik: productivity
+  yakıt hücresi: fuel cell
+  yanma: combustion
+  yapay zeka: artificial intelligence
+  yapay zekâ: artificial intelligence
+  yapay zekâ güvenliği: AI safety
+  yatırım: investment
+  yatırımcı buluşması: investor meetup
+  yazılım: software
+  yenilenebilir elektrik: renewable electricity
+  yenilenebilir enerji: renewable energy
+  yerel yönetim: local government
+  yerli: Turkish-made
+  yeşil beceriler: green skills
+  yeşil bina: green building
+  yeşil enerji temalı: green energy themed
+  yeşil firmalar: green companies
+  yeşil hidrojen: green hydrogen
+  yeşil kuluçka: green incubation
+  yeşil metanol: green methanol
+  yeşil OSB: green OSB
+  yeşil teknopark: green technopark
+  yönetişim: governance
+  yüzer GES: floating solar plant
+  YZ: AI
+  YZ+IoT: AI+IoT

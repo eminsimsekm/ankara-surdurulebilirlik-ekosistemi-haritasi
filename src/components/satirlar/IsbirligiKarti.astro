@@ -1,5 +1,7 @@
 ---
 import { isbirligiAramaMetni, taraflariCoz, type Isbirligi, type IsbirligiTuru } from "../../lib/content";
+import { metinler } from "../../i18n";
+import { sayfaDili } from "../../lib/yol";
 
 interface Props {
   isbirligi: Isbirligi;
@@ -7,7 +9,9 @@ interface Props {
 }
 const { isbirligi, tur } = Astro.props;
 const d = isbirligi.data;
-const taraflar = await taraflariCoz(isbirligi);
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil);
+const taraflar = await taraflariCoz(isbirligi, dil);
 ---
 
 <li
@@ -23,10 +27,10 @@ const taraflar = await taraflariCoz(isbirligi);
     {d.yil && <span class="yil">{d.yil}</span>}
   </div>
   <div class="taraflar">
-    {taraflar.map((t, i) => (
+    {taraflar.map((taraf, i) => (
       <>
-        {i > 0 && <span aria-label="ile">⟷</span>}
-        {t.yol ? <a class="taraf" href={t.yol}>{t.ad}</a> : <div class="taraf">{t.ad}</div>}
+        {i > 0 && <span aria-label={t.ortak.ile}>⟷</span>}
+        {taraf.yol ? <a class="taraf" href={taraf.yol}>{taraf.ad}</a> : <div class="taraf">{taraf.ad}</div>}
       </>
     ))}
   </div>
