@@ -1,0 +1,142 @@
+# Akademisyenlerin İngilizce çevirileri. Anahtar = src/content/akademisyenler/**/<kimlik>.md dosyasının adı.
+# govde: çalışma alanları (Markdown). Unvan ve birim sözlükten (sozluk.yaml) çevrilir; birim burada da yazılabilir.
+# Kişi ve üniversite adları çevrilmez.
+
+belgin-cakmak:
+  govde: Agricultural irrigation management, water efficiency, water footprint assessment, sustainable water use and Türkiye's irrigation networks.
+goksen-capar:
+  govde: Water and wastewater treatment, membrane processes, water quality management and resource recovery from wastewater. Member of the IWA Resource Recovery Cluster Steering Committee.
+latif-kurt:
+  govde: Plant ecology, phytoremediation, bioremediation of environmental pollution, bioclimatology and the effects of climate change.
+yesim-ahi:
+  govde: Integrated water management, agricultural water efficiency, the effects of climate change on water resources and the use of treated wastewater in agriculture. Water footprint assessment methodologies.
+asli-akay:
+  govde: Urban and environmental problems, disaster management, local government and environmental impact assessment. Research on urbanisation and environmental policy for a more liveable world.
+bulent-kent:
+  govde: "Energy law and electricity market regulation, administrative law and IT law. Key publication: 'Regulation of the Electricity Market in Turkish and German Law'."
+izzet-ari:
+  govde: Sustainable energy policy, climate change negotiations and development, the SDGs. Active in UN climate negotiations since 2007; editor of the book 'Climate Change and Development'.
+levent-aydin:
+  govde: Economic and policy analysis of the interaction between energy economics and climate change; energy markets, investment and environmental economics. Author of the book 'Energy Economics and Policies'.
+muhammet-dastan:
+  govde: Macroeconomics, energy economics and policy, environmental economics, sustainable development and applied econometrics. Work on energy transition and sustainability.
+ufuk-poyraz:
+  govde: Urban regeneration, housing, local government, urban politics and public policy. Doctoral research on the relationship between capital accumulation and urban regeneration in Türkiye; postdoctoral research at Complutense University of Madrid.
+yilser-devrim:
+  govde: Long-life, low-cost membrane and catalyst structures for high-temperature PEM fuel cells; founder of Hidrojen Enerjisi ve Yakıt Pilleri Araştırma Grubu (Hydrogen Energy and Fuel Cells Research Group).
+abdullah-yildiz:
+  govde: Thin-film photovoltaic devices, dye-sensitised solar cells (DSSC), UV photodetectors and 2D nanomaterial optoelectronics. Editor of the journal 'Applied Solar Energy'.
+selahattin-celik:
+  govde: Hydrogen and fuel cell technologies; coordinator of the Türkiye Hidrojen Zirvesi 2026 at AYBÜ.
+ayse-selin-kocaman:
+  govde: Optimisation of energy infrastructure systems, integration of renewable energy sources and sustainable development models.
+emrah-ozensoy:
+  govde: Heterogeneous catalysis and photocatalysis, environmental catalysis, and nanomaterials for energy storage and conversion.
+engin-durgun:
+  govde: Hydrogen storage, 2D material systems, solar thermal fuel production and computational materials approaches.
+ferdi-karadas:
+  govde: |-
+    Low-cost, durable catalytic systems for water splitting; charge transfer in iron-sensitised water oxidation photoanodes (collaboration with Germany). Humboldt Georg Forster Research Award.
+
+    Hydrogen storage (porous solid materials), water oxidation catalysis and molecular catalytic systems.
+hilmi-volkan-demir:
+  govde: Nanocrystal-based energy-efficient LED lighting, quantum dot optoelectronics, nanocrystal converters in solar cells and photocatalysis for environmental clean-up. Spin-offs InnovNano / InnovCoat.
+ekin-ozgirgin-yapici:
+  govde: Thermodynamics, heat transfer and renewable energy systems; parabolic trough solar collector design and solar-powered turbine systems. Teaches a graduate course on solar energy applications.
+gulsu-ulukavak-harputlugil:
+  govde: Passive design strategies, energy efficiency in buildings, condensation risk under climate change scenarios and emission reduction in the building sector. Roles in energy efficiency projects funded by the UN, the World Bank and the EU.
+adnan-sozen:
+  govde: Renewable energy systems, PVT systems, nanofluids, energy poverty and solar and wind analysis. 209+ SCI articles.
+ahmet-aktas:
+  govde: TÜBİTAK projects on PV generation and multilevel inverters, hybrid energy storage (battery-ultracapacitor), smart grids, offshore wind and ocean current energy. Author of the Elsevier book 'Solar Hybrid Systems'.
+gokhan-surucu:
+  govde: Thin-film solar cells, hydrogen storage, MXene and perovskite materials, photocatalysis and computational materials science (DFT).
+haci-mehmet-sahin:
+  govde: Hydrogen production with nuclear energy and fusion reactor neutronics; worked on the installation of the 264 kW research solar plant at Gazi Teknopark in 2015.
+hikmet-dogan:
+  govde: Solar energy systems and collectors, heat pump technology, HVAC and energy economics.
+idil-aycam:
+  govde: Green buildings, building energy performance simulation, climate-adaptive architecture and ecological design.
+mustafa-ilbas:
+  govde: Combustion analysis of hydrogen-methane blends, ammonia combustion performance and emissions, and fuel cell technologies.
+aytac-perihan-akan:
+  govde: Life cycle assessment (LCA) of polymeric membrane-based CO₂ capture systems; a synthesis of 21 studies.
+gulen-gullu:
+  govde: Air quality management, indoor air quality, PM2.5/PM10 particulate matter, and mapping of bioaerosols and noise pollution. Has supervised 38 theses.
+hatice-sengul:
+  govde: Life cycle assessment (LCA), environmental engineering and environmental impact assessment; LCA studies of semiconductor quantum dots.
+hulya-yavuz-ersan:
+  govde: CO₂ absorption with amines, ionic liquids and CO₂-binding organic liquids, enzymatic support with carbonic anhydrase, ultrasound-assisted desorption and modelling of catalytic CO₂ hydrogenation; biodegradation under composting conditions.
+merih-aydinalp-koksal:
+  govde: Air pollution control, alternative energy sources, environmental chemistry and automotive emissions.
+murat-koksal:
+  govde: |-
+    Gas-solid multiphase flow; co-investigator on a concentrated solar receiver project, with a publication on spouted bed solar receivers (2026).
+
+    Spouted bed receiver systems for concentrated solar power; active TÜBİTAK project (2022–ongoing).
+ozge-yuksel-orhan:
+  govde: |-
+    A low-energy CO₂ capture system using catalytic desorption and mechanisms for retrofitting existing plants; TÜBİTAK–NSFC bilateral project with the Beijing Institute of Technology. 2024 Hacettepe Bilim Teşvik Ödülü (Science Encouragement Award).
+
+    CO₂ capture (biphasic solvents, ionic liquids), catalytic hydrogen production and energy-efficient CO₂ desorption. 2024 HÜ Bilim Teşvik Ödülü.
+tanilay-ozdemir:
+  govde: Open-circuit voltage of lithium-ion batteries at different temperatures (2026 conference paper).
+aysegul-aksoy:
+  govde: Water quality modelling, river basin management, integrated waste management and environmental remote sensing; projects on Lake Eymir and the Uluabat and Porsuk basins, and a Newton Fund-supported project.
+bahar-ipek-torun:
+  govde: Zeolite/MOF composite-based hydrogen storage (TÜBİTAK 2025–2028), methane production through CO₂ hydrogenation and functional zeolite synthesis.
+baris-salihoglu:
+  govde: Physical oceanography of the Eastern Mediterranean and the effects of climate change on Türkiye's seas; the Marmara Denizi Bütünleşik Model Sistemi (Sea of Marmara Integrated Model System) and oceanographic early warning projects for marine mucilage.
+bilge-senturk:
+  govde: The social, economic and environmental dimensions of solar energy; a project on the adoption of sustainable agricultural practices.
+ebru-voyvoda:
+  govde: Applied general equilibrium and energy-environment-economy modelling; income inequality and household carbon footprints; economic impacts of climate policy at ZEW.
+ender-peker:
+  govde: Climate-sensitive urban design and climate adaptation governance, thermal comfort in buildings, water management and participatory planning.
+gaye-teksoz:
+  govde: Education for sustainable development, environmental attitudes and systems thinking; a project on zero-waste and recycling behaviour on the ODTÜ campus.
+gorkem-gunbas:
+  govde: Materials development for perovskite and organic solar cells; interface passivation in perovskite cells. Researcher in the TRIUMPH project.
+gulizar-ozyurt-tarakcioglu:
+  govde: Coastal vulnerability and risk perception in the face of sea-level rise, and coastal management.
+ipek-gursel-dino:
+  govde: "ODTÜ principal investigator of the Horizon Europe UP2030 project: AI-based building energy performance, consumption modelling under climate change, rooftop solar potential and solar-powered micromobility charging. Pilot in Kadıköy, Istanbul."
+ismail-hakki-tuncer:
+  govde: Wind farm CFD simulations coupled with the WRF weather model (TÜBİTAK 1001).
+meltem-senol-balaban:
+  govde: Disaster risk reduction, flood management, resilient cities and nature-based solutions; supervises theses on green campus energy efficiency.
+murat-gol:
+  govde: Power electronics, grid and system integration technologies.
+mustafa-yucel:
+  govde: Seafloor biogeochemistry linked to oxygen depletion in the Black Sea and the Baltic, and ocean observation systems.
+oguz-uzol:
+  govde: RÜZGEM Büyük Ölçekli Çok Amaçlı Rüzgâr Tüneli (Large-Scale Multi-Purpose Wind Tunnel); wind turbine aerodynamics.
+onur-taylan:
+  govde: Concentrated solar thermal energy; the Horizon SOLARIZE (EU-SOLARIS) and HYBRIDPlus (hybrid solar plant with PCM storage) projects, and positive energy districts (PED-ACT).
+ozan-keysan:
+  govde: Direct-drive wind turbine generators, linear superconducting generators for wave energy and offshore wind integration (WINDFLAG). TÜBİTAK 1001 project on generator reliability.
+pinar-derin-gure:
+  govde: Climate, development and inequality; the economic and political effects of the spread of solar PV in Türkiye; gender diversity in photovoltaics.
+rasit-turan:
+  govde: Founded GÜNAM in 2009; silicon photovoltaic cell and module technologies. Led the Türkiye Fotovoltaik Teknolojileri Platformu (Photovoltaic Technologies Platform).
+selcuk-yerci:
+  govde: "Emerging photovoltaic technologies. Coordinator of the EU Horizon TRIUMPH project: three-junction, low-cost solar modules with a low environmental footprint that combine perovskite and silicon (2023–2026)."
+talat-ozden:
+  govde: Photovoltaic module technologies.
+tuba-hande-erguder-bayramoglu:
+  govde: Anaerobic biotechnology, biogas production, renewable energy and bio-based products from waste; industrial and agricultural waste management.
+ulku-yetis:
+  govde: Wastewater treatment, removal of micropollutants, membrane technologies (nanofiltration/UF), textile industry wastewater and LCA.
+yasemin-dilsad-yilmazel-tokel:
+  govde: |-
+    Microbial electrochemical systems, biohydrogen and nutrient recovery from wastewater; thermophilic bioelectrochemical systems that convert CO₂ into valuable organic compounds.
+
+    Microbial electrochemical processes, biohydrogen production, environmental microbiology and biotechnology, and wastewater engineering.
+zeliha-sahin-cagli:
+  govde: Use of solar, wind and bioenergy in buildings, hydrogen energy, renewable energy integration in industrial facilities and optimisation of building energy efficiency. Ecology and sustainability in architecture.
+mehmet-sankir:
+  govde: Functional membranes and nanostructures; fuel cells, photoelectrochemical hydrogen production and supercapacitors. Leads the team that developed Türkiye's first domestically made fuel cell at TOBB ETÜ Enerji Araştırma Laboratuvarı. President of Yeşil Hidrojen Derneği (Green Hydrogen Association).
+nurdan-demirci-sankir:
+  govde: Solar hydrogen production, thin-film solar cells, photo-supercapacitors and nanostructured photoelectrochemical systems. Zinc-iodide hybrid supercapacitor project funded by TÜBİTAK 1001.
+pinar-ipek:
+  govde: International energy policy and security, Türkiye's energy diplomacy and international political economy. More than 626 citations; numerous publications on energy security and Eurasian energy relations.

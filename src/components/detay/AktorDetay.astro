@@ -6,6 +6,8 @@ import AlanBaglantilari from "../AlanBaglantilari.astro";
 import ExternalLink from "../ExternalLink.astro";
 import Tags from "../Tags.astro";
 import DetayKabuk from "./DetayKabuk.astro";
+import { metinler } from "../../i18n";
+import { sayfaDili } from "../../lib/yol";
 
 interface Props {
   aktor: Aktor;
@@ -22,8 +24,10 @@ interface Props {
 const { aktor, kategori, baslikSeviyesi, sayfaYolu, ozet = false } = Astro.props;
 const d = aktor.data;
 const k = kategori.data;
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil);
 const { Content } = await render(aktor);
-const alanlar = await aktorAlanlari(aktor);
+const alanlar = await aktorAlanlari(aktor, dil);
 ---
 
 <DetayKabuk
@@ -38,15 +42,15 @@ const alanlar = await aktorAlanlari(aktor);
 
   {(alanlar.length > 0 || (!ozet && (d.uzmanlik || d.surdurulebilirlik))) && (
     <dl class="kv">
-      {alanlar.length > 0 && <><dt>Alan</dt><dd><AlanBaglantilari aktor={aktor} /></dd></>}
-      {!ozet && d.uzmanlik && <><dt>Uzmanlık</dt><dd>{d.uzmanlik}</dd></>}
-      {!ozet && d.surdurulebilirlik && <><dt>Sürdürülebilirlik</dt><dd>{d.surdurulebilirlik}</dd></>}
+      {alanlar.length > 0 && <><dt>{t.aktor.alan}</dt><dd><AlanBaglantilari aktor={aktor} /></dd></>}
+      {!ozet && d.uzmanlik && <><dt>{t.aktor.uzmanlik}</dt><dd>{d.uzmanlik}</dd></>}
+      {!ozet && d.surdurulebilirlik && <><dt>{t.aktor.surdurulebilirlik}</dt><dd>{d.surdurulebilirlik}</dd></>}
     </dl>
   )}
 
   {ozet ? null : d.yonetim?.length ? (
     <section>
-      <h4 class="cat">Yönetim</h4>
+      <h4 class="cat">{t.aktor.yonetim}</h4>
       <ul class="yonetim">
         {d.yonetim.map((y) => (
           <li>
@@ -59,12 +63,12 @@ const alanlar = await aktorAlanlari(aktor);
       </ul>
     </section>
   ) : (
-    k.yonetimBekleniyor && <p class="sub">Yönetici bilgisi açık kaynaklarda bulunamadı.</p>
+    k.yonetimBekleniyor && <p class="sub">{t.aktor.yoneticiYok}</p>
   )}
 
   {!ozet && d.capaFirmalar && (
     <section>
-      <h4 class="cat">Çapa firmalar</h4>
+      <h4 class="cat">{t.aktor.capaFirmalar}</h4>
       <p class="capa">
         {d.capaFirmalar.firmalar.join(", ")}
         {d.capaFirmalar.not && <span class="sub"> · {d.capaFirmalar.not}</span>}
@@ -79,20 +83,20 @@ const alanlar = await aktorAlanlari(aktor);
       {d.firmalar.length ? (
         <ul class="firmalar">{d.firmalar.map((f) => <li>{f}</li>)}</ul>
       ) : (
-        <p class="sub">Kaynaklarda sürdürülebilirlik alanında isim bazında firma bulunamadı.</p>
+        <p class="sub">{t.aktor.firmaYok}</p>
       )}
     </section>
   )}
 
   {!ozet && d.kisiler && (
-    <dl class="kv"><dt>Kişiler</dt><dd>{d.kisiler}</dd></dl>
+    <dl class="kv"><dt>{t.aktor.kisiler}</dt><dd>{d.kisiler}</dd></dl>
   )}
 
   <Tags etiketler={d.etiketler} />
 
   {!ozet && d.kaynak && <p class="src"><ExternalLink href={d.kaynak} /></p>}
 
-  {ozet && sayfaYolu && <p class="devami"><a href={sayfaYolu}>Tüm ayrıntılar →</a></p>}
+  {ozet && sayfaYolu && <p class="devami"><a href={sayfaYolu}>{t.ortak.tumAyrintilar}</a></p>}
 </DetayKabuk>
 
 <style>

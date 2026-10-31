@@ -1,35 +1,42 @@
 ---
 // Tüm kurumlar tek listede: kategori çipleri ve arama. Kategorilerin kendi sayfaları [kategori]/'da.
-import FiltreCipleri from "../components/FiltreCipleri.astro";
-import ListeGrubu from "../components/ListeGrubu.astro";
-import PageHeader from "../components/PageHeader.astro";
-import SearchBox from "../components/SearchBox.astro";
-import AktorSatiri from "../components/satirlar/AktorSatiri.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { alanSayilari, genelExcelYolu, getKurumGruplari, getSayfa, kategoriBasligi } from "../lib/content";
+import FiltreCipleri from "../../components/FiltreCipleri.astro";
+import ListeGrubu from "../../components/ListeGrubu.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import SearchBox from "../../components/SearchBox.astro";
+import AktorSatiri from "../../components/satirlar/AktorSatiri.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { alanSayilari, genelExcelYolu, getKurumGruplari, getSayfa, kategoriBasligi } from "../../lib/content";
+import { dilYollari } from "../../lib/dil";
+import { sayfaDili } from "../../lib/yol";
+import { metinler } from "../../i18n";
 
-const [sayfa, gruplar] = await Promise.all([getSayfa("kurumlar"), getKurumGruplari()]);
+export const getStaticPaths = dilYollari;
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil);
+
+const [sayfa, gruplar] = await Promise.all([getSayfa("kurumlar", dil), getKurumGruplari(dil)]);
 const toplam = gruplar.reduce((n, g) => n + g.aktorler.length, 0);
-const alanlar = await alanSayilari(gruplar.flatMap((g) => g.aktorler));
+const alanlar = await alanSayilari(gruplar.flatMap((g) => g.aktorler), dil);
 const { baslik, ozet } = sayfa.data;
 ---
 
 <BaseLayout title={baslik} description={ozet}>
   <div data-filter-root>
-    <PageHeader baslik={baslik} ust={`${toplam} kurum · ${gruplar.length} kategori`} lede={ozet}>
+    <PageHeader baslik={baslik} ust={`${toplam} ${t.birim.kurum(toplam)} · ${gruplar.length} ${t.birim.kategori(gruplar.length)}`} lede={ozet}>
       <div class="arac-satiri">
-        <SearchBox etiket="Kurumlarda ara" placeholder="Ara: güneş, atık, ODTÜ, batarya…" />
+        <SearchBox etiket={t.kurumlar.ara} placeholder={t.kurumlar.araOrnek} />
         {/* Site her derlendiğinde yeniden üretilen dosya: sitede ne varsa içinde de o var */}
         <a class="indir" href={genelExcelYolu()} download>
           <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0L4.5 6.5M8 10l3.5-3.5M3 13h10" /></svg>
-          Excel olarak indir
+          {t.kurumlar.excel}
         </a>
       </div>
     </PageHeader>
 
     <FiltreCipleri
-      etiket="Kategori filtresi"
-      baslik={alanlar.length > 0 ? "Kategori" : undefined}
+      etiket={t.filtre.kategoriFiltresi}
+      baslik={alanlar.length > 0 ? t.filtre.kategori : undefined}
       parametre="kategori"
       tumuSayi={toplam}
       secenekler={gruplar.map(({ kategori, aktorler }) => ({
@@ -41,8 +48,8 @@ const { baslik, ozet } = sayfa.data;
     />
     {alanlar.length > 0 && (
       <FiltreCipleri
-        etiket="Alan filtresi"
-        baslik="Alan"
+        etiket={t.filtre.alanFiltresi}
+        baslik={t.filtre.alan}
         parametre="alan"
         bagli="kategori"
         tumuSayi={toplam}
@@ -51,13 +58,13 @@ const { baslik, ozet } = sayfa.data;
     )}
 
     {gruplar.map(({ kategori, aktorler }) => (
-      <ListeGrubu baslik={kategoriBasligi(kategori)} sayi={aktorler.length} birim="kayıt">
+      <ListeGrubu baslik={kategoriBasligi(kategori)} sayi={aktorler.length} birim={t.birim.kayit(aktorler.length)}>
         <ul class="liste">
           {aktorler.map((aktor) => <AktorSatiri aktor={aktor} kategori={kategori} />)}
         </ul>
       </ListeGrubu>
     ))}
-    <p class="empty" data-filter-empty hidden>Bu filtreyle eşleşen kurum yok.</p>
+    <p class="empty" data-filter-empty hidden>{t.kurumlar.bos}</p>
   </div>
 </BaseLayout>
 

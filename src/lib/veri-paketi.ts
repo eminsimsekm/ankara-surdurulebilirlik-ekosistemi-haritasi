@@ -11,6 +11,7 @@
 */
 import {
   aktorYolu,
+  getCevrilmisKimlikler,
   birincilAlanId,
   getAkademisyenler,
   getAktorGruplari,
@@ -26,7 +27,7 @@ import {
 import { isoGun } from "./takvim";
 
 /** Paket biçiminin sürümü; tablolar ya da alanlar değişirse artırılır. */
-export const VERI_PAKETI_SURUMU = 1;
+export const VERI_PAKETI_SURUMU = 2; // 2: `ingilizce` (çevirisi olan kayıtlar) eklendi
 
 type Sozluk = { id: string; [alan: string]: unknown };
 
@@ -137,6 +138,8 @@ export interface VeriPaketi {
     isbirligiTaraflari: IsbirligiTarafSatiri[];
   };
   iliskiler: IliskiSatiri[];
+  /** İngilizce çevirisi yazılmış kayıtların kimlikleri (src/content/en/); çevirinin kendisi pakette yok */
+  ingilizce: Awaited<ReturnType<typeof getCevrilmisKimlikler>>;
 }
 
 const sozluk = (liste: { id: string; data: object }[]): Sozluk[] => liste.map((x) => ({ id: x.id, ...x.data }));
@@ -144,18 +147,19 @@ const metin = (govde: string | undefined) => (govde ?? "").trim();
 const dosya = (x: { filePath?: string }) => x.filePath ?? "";
 
 export async function veriPaketi(): Promise<VeriPaketi> {
+  // Veri çıktıları (Excel, JSON, MD) Türkçedir; İngilizce çeviriler src/content/en/'de ayrıca durur
   const [kategoriler, alanlar, universiteler, yatirimTurleri, isbirligiTurleri, gruplar, akademisyenler, yatirimlar, takvim, isbirlikleri] =
     await Promise.all([
-      getKategoriler(),
-      getAlanlar(),
+      getKategoriler("tr"),
+      getAlanlar("tr"),
       getUniversiteler(),
-      getYatirimTurleri(),
-      getIsbirligiTurleri(),
-      getAktorGruplari(),
-      getAkademisyenler(),
-      getYatirimlar(),
-      getTakvim(),
-      getIsbirlikleri(),
+      getYatirimTurleri("tr"),
+      getIsbirligiTurleri("tr"),
+      getAktorGruplari("tr"),
+      getAkademisyenler("tr"),
+      getYatirimlar("tr"),
+      getTakvim("tr"),
+      getIsbirlikleri("tr"),
     ]);
 
   // Kurumlar (kategori sırasıyla, kategori içinde sitedeki sırayla)
@@ -175,7 +179,7 @@ export async function veriPaketi(): Promise<VeriPaketi> {
         oneCikan: d.oneCikan,
         aciklama: metin(aktor.body),
         etiketler: d.etiketler,
-        url: aktorYolu(kategori, aktor),
+        url: aktorYolu(kategori, aktor, "tr"),
         kaynakDosya: dosya(aktor),
       };
     }),
@@ -280,6 +284,7 @@ export async function veriPaketi(): Promise<VeriPaketi> {
     sayilar: Object.fromEntries(Object.entries(tablolar).map(([ad, satirlar]) => [ad, satirlar.length])),
     tablolar,
     iliskiler,
+    ingilizce: await getCevrilmisKimlikler(),
   };
 }
 

@@ -5,27 +5,37 @@ import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
 import "../styles/tokens.css";
 import "../styles/base.css";
+import DilSecici from "../components/DilSecici.astro";
 import SiteNav from "../components/SiteNav.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
-import { yol } from "../lib/yol";
+import { metinler } from "../i18n";
+import { DILLER } from "../lib/dil";
+import { baskaDilde, sayfaDili, yol } from "../lib/yol";
 
 interface Props {
   title: string;
   description?: string;
+  /** Yalnızca Türkçesi olan iç sayfalar (ör. /tasarim): dil seçici ve hreflang çizilmez */
+  tekDil?: boolean;
 }
 
-const SITE_NAME = "Ankara Sürdürülebilirlik Haritası";
-const { title, description = "Ankara'nın sürdürülebilirlik ekosistemi: teknoparklar, TEKMER'ler, girişimler, akademisyenler, yatırımlar ve destekler." } = Astro.props;
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil);
+const SITE_NAME = t.siteAdi;
+const { title, description = t.siteAciklamasi, tekDil = false } = Astro.props;
 const fullTitle = title === SITE_NAME ? title : `${title} · ${SITE_NAME}`;
+// Diğer dildeki karşılıklar; tam adres gerektiği için yalnızca site adresi tanımlıyken
+const alternatifler = Astro.site && !tekDil ? DILLER.map((d) => ({ dil: d, href: new URL(baskaDilde(Astro.url, d), Astro.site).href })) : [];
 ---
 
 <!doctype html>
-<html lang="tr">
+<html lang={dil}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    {alternatifler.map((a) => <link rel="alternate" hreflang={a.dil} href={a.href} />)}
     <script is:inline>
       // Kayıtlı tema seçimini ilk boyamadan önce uygula (yanıp sönmeyi önler).
       try {
@@ -37,8 +47,11 @@ const fullTitle = title === SITE_NAME ? title : `${title} · ${SITE_NAME}`;
   <body>
     <header class="site-header wrap">
       <div class="topbar">
-        <a class="brand" href={yol("/")}>{SITE_NAME}</a>
-        <ThemeToggle />
+        <a class="brand" href={yol("/", dil)}>{SITE_NAME}</a>
+        <div class="sag">
+          {!tekDil && <DilSecici />}
+          <ThemeToggle />
+        </div>
       </div>
       <SiteNav />
     </header>
@@ -58,6 +71,7 @@ const fullTitle = title === SITE_NAME ? title : `${title} · ${SITE_NAME}`;
     gap: 12px;
     margin-bottom: 8px;
   }
+  .sag { display: flex; align-items: center; gap: 8px; }
   .brand {
     font: 600 13px var(--f-mono);
     letter-spacing: .04em;

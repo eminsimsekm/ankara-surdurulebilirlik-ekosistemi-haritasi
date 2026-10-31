@@ -157,6 +157,32 @@ export const KURALLAR: Kural[] = [
       });
     },
   },
+  {
+    kod: "K09",
+    seviye: "bilgi",
+    aciklama: "İngilizce çevirisi olmayan kayıt (sitenin /en/ sürümünde Türkçe görünür)",
+    bul: ({ tablolar: t, ingilizce }) => {
+      const eksik = <T extends { id: string; kaynakDosya: string }>(
+        satirlar: T[],
+        cevrilen: string[],
+        kayitTuru: string,
+        dosya: string,
+        ad: (x: T) => string,
+      ) => {
+        const var_ = new Set(cevrilen);
+        return satirlar
+          .filter((x) => !var_.has(x.id))
+          .map((x) => ({ kayitTuru, kayitId: x.id, kayitAdi: ad(x), mesaj: `src/content/en/${dosya} içinde "${x.id}" yok.`, kaynakDosya: x.kaynakDosya }));
+      };
+      return [
+        ...eksik(t.kurumlar, ingilizce.kurum, "kurum", "aktorler.yaml", (x) => x.ad),
+        ...eksik(t.akademisyenler, ingilizce.akademisyen, "akademisyen", "akademisyenler.yaml", (x) => x.ad),
+        ...eksik(t.takvim, ingilizce.takvim, "takvim", "takvim.yaml", (x) => x.ad),
+        ...eksik(t.yatirimlar, ingilizce.yatirim, "yatirim", "yatirimlar.yaml", (x) => x.ad),
+        ...eksik(t.isbirlikleri, ingilizce.isbirligi, "isbirligi", "isbirlikleri.yaml", (x) => x.aciklama.slice(0, 60)),
+      ];
+    },
+  },
 ];
 
 const SEVIYE_SIRASI: Record<SorunSeviyesi, number> = { uyari: 0, bilgi: 1 };

@@ -31,6 +31,28 @@ Her kayıt ayrı bir dosyadır; yeni kayıt için kod değiştirmek gerekmez. Al
 | Sayfa metinleri (NetZero, Yatırımlar, Takvim, Akademisyenler, İş Birlikleri) | `src/content/sayfalar/<sayfa>.md` | frontmatter + Markdown |
 | Ana sayfadaki sayı şeridi | `src/content/one-cikan-sayilar.yaml` (aktör ve akademisyen sayıları otomatik) | YAML |
 | Sektör grafiği | `src/content/sektor-yatirimlari-2025.yaml` | YAML |
+| Bir kaydın İngilizcesi | `src/content/en/<tür>.yaml` (`aktorler`, `akademisyenler`, `takvim`, `yatirimlar`, `isbirlikleri`), anahtar = kaydın kimliği | YAML |
+| Sözlüklerin İngilizcesi (kategori, alan, tür, etiket, unvan, birim) | `src/content/en/sozluk.yaml` | YAML |
+| Sayfa metninin İngilizcesi | `src/content/en/sayfalar/<sayfa>.md` (Türkçesiyle aynı şema) | frontmatter + Markdown |
+| Arayüz metinleri (menü, düğmeler, boş liste mesajları…) | `src/i18n/tr.ts` ve `src/i18n/en.ts` | TypeScript |
+
+### İngilizce
+
+Site Türkçe kökte (`/kurumlar/`), İngilizce `/en/` altında (`/en/kurumlar/`) yayınlanır; sağ üstteki
+bayraklarla aynı sayfanın diğer diline geçilir. Türkçe dosyalara dokunulmaz: İngilizce çeviri
+`src/content/en/`'de ayrı durur ve kimliğiyle Türkçe kaydın üzerine bindirilir. Yazılmayan alan Türkçe
+görünür, site kırılmaz; çevirisi olmayan kayıtlar sorun raporunda K09 olarak listelenir.
+
+Özel isimler çevrilmez: kurum, kişi, üniversite, program ve etkinlik adları İngilizce metinde de Türkçe
+yazılır (gerekirse yanına parantez içinde İngilizce açıklama). Yeni kayıt eklerken İngilizcesi aynı
+kimlikle ilgili `en/*.yaml` dosyasına yazılır:
+
+```yaml
+# src/content/en/aktorler.yaml
+werer-energy:
+  govde: Maker of LiFePO4 battery systems and modular energy storage containers…
+  uzmanlik: …            # Türkçede olan alanlar; yazılmayan Türkçe kalır
+```
 
 ### Kurumların faaliyet alanı
 
@@ -107,7 +129,9 @@ yeniden üretildiği için sitede ne varsa dosyada da o vardır.
 
 - `src/content/`: tüm içerik (yukarıya bakın)
 - `src/content.config.ts`: içerik şemaları
-- `src/lib/`: saf fonksiyonlar; `content.ts` içeriğe erişim katmanı (sıralama, URL'ler), `text.ts` Türkçe arama,
+- `src/content/en/`: İngilizce çeviriler (kayıtlar, sözlükler, sayfa metinleri)
+- `src/i18n/`: arayüz metinleri (`tr.ts`, `en.ts`); `src/lib/dil.ts`: diller ve adres kuralı
+- `src/lib/`: saf fonksiyonlar; `content.ts` içeriğe erişim katmanı (sıralama, URL'ler, çeviri bindirme), `text.ts` Türkçe arama,
   `takvim.ts` tarih ve durum hesabı, `harita-yerlesim.ts` harita geometrisi
 - `src/components/`: ortak bileşenler (arama kutusu, filtre çipleri, menü…)
 - `src/components/satirlar/`: liste satırları ve kartlar (aktör, akademisyen, takvim, yatırım, iş birliği)
@@ -124,8 +148,10 @@ yeniden üretildiği için sitede ne varsa dosyada da o vardır.
 - `src/pages/veri/`: iç çıktılar `veri.json`, `veri.xlsx`, `veri.md`; `src/pages/indir/`: sitedeki genel Excel
 - `scripts/veri-cikti.mjs`: `npm run build`'in son adımı; iç çıktıları `veri-cikti/`'ye kopyalar, sorun özetini yazar
 - `src/scripts/`: yalnızca tarayıcıda çalışan kod (liste süzme, harita etkileşimi, takvim durumu)
-- `src/pages/[kategori]/`: tüm kategori ve aktör sayfalarını üreten iki şablon
-- `src/pages/*.astro`: harita (ana sayfa), kurumlar, NetZero, akademisyenler, yatırımlar, takvim, iş birlikleri
+- `src/pages/[...dil]/`: tüm sayfalar; her sayfa iki dilde üretilir (Türkçe kök, İngilizce `/en/`)
+- `src/pages/[...dil]/[kategori]/`: tüm kategori ve aktör sayfalarını üreten iki şablon
+- `src/pages/[...dil]/*.astro`: harita (ana sayfa), kurumlar, NetZero, akademisyenler, yatırımlar, takvim, iş birlikleri
+- `src/components/DilSecici.astro`: sağ üstteki bayraklı dil seçici
 - `src/components/SiteNav.astro`: iki katmanlı menü; kurum kategorileri yalnızca Kurumlar bölümünde alt satırda
 - `src/styles/tokens.css`: renkler, yazı tipleri, açık/koyu tema. Önizleme: `/tasarim`
 - `src/styles/base.css`: sayfa geneli temel stiller

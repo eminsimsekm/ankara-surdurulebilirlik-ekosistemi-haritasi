@@ -12,7 +12,7 @@
 */
 import { readdirSync, readFileSync } from "node:fs";
 import { defineCollection } from "astro:content";
-import { file, glob } from "astro/loaders";
+import { file, glob, type Loader } from "astro/loaders";
 import { z } from "astro/zod";
 import YAML from "yaml";
 
@@ -144,25 +144,27 @@ const oneCikanSayilar = defineCollection({
 */
 const adAciklama = z.object({ ad: z.string(), aciklama: z.string() });
 
+const sayfaSemasi = z.object({
+  baslik: z.string(),
+  ust: z.string().optional(),
+  /** Başlık altındaki giriş cümlesi; sayfa açıklaması (meta) olarak da kullanılır */
+  ozet: z.string().optional(),
+  /** Sayfanın ilgili olduğu aktör (dosya adı): aktör sayfasına ve haritaya bağlantı verilir */
+  aktor: z.string().optional(),
+  kartlar: z.array(adAciklama).optional(),
+  vurgu: z.object({ baslik: z.string(), metin: z.string(), kaynak: z.url().optional() }).optional(),
+  liste: z.object({ baslik: z.string(), ogeler: z.array(adAciklama).min(1) }).optional(),
+  bilgiler: z.array(z.object({ etiket: z.string(), deger: z.string() })).optional(),
+  baglantilar: z.array(z.object({ ad: z.string(), url: z.url() })).optional(),
+  istatistikler: z
+    .array(z.object({ deger: z.string(), etiket: z.string(), vurgu: z.boolean().default(false) }))
+    .optional(),
+  grafik: z.object({ baslik: z.string(), not: z.string(), kaynak: z.url().optional() }).optional(),
+});
+
 const sayfalar = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "src/content/sayfalar", generateId: idFromFileName }),
-  schema: z.object({
-    baslik: z.string(),
-    ust: z.string().optional(),
-    /** Başlık altındaki giriş cümlesi; sayfa açıklaması (meta) olarak da kullanılır */
-    ozet: z.string().optional(),
-    /** Sayfanın ilgili olduğu aktör (dosya adı): aktör sayfasına ve haritaya bağlantı verilir */
-    aktor: z.string().optional(),
-    kartlar: z.array(adAciklama).optional(),
-    vurgu: z.object({ baslik: z.string(), metin: z.string(), kaynak: z.url().optional() }).optional(),
-    liste: z.object({ baslik: z.string(), ogeler: z.array(adAciklama).min(1) }).optional(),
-    bilgiler: z.array(z.object({ etiket: z.string(), deger: z.string() })).optional(),
-    baglantilar: z.array(z.object({ ad: z.string(), url: z.url() })).optional(),
-    istatistikler: z
-      .array(z.object({ deger: z.string(), etiket: z.string(), vurgu: z.boolean().default(false) }))
-      .optional(),
-    grafik: z.object({ baslik: z.string(), not: z.string(), kaynak: z.url().optional() }).optional(),
-  }),
+  schema: sayfaSemasi,
 });
 
 // Kayıt koleksiyonları (kayıt başına bir dosya)
@@ -280,6 +282,152 @@ const isbirlikleri = defineCollection({
   }),
 });
 
+/*
+  İngilizce çeviriler (src/content/en/). Türkçe dosyalara dokunulmaz: her çeviri, kimliğiyle
+  Türkçe kaydın üzerine bindirilir (lib/content.ts). Yazılmayan alan Türkçe kalır. Adlar
+  (kurum, kişi, program) çevrilmez; şemalarda `ad` alanı yoktur.
+
+  Kayıt çevirileri tek YAML dosyasında, anahtar = Türkçe kaydın kimliği. Bilinmeyen kimlik
+  build'i durdurur (yanlış yazılan kimlik sessizce kaybolmasın). `govde` Markdown'dır ve
+  burada HTML'e çevrilir; böylece render() Türkçe kayıttaki gibi çalışır.
+*/
+const kayitKimlikleri = (klasor: string, uzanti: RegExp) => () =>
+  (readdirSync(`src/content/${klasor}`, { recursive: true }) as string[])
+    .filter((f) => uzanti.test(f))
+    .map((f) => f.replace(/^.*[\\/]/, "").replace(uzanti, ""));
+
+function ceviriDosyasi(dosya: string, kimlikler: () => string[]): Loader {
+  return {
+    name: "ceviri-dosyasi",
+    load: async ({ store, parseData, renderMarkdown, watcher }) => {
+      const yukle = async () => {
+        const ham = (YAML.parse(readFileSync(dosya, "utf8")) ?? {}) as Record<string, Record<string, unknown>>;
+        const gecerli = new Set(kimlikler());
+        store.clear();
+        for (const [id, veri] of Object.entries(ham)) {
+          if (!gecerli.has(id)) throw new Error(`${dosya}: "${id}" kimlikli Türkçe kayıt yok.`);
+          const data = await parseData({ id, data: veri });
+          const govde = typeof veri.govde === "string" ? veri.govde : undefined;
+          store.set({ id, data, body: govde, rendered: govde ? await renderMarkdown(govde) : undefined });
+        }
+      };
+      await yukle();
+      watcher?.add(dosya);
+      watcher?.on("change", (yolu) => yolu.endsWith(dosya) && void yukle());
+    },
+  };
+}
+
+/** Tek belgelik YAML (sözlük): tek kayıt, kimliği dosya adı. */
+function tekBelge(dosya: string, id: string): Loader {
+  return {
+    name: "tek-belge",
+    load: async ({ store, parseData, watcher }) => {
+      const yukle = async () => {
+        store.clear();
+        store.set({ id, data: await parseData({ id, data: YAML.parse(readFileSync(dosya, "utf8")) ?? {} }) });
+      };
+      await yukle();
+      watcher?.add(dosya);
+      watcher?.on("change", (yolu) => yolu.endsWith(dosya) && void yukle());
+    },
+  };
+}
+
+/** Sözlük çevirisi: anahtarlar Türkçe sözlükteki anahtarlardan olmalı. */
+const sozlukCevirisi = <T extends z.ZodType>(sozluk: keyof typeof SOZLUKLER, deger: T) => {
+  const ids = Object.keys(YAML.parse(readFileSync(SOZLUKLER[sozluk], "utf8")) ?? {});
+  return z.record(z.string(), deger).superRefine((kayitlar, ctx) => {
+    for (const k of Object.keys(kayitlar)) {
+      if (!ids.includes(k)) ctx.addIssue({ code: "custom", message: `"${k}" ${SOZLUKLER[sozluk]} içinde yok.`, path: [k] });
+    }
+  });
+};
+
+const sozlukEn = defineCollection({
+  loader: tekBelge("src/content/en/sozluk.yaml", "sozluk"),
+  schema: z.object({
+    kategoriler: sozlukCevirisi(
+      "kategoriler",
+      z.object({
+        ad: z.string(),
+        kisaAd: z.string(),
+        baslik: z.string().optional(),
+        aciklama: z.string().optional(),
+        menuAdi: z.string().optional(),
+        firmaBasligi: z.string().optional(),
+      }),
+    ),
+    alanlar: sozlukCevirisi("alanlar", z.object({ ad: z.string(), aciklama: z.string().optional() })),
+    yatirimTurleri: sozlukCevirisi("yatirimTurleri", z.object({ ad: z.string() })),
+    isbirligiTurleri: sozlukCevirisi("isbirligiTurleri", z.object({ ad: z.string() })),
+    /** one-cikan-sayilar.yaml ve sektor-yatirimlari-2025.yaml kimlikleri */
+    oneCikanSayilar: z.record(z.string(), z.object({ deger: z.string().optional(), etiket: z.string() })).default({}),
+    sektorYatirimlari: z.record(z.string(), z.object({ ad: z.string() })).default({}),
+    /** Türkçe → İngilizce; sözlükte olmayan değer (özel isim) olduğu gibi kalır */
+    etiketler: z.record(z.string(), z.string()).default({}),
+    unvanlar: z.record(z.string(), z.string()).default({}),
+    birimler: z.record(z.string(), z.string()).default({}),
+  }),
+});
+
+const aktorlerEn = defineCollection({
+  loader: ceviriDosyasi("src/content/en/aktorler.yaml", kayitKimlikleri("aktorler", /\.md$/)),
+  schema: z.strictObject({
+    govde: z.string().optional(),
+    konum: z.string().optional(),
+    uzmanlik: z.string().optional(),
+    surdurulebilirlik: z.string().optional(),
+    kisiler: z.string().optional(),
+    /** Verilirse etiket sözlüğünün yerine geçer */
+    etiketler: z.array(z.string()).optional(),
+    /** Türkçedeki yönetim listesiyle aynı sırada; ad yazılmaz */
+    yonetim: z.array(z.strictObject({ rol: z.string().optional(), ozgecmis: z.string().optional() })).optional(),
+    capaFirmalarNot: z.string().optional(),
+  }),
+});
+
+const akademisyenlerEn = defineCollection({
+  loader: ceviriDosyasi("src/content/en/akademisyenler.yaml", kayitKimlikleri("akademisyenler", /\.md$/)),
+  schema: z.strictObject({
+    govde: z.string().optional(),
+    /** Verilirse birim sözlüğünün yerine geçer */
+    birim: z.string().optional(),
+    etiketler: z.array(z.string()).optional(),
+  }),
+});
+
+const takvimEn = defineCollection({
+  loader: ceviriDosyasi("src/content/en/takvim.yaml", kayitKimlikleri("takvim", /\.ya?ml$/)),
+  schema: z.strictObject({
+    aciklama: z.string().optional(),
+    durumNotu: z.string().optional(),
+    /** Yalnızca kurum adı değil hedef kitle açıklaması olduğunda (ör. "KOBİ'ler") */
+    duzenleyen: z.string().optional(),
+  }),
+});
+
+const yatirimlarEn = defineCollection({
+  loader: ceviriDosyasi("src/content/en/yatirimlar.yaml", kayitKimlikleri("yatirimlar", /\.ya?ml$/)),
+  schema: z.strictObject({
+    /** Yatırım adı açıklayıcı başlık olduğunda ("Evreka · büyüme turu"); özel isim olan ad yazılmaz */
+    ad: z.string().optional(),
+    aciklama: z.string().optional(),
+    tutar: z.string().optional(),
+  }),
+});
+
+const isbirlikleriEn = defineCollection({
+  loader: ceviriDosyasi("src/content/en/isbirlikleri.yaml", kayitKimlikleri("isbirlikleri", /\.ya?ml$/)),
+  schema: z.strictObject({ aciklama: z.string().optional(), etiketler: z.array(z.string()).optional() }),
+});
+
+/** Sayfa metinlerinin İngilizcesi: Türkçe sayfanın tamamının yerine geçer. */
+const sayfalarEn = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "src/content/en/sayfalar", generateId: idFromFileName }),
+  schema: sayfaSemasi,
+});
+
 export const collections = {
   kategoriler,
   universiteler,
@@ -294,4 +442,11 @@ export const collections = {
   takvim,
   yatirimlar,
   isbirlikleri,
+  sozlukEn,
+  aktorlerEn,
+  akademisyenlerEn,
+  takvimEn,
+  yatirimlarEn,
+  isbirlikleriEn,
+  sayfalarEn,
 };

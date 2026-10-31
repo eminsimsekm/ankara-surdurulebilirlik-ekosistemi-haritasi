@@ -1,12 +1,15 @@
 ---
 // Bir [data-filter-root] içine konur; süzme mantığı scripts/list-filter.ts'te.
+import { metinler } from "../i18n";
+import { sayfaDili } from "../lib/yol";
+
 interface Props {
   etiket: string;
   placeholder?: string;
   /** Sorgunun adres çubuğunda tutulacağı parametre; sayfada birden çok arama kutusu varsa farklı verilmeli */
   parametre?: string;
 }
-const { etiket, placeholder = "Ara…", parametre = "ara" } = Astro.props;
+const { etiket, placeholder = metinler(sayfaDili(Astro.url)).ortak.ara, parametre = "ara" } = Astro.props;
 ---
 
 <input type="search" class="search" name={parametre} data-filter-input placeholder={placeholder} aria-label={etiket} />

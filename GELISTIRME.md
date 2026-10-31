@@ -43,6 +43,7 @@ Her katmanın tek bir işi vardır. Bir katman yalnızca kendinden aşağıdakin
 | **Veri erişimi** | `src/lib/content.ts` | Okuma, sıralama, gruplama, URL'ler | Verinin nasıl gösterileceği |
 | Saf mantık | `src/lib/*.ts` | Hesaplama (arama, tarih, harita geometrisi) | Astro, DOM |
 | Bağlantılar | `src/lib/yol.ts` | Site içi adresler | Sayfa içeriği |
+| Arayüz metinleri | `src/i18n/` | Sabit metinler, iki dilde | Bileşenler, içerik |
 | Bileşenler | `src/components/` | Gösterim (HTML + CSS) | Verinin nereden geldiği |
 | Sayfalar | `src/pages/` | Bileşenleri ve veriyi birleştirmek | Koleksiyonlar (doğrudan) |
 | Tarayıcı kodu | `src/scripts/` | Etkileşim (filtre, harita, takvim durumu) | Astro, içerik koleksiyonları |
@@ -57,7 +58,7 @@ Her katmanın tek bir işi vardır. Bir katman yalnızca kendinden aşağıdakin
 ### Yapılacaklar
 
 1. **Veriye yalnızca `content.ts` üzerinden erişin.** Sayfa ve bileşenler `getCollection` / `getEntry` çağırmaz. Yeni bir veri ihtiyacı varsa `content.ts`'e `getXxx()` fonksiyonu eklenir.
-2. **Site içi her bağlantı `yol()`'dan geçer.** `href="/kurumlar/"` yazılmaz, `href={yol("/kurumlar/")}` yazılır. Kayıt adresleri için `aktorYolu`, `kategoriYolu`, `kayitYolu` kullanılır.
+2. **Site içi her bağlantı `yol()`'dan geçer.** `href="/kurumlar/"` yazılmaz, `href={yol("/kurumlar/", dil)}` yazılır. Kayıt adresleri için `aktorYolu`, `kategoriYolu`, `kayitYolu` kullanılır. Dil, bileşende `sayfaDili(Astro.url)` ile alınır; böylece İngilizce sayfadaki bağlantı `/en/` altında kalır.
 3. **Kimlikler kalıcıdır.** Dosya adı (`netzero-tekmer`) kaydın kimliğidir. Django'da da aynı değer `slug` olur, favoriler bu kimliğe bağlanır. Yayına çıkan kimlik değiştirilmez.
 4. **Alan adları Django modeline aynen taşınabilecek gibi seçilir.** Türkçe, Türkçe karaktersiz ve tutarlı yazılır (`ad`, `konum`, `etiketler`, `kaynak`). Django API'si JSON'da **aynı anahtarları** döndürür. Böylece bileşenler değişmez.
 5. **Kayıtlar arası ilişki kimlikle kurulur** (`universite: odtu`, `taraflar: [a, b]`). Bu yapı Django'da doğrudan `ForeignKey` / `ManyToMany`'ye karşılık gelir. Aynı bilgiyi iki dosyaya kopyalamayın.
@@ -113,6 +114,9 @@ Yeni bir şey eklemek, var olan kodu değiştirmeden mümkün olmalı.
 | Yeni veri kontrolü (sorun kuralı) | `src/lib/veri-kontrol.ts`'te `KURALLAR`'a bir öğe | Excel, JSON, MD çıktıları (kendiliğinden gelir) |
 | Yeni kayıt türü ya da alan | `content.config.ts` + `content.ts`, sonra `veri-paketi.ts`'e tablo/sütun | Çıktı dosyaları yalnızca yeni sütunu göstermek için |
 | Kategoriye özel davranış | `kategoriler.yaml`'a bir alan (ör. `menuAdi`, `menuSira`) | Bileşenlerde `if` dalı |
+| Bir kaydın ya da sözlüğün İngilizcesi | `src/content/en/*.yaml` (kimlikle) | Türkçe dosya, bileşenler |
+| Yeni arayüz metni | `src/i18n/tr.ts` + `src/i18n/en.ts` (aynı anahtar) | Bileşende sabit Türkçe metin |
+| Yeni dil | `lib/dil.ts`'te `DILLER`, `i18n/<dil>.ts`, `content/<dil>/` | Sayfalar, bileşenler |
 
 Yeni bir özellik "her kategori için ayrı ayrı şunu da değiştir" gerektiriyorsa önce bu tabloya uyan bir uzatma noktası tasarlanır.
 
@@ -150,6 +154,8 @@ PR açmadan önce:
 - [ ] Yeni alanlar `content.config.ts` şemasına eklendi. Alan adları Türkçe, karaktersiz ve tutarlı.
 - [ ] Site içi bağlantılarda sabit `"/..."` yok, hepsi `yol()` ya da `*Yolu()` fonksiyonlarından geçiyor.
 - [ ] Bileşende kategoriye göre `if` yok, fark veride.
+- [ ] Bileşen ve sayfalarda sabit arayüz metni yok; metin `src/i18n/`'den (`metinler(dil)`) geliyor.
+- [ ] Yeni kayıt ya da alanın İngilizcesi `src/content/en/`'de; `content.ts` fonksiyonlarına `dil` geçiriliyor.
 - [ ] Hesaplama varsa `src/lib/` altında saf fonksiyon olarak yazıldı.
 - [ ] Astro sunucu özelliği (SSR, Actions, middleware) kullanılmadı.
 - [ ] Giriş, favori, mail gibi Django işi gerektiren bir şey sahte biçimde yapılmadı.

@@ -2,6 +2,8 @@
 // Tek seçimli filtre çipleri ("Tümü" + seçenekler). Bir [data-filter-root] içine konur;
 // öğeler data-facet-<parametre> ile eşleşir. Mantık scripts/list-filter.ts'te.
 import Cip from "./Cip.astro";
+import { metinler } from "../i18n";
+import { sayfaDili } from "../lib/yol";
 
 export interface FiltreSecenegi {
   deger: string;
@@ -25,11 +27,13 @@ interface Props {
   bagli?: string;
 }
 const { etiket, secenekler, tumuSayi, parametre, baslik, bagli } = Astro.props;
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil);
 ---
 
 <div class="chips" role="group" aria-label={etiket} data-filter-facet={parametre} data-filter-bagli={bagli}>
   {baslik && <span class="baslik" aria-hidden="true">{baslik}</span>}
-  <Cip basili={true} sayi={tumuSayi} data-filter-chip data-deger="">Tümü</Cip>
+  <Cip basili={true} sayi={tumuSayi} data-filter-chip data-deger="">{t.ortak.tumu}</Cip>
   {secenekler.map((s) => (
     <Cip basili={false} renk={s.renk} sayi={s.sayi} data-filter-chip data-deger={s.deger}>{s.ad}</Cip>
   ))}

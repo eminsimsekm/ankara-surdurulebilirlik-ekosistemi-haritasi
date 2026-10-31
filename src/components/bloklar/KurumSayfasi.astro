@@ -8,21 +8,25 @@ import { render } from "astro:content";
 import { aktorYolu, getAktor, type Sayfa } from "../../lib/content";
 import ExternalLink from "../ExternalLink.astro";
 import { aktorDugumId, haritadaGosterYolu } from "../harita/kaynaklar";
+import { metinler } from "../../i18n";
+import { sayfaDili } from "../../lib/yol";
 
 interface Props {
   sayfa: Sayfa;
 }
 const { sayfa } = Astro.props;
 const d = sayfa.data;
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil).kurumSayfasi;
 const { Content } = await render(sayfa);
 
 // İlgili aktör: kendi sayfasına ve haritadaki yerine bağlantı
 const aktorBaglantilari: { ad: string; yol: string }[] = [];
 if (d.aktor) {
-  const { aktor, kategori } = await getAktor(d.aktor);
+  const { aktor, kategori } = await getAktor(d.aktor, dil);
   aktorBaglantilari.push(
-    { ad: "Dizindeki kaydı", yol: aktorYolu(kategori, aktor) },
-    { ad: "Haritada gör", yol: haritadaGosterYolu(aktorDugumId(aktor.id)) },
+    { ad: t.dizinKaydi, yol: aktorYolu(kategori, aktor, dil) },
+    { ad: t.haritadaGor, yol: haritadaGosterYolu(aktorDugumId(aktor.id), dil) },
   );
 }
 ---

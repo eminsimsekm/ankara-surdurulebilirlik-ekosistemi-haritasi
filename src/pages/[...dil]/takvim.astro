@@ -1,23 +1,30 @@
 ---
-import FiltreCipleri from "../components/FiltreCipleri.astro";
-import PageHeader from "../components/PageHeader.astro";
-import SearchBox from "../components/SearchBox.astro";
-import TakvimSatiri from "../components/satirlar/TakvimSatiri.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { getKategoriler, getSayfa, getTakvim, idSozlugu } from "../lib/content";
-import { bugun, isoGun, takvimDurumu, takvimSiralamasi } from "../lib/takvim";
+import FiltreCipleri from "../../components/FiltreCipleri.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import SearchBox from "../../components/SearchBox.astro";
+import TakvimSatiri from "../../components/satirlar/TakvimSatiri.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getKategoriler, getSayfa, getTakvim, idSozlugu } from "../../lib/content";
+import { bugun, isoGun, takvimDurumu, takvimSiralamasi } from "../../lib/takvim";
+import { dilYollari } from "../../lib/dil";
+import { sayfaDili } from "../../lib/yol";
+import { metinler } from "../../i18n";
+
+export const getStaticPaths = dilYollari;
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil);
 
 const [sayfa, kayitlar, kategoriler] = await Promise.all([
-  getSayfa("takvim"),
-  getTakvim(),
-  getKategoriler().then(idSozlugu),
+  getSayfa("takvim", dil),
+  getTakvim(dil),
+  getKategoriler(dil).then(idSozlugu),
 ]);
 
 // İlk sıralama build tarihine göre; tarayıcı aşağıdaki script'le güncel tarihe göre yeniden sıralar.
 const tarih = bugun();
 const sirala = (k: (typeof kayitlar)[number]) => {
   const baslangic = isoGun(k.data.baslangic);
-  return { kod: takvimDurumu({ ...k.data, baslangic, bitis: isoGun(k.data.bitis) }, tarih).kod, baslangic };
+  return { kod: takvimDurumu({ ...k.data, baslangic, bitis: isoGun(k.data.bitis) }, tarih, dil).kod, baslangic };
 };
 const sirali = [...kayitlar].sort((a, b) => takvimSiralamasi(sirala(a), sirala(b)));
 
@@ -27,12 +34,12 @@ const { baslik, ozet } = sayfa.data;
 
 <BaseLayout title={baslik} description={ozet}>
   <div data-filter-root>
-    <PageHeader baslik={baslik} ust={`${kayitlar.length} kayıt`} lede={ozet}>
-      <SearchBox etiket="Takvimde ara" placeholder="Ara: TÜBİTAK, hidrojen, KOBİ…" />
+    <PageHeader baslik={baslik} ust={`${kayitlar.length} ${t.birim.kayit(kayitlar.length)}`} lede={ozet}>
+      <SearchBox etiket={t.takvim.ara} placeholder={t.takvim.araOrnek} />
     </PageHeader>
 
     <FiltreCipleri
-      etiket="Tür filtresi"
+      etiket={t.filtre.turFiltresi}
       parametre="tur"
       tumuSayi={kayitlar.length}
       secenekler={turler.map((k) => ({
@@ -46,7 +53,7 @@ const { baslik, ozet } = sayfa.data;
     <ul class="liste" data-takvim-listesi>
       {sirali.map((kayit) => <TakvimSatiri kayit={kayit} kategori={kategoriler.get(kayit.data.tur)!} />)}
     </ul>
-    <p class="empty" data-filter-empty hidden>Eşleşen kayıt yok.</p>
+    <p class="empty" data-filter-empty hidden>{t.takvim.bos}</p>
   </div>
 </BaseLayout>
 
@@ -56,8 +63,8 @@ const { baslik, ozet } = sayfa.data;
 
 <script>
   // Durumlar güncel tarihe göre yeniden hesaplandıktan sonra (takvim-durum) açık olanlar üste gelsin.
-  import "../scripts/takvim-durum";
-  import { takvimSiralamasi, type DurumKodu } from "../lib/takvim";
+  import "../../scripts/takvim-durum";
+  import { takvimSiralamasi, type DurumKodu } from "../../lib/takvim";
 
   const liste = document.querySelector<HTMLElement>("[data-takvim-listesi]");
   if (liste) {

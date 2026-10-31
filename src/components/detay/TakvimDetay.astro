@@ -4,6 +4,8 @@ import { tarihAraligi } from "../../lib/takvim";
 import ExternalLink from "../ExternalLink.astro";
 import TakvimDurumu from "../TakvimDurumu.astro";
 import DetayKabuk from "./DetayKabuk.astro";
+import { metinler } from "../../i18n";
+import { sayfaDili } from "../../lib/yol";
 
 interface Props {
   kayit: TakvimKaydi;
@@ -14,6 +16,8 @@ interface Props {
 }
 const { kayit, kategori, baslikSeviyesi, sayfaYolu } = Astro.props;
 const d = kayit.data;
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil);
 ---
 
 <DetayKabuk
@@ -25,8 +29,8 @@ const d = kayit.data;
   baslikSeviyesi={baslikSeviyesi}
 >
   <dl class="kv">
-    <dt>Tarih</dt><dd>{tarihAraligi(d.baslangic, d.bitis)}</dd>
-    <dt>Durum</dt><dd><TakvimDurumu kayit={kayit} /></dd>
+    <dt>{t.takvim.tarih}</dt><dd>{tarihAraligi(d.baslangic, d.bitis, dil)}</dd>
+    <dt>{t.takvim.durum}</dt><dd><TakvimDurumu kayit={kayit} /></dd>
   </dl>
   <div class="aciklama"><p>{d.aciklama}</p></div>
   {d.kaynak && <p class="src"><ExternalLink href={d.kaynak} /></p>}

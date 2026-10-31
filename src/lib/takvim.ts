@@ -4,7 +4,10 @@
   aynı kod kullanılır (statik sayfa günler sonra açılsa da durum doğru kalır).
 
   Tarihler "YYYY-AA-GG" metni olarak karşılaştırılır; saat dilimi kayması olmaz.
+  Durum etiketleri ve tarih biçimi dile göre (i18n/).
 */
+import { metinler } from "../i18n";
+import { YEREL_AYAR, type Dil } from "./dil";
 
 export type TakvimTuru = "etkinlik" | "destek";
 export type DurumKodu = "acik" | "yaklasiyor" | "yillik" | "kapandi";
@@ -22,17 +25,13 @@ export interface Durum {
   etiket: string;
 }
 
-const ETIKET: Record<TakvimTuru, Record<"yaklasiyor" | "acik" | "kapandi", string>> = {
-  etkinlik: { yaklasiyor: "Yaklaşıyor", acik: "Sürüyor", kapandi: "Gerçekleşti" },
-  destek: { yaklasiyor: "Açılacak", acik: "Başvuruya açık", kapandi: "Kapandı" },
-};
-
-export function takvimDurumu(x: DurumGirdisi, bugun: string): Durum {
+export function takvimDurumu(x: DurumGirdisi, bugun: string, dil: Dil): Durum {
+  const etiket = metinler(dil).durum;
   if (x.durumNotu) return { kod: "yaklasiyor", etiket: x.durumNotu };
-  if (bugun < x.baslangic) return { kod: "yaklasiyor", etiket: ETIKET[x.tur].yaklasiyor };
-  if (bugun <= x.bitis) return { kod: "acik", etiket: ETIKET[x.tur].acik };
-  if (x.yillik) return { kod: "yillik", etiket: "Yıllık · gelecek dönem" };
-  return { kod: "kapandi", etiket: ETIKET[x.tur].kapandi };
+  if (bugun < x.baslangic) return { kod: "yaklasiyor", etiket: etiket[x.tur].yaklasiyor };
+  if (bugun <= x.bitis) return { kod: "acik", etiket: etiket[x.tur].acik };
+  if (x.yillik) return { kod: "yillik", etiket: etiket.yillik };
+  return { kod: "kapandi", etiket: etiket[x.tur].kapandi };
 }
 
 const DURUM_SIRASI: Record<DurumKodu, number> = { acik: 0, yaklasiyor: 1, yillik: 2, kapandi: 3 };
@@ -49,10 +48,12 @@ export const isoGun = (d: Date) => d.toISOString().slice(0, 10);
 export const bugun = (simdi = new Date()) =>
   new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Istanbul" }).format(simdi);
 
-const gunBicimi = new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+const gunBicimi = (dil: Dil) =>
+  new Intl.DateTimeFormat(YEREL_AYAR[dil], { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
 
-/** "22 Eki 2026" ya da "22 Eki 2026 – 23 Eki 2026" */
-export function tarihAraligi(baslangic: Date, bitis: Date): string {
-  const a = gunBicimi.format(baslangic);
-  return isoGun(baslangic) === isoGun(bitis) ? a : `${a} – ${gunBicimi.format(bitis)}`;
+/** "22 Eki 2026" ya da "22 Eki 2026 – 23 Eki 2026" (İngilizcede "22 Oct 2026") */
+export function tarihAraligi(baslangic: Date, bitis: Date, dil: Dil): string {
+  const bicim = gunBicimi(dil);
+  const a = bicim.format(baslangic);
+  return isoGun(baslangic) === isoGun(bitis) ? a : `${a} – ${bicim.format(bitis)}`;
 }

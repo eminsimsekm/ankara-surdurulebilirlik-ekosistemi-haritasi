@@ -1,19 +1,25 @@
 ---
 // Her aktörün kendi sayfası (/tekmerler/netzero-tekmer).
 import type { GetStaticPaths } from "astro";
-import AktorDetay from "../../components/detay/AktorDetay.astro";
-import IliskiliBolumler from "../../components/iliskiler/IliskiliBolumler.astro";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getAktorGruplari, kategoriBasligi, kategoriYolu, kisaOzet, type Aktor, type Kategori } from "../../lib/content";
+import AktorDetay from "../../../components/detay/AktorDetay.astro";
+import IliskiliBolumler from "../../../components/iliskiler/IliskiliBolumler.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getAktorGruplari, kategoriBasligi, kategoriYolu, kisaOzet, type Aktor, type Kategori } from "../../../lib/content";
+import { dilParametresi, DILLER } from "../../../lib/dil";
+import { sayfaDili } from "../../../lib/yol";
 
 export const getStaticPaths = (async () => {
-  const gruplar = await getAktorGruplari();
-  return gruplar.flatMap(({ kategori, aktorler }) =>
-    aktorler.map((aktor) => ({
-      params: { kategori: kategori.data.yol, aktor: aktor.id },
-      props: { aktor, kategori },
-    })),
+  const yollar = await Promise.all(
+    DILLER.map(async (dil) =>
+      (await getAktorGruplari(dil)).flatMap(({ kategori, aktorler }) =>
+        aktorler.map((aktor) => ({
+          params: { dil: dilParametresi(dil), kategori: kategori.data.yol, aktor: aktor.id },
+          props: { aktor, kategori },
+        })),
+      ),
+    ),
   );
+  return yollar.flat();
 }) satisfies GetStaticPaths;
 
 interface Props {
@@ -21,11 +27,12 @@ interface Props {
   kategori: Kategori;
 }
 const { aktor, kategori } = Astro.props;
+const dil = sayfaDili(Astro.url);
 ---
 
 <BaseLayout title={aktor.data.ad} description={kisaOzet(aktor.body) ?? kategori.data.aciklama}>
   <nav class="geri" aria-label="Konum">
-    <a href={kategoriYolu(kategori)}>← {kategoriBasligi(kategori)}</a>
+    <a href={kategoriYolu(kategori, dil)}>← {kategoriBasligi(kategori)}</a>
   </nav>
   <div class="kutu">
     <AktorDetay aktor={aktor} kategori={kategori} />

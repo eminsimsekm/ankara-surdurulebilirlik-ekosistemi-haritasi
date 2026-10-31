@@ -1,0 +1,43 @@
+# Takvim kayıtlarının İngilizce çevirileri. Anahtar = src/content/takvim/<kimlik>.yaml.
+# aciklama, durumNotu; duzenleyen yalnızca hedef kitle açıklaması olduğunda (ör. "KOBİ'ler"). Etkinlik/program adı ve düzenleyen kurum çevrilmez.
+
+deep-techankara-2026-demo-day:
+  aciklama: Closing event of the accelerator for deep tech and AI startups; 18 finalists pitched to investors.
+gcip-turkiye-hizlandiricisi:
+  duzenleyen: TÜBİTAK & UNIDO · startups and SMEs
+  aciklama: Clean technology categories and a module for women entrepreneurs; the top 3 can receive a total of TRY 2.25 mn in investment from the BİGG Fund.
+gcip-turkiye-odul-toreni:
+  aciklama: Award ceremony of the clean technology accelerator; 96 applications and 39 teams in the 2025 round.
+kosgeb-cop31-odakli-hizlandirma-destegi:
+  duzenleyen: TEKMER operators and technoparks with a GO
+  aciklama: Up to TRY 6.5 million in support for acceleration programmes for climate startups; at least one activity at COP31 is required.
+sanayi-bakanligi-yesil-donusum-programi:
+  duzenleyen: Manufacturing facilities
+  durumNotu: New call expected
+  aciklama: Incentives for investments that cut emissions; supported facilities receive the Yeşil Dönüşüm Merkezi (Green Transition Centre) title. A Green Transition Team of at least 3 people is required.
+sogreen-sosyal-kapsayici-yesil-gecis:
+  duzenleyen: 81 provinces, including Ankara Kalkınma Ajansı
+  durumNotu: Province-based calls
+  aciklama: World Bank-financed; TRY 2.5–7.5 mn per project for SMEs' green transition investments.
+techankara-proje-pazari:
+  aciklama: Held for the 12th time; 100 projects selected from 460 applications. The winner receives TRY 600K in commercialisation support. Applications open every spring.
+tenmak-ar-ge-tesvik-cagrilari:
+  duzenleyen: Companies, universities
+  durumNotu: Periodic call
+  aciklama: Hydrogen and fuel cells, carbon capture and storage, and digitalisation in energy.
+true-zero-global-prize-demo-day:
+  aciklama: Applications closed on 28 September. Agriculture panel on 9 November, clean energy panel on 10 November; winners will be announced at COP31.
+tubitak-1831-yesil-inovasyon-mentorluk:
+  duzenleyen: SMEs
+  durumNotu: Periodic call
+  aciklama: Up to TRY 250,000, with a 90% support rate.
+tubitak-1832-sanayide-yesil-donusum-2026-2:
+  duzenleyen: Industrial companies
+  aciklama: Green transition R&D; grants and repayable support.
+tubitak-1833-sayem-yesil-donusum-2026-1:
+  duzenleyen: Industry platforms
+  durumNotu: Under evaluation
+  aciklama: Results by 30 October; the last 1833 call under the World Bank programme.
+turkiye-hidrojen-zirvesi-2026:
+  duzenleyen: AYBÜ, Ankara · coordinated by H2TEAM, in collaboration with TESPAM
+  aciklama: Hidrojen Yol Haritası 2035 (Hydrogen Roadmap 2035), fuel cells in defence, green hydrogen and industrial use. Free, with pre-registration; speakers include the President of TENMAK and Prof. Dr. İbrahim Dinçer.

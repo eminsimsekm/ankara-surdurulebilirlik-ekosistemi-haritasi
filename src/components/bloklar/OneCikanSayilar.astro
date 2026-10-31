@@ -4,26 +4,30 @@
   ve içerikten hesaplanan sayılar (yeni kayıt eklendikçe kendiliğinden güncellenir).
 */
 import { getAkademisyenler, getAktorGruplari, getOneCikanSayilar, getUniversiteler } from "../../lib/content";
-import { yol } from "../../lib/yol";
+import { metinler } from "../../i18n";
+import { YEREL_AYAR } from "../../lib/dil";
+import { sayfaDili, yol } from "../../lib/yol";
 
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil).sayilar;
 const [elle, gruplar, akademisyenler, universiteler] = await Promise.all([
-  getOneCikanSayilar(),
-  getAktorGruplari(),
-  getAkademisyenler(),
+  getOneCikanSayilar(dil),
+  getAktorGruplari(dil),
+  getAkademisyenler(dil),
   getUniversiteler(),
 ]);
-const sayiBicimi = new Intl.NumberFormat("tr-TR");
+const sayiBicimi = new Intl.NumberFormat(YEREL_AYAR[dil]);
 
 const sayilar = [
   ...elle.map((s) => s.data),
   {
     deger: sayiBicimi.format(gruplar.reduce((n, g) => n + g.aktorler.length, 0)),
-    etiket: "kurum haritada",
+    etiket: t.kurumHaritada,
     yol: "/kurumlar/",
   },
   {
     deger: sayiBicimi.format(akademisyenler.length),
-    etiket: `akademisyen · ${universiteler.length} üniversite`,
+    etiket: t.akademisyen(universiteler.length),
     yol: "/akademisyenler/",
   },
 ];
@@ -34,7 +38,7 @@ const sayilar = [
     const Etiket = s.yol ? "a" : "div";
     return (
       <li>
-        <Etiket href={s.yol && yol(s.yol)}><b>{s.deger}</b><span>{s.etiket}</span></Etiket>
+        <Etiket href={s.yol && yol(s.yol, dil)}><b>{s.deger}</b><span>{s.etiket}</span></Etiket>
       </li>
     );
   })}

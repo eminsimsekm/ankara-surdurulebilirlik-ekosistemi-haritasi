@@ -19,6 +19,8 @@ import {
   getYatirimTurleri,
   idSozlugu,
 } from "../../lib/content";
+import type { Dil } from "../../lib/dil";
+import { metinler } from "../../i18n";
 import AkademisyenSatiri from "../satirlar/AkademisyenSatiri.astro";
 import IsbirligiKarti from "../satirlar/IsbirligiKarti.astro";
 import TakvimSatiri from "../satirlar/TakvimSatiri.astro";
@@ -26,59 +28,63 @@ import YatirimSatiri from "../satirlar/YatirimSatiri.astro";
 
 export interface IliskiBolumu {
   baslik: string;
-  /** Sayının yanındaki birim: "3 kayıt" */
+  /** Sayının yanındaki birim: "3 kayıt" (dilde ve sayıya göre çekimli) */
   birim: string;
   /** Satırlar alt alta liste, kartlar ızgara olarak çizilir */
   duzen: "liste" | "kartlar";
   ogeler: { Bilesen: AstroComponentFactory; props: Record<string, unknown> }[];
 }
 
-type IliskiKaynagi = (aktorId: string) => Promise<IliskiBolumu>;
+type IliskiKaynagi = (aktorId: string, dil: Dil) => Promise<IliskiBolumu>;
 
-const yatirimlar: IliskiKaynagi = async (aktorId) => {
-  const [liste, turler] = await Promise.all([getYatirimlar(), getYatirimTurleri().then(idSozlugu)]);
+const yatirimlar: IliskiKaynagi = async (aktorId, dil) => {
+  const [liste, turler] = await Promise.all([getYatirimlar(dil), getYatirimTurleri(dil).then(idSozlugu)]);
+  const ilgili = liste.filter((y) => y.data.aktorler.includes(aktorId));
+  const t = metinler(dil);
   return {
-    baslik: "Yatırımlar",
-    birim: "kayıt",
+    baslik: t.iliskiler.yatirimlar,
+    birim: t.birim.kayit(ilgili.length),
     duzen: "liste",
-    ogeler: liste
-      .filter((y) => y.data.aktorler.includes(aktorId))
+    ogeler: ilgili
       .map((yatirim) => ({ Bilesen: YatirimSatiri, props: { yatirim, tur: turler.get(yatirim.data.tur)! } })),
   };
 };
 
-const isbirlikleri: IliskiKaynagi = async (aktorId) => {
-  const [liste, turler] = await Promise.all([getIsbirlikleri(), getIsbirligiTurleri().then(idSozlugu)]);
+const isbirlikleri: IliskiKaynagi = async (aktorId, dil) => {
+  const [liste, turler] = await Promise.all([getIsbirlikleri(dil), getIsbirligiTurleri(dil).then(idSozlugu)]);
+  const ilgili = liste.filter((x) => x.data.taraflar.some((taraf) => taraf.aktor === aktorId));
+  const t = metinler(dil);
   return {
-    baslik: "İş birlikleri",
-    birim: "kayıt",
+    baslik: t.iliskiler.isbirlikleri,
+    birim: t.birim.kayit(ilgili.length),
     duzen: "kartlar",
-    ogeler: liste
-      .filter((x) => x.data.taraflar.some((t) => t.aktor === aktorId))
+    ogeler: ilgili
       .map((isbirligi) => ({ Bilesen: IsbirligiKarti, props: { isbirligi, tur: turler.get(isbirligi.data.tur)! } })),
   };
 };
 
-const takvim: IliskiKaynagi = async (aktorId) => {
-  const [liste, kategoriler] = await Promise.all([getTakvim(), getKategoriler().then(idSozlugu)]);
+const takvim: IliskiKaynagi = async (aktorId, dil) => {
+  const [liste, kategoriler] = await Promise.all([getTakvim(dil), getKategoriler(dil).then(idSozlugu)]);
+  const ilgili = liste.filter((k) => k.data.aktorler.includes(aktorId));
+  const t = metinler(dil);
   return {
-    baslik: "Etkinlikler ve çağrılar",
-    birim: "kayıt",
+    baslik: t.iliskiler.takvim,
+    birim: t.birim.kayit(ilgili.length),
     duzen: "liste",
-    ogeler: liste
-      .filter((k) => k.data.aktorler.includes(aktorId))
+    ogeler: ilgili
       .map((kayit) => ({ Bilesen: TakvimSatiri, props: { kayit, kategori: kategoriler.get(kayit.data.tur)! } })),
   };
 };
 
-const arastirmacilar: IliskiKaynagi = async (aktorId) => {
-  const [liste, universiteler] = await Promise.all([getAkademisyenler(), getUniversiteler().then(idSozlugu)]);
+const arastirmacilar: IliskiKaynagi = async (aktorId, dil) => {
+  const [liste, universiteler] = await Promise.all([getAkademisyenler(dil), getUniversiteler().then(idSozlugu)]);
+  const ilgili = liste.filter((a) => a.data.aktorler.includes(aktorId));
+  const t = metinler(dil);
   return {
-    baslik: "Araştırmacılar",
-    birim: "kişi",
+    baslik: t.iliskiler.arastirmacilar,
+    birim: t.birim.kisi(ilgili.length),
     duzen: "liste",
-    ogeler: liste
-      .filter((a) => a.data.aktorler.includes(aktorId))
+    ogeler: ilgili
       .map((akademisyen) => ({
         Bilesen: AkademisyenSatiri,
         props: { akademisyen, universite: universiteler.get(akademisyen.data.universite)! },
@@ -89,6 +95,6 @@ const arastirmacilar: IliskiKaynagi = async (aktorId) => {
 const ILISKI_KAYNAKLARI: IliskiKaynagi[] = [yatirimlar, isbirlikleri, takvim, arastirmacilar];
 
 /** Boş olmayan bölümler, listedeki sırayla. */
-export async function iliskiliBolumler(aktorId: string): Promise<IliskiBolumu[]> {
-  return (await Promise.all(ILISKI_KAYNAKLARI.map((kaynak) => kaynak(aktorId)))).filter((b) => b.ogeler.length > 0);
+export async function iliskiliBolumler(aktorId: string, dil: Dil): Promise<IliskiBolumu[]> {
+  return (await Promise.all(ILISKI_KAYNAKLARI.map((kaynak) => kaynak(aktorId, dil)))).filter((b) => b.ogeler.length > 0);
 }
