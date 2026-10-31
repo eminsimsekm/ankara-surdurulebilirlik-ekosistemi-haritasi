@@ -10,7 +10,10 @@
   yerlerine kayar ve o görünümün dilim çizgileri açılır (.acik). Konumlar build
   sırasında hesaplanmıştır (Harita.astro). Arama ise listelerden farklı olarak
   eşleşmeyen düğümleri gizlemez, soluklaştırır (.dim). Fareyle üzerine gelinen
-  dilim (ya da düğümün dilimi) vurgulanır (.vurgulu, diğerleri .soluk).
+  dilim (ya da düğümün dilimi) vurgulanır (.vurgulu, diğerleri .soluk); genel
+  görünümde vurgulu dilime tıklamak o kategoriyi seçer, kategori görünümünde
+  ortadaki daireye tıklamak genel görünüme döner. Genel görünümde bir düğüm
+  seçilince onun kategorisine de geçilir.
 */
 import { matchesQuery, searchKey } from "../lib/text";
 import { durumlariGuncelle } from "./takvim-durum";
@@ -126,13 +129,25 @@ function kur(root: HTMLElement) {
     seciliKategori = chips.some((c) => c.dataset.deger === deger) ? deger : "";
   };
   kategoriSec(new URLSearchParams(location.search).get(kategoriParam) ?? "");
-  for (const chip of chips) {
-    chip.addEventListener("click", () => {
-      kategoriSec(chip.dataset.deger ?? "");
-      suz();
-      adresiGuncelle(kategoriParam, seciliKategori || null);
-    });
-  }
+  const kategoriyeGec = (deger: string) => {
+    kategoriSec(deger);
+    suz();
+    adresiGuncelle(kategoriParam, seciliKategori || null);
+  };
+  for (const chip of chips) chip.addEventListener("click", () => kategoriyeGec(chip.dataset.deger ?? ""));
+
+  // Genel görünümde vurgulanan dilime tıklamak o kategorinin çipine basmakla aynı (dilim anahtarı = kategori).
+  // Vurgu yalnızca fareyle oluştuğu için dokunmatikte düğümü ıskalayan dokunuş görünümü değiştirmez.
+  // Kategori görünümünde ortadaki daireye tıklamak "Tümü"ye döner.
+  svg.addEventListener("click", (e) => {
+    const hedef = e.target as Element;
+    if (root.dataset.gorunum === "kategori") {
+      if (hedef.closest(".merkez")) kategoriyeGec("");
+      return;
+    }
+    const deger = hedef.closest<SVGGElement>(".dilim")?.dataset.dilim;
+    if (deger && deger === vurguluDilim) kategoriyeGec(deger);
+  });
 
   if (ara) {
     ara.value ||= new URLSearchParams(location.search).get("ara") ?? "";
@@ -160,13 +175,17 @@ function kur(root: HTMLElement) {
     return true;
   }
 
+  // Genel görünümde seçilen düğümün kategorisine de geçilir; kategori görünümünde zaten oradadır
+  const dugumuSec = (node: SVGGElement) => {
+    if (!seciliKategori) kategoriyeGec(node.dataset.kategori ?? "");
+    sec(node.dataset.id!, { kaydir: true });
+  };
   for (const node of nodes) {
-    const id = node.dataset.id!;
-    node.addEventListener("click", () => sec(id, { kaydir: true }));
+    node.addEventListener("click", () => dugumuSec(node));
     node.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        sec(id, { kaydir: true });
+        dugumuSec(node);
       }
     });
   }

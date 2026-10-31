@@ -252,7 +252,10 @@ const SATIR_ARALIGI = 16;
 
   .halka, .dilim-cizgi { fill: none; stroke: var(--line); }
   .merkez { fill: var(--soft); stroke: var(--line); }
-  .merkez-yazi { fill: var(--ink); font: 800 18px var(--f-display); transition: opacity .2s; }
+  /* Yazı tıklamayı alttaki daireye bırakır: kategori görünümünde daireye tıklamak "Tümü"ye döner (scripts/harita.ts) */
+  .merkez-yazi { fill: var(--ink); font: 800 18px var(--f-display); transition: opacity .2s; pointer-events: none; }
+  .harita[data-gorunum="kategori"] .merkez { cursor: pointer; transition: stroke .2s; }
+  .harita[data-gorunum="kategori"] .merkez:hover { stroke: var(--ink); }
   .merkez-bilgi { opacity: 0; transition: opacity .2s; pointer-events: none; }
   .merkez-sayi { fill: var(--c, var(--ink)); font: 800 28px var(--f-display); font-variant-numeric: tabular-nums; }
   .merkez-birim { fill: var(--muted); font: 500 10px var(--f-mono); letter-spacing: .06em; text-transform: uppercase; }
@@ -308,6 +311,8 @@ const SATIR_ARALIGI = 16;
     transition: fill-opacity .25s ease, transform .25s ease;
   }
   .dilim.vurgulu .dilim-alan { fill-opacity: .1; transform: scale(1.04); }
+  /* Genel görünümde dilime tıklamak kategoriyi seçer (çip gibi) */
+  .harita[data-gorunum="genel"] .dilim { cursor: pointer; }
   .dilim-etiket { transition: font-size .2s ease; }
   .dilim.vurgulu .dilim-etiket { font-weight: 800; font-size: 13.5px; }
   .kategoride .dilim.vurgulu .dilim-etiket { font-size: 15.5px; }
