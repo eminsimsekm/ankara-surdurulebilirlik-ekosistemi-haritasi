@@ -2,6 +2,7 @@
 ad: ODTÜ RÜZGEM
 kategori: arastirma
 konum: ODTÜ
+alanlar: [yenilenebilir-enerji]
 etiketler:
   - rüzgâr
   - Büyük Rüzgâr Tüneli

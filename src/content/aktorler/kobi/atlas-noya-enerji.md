@@ -2,6 +2,7 @@
 ad: Atlas Noya Enerji
 kategori: kobi
 konum: OSTİM Teknopark, Yenimahalle
+alanlar: [yenilenebilir-enerji]
 etiketler:
   - enerji yatırımları
   - OSTİM ENERJİK

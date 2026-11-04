@@ -2,6 +2,7 @@
 ad: Ankara Büyükşehir Belediyesi
 kategori: kamu
 konum: Ankara
+alanlar: [karbon-iklim]
 etiketler:
   - Yeşil Şehir Eylem Planı
 kaynak: https://www.sozcu.com.tr/ankaranin-yesil-sehir-eylem-plani-kamuoyuna-tanitildi-wp6804122

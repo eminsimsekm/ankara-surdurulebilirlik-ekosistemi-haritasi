@@ -2,6 +2,7 @@
 ad: Arya Solar
 kategori: sirket
 konum: İvedik OSB, Yenimahalle
+alanlar: [yenilenebilir-enerji]
 etiketler:
   - güneş EPC
   - yüzer GES

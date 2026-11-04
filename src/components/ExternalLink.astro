@@ -1,5 +1,8 @@
 ---
 // Site dışına giden bağlantı: yeni sekmede açılır, metnin sonuna ↗ eklenir.
+import { metinler } from "../i18n";
+import { sayfaDili } from "../lib/yol";
+
 interface Props {
   href: string;
   class?: string;
@@ -7,4 +10,4 @@ interface Props {
 const { href, class: className } = Astro.props;
 ---
 
-<a href={href} class={className} target="_blank" rel="noopener"><slot>Kaynak</slot> ↗</a>
+<a href={href} class={className} target="_blank" rel="noopener"><slot>{metinler(sayfaDili(Astro.url)).ortak.kaynak}</slot> ↗</a>

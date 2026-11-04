@@ -1,0 +1,57 @@
+# İş birliklerinin İngilizce çevirileri. Anahtar = src/content/isbirlikleri/<kimlik>.yaml.
+# aciklama; etiketler sözlükten (sozluk.yaml) çevrilir, burada da yazılabilir. Taraf adları çevrilmez.
+
+abb-ego-genel-mudurlugu:
+  aciklama: Solar plant at EGO Macunköy Atölyeleri; 2,271 panels, 1,242 kWp, about 1.4 million kWh a year and about 750 tonnes of CO₂ avoided.
+ankara-ka-dunya-bankasi:
+  aciklama: Yeşil Dönüşüm Kuluçka ve Hızlandırma Merkezi (Green Transition Incubation and Acceleration Centre); a feasibility project to increase the number of green jobs in industry.
+ankara-ka-teknopark-ankara-inovest:
+  aciklama: Deep TechAnkara 2026 acceleration programme; 26 startups from 98 applications, 80 hours of mentoring, 18 finalists at Demo Day.
+ankara-ka-tse-global:
+  aciklama: Yeşil Yaka Personel Programı (Green Collar Staff Programme); a free training series with ISO 14064-1, ISO 14046 and ISO 50001 modules, for 35 participants.
+aso-odtu-teknokent:
+  aciklama: ASO Teknopark Sincan; a technology development zone set up in ASO 2. OSB and operated by ODTÜ Teknokent.
+atilim-universitesi-werer-energy:
+  aciklama: Founder Ensar Levent is linked to Atılım Üniversitesi; LFP battery technology, $600K investment.
+aybu-teknopark-ankara:
+  aciklama: Founding partner university of Teknopark Ankara; a university-industry collaboration model with 150+ R&D companies.
+bilkent-cyberpark-ankara-buyuksehir-belediyesi:
+  aciklama: Ankara Teknoloji Köprüsü (ATK) incubation centre; Ankara's largest incubation centre, run in collaboration with Bilkent Üniversitesi, Ankara Büyükşehir Belediyesi and CYBERPARK.
+botas-ab-ipa-fonu:
+  aciklama: The €3 million 'Türkiye'de Yeşil ve Düşük Karbonlu Hidrojeni Güçlendirme' (Strengthening Green and Low-Carbon Hydrogen in Türkiye) project; hydrogen readiness analysis of the pipeline infrastructure and the Ulusal Hidrojen Şebeke Planı (National Hydrogen Grid Plan).
+enerjisa-enerji-ankara-uni-teknokent:
+  aciklama: Türkiye's first Yeşil Teknokent (Green Teknokent) contract; 2.6 GWh/year of renewable electricity and a target of about 1,200 tonnes of CO₂ avoided.
+hacettepe-universitesi-carbonit:
+  aciklama: CarbonIT's R&D unit at Hacettepe Teknokent; TSE-approved, ISO 14064-1 compliant carbon footprint software developed with university infrastructure.
+hacettepe-universitesi-some-carbon:
+  aciklama: Founder Doğan Çiçek is linked to Hacettepe Kimya Mühendisliği; CO₂ → methanol conversion technology, Horizon EU project.
+inovat-macaristan:
+  aciklama: iNOVAT, which developed Türkiye's first industrial hydrogen storage system, has exported to Hungary.
+ivedik-osb-dunya-bankasi-sanayi-bakanligi:
+  aciklama: The €250 million EU-funded Türkiye OSB Projesi; rooftop solar and smart SCADA installations in İvedik.
+leap-investment-ankara-tekmer:
+  aciklama: Türkiye's first private-equity-backed TEKMER; under the umbrella of LEAP Investment's TRY 100 million venture fund.
+netzero-tekmer-sparklabs-cop31-antalya:
+  aciklama: TrueZero Global Prize Demo Day at COP31; connects Ankara-based climate startups to the global climate agenda, November 2026.
+netzero-tekmer-sparklabs-truezero:
+  aciklama: TrueZero Global Prize climate startup competition; $50–75K prizes, Demo Day at COP31 Antalya in November 2026. Climate, clean energy, agriculture and the circular economy.
+odtu-70-yil-gsyf-m-based:
+  aciklama: About $700K seed investment, together with Elemental Ventures, in the ODTÜ Teknokent startup making vegan leather (FOMES) from mushroom mycelium.
+odtu-kybeles-garden:
+  aciklama: ODTÜ spin-off; from algae biotechnology research to commercial production, $250K investment. Operates at ODTÜ Teknokent.
+odtu-sensgreen:
+  aciklama: Smart building IoT company founded by 4 ODTÜ graduates; based at ODTÜ Teknokent, raised $2.5M.
+odtu-teknokent-netzero-tekmer:
+  aciklama: Official business partner of NetZero TEKMER; a bridge between the GÜNAM, RÜZGEM and ODTÜ İKLİM centres on the ODTÜ campus and the climate tech startup ecosystem.
+ostim-osb-ostim-teknopark-ostim-teknik-uni:
+  aciklama: OSB–Technopark–University triangle; with the ENERJİK cluster, connects OSTİM's energy companies to R&D and commercial infrastructure.
+spacelis-nato-diana:
+  aciklama: Perovskite solar panel startup based at Teknopark Ankara selected for NATO DIANA (Defence Innovation Accelerator).
+startupcentrum-arz-portfoy:
+  aciklama: StartupCentrum Alpha Fund; an angel investment network of StartupCentrum, which prepares Ankara's startup reports, and ARZ Portföy, which has an Ankara branch.
+tenmak-aybu-h2team:
+  aciklama: Joint organisation of the Türkiye Hidrojen Zirvesi 2026; TENMAK and AYBÜ H2TEAM are growing an Ankara-based hydrogen research network.
+tobb-etu-yesil-hidrojen-dernegi:
+  aciklama: Prof. Dr. Mehmet Sankır leads photochemical hydrogen production research at TOBB ETÜ and is founding president of Yeşil Hidrojen Derneği (Green Hydrogen Association).
+tubitak-odtu-gunam:
+  aciklama: Güneş Enerjisi Araştırma ve Uygulama Merkezi (Solar Energy Research and Application Centre); TÜBİTAK-funded 1001/1003 projects on ODTÜ's Ankara campus.

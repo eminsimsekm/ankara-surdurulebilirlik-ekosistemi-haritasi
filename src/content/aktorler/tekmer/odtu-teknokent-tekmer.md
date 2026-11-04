@@ -2,6 +2,7 @@
 ad: ODTÜ Teknokent TEKMER
 kategori: tekmer
 konum: ODTÜ Teknokent
+alanlar: [egitim]
 etiketler:
   - eğitim teknolojileri
 uzmanlik: Eğitim teknolojileri (EdTech); Nisan 2023'te açıldı. KOSGEB'in güncel Ankara listesinde yer almıyor.

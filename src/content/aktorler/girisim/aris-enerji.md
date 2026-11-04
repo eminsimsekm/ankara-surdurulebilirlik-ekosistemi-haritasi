@@ -2,6 +2,7 @@
 ad: ARİŞ Enerji
 kategori: girisim
 konum: OSTİM Teknopark, Ankara
+alanlar: [yenilenebilir-enerji]
 etiketler:
   - yenilenebilir enerji
   - OSTİM ENERJİK

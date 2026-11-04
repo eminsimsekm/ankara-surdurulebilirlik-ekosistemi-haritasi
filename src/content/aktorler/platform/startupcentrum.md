@@ -2,6 +2,7 @@
 ad: StartupCentrum
 kategori: platform
 konum: Girişim veri platformu · İstanbul ve Ankara
+alanlar: [finans]
 etiketler:
   - veri
   - rapor

@@ -2,6 +2,7 @@
 ad: Rönesans × Digital Realty
 kategori: sirket
 konum: Temelli, Başkent OSB
+alanlar: [enerji-verimliligi]
 etiketler:
   - veri merkezi
 kaynak: https://yeniankara.com.tr/ankara/ankara-temelli-veri-merkezi-ronesans-ve-digital-realtyden-41-milyar-dolarlik-yatirim-186834

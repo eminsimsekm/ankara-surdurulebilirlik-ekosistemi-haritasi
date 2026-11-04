@@ -7,6 +7,7 @@ etiketler:
   - malzeme
   - PV geri dönüşümü
 profil: https://avesis.metu.edu.tr/ggunbas
+aktorler: [odtu-gunam]
 ---
 
 Perovskit ve organik güneş hücreleri için malzeme geliştirme; perovskit hücrelerde ara yüz pasivasyonu. TRIUMPH projesinde araştırmacı.

@@ -2,6 +2,7 @@
 ad: INVEST-UP Ankara
 kategori: platform
 konum: Ankara TEKMER
+alanlar: [finans]
 etiketler:
   - yatırımcı buluşması
 uzmanlik: Ankara TEKMER'in yatırım hazırlık ve yatırımcı buluşma programı; GCIP Türkiye ön hızlandırıcı bilgilendirmesine de ev sahipliği yaptı.

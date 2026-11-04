@@ -2,6 +2,7 @@
 ad: ChemCode Biyoteknoloji
 kategori: girisim
 konum: Yenimahalle, Ankara
+alanlar: [tarim-gida, biyoteknoloji-malzeme]
 etiketler:
   - gıda güvenliği
   - biyosensör

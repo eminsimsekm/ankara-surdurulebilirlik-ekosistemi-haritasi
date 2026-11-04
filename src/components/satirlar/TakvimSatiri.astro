@@ -3,6 +3,7 @@ import { takvimAramaMetni, type Kategori, type TakvimKaydi } from "../../lib/con
 import { isoGun, tarihAraligi } from "../../lib/takvim";
 import ExternalLink from "../ExternalLink.astro";
 import TakvimDurumu from "../TakvimDurumu.astro";
+import { sayfaDili } from "../../lib/yol";
 
 interface Props {
   kayit: TakvimKaydi;
@@ -10,17 +11,18 @@ interface Props {
 }
 const { kayit, kategori } = Astro.props;
 const d = kayit.data;
+const dil = sayfaDili(Astro.url);
 ---
 
 <li
   id={kayit.id}
   class="satir kayit-hedefi"
   data-filter-item
-  data-facet={kategori.id}
+  data-facet-tur={kategori.id}
   data-search={takvimAramaMetni(kayit)}
   data-baslangic={isoGun(d.baslangic)}
 >
-  <time datetime={isoGun(d.baslangic)}>{tarihAraligi(d.baslangic, d.bitis)}</time>
+  <time datetime={isoGun(d.baslangic)}>{tarihAraligi(d.baslangic, d.bitis, dil)}</time>
   <TakvimDurumu kayit={kayit} />
   <div>
     <b>{d.ad}</b> <span class="sub">· {kategori.data.ad}</span>

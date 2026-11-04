@@ -2,6 +2,7 @@
 ad: SparkLabs Group
 kategori: platform
 konum: Küresel · NetZero TEKMER ortağı
+alanlar: [karbon-iklim, finans]
 etiketler:
   - hızlandırıcı
   - TrueZero

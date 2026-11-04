@@ -1,6 +1,7 @@
 taraflar:
-  - OSTİM OSB
-  - OSTİM Teknopark · OSTİM Teknik Üni
+  - aktor: ostim-osb
+  - aktor: ostim-teknopark
+  - universite: ostimtu
 tur: program
 aciklama: OSB–Teknopark–Üniversite üçgeni; ENERJİK kümesiyle OSTİM'deki enerji firmalarını Ar-Ge ve ticari altyapıya bağlıyor.
 etiketler:

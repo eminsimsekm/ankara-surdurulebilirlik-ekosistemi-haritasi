@@ -1,6 +1,6 @@
 taraflar:
-  - StartupCentrum
-  - ARZ Portföy
+  - aktor: startupcentrum
+  - ad: ARZ Portföy
 tur: yatirim
 aciklama: StartupCentrum Alpha Fonu; Ankara girişim raporlarını hazırlayan StartupCentrum ile ARZ Portföy'ün Ankara şubeli melek yatırım ağı.
 etiketler:

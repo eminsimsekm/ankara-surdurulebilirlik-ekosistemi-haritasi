@@ -2,6 +2,7 @@
 ad: Kamu Araştırmaları Vakfı
 kategori: kamu
 konum: Ankara
+alanlar: [genel]
 etiketler:
   - NetZero TEKMER paydaşı
 kisiler: Prof. Dr. Ulvi Saran (Mütevelli Heyeti Başkanı)

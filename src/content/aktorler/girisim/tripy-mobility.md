@@ -2,6 +2,7 @@
 ad: TRIPY Mobility
 kategori: girisim
 konum: Gazi Teknopark
+alanlar: [e-mobilite]
 etiketler:
   - mikromobilite
   - e-bisiklet

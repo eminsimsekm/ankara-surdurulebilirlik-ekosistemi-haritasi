@@ -2,6 +2,7 @@
 ad: YEO Teknoloji
 kategori: sirket
 konum: Balgat, Ankara
+alanlar: [enerji-verimliligi, hidrojen]
 etiketler:
   - akıllı şebeke
   - IoT

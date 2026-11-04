@@ -2,6 +2,7 @@
 ad: AISField
 kategori: girisim
 konum: Ankara
+alanlar: [enerji-verimliligi]
 etiketler:
   - robotik
   - enerji dönüşümü

@@ -2,6 +2,7 @@
 ad: Biomass Enerji
 kategori: girisim
 konum: Ankara (OSTİM bağlantılı)
+alanlar: [atik-dongusel, yenilenebilir-enerji]
 etiketler:
   - organik atık
   - biyokömür

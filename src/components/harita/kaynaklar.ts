@@ -10,6 +10,8 @@
 import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 import {
   akademisyenAramaMetni,
+  aktorAlanlari,
+  birincilAlanId,
   aktorAramaMetni,
   aktorYolu,
   getAkademisyenler,
@@ -25,6 +27,8 @@ import {
   yatirimAramaMetni,
   type Kategori,
 } from "../../lib/content";
+import type { Dil } from "../../lib/dil";
+import { yol } from "../../lib/yol";
 import AkademisyenDetay from "../detay/AkademisyenDetay.astro";
 import AktorDetay from "../detay/AktorDetay.astro";
 import TakvimDetay from "../detay/TakvimDetay.astro";
@@ -39,38 +43,47 @@ export interface HaritaDugumu {
   aramaMetni: string;
   /** Sayfa açıldığında seçili gelecek düğüm adayı */
   oneCikan?: boolean;
+  /** Kategori görünümünde girdiği dilim. Yoksa kategorinin tamamı tek dilimdir. */
+  altGrup?: { id: string; etiket: string; sira: number };
   detay: { Bilesen: AstroComponentFactory; props: Record<string, unknown> };
 }
 
-type HaritaKaynagi = () => Promise<HaritaDugumu[]>;
+type HaritaKaynagi = (dil: Dil) => Promise<HaritaDugumu[]>;
 
 export const aktorDugumId = (aktorId: string) => `aktor:${aktorId}`;
 /** Haritayı verilen düğüm seçili olarak açan adres. */
-export const haritadaGosterYolu = (dugumId: string) => `/?secim=${encodeURIComponent(dugumId)}`;
+export const haritadaGosterYolu = (dugumId: string, dil: Dil) => yol(`/?secim=${encodeURIComponent(dugumId)}`, dil);
 
-async function kategoriBul(id: string): Promise<Kategori> {
-  const kategori = (await getKategoriler()).find((k) => k.id === id);
+async function kategoriBul(id: string, dil: Dil): Promise<Kategori> {
+  const kategori = (await getKategoriler(dil)).find((k) => k.id === id);
   if (!kategori) throw new Error(`Harita: "${id}" kategorisi kategoriler.yaml'da yok.`);
   return kategori;
 }
 
-const aktorler: HaritaKaynagi = async () =>
-  (await getAktorGruplari()).flatMap(({ kategori, aktorler }) =>
-    aktorler.map((aktor) => ({
-      id: aktorDugumId(aktor.id),
-      kategori: kategori.id,
-      ad: aktor.data.ad,
-      aramaMetni: aktorAramaMetni(aktor),
-      oneCikan: aktor.data.oneCikan,
-      detay: { Bilesen: AktorDetay, props: { aktor, kategori, sayfaYolu: aktorYolu(kategori, aktor) } },
-    })),
+const aktorler: HaritaKaynagi = async (dil) =>
+  Promise.all(
+    (await getAktorGruplari(dil)).flatMap(({ kategori, aktorler }) =>
+      aktorler.map(async (aktor) => {
+        const alanlar = await aktorAlanlari(aktor, dil);
+        const birincil = alanlar.find((a) => a.id === birincilAlanId(aktor))!;
+        return {
+          id: aktorDugumId(aktor.id),
+          kategori: kategori.id,
+          ad: aktor.data.ad,
+          aramaMetni: aktorAramaMetni(aktor, alanlar),
+          oneCikan: aktor.data.oneCikan,
+          altGrup: { id: birincil.id, etiket: birincil.data.ad, sira: birincil.data.sira },
+          detay: { Bilesen: AktorDetay, props: { aktor, kategori, sayfaYolu: aktorYolu(kategori, aktor, dil), ozet: true } },
+        };
+      }),
+    ),
   );
 
-const akademisyenler: HaritaKaynagi = async () => {
+const akademisyenler: HaritaKaynagi = async (dil) => {
   const [liste, universiteler, kategori] = await Promise.all([
-    getAkademisyenler(),
+    getAkademisyenler(dil),
     getUniversiteler().then(idSozlugu),
-    kategoriBul("akademisyen"),
+    kategoriBul("akademisyen", dil),
   ]);
   return liste.map((akademisyen) => {
     const universite = universiteler.get(akademisyen.data.universite)!;
@@ -79,16 +92,17 @@ const akademisyenler: HaritaKaynagi = async () => {
       kategori: kategori.id,
       ad: akademisyen.data.ad,
       aramaMetni: akademisyenAramaMetni(akademisyen, universite),
+      altGrup: { id: universite.id, etiket: universite.data.ad, sira: universite.data.sira },
       detay: {
         Bilesen: AkademisyenDetay,
-        props: { akademisyen, universite, kategori, sayfaYolu: kayitYolu(kategori, akademisyen.id) },
+        props: { akademisyen, universite, kategori, sayfaYolu: kayitYolu(kategori, akademisyen.id, dil) },
       },
     };
   });
 };
 
-const takvim: HaritaKaynagi = async () => {
-  const [liste, kategoriler] = await Promise.all([getTakvim(), getKategoriler().then(idSozlugu)]);
+const takvim: HaritaKaynagi = async (dil) => {
+  const [liste, kategoriler] = await Promise.all([getTakvim(dil), getKategoriler(dil).then(idSozlugu)]);
   return liste.map((kayit) => {
     const kategori = kategoriler.get(kayit.data.tur);
     if (!kategori) throw new Error(`Harita: takvim türü "${kayit.data.tur}" kategoriler.yaml'da yok.`);
@@ -99,17 +113,17 @@ const takvim: HaritaKaynagi = async () => {
       aramaMetni: takvimAramaMetni(kayit),
       detay: {
         Bilesen: TakvimDetay,
-        props: { kayit, kategori, sayfaYolu: kayitYolu(kategori, kayit.id) },
+        props: { kayit, kategori, sayfaYolu: kayitYolu(kategori, kayit.id, dil) },
       },
     };
   });
 };
 
-const yatirimlar: HaritaKaynagi = async () => {
+const yatirimlar: HaritaKaynagi = async (dil) => {
   const [liste, turler, kategori] = await Promise.all([
-    getYatirimlar(),
-    getYatirimTurleri().then(idSozlugu),
-    kategoriBul("yatirim"),
+    getYatirimlar(dil),
+    getYatirimTurleri(dil).then(idSozlugu),
+    kategoriBul("yatirim", dil),
   ]);
   return liste.map((yatirim) => {
     const tur = turler.get(yatirim.data.tur)!;
@@ -118,9 +132,10 @@ const yatirimlar: HaritaKaynagi = async () => {
       kategori: kategori.id,
       ad: yatirim.data.ad,
       aramaMetni: yatirimAramaMetni(yatirim, tur),
+      altGrup: { id: tur.id, etiket: tur.data.ad, sira: tur.data.sira },
       detay: {
         Bilesen: YatirimDetay,
-        props: { yatirim, tur, kategori, sayfaYolu: kayitYolu(kategori, yatirim.id) },
+        props: { yatirim, tur, kategori, sayfaYolu: kayitYolu(kategori, yatirim.id, dil) },
       },
     };
   });
@@ -128,6 +143,6 @@ const yatirimlar: HaritaKaynagi = async () => {
 
 const HARITA_KAYNAKLARI: HaritaKaynagi[] = [aktorler, akademisyenler, takvim, yatirimlar];
 
-export async function haritaDugumleri(): Promise<HaritaDugumu[]> {
-  return (await Promise.all(HARITA_KAYNAKLARI.map((kaynak) => kaynak()))).flat();
+export async function haritaDugumleri(dil: Dil): Promise<HaritaDugumu[]> {
+  return (await Promise.all(HARITA_KAYNAKLARI.map((kaynak) => kaynak(dil)))).flat();
 }

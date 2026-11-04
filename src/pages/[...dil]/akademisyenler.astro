@@ -1,0 +1,59 @@
+---
+import FiltreCipleri from "../../components/FiltreCipleri.astro";
+import ListeGrubu from "../../components/ListeGrubu.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import SearchBox from "../../components/SearchBox.astro";
+import AkademisyenSatiri from "../../components/satirlar/AkademisyenSatiri.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getAkademisyenler, getSayfa, getUniversiteler } from "../../lib/content";
+import { dilYollari } from "../../lib/dil";
+import { sayfaDili } from "../../lib/yol";
+import { metinler } from "../../i18n";
+
+export const getStaticPaths = dilYollari;
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil);
+
+const [sayfa, universiteler, akademisyenler] = await Promise.all([
+  getSayfa("akademisyenler", dil),
+  getUniversiteler(),
+  getAkademisyenler(dil),
+]);
+const gruplar = universiteler
+  .map((universite) => ({ universite, liste: akademisyenler.filter((a) => a.data.universite === universite.id) }))
+  .filter((g) => g.liste.length > 0);
+const { baslik, ozet } = sayfa.data;
+---
+
+<BaseLayout title={baslik} description={ozet}>
+  <div data-filter-root>
+    <PageHeader baslik={baslik} ust={`${akademisyenler.length} ${t.birim.kisi(akademisyenler.length)} · ${gruplar.length} ${t.birim.universite(gruplar.length)}`} lede={ozet}>
+      <SearchBox etiket={t.akademisyenler.ara} placeholder={t.akademisyenler.araOrnek} />
+    </PageHeader>
+
+    <FiltreCipleri
+      etiket={t.filtre.universiteFiltresi}
+      parametre="universite"
+      tumuSayi={akademisyenler.length}
+      secenekler={gruplar.map((g) => ({
+        deger: g.universite.id,
+        ad: g.universite.data.ad,
+        sayi: g.liste.length,
+        renk: "--c-akademisyen",
+      }))}
+    />
+
+    {gruplar.map(({ universite, liste }) => (
+      <ListeGrubu baslik={universite.data.ad} sayi={liste.length} birim={t.birim.kisi(liste.length)}>
+        <ul class="liste">
+          {liste.map((a) => <AkademisyenSatiri akademisyen={a} universite={universite} />)}
+        </ul>
+      </ListeGrubu>
+    ))}
+    <p class="empty" data-filter-empty hidden>{t.akademisyenler.bos}</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .liste { list-style: none; margin: 0; padding: 0; }
+</style>

@@ -2,6 +2,7 @@
 ad: TOBB ETÜ Enerji Araştırma Lab.
 kategori: arastirma
 konum: Söğütözü
+alanlar: [hidrojen, yenilenebilir-enerji]
 etiketler:
   - güneşten hidrojen
   - fotoelektrokimya

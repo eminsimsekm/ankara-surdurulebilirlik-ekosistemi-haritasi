@@ -2,6 +2,7 @@
 ad: Bozok Dijital Dönüşüm
 kategori: girisim
 konum: NetZero TEKMER, Çankaya
+alanlar: [su-cevre, tarim-gida]
 etiketler:
   - çevre sensörleri
   - IoT

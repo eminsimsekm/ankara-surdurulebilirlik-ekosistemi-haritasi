@@ -2,6 +2,7 @@
 ad: Sensgreen
 kategori: girisim
 konum: ODTÜ Teknokent, Çankaya
+alanlar: [enerji-verimliligi, su-cevre]
 etiketler:
   - akıllı bina
   - IoT

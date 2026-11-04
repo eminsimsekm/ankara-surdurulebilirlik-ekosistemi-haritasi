@@ -1,5 +1,7 @@
 # build çıktısı
 dist/
+# npm run build'in iç veri çıktıları (Excel, JSON, MD); üretilir, git'e girmez
+veri-cikti/
 .astro/
 
 # bağımlılıklar

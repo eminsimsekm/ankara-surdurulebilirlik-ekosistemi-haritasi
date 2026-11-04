@@ -1,0 +1,66 @@
+---
+import { render } from "astro:content";
+import IstatistikKartlari from "../../components/bloklar/IstatistikKartlari.astro";
+import Metin from "../../components/bloklar/Metin.astro";
+import SektorGrafigi from "../../components/bloklar/SektorGrafigi.astro";
+import FiltreCipleri from "../../components/FiltreCipleri.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import SearchBox from "../../components/SearchBox.astro";
+import YatirimSatiri from "../../components/satirlar/YatirimSatiri.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getSayfa, getYatirimlar, getYatirimTurleri } from "../../lib/content";
+import { dilYollari } from "../../lib/dil";
+import { sayfaDili } from "../../lib/yol";
+import { metinler } from "../../i18n";
+
+export const getStaticPaths = dilYollari;
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil);
+
+const [sayfa, yatirimlar, turler] = await Promise.all([getSayfa("yatirimlar", dil), getYatirimlar(dil), getYatirimTurleri(dil)]);
+const turById = new Map(turler.map((t) => [t.id, t]));
+const { Content } = await render(sayfa);
+const { baslik, ozet, istatistikler, grafik } = sayfa.data;
+---
+
+<BaseLayout title={baslik} description={ozet}>
+  <PageHeader baslik={baslik} />
+  <Metin gorunum="kutu"><Content /></Metin>
+  {ozet && <p class="lede ozet">{ozet}</p>}
+
+  {(istatistikler || grafik) && (
+    <div class="ust">
+      {istatistikler && <IstatistikKartlari istatistikler={istatistikler} />}
+      {grafik && <SektorGrafigi {...grafik} />}
+    </div>
+  )}
+
+  <div data-filter-root class="liste-alani">
+    <div class="araclar">
+      <FiltreCipleri
+        etiket={t.filtre.yatirimTuru}
+        parametre="tur"
+        tumuSayi={yatirimlar.length}
+        secenekler={turler.map((t) => ({
+          deger: t.id,
+          ad: t.data.ad,
+          sayi: yatirimlar.filter((y) => y.data.tur === t.id).length,
+        }))}
+      />
+      <SearchBox etiket={t.yatirimlar.ara} placeholder={t.yatirimlar.araOrnek} />
+    </div>
+    <ul class="liste">
+      {yatirimlar.map((y) => <YatirimSatiri yatirim={y} tur={turById.get(y.data.tur)!} />)}
+    </ul>
+    <p class="empty" data-filter-empty hidden>{t.yatirimlar.bos}</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .ozet { margin: 14px 0 20px; max-width: 72ch; }
+  .ust { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 24px; align-items: start; }
+  @media (max-width: 860px) { .ust { grid-template-columns: 1fr; } }
+  .liste-alani { margin-top: 28px; }
+  .araclar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: start; gap: 0 16px; }
+  .liste { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+</style>

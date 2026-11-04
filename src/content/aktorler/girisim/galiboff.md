@@ -2,6 +2,7 @@
 ad: Galiboff
 kategori: girisim
 konum: Ankara
+alanlar: [atik-dongusel, biyoteknoloji-malzeme]
 etiketler:
   - döngüsel ekonomi
   - atık dönüşümü

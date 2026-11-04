@@ -2,6 +2,7 @@
 ad: Ever Şarj Teknoloji
 kategori: girisim
 konum: Balgat, Çankaya
+alanlar: [e-mobilite]
 etiketler:
   - EV şarj
   - elektrikli mobilite

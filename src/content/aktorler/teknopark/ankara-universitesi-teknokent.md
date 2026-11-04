@@ -2,6 +2,7 @@
 ad: Ankara Üniversitesi Teknokent
 kategori: teknopark
 konum: Gölbaşı
+alanlar: [genel]
 etiketler:
   - ilk yeşil teknopark
   - yenilenebilir elektrik

@@ -2,6 +2,7 @@
 ad: Sine Enerji
 kategori: girisim
 konum: Gazi Teknopark
+alanlar: [enerji-depolama]
 etiketler:
   - güç elektroniği
   - batarya testi

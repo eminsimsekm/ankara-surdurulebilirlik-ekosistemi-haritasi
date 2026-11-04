@@ -1,6 +1,6 @@
 taraflar:
-  - Hacettepe Üniversitesi
-  - Some Carbon
+  - universite: hacettepe
+  - aktor: some-carbon
 tur: transfer
 aciklama: Kurucu Doğan Çiçek Hacettepe KM bağlantılı; CO₂ → metanol dönüşüm teknolojisi, Horizon EU projesi.
 etiketler:

@@ -1,6 +1,6 @@
 taraflar:
-  - ODTÜ Teknokent
-  - NetZero TEKMER
+  - aktor: odtu-teknokent
+  - aktor: netzero-tekmer
 tur: ar-ge
 aciklama: NetZero TEKMER'in resmi iş ortağı; ODTÜ kampüsündeki GÜNAM, RÜZGEM ve ODTÜ İKLİM merkezleriyle iklim teknolojisi startup ekosistemi arasında köprü.
 etiketler:

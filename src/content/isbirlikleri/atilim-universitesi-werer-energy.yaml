@@ -1,6 +1,6 @@
 taraflar:
-  - Atılım Üniversitesi
-  - Werer Energy
+  - universite: atilim
+  - aktor: werer-energy
 tur: transfer
 aciklama: Kurucu Ensar Levent Atılım Üniversitesi bağlantılı; LFP batarya teknolojisi, $600K yatırım.
 etiketler:

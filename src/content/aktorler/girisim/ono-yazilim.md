@@ -2,6 +2,7 @@
 ad: ONO Yazılım
 kategori: girisim
 konum: Gazi Teknopark, Gölbaşı
+alanlar: [karbon-iklim]
 etiketler:
   - karbon izleme
   - blokzincir IoT

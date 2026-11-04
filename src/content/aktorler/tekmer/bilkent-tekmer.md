@@ -2,6 +2,7 @@
 ad: Bilkent TEKMER
 kategori: tekmer
 konum: Bilkent Center, Çankaya
+alanlar: [bilisim, savunma-havacilik]
 etiketler:
   - yapay zekâ
   - oyun

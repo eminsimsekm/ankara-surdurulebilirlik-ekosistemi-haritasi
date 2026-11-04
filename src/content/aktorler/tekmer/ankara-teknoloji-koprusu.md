@@ -2,6 +2,7 @@
 ad: Ankara Teknoloji Köprüsü
 kategori: tekmer
 konum: Ankara
+alanlar: [genel]
 etiketler:
   - 0–3 yaş girişim
   - kuluçka

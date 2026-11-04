@@ -2,6 +2,7 @@
 ad: Teknopark Ankara
 kategori: teknopark
 konum: İvedik OSB
+alanlar: [savunma-havacilik]
 etiketler:
   - savunma
   - makine

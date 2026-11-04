@@ -2,6 +2,7 @@
 ad: INRES · AluAir
 kategori: girisim
 konum: Ankara
+alanlar: [enerji-depolama, hidrojen]
 etiketler:
   - alüminyum-hava pil
   - hidrojen

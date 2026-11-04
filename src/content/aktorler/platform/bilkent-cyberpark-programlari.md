@@ -2,6 +2,7 @@
 ad: Bilkent CYBERPARK programları
 kategori: platform
 konum: Çankaya
+alanlar: [genel, finans]
 etiketler:
   - CAP
   - Doping Invest Camp

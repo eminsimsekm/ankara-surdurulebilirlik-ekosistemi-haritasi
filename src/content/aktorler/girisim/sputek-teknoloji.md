@@ -2,6 +2,7 @@
 ad: Sputek Teknoloji
 kategori: girisim
 konum: Teknopark Ankara, İvedik OSB
+alanlar: [yenilenebilir-enerji, enerji-depolama]
 etiketler:
   - güneş paneli
   - batarya depolama

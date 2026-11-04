@@ -2,6 +2,7 @@
 ad: Founder Institute Ankara
 kategori: platform
 konum: GarajX TEKMER
+alanlar: [genel]
 etiketler:
   - uluslararası hızlandırıcı
 uzmanlik: Erken aşama kurucular için uluslararası hızlandırma programı.

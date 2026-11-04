@@ -2,6 +2,7 @@
 ad: VULCAN
 kategori: girisim
 konum: Ankara
+alanlar: [enerji-depolama]
 etiketler:
   - lityum-kükürt batarya
   - enerji depolama

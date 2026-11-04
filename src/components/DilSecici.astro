@@ -1,0 +1,89 @@
+---
+/*
+  Sağ üstteki dil seçici: her dil için bayrak. Bağlantı aynı sayfanın o dildeki adresine gider;
+  tıklanınca adresteki arama ve filtre (?…) ile seçili kayıt (#…) da taşınır.
+  Bayraklar satır içi SVG (emoji bayraklar Windows'ta görünmüyor).
+*/
+import { metinler } from "../i18n";
+import { DILLER } from "../lib/dil";
+import { baskaDilde, sayfaDili } from "../lib/yol";
+
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil).dil;
+---
+
+<nav class="dil-secici" aria-label={t.secici}>
+  {DILLER.map((d) => (
+    <a
+      href={baskaDilde(Astro.url, d)}
+      hreflang={d}
+      lang={d}
+      title={t[d]}
+      aria-current={d === dil ? "true" : undefined}
+      data-dil-baglantisi
+    >
+      {d === "tr" ? (
+        <svg viewBox="0 0 30 20" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="30" height="20" fill="#E30A17" />
+          <circle cx="11.25" cy="10" r="5" fill="#fff" />
+          <circle cx="12.5" cy="10" r="4" fill="#E30A17" />
+          <polygon fill="#fff" points="14.70,10.00 16.50,9.42 16.50,7.53 17.61,9.06 19.40,8.47 18.29,10.00 19.40,11.53 17.61,10.94 16.50,12.47 16.50,10.58" />
+        </svg>
+      ) : (
+        <svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <clipPath id="bayrak-uk-t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z" /></clipPath>
+          <rect width="60" height="30" fill="#012169" />
+          <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6" />
+          <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#bayrak-uk-t)" stroke="#C8102E" stroke-width="4" />
+          <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10" />
+          <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6" />
+        </svg>
+      )}
+      <span class="kod" aria-hidden="true">{d.toUpperCase()}</span>
+      <span class="ekran-okuyucu">{t[d]}</span>
+    </a>
+  ))}
+</nav>
+
+<style>
+  .dil-secici { display: flex; gap: 4px; }
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 8px;
+    border: 1px solid transparent;
+    border-radius: var(--r-pill);
+    font: 600 12px var(--f-mono);
+    color: var(--muted);
+    text-decoration: none;
+    opacity: .7;
+    transition: opacity .15s, border-color .15s;
+  }
+  a:hover { opacity: 1; color: var(--ink); }
+  a[aria-current="true"] { opacity: 1; color: var(--ink); border-color: var(--line); background: var(--surface); }
+  svg {
+    width: 22px;
+    height: 15px;
+    border-radius: 3px;
+    box-shadow: 0 0 0 1px var(--line);
+  }
+  .ekran-okuyucu {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  @media (max-width: 420px) { .kod { display: none; } }
+</style>
+
+<script>
+  // Dil değişince aynı görünümde kalınsın: arama, çip seçimi (?…) ve seçili kayıt (#…)
+  document.querySelectorAll<HTMLAnchorElement>("[data-dil-baglantisi]").forEach((a) => {
+    a.addEventListener("click", () => {
+      a.href = a.href.split(/[?#]/)[0] + location.search + location.hash;
+    });
+  });
+</script>

@@ -1,5 +1,5 @@
 # Üniversiteler. Anahtar, akademisyen dosyalarındaki `universite:` alanında kullanılır.
-# `sira`: rehberdeki sıra.
+# `sira`: rehberdeki ve haritadaki sıra.
 
 odtu:
   ad: ODTÜ

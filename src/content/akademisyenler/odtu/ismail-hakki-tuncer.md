@@ -7,6 +7,7 @@ etiketler:
   - rüzgâr çiftliği
   - CFD
 profil: https://avesis.metu.edu.tr/ituncer
+aktorler: [odtu-ruzgem]
 ---
 
 WRF hava modeliyle birleştirilmiş rüzgâr çiftliği CFD simülasyonları (TÜBİTAK 1001).

@@ -2,6 +2,7 @@
 ad: Ardventure TEKMER
 kategori: tekmer
 konum: Koç Kuleleri, Söğütözü
+alanlar: [finans]
 etiketler:
   - GSYF
   - kitle fonlama

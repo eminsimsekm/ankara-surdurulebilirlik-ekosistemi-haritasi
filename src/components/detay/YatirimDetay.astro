@@ -2,6 +2,8 @@
 import type { Kategori, Yatirim, YatirimTuru } from "../../lib/content";
 import ExternalLink from "../ExternalLink.astro";
 import DetayKabuk from "./DetayKabuk.astro";
+import { metinler } from "../../i18n";
+import { sayfaDili } from "../../lib/yol";
 
 interface Props {
   yatirim: Yatirim;
@@ -13,6 +15,8 @@ interface Props {
 }
 const { yatirim, tur, kategori, baslikSeviyesi, sayfaYolu } = Astro.props;
 const d = yatirim.data;
+const dil = sayfaDili(Astro.url);
+const t = metinler(dil);
 const alt = [tur.data.ad, d.yatirimci, d.tarih].filter(Boolean).join(" · ");
 ---
 
@@ -24,7 +28,7 @@ const alt = [tur.data.ad, d.yatirimci, d.tarih].filter(Boolean).join(" · ");
   baslikYolu={sayfaYolu}
   baslikSeviyesi={baslikSeviyesi}
 >
-  <dl class="kv"><dt>Tutar</dt><dd>{d.tutar}</dd></dl>
+  <dl class="kv"><dt>{t.yatirimlar.tutar}</dt><dd>{d.tutar}</dd></dl>
   <div class="aciklama"><p>{d.aciklama}</p></div>
   {d.kaynak && <p class="src"><ExternalLink href={d.kaynak} /></p>}
 </DetayKabuk>

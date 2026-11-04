@@ -8,6 +8,7 @@ etiketler:
   - tandem PV
   - Horizon
 profil: https://avesis.metu.edu.tr/syerci
+aktorler: [odtu-gunam]
 ---
 
 Gelişen fotovoltaik teknolojileri. AB Horizon TRIUMPH projesinin koordinatörü: perovskit ve silisyumu birleştiren üç eklemli, düşük maliyetli ve düşük çevresel ayak izli güneş modülleri (2023–2026).

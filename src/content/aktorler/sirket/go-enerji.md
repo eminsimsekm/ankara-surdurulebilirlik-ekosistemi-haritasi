@@ -2,6 +2,7 @@
 ad: GO Enerji
 kategori: sirket
 konum: Çankaya / Temelli, Ankara
+alanlar: [yenilenebilir-enerji, enerji-depolama]
 etiketler:
   - güneş + depolama
   - batarya üretimi

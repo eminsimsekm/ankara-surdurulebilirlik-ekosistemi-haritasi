@@ -2,6 +2,7 @@
 ad: M-Based
 kategori: girisim
 konum: ODTÜ Teknokent, Çankaya
+alanlar: [biyoteknoloji-malzeme, atik-dongusel]
 etiketler:
   - biyobazlı malzeme
   - döngüsel ekonomi

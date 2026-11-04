@@ -2,6 +2,7 @@
 ad: TT Ventures
 kategori: sirket
 konum: Türk Telekom, Ankara
+alanlar: [finans, e-mobilite]
 etiketler:
   - CVC
   - enerji & mobilite

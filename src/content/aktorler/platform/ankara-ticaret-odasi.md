@@ -2,6 +2,7 @@
 ad: Ankara Ticaret Odası
 kategori: platform
 konum: Ankara
+alanlar: [genel]
 etiketler:
   - yatırımcı buluşması
 uzmanlik: Sektörel yatırımcı buluşmaları ve verimlilik fuarı.

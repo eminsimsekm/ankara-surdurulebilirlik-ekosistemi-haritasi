@@ -2,6 +2,7 @@
 ad: İnovest
 kategori: platform
 konum: Ankara
+alanlar: [genel]
 etiketler:
   - hızlandırıcı uygulayıcı
 uzmanlik: Hızlandırma programı tasarımı ve uygulaması; Teknopark Ankara'nın Deep TechAnkara 2026 programının stratejisini yürüttü.

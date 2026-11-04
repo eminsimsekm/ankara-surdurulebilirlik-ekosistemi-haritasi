@@ -2,6 +2,7 @@
 ad: Barbiotech Biyoteknoloji Enerji
 kategori: kobi
 konum: OSTİM Teknopark, Yenimahalle
+alanlar: [yenilenebilir-enerji, biyoteknoloji-malzeme]
 etiketler:
   - biyoteknoloji
   - biyoenerji

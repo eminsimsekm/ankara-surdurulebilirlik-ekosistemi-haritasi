@@ -2,6 +2,7 @@
 // Takvim kaydının durum rozeti. Build tarihine göre yazılır, tarayıcıda güncellenir.
 import type { TakvimKaydi } from "../lib/content";
 import { bugun, isoGun, takvimDurumu, type DurumGirdisi } from "../lib/takvim";
+import { sayfaDili } from "../lib/yol";
 
 interface Props {
   kayit: TakvimKaydi;
@@ -14,7 +15,7 @@ const girdi: DurumGirdisi = {
   yillik: d.yillik,
   durumNotu: d.durumNotu,
 };
-const durum = takvimDurumu(girdi, bugun());
+const durum = takvimDurumu(girdi, bugun(), sayfaDili(Astro.url));
 ---
 
 <span class="pill" data-takvim-durum={JSON.stringify(girdi)} data-durum={durum.kod}>{durum.etiket}</span>

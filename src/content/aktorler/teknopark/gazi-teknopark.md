@@ -2,6 +2,7 @@
 ad: Gazi Teknopark
 kategori: teknopark
 konum: Gölbaşı
+alanlar: [genel]
 etiketler:
   - araştırma GES
   - yeşil firmalar

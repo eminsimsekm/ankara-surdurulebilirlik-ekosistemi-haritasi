@@ -2,6 +2,7 @@
 ad: ARF Bio Yenilenebilir Enerji
 kategori: sirket
 konum: Ankara
+alanlar: [yenilenebilir-enerji, atik-dongusel]
 etiketler:
   - biyogaz
   - biyokütle

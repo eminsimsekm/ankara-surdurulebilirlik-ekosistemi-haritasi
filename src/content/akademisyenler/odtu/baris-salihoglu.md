@@ -7,6 +7,7 @@ etiketler:
   - deniz ısınması
   - iklim modellemesi
 profil: https://avesis.metu.edu.tr/sabaris
+aktorler: [odtu-iklim]
 ---
 
 Doğu Akdeniz fiziksel oşinografisi, iklim değişikliğinin Türkiye denizlerine etkileri; Marmara Denizi Bütünleşik Model Sistemi ve müsilaj için oşinografik erken uyarı projeleri.

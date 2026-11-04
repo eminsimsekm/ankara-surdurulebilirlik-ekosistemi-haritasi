@@ -1,0 +1,542 @@
+# Kurumların İngilizce çevirileri. Anahtar = src/content/aktorler/**/<kimlik>.md dosyasının adı.
+# Türkçe kaydın üzerine bindirilir; yazılmayan alan Türkçe kalır. Kurum ve kişi adları çevrilmez.
+#
+# govde               açıklama (Markdown; site içi bağlantılar /en/… ile)
+# konum               yalnızca yer adı değil açıklama olduğunda (ör. "Online")
+# uzmanlik, surdurulebilirlik, kisiler
+# yonetim             Türkçedeki yönetim listesiyle aynı sırada: { rol, ozgecmis }
+# capaFirmalarNot     çapa firmalar listesinin notu
+# etiketler           yazılırsa sözlükteki etiket çevirisinin yerine geçer
+
+acm-bilkent:
+  uzmanlik: Bilkent's ACM student club; runs the AI Talks series together with Bilkent AI Society.
+  surdurulebilirlik: No direct green focus.
+  govde: AI Talks sessions have covered topics such as voice AI and data science.
+acm-w-ankara:
+  uzmanlik: Founded in 2019, Türkiye's first ACM-W professional chapter; supports the participation of women in computing.
+  surdurulebilirlik: No direct green focus.
+  govde: Founded under the leadership of Pelin Angın (ODTÜ) and Öznur Özkasap (Koç). Aims to act as an umbrella for ACM and ACM-W student clubs in Türkiye and to run Grad Cohort events.
+agriverts:
+  kisiler: Ahmet Lütfü Yazıcı · Ahmet F. C. Özkan (founders)
+  govde: Plant-centred SaaS management platform with integrated AI + IoT sensors for greenhouses and vertical farms; optimises water and energy use. TÜBİTAK BiGG + TechAnkara 2024.
+ai-meetup-ankara:
+  uzmanlik: Regular meetup series on AI products and entrepreneurship, organised by Emre Elbeyoğlu and Murathan Yıldırım.
+  surdurulebilirlik: No direct green focus.
+  govde: Supported by Popupsmart, LiveChatAI, Flatart and Ankara TEKMER. The 6th meetup (5 November 2025) hosted Jotform founder Aytekin Tank; earlier meetups covered hands-on topics such as agent-based chatbots.
+ai-safety-turkiye:
+  konum: Across Türkiye (meetups in Ankara)
+  uzmanlik: Türkiye's first AI safety community; independent and run by volunteers. Awareness and career events on AI governance and safety.
+  surdurulebilirlik: No direct green focus.
+  govde: Held the Next Gen AI Forum meetup in Ankara with Encode on 30 January 2026 (Unite Ortak Mekan). Runs joint events with Bilkent AI Society and Effective Altruism Bilkent.
+aisfield:
+  kisiler: Kayıhan Gündoğdu (co-founder & technical director)
+  govde: Ankara-based robotics technology company founded in 2022; one of Tüpraş Ventures' energy-transition investments (September 2023).
+akura-madencilik-cevre-muh:
+  govde: In the OSTİM Teknopark portfolio; environmental impact assessment (EIA) reports, waste management planning and environmental consulting.
+albaraka-garaj-ankara:
+  uzmanlik: The Ankara branch of Albaraka's startup acceleration programme, at Orion TEKMER.
+  surdurulebilirlik: No direct green focus; under the same roof as Orion TEKMER's Yeşil Yaka (Green Collar) programme.
+  govde: One of the Orion TEKMER programmes.
+anbean-kampus:
+  konum: Online
+  uzmanlik: Campus platform listing the profiles and events of university student clubs.
+  surdurulebilirlik: No direct green focus.
+  govde: Membership figures and past events of ODTÜ, Hacettepe, Gazi and TOBB ETÜ clubs are published here.
+ankara-buyuksehir-belediyesi:
+  govde: Following the Ankara İklim Eylem Planı (Climate Action Plan), a Yeşil Şehir Eylem Planı (Green City Action Plan) under the EBRD Green Cities programme.
+ankara-sanayi-odasi:
+  govde: Eko-Üretim Dönüşüm Programı with Ankara Kalkınma Ajansı and TTGV.
+ankara-tekmer:
+  uzmanlik: Sector-agnostic technology entrepreneurship; opened in February 2022.
+  surdurulebilirlik: No specific green focus; offers access to the LEAP fund, a FabLab and Law 5746 incentives.
+  kisiler: İmran Gürakan (CEO) · Ali Yücelen (Chair of the Board)
+  yonetim:
+    - rol: Co-founder and CEO · Ankara TEKMER and LEAP Investment
+      ozgecmis: B2B- and SaaS-focused investments through LEAP; about $1 million invested in total by mid-2023.
+    - rol: Chair of the Board
+    - rol: Director of Entrepreneurship Programmes and Marketing
+      ozgecmis: About 60 startups in 2026, over 90% occupancy.
+  govde: Türkiye's first private-equity-backed TEKMER; its main investor is LEAP Investment, with a TRY 100 million investment fund.
+ankara-teknoloji-koprusu:
+  uzmanlik: Early-stage incubation (not a TEKMER but a technopark incubation centre).
+  surdurulebilirlik: Sector-agnostic.
+  govde: Ankara's largest incubation centre, set up through a collaboration of Bilkent CYBERPARK, Ankara Büyükşehir Belediyesi and Bilkent Üniversitesi.
+ankara-ticaret-odasi:
+  uzmanlik: Sector investor meetups and a productivity fair.
+  surdurulebilirlik: A health-focused investor meetup in 2025; no green-focused events reported.
+  govde: Co-organiser of the 2025 productivity fair with ASO.
+ankara-universitesi-girisimcilik-ve-inovasyon-toplulugu:
+  uzmanlik: Non-profit student community founded in 2018 that supports young entrepreneurs on campus.
+  surdurulebilirlik: Sector-agnostic; organises the Hult Prize social impact competition.
+  govde: Runs personal development and volunteering projects through the Hult Prize, TEDx talks and Erasmus AB+ events.
+ankara-universitesi-tekmer:
+  uzmanlik: Sector-agnostic; AI, health, energy, agri-food, software and materials are example fields.
+  surdurulebilirlik: Energy and agri-food are among the fields it accepts; it has not announced a separate green programme.
+  govde: A collaboration of Ankara Üniversitesi and KOSGEB; offices, laboratories, prototyping and investor access.
+ankara-universitesi-teknokent:
+  uzmanlik: General technology; ICT and cybersecurity events stand out.
+  surdurulebilirlik: "Promoted with Enerjisa as Türkiye's first green technopark: it buys its electricity from renewable sources under a dedicated contract (about 2.6 GWh in 2025), and lighting and monitoring run on solar and storage; targets about 1,200 tonnes of avoided emissions a year."
+  yonetim:
+    - rol: General Manager
+      ozgecmis: Kuleli Askeri Lisesi and Kara Harp Okulu, Civil Engineering (1988); master's in Industrial Policy and Technology Management from İstanbul Ticaret Üniversitesi. GTÜ Teknopark General Manager and adviser to the Rector; founder of Beykent Üniversitesi Stratejik Araştırma Merkezi; visiting lecturer at Nagoya University; defence projects with BMC, Nurol and YOLBAK.
+    - rol: Deputy General Manager
+  govde: Technology development zone (TGB) based at Ankara Üniversitesi (2006).
+ardventure-tekmer:
+  uzmanlik: General technology startups; offices, investment and funding (GSYF, GSYO, crowdfunding).
+  surdurulebilirlik: No sustainability focus.
+  yonetim:
+    - rol: Founder and CEO
+      ozgecmis: The only TEKMER with two locations, in Ankara and Istanbul (Istanbul opened in October 2025).
+  govde: Operated by Ardventure.
+arf-bio-yenilenebilir-enerji:
+  govde: Electricity from biogas made from organic and animal waste, integrated with solar energy; a 4.8 MW biogas + solar portfolio. Founded in 2015. Backed by RePie Portföy; applied for an IPO in 2025.
+aris-enerji:
+  govde: Member of the OSTİM ENERJİK cluster; develops renewable energy products and solutions. In the OSTİM Teknopark portfolio and a COP31 Startup Zone participant.
+arya-solar:
+  govde: Renewable energy company based in İvedik OSB offering engineering, procurement, construction and financing (EPC) for solar, floating solar, hydropower and wind projects. Over 200 MW of project experience; completed the TÜBİTAK SAGE rooftop solar project in 2023.
+as-biyoteknoloji:
+  govde: Produces fermented algae raw material and supplies the food, cosmetics and health sectors. Second prize at TechAnkara 2024.
+aselsan:
+  govde: Received the Yeşil Dönüşüm Merkezi (Green Transition Centre) Certificate in July 2026; a roadmap for energy, water and raw material efficiency and emission reduction. Entered the BIST Sürdürülebilirlik 25 index in first place in 2025.
+aso-teknopark:
+  uzmanlik: "Industry-oriented technopark: advanced manufacturing and prototyping; 76 companies."
+  surdurulebilirlik: No direct green technology focus. Its partner ASO runs the Eko-Üretim Dönüşüm Programı for manufacturers with TTGV and Ankara Kalkınma Ajansı; the technopark sits close to this industrial base.
+  kisiler: Seyit Ardıç (Chair of the Board)
+  yonetim:
+    - rol: General Manager (since March 2024) · Secretary General of ASO
+      ozgecmis: Worked on technopark policy for about 20 years at DPT, Kalkınma Bakanlığı and Cumhurbaşkanlığı Strateji ve Bütçe Başkanlığı; served on the Teknopark Değerlendirme Kurulu.
+    - rol: Chair of the Board · President of ASO
+  govde: A partnership of ASO, ASO's OSBs, ODTÜ, ODTÜ Teknokent and TOBB ETÜ; leads the 1.2 million m² Ankara Teknoloji Üssü project.
+atlas-noya-enerji:
+  govde: In the OSTİM Teknopark portfolio; renewable energy investments and project development.
+aybu-yenilenebilir-enerji-ve-iklim-kulubu:
+  uzmanlik: Club of Energy Systems Engineering students, active since 2020; at least 15 events a year (technical trips, seminars, webinars, R&D projects).
+  surdurulebilirlik: "Direct focus: renewable energy systems and climate change awareness."
+  govde: Aims to introduce students to renewable energy and build environmental awareness.
+barbiotech-biyoteknoloji-enerji:
+  govde: Member of the OSTİM ENERJİK cluster; a biotechnology company doing R&D and production in biomass and bioenergy.
+baskent-edas-esarj:
+  govde: Başkent EDAŞ serves more than 3.27 million customers in Ankara; TRY 3.485 billion invested in the first nine months of 2025. Eşarj operates its clean-energy fast-charging network.
+baskent-universitesi-biyotek-tekmer:
+  uzmanlik: Biotechnology, judging by its name; thematic focus could not be verified.
+  surdurulebilirlik: Could extend to biotechnology, agriculture and environmental applications; no verified green programme.
+  govde: Başkent Üniversitesi Biyotek Teknoloji Geliştirme Merkezi.
+bilkent-180-degrees-consulting:
+  uzmanlik: Bilkent club of the international 180 Degrees Consulting network, which offers student consulting to non-profits and social enterprises.
+  surdurulebilirlik: Social impact focused; its joint work with the Faculty of Business Administration was showcased at SustainFest 2026.
+  govde: Also on Bilkent's official 2025-2026 club list; advises civil society organisations with student teams.
+bilkent-ai-society:
+  uzmanlik: Bilkent Artificial Intelligence Society; machine learning and natural language processing workshops, seminars, joint projects and a mentoring programme.
+  surdurulebilirlik: No direct green focus.
+  govde: Runs the "AI Talks" series with ACM Bilkent; held a panel with Global Turks AI featuring alumni from companies such as OpenAI, NVIDIA and Google. Its goals include ethical AI and AI literacy.
+bilkent-cyberpark:
+  uzmanlik: Mainly information and communication technologies.
+  surdurulebilirlik: Runs Enerjisa Teknoloji ve Etki Merkezi and the Solutionshop Hackathon with Enerjisa Enerji; energy and green transition work stands out in its reports. ICT is still the main focus.
+  yonetim:
+    - rol: General Manager (since October 2016)
+      ozgecmis: ODTÜ Industrial Engineering (2007). University-industry collaboration specialist at ODTÜ Teknokent (2007–08), special adviser to the TOBB Presidency (2009–10), subcontractor manager at TUSAŞ (2010–13), Director of Entrepreneurship, Collaboration and Technology Transfer at Cyberpark (2013–16). Chair of the Board of TGBD (2017–), IASP board member (2017–22), member of DEİK Dijital Teknolojiler İş Konseyi.
+  capaFirmalarNot: More than 320 high-tech companies; 40 academic and 30 student companies.
+  govde: Founded in 2002 by Bilkent Üniversitesi and Bilkent Holding.
+bilkent-cyberpark-programlari:
+  uzmanlik: The CAP accelerator, an investor-startup matchmaking camp and the Get in the Ring investment competition.
+  surdurulebilirlik: Sector-agnostic.
+  govde: Reported among the active programmes in the Ankara ecosystem in 2025.
+bilkent-electric-car-society:
+  uzmanlik: Electric vehicle society on Bilkent Üniversitesi's official 2025-2026 student club list.
+  surdurulebilirlik: Focused on electric mobility.
+  govde: The club list gives no description; its activities have not been verified separately.
+bilkent-environment-and-sustainability-society:
+  uzmanlik: Environment and sustainability society on Bilkent Üniversitesi's official 2025-2026 student club list.
+  surdurulebilirlik: "Direct focus: environment and sustainability."
+  govde: Bilkent declared 2021-2022 a sustainability year and held SustainFest in 2026. The club's own events have not been verified separately.
+bilkent-innovation-and-research-society:
+  uzmanlik: Innovation and research society on Bilkent Üniversitesi's official 2025-2026 student club list.
+  surdurulebilirlik: Sector-agnostic.
+  govde: The club list gives no description; its activities have not been verified separately.
+bilkent-tekmer:
+  uzmanlik: AI, software, games and animation, and dual-use technologies; managed by HANE, with access to HANE GSYF.
+  surdurulebilirlik: No sustainability focus.
+  govde: In partnership with KOSGEB and Cyberpark.
+bilkent-yes:
+  uzmanlik: Young Entrepreneurs Society; organised the Ankara Start-Up Zirvesi 2025.
+  surdurulebilirlik: Sector-agnostic.
+  govde: Bilkent's student entrepreneurship society; listed as Young Entrepreneurs Society on the official 2025-2026 club list.
+biomass-enerji:
+  konum: Ankara (linked to OSTİM)
+  govde: "Recycling organic waste since 2011: composting machines, pellet presses, and syngas and biochar through gasification and pyrolysis. Has completed three TÜBİTAK SME R&D projects."
+bozok-dijital-donusum:
+  govde: NetZero TEKMER portfolio company; develops analytical measurement devices and IoT sensor systems for the environment, agriculture and industry.
+carbonit:
+  govde: TSE-approved corporate carbon footprint calculation and management software compliant with TS EN ISO 14064-1:2019. Works with organised industrial zones and chambers of industry. Founded in 2007.
+cfl-malzeme-teknolojileri:
+  govde: Materials and biotechnology startup founded in early 2024 with TÜBİTAK BİGG support.
+chemcode-biyoteknoloji:
+  govde: Food safety management system for mycotoxins (mould toxins) combining digital biosensors and software; prevents food loss from farm to processing. TechAnkara 2024 finalist.
+deftr-teknoloji:
+  govde: OSTİM Teknopark company; a platform for digital tracking of industrial waste and circular economy integration.
+doa-smart:
+  govde: Systems that clean indoor air by combining the natural purifying power of plants with technology.
+energyhub-tr:
+  kisiler: Tevfik Akıncı (founder · Hacettepe Üniversitesi graduate, former PwC consultant, 15+ years in energy and finance)
+  govde: Greentech company founded at ASO Teknopark in 2020; its GridX product tests batteries and smart inverters virtually using AI and digital twin technology, and its D-Charge project develops EV charging infrastructure.
+enveritas-enerji:
+  govde: Industrial solar plant installation, maintenance and energy sales consulting under unlicensed electricity generation; focused on organised industrial zones (OSBs).
+ertekno-enerji:
+  govde: Member of the OSTİM ENERJİK cluster; design, installation and operation of solar energy systems; solar plant projects at OSB scale.
+ever-sarj-teknoloji:
+  govde: EV charging station technologies and infrastructure; Türkiye distributor of GO-E CHARGE. Founded in 2006, headquartered in Balgat, Ankara.
+evreka:
+  kisiler: Umutcan Duman (CEO)
+  govde: Digital waste management platform founded in 2015 by ODTÜ graduates; active in more than 20 countries. Its investors include Logo Ventures, the TTGV fund and Ford Otosan's Driventure.
+farmlabs:
+  kisiler: Hasan İmge Çelik (CEO) · Özgehan Özen (co-founder)
+  govde: Founded in 2020; AI-supported variable-rate applications in agricultural production. In the TTGV climate technologies portfolio.
+founder-institute-ankara:
+  uzmanlik: International acceleration programme for early-stage founders.
+  surdurulebilirlik: Sector-agnostic.
+  govde: Run through GarajX TEKMER.
+galiboff:
+  govde: Circular economy technology that turns automotive interior trim offcuts and MDF dust into wood-plastic composite profiles. TechAnkara 2024 + TİM InnovaLig 2024 Top 5.
+garajx-ankara-genc-girisimciler-tekmer:
+  uzmanlik: Young entrepreneurs; co-working space, the Founder Institute accelerator and a marketing programme.
+  surdurulebilirlik: No sustainability focus.
+  yonetim:
+    - rol: General Manager
+      ozgecmis: Its board includes representatives of ATO, ASO, ATB, TOBB ETÜ and TOBB Ankara Genç Girişimciler Kurulu. The same name appears in a 2019 presentation by ODTÜ Teknokent Girişimcilik Direktörlüğü.
+  govde: Law 5746 incentives and access to KOSGEB.
+gazi-g2mg:
+  uzmanlik: Interdisciplinary community founded in 2024 that brings together engineering and architecture students with an entrepreneurial mindset.
+  surdurulebilirlik: Sector-agnostic.
+  govde: A new community at Gazi's Faculty of Technology; no events on its Youthall profile yet.
+gazi-girisimcilik-ve-iletisim-toplulugu:
+  uzmanlik: Community that helps students turn their entrepreneurial ideas into reality, alone or in teams; 300+ members.
+  surdurulebilirlik: Sector-agnostic.
+  govde: Organised Girişimci Buluşmaları (Entrepreneur Meetups) and Find Your Co-Founder Ankara (2023). @gazigirisim on social media.
+gazi-teknopark:
+  uzmanlik: Electronics, software and energy systems.
+  surdurulebilirlik: A research solar plant of about 264 kW built with 18 panel models and 51 inverters; it generates around 40% of its annual energy itself (2015). Hosts companies in biofertilisers, micromobility and battery testing.
+  yonetim:
+    - rol: General Manager (since October 2023)
+      ozgecmis: Gazi Üniversitesi, Public Finance; Anadolu Üniversitesi, banking-insurance and law; certified public accountant. Joined Gazi Teknopark in 2008 as a public relations specialist and became company relations manager and operations director.
+    - rol: Deputy General Manager
+  capaFirmalarNot: About 140 companies; energy and sustainability are among its recent focus areas.
+  govde: Technology development zone (TGB) based at Gazi Üniversitesi (2007).
+gazi-yapay-zeka-toplulugu:
+  uzmanlik: Community of students who want to develop themselves in AI; 1800+ members. Knowledge-sharing and AI awareness events.
+  surdurulebilirlik: No direct green focus.
+  govde: Gazi Üniversitesi student community. Website gaziyapayzeka.com; @gaziyapayzeka on LinkedIn, Instagram and YouTube.
+gdg-ankara:
+  uzmanlik: Ankara's Google developer community, founded in 2011; organises DevFest Ankara every year.
+  surdurulebilirlik: No direct green focus.
+  govde: DevFest Ankara 2024 was held free of charge in December 2024 at Hacettepe's Beytepe Congress and Culture Centre with 20 speakers. DevFest'18, co-organised with IEEE Hacettepe, reached about 900 attendees.
+gdg-community-dev:
+  konum: Online
+  uzmanlik: Membership and events platform of Google Developer Groups and GDG on Campus communities.
+  surdurulebilirlik: No direct green focus.
+  govde: GDG campus communities in Ankara (ODTÜ, OSTİMTECH, Ankara Üniversitesi, Çankaya, THK) announce their events here.
+gdg-on-campus-ankara-universitesi:
+  uzmanlik: Google Developer Groups' Ankara Üniversitesi campus community; held a conference in March 2025.
+  surdurulebilirlik: No direct green focus.
+  govde: An independent student group recognised but not managed by Google; no new events announced at the moment.
+gdg-on-campus-odtu:
+  uzmanlik: Google Developer Groups' ODTÜ campus community; 306 members. Ran an AI/ML training series in October 2026.
+  surdurulebilirlik: No direct green focus.
+  govde: An independent student group recognised but not managed by Google. AI/machine learning and game development training is open with free registration.
+gdg-on-campus-ostimtech:
+  uzmanlik: Community at OSTİM Teknik Üniversitesi running workshops, tech talks and hackathons on software, AI, embedded systems and the cloud; 159 members.
+  surdurulebilirlik: No direct green focus; part of the OSTİM industrial ecosystem.
+  govde: Google Developer Groups' OSTİM Teknik Üniversitesi campus community. Holds panels and coffee chats with industry experts.
+go-enerji:
+  kisiler: Gökhan Yıldız (founder & CEO)
+  govde: Ankara-based energy technology company founded in 2003 as Göktürk Enerji, offering solar energy systems, GOEN-BESS battery storage and GOiris microgrid solutions. Building a €45 million battery pack factory in Temelli, Ankara with LG Energy Solution (initial capacity 2.5 GWh). Member of OSTİM ENERJİK; COP31 Startup Zone participant.
+greenlife-danismanlik:
+  govde: NetZero TEKMER portfolio company; advises companies on sustainability strategy, ESG reporting and carbon management.
+growth-circuit:
+  uzmanlik: Acceleration and investment company set up as ODTÜ Teknokent's financial vehicle.
+  surdurulebilirlik: Sector-agnostic; has access to ODTÜ Teknokent's energy and environment companies.
+  govde: Linked to ODTÜ Teknokent programmes such as Yeni Fikirler Yeni İşler (New Ideas, New Businesses).
+hacettepe-enerji-toplulugu:
+  uzmanlik: Energy society founded in 2012; about 2,000 members. Technical training, seminars and events connecting students with the energy sector.
+  surdurulebilirlik: "Direct focus: the energy sector, technical knowledge and social responsibility; organises the Ankara Enerji Zirvesi (Ankara Energy Summit)."
+  govde: "Describes itself as Türkiye's largest energy society (not verified). Website: hacettepehet.com."
+hacettepe-girisim-ve-yatirim-toplulugu:
+  uzmanlik: Entrepreneurship society founded in 2012-2013; 2,000+ members. Helps students bring their ideas to life, alone or in teams.
+  surdurulebilirlik: Sector-agnostic.
+  govde: Has organised events such as Career In and Vertex & Case Speech. @hacettepegiyat on social media.
+hacettepe-surdurulebilir-yerleskeler:
+  govde: "Campus-wide solar panels on car parks, rooftops and landscaped areas, plus LED and smart building pilots. Estimated carbon footprint at Beytepe: 0.79 tonnes per person (October 2022)."
+hacettepe-teknokent:
+  uzmanlik: 350 companies (2025). Software and ICT come first, followed by defence and health-medical-pharma; energy, food and agriculture are also among its sectors.
+  surdurulebilirlik: Certified to the ISO 14001 Environmental Management System. In 2016 it announced a smart campus project equipping the campus with solar energy, storage and EV fast charging.
+  yonetim:
+    - rol: General Manager (since October 2023)
+      ozgecmis: Fırat Üniversitesi, Electrical-Electronics Engineering (1991). Engineer at EGO Doğal Gaz Dairesi, General Manager of ESGAZ (Eskişehir natural gas distribution) (2003–10), adviser to the President and Head of EPDK Doğal Gaz Piyasası Dairesi (2010–16), General Manager of Aselsannet (2016–23).
+    - rol: Chair of the Board · Rector of Hacettepe Üniversitesi
+  capaFirmalarNot: Companies featured on the Teknokent home page; corporate partners include GAMA Endüstri Tesisleri.
+  govde: Technology development zone (TGB) based at Hacettepe Üniversitesi (2003).
+hacettepe-yapay-zeka-kulubu:
+  uzmanlik: Student community founded in 2018-2019 within the Department of Computer Engineering; 1,000+ members. Runs AI courses, industry talks and programming competitions.
+  surdurulebilirlik: No direct green focus.
+  govde: "Organised the AI Fest summit (2023) and the AI Club Datathon (2024), among Ankara's largest student AI events. Website: hacettepeaiclub.com."
+ieee-bilkent:
+  uzmanlik: IEEE student branch on Bilkent Üniversitesi's official 2025-2026 student club list.
+  surdurulebilirlik: No direct green focus.
+  govde: The club list gives no description; its activities have not been verified separately.
+ieee-odtu:
+  uzmanlik: IEEE student branch founded in 1990; 3,000+ members and 18 sub-units in areas such as careers, robotics and entrepreneurship.
+  surdurulebilirlik: "Active in power and energy: held the first IEEE PES Student Congress (2014) and won the right to host the 8th PES Camp."
+  govde: "One of Türkiye's longest-established IEEE student branches. Website: ieee.metu.edu.tr."
+inavitas:
+  kisiler: Canan Korkmaz (R&D Manager)
+  govde: Energy intelligence platform for electricity distribution companies that combines SCADA, ADMS, OMS and workforce management. Has an R&D centre and more than 20 R&D projects; works with every distribution company in Türkiye.
+inovat:
+  govde: Türkiye's first industrial hydrogen storage + battery hybrid system, offering long-duration storage for energy from renewable sources. Has exported to Hungary.
+inovest:
+  uzmanlik: Designs and runs acceleration programmes; led the strategy of Teknopark Ankara's Deep TechAnkara 2026 programme.
+  surdurulebilirlik: Its programmes focus on deep tech and AI; no direct green focus.
+  kisiler: Dr. Ayşe Kuyrukçu (founder & angel investor)
+  govde: "Deep TechAnkara 2026: 26 startups selected from 98 applications, 80 hours of support from 11 mentors, 18 finalists at Demo Day."
+inres-aluair:
+  govde: Develops AluAir, which uses aluminium-air battery technology to produce hydrogen and electricity off-grid; for micromobility, EVs and off-grid energy storage. TechAnkara Proje Pazarı 2024 participant.
+invest-up-ankara:
+  uzmanlik: Ankara TEKMER's investment readiness and investor meetup programme; also hosted the GCIP Türkiye pre-accelerator information session.
+  surdurulebilirlik: Events linked to the GCIP clean technology programme.
+  govde: Open to Ankara TEKMER startups together with the LEAP fund.
+kalyon-pv:
+  kisiler: Kübra Kalyoncu Şeherli (Chair of the Board) · İhsan Kulalı (CEO) · Mustafa Koçar (Deputy Chair)
+  govde: Integrated plant producing ingots, wafers, cells and modules under one roof; 2 GW a year with over 80% local content. Agrivoltaic pilot in Ayaş.
+kamu-arastirmalari-vakfi:
+  kisiler: Prof. Dr. Ulvi Saran (Chair of the Board of Trustees)
+  govde: Institutional stakeholder of NetZero TEKMER; supports the True Zero Global Prize process.
+kommunity:
+  konum: Online
+  uzmanlik: Turkish community and event platform founded by Emir Karşıyakalı and Güven Atbakan; RSVPs, ticketing and calls for speakers.
+  surdurulebilirlik: No direct green focus.
+  govde: Launched in 2019; passed 50,000 users in 2020. Türkiye Java Community and GDG Ankara events are here.
+kybeles-garden:
+  kisiler: Aygen Savaş Alkan (CEO · ODTÜ ecosystem) · Fırat Alkan (co-founder)
+  govde: Algae biotechnology platform founded at ODTÜ Teknokent in October 2021; bioponic algae farming and fermented algae raw material for agriculture, food and cosmetics. TÜBİTAK 1512 BİGG support; $250K seed investment from Hatcher+ and Sente Ventures (April 2024). Halkbank Üretken Kadınlar 2026 'Sıfır Atık ve Sürdürülebilirlik' award.
+lokman-hekim-tekmer-lhustek:
+  uzmanlik: Biotechnology, pharmaceuticals, medical devices, digital health, biomaterials and phytopharmaceuticals; opened in 2021.
+  surdurulebilirlik: No sustainability focus; standardisation of natural products is the closest topic.
+  govde: A collaboration of Lokman Hekim Üniversitesi and KOSGEB.
+loopyon:
+  govde: Reduces pesticide use and water consumption in agriculture with plasma-activated water (PAW) made with cold plasma. Graduate of the Ankara Teknopark incubation programme.
+luma:
+  konum: Online
+  uzmanlik: Platform for event pages, registration and approved attendance; most meetups in Ankara are announced here.
+  surdurulebilirlik: No direct green focus.
+  govde: AI Meetup Ankara, AI Safety Türkiye, Bilkent AI Society and the Yapay Zekâ Kümelenmesi (AI Cluster) meetup at Teknopark Ankara were announced on Luma.
+m-based:
+  kisiler: Görkem Gökoğlu (CEO)
+  govde: FOMES, a vegan leather alternative made from mushroom mycelium; a bio-based material for fashion, textiles and automotive upholstery. Pre-seed in 2024, about $700K seed in 2026 (ODTÜ 70. Yıl GSYF + Elemental Ventures).
+masqot:
+  konum: Online
+  uzmanlik: "Networking platform for the tech ecosystem: communities, events, a forum, mutually approved introductions and a startup marketplace."
+  surdurulebilirlik: No direct green focus.
+  govde: Founded in 2025 by Buse Mağden. Available on the web in 8 languages and as iOS and Android apps; offers Masqot Creator for community organisers.
+meatec-muhendislik:
+  kisiler: Mehmet Emre Aşlakcı (founder)
+  govde: Machine learning + cloud-based battery management system (BMS) software for EVs and energy storage systems; optimises charging time, range and lifetime. TechAnkara 2024 selection.
+medipol-meditek-tekmer:
+  uzmanlik: Thematic centre; medical technology, judging by its name. 29 private offices.
+  surdurulebilirlik: No sustainability focus.
+  govde: Ankara Medipol Üniversitesi and KOSGEB.
+meetup:
+  konum: Online
+  uzmanlik: "Global platform for local community groups and meetups: creating groups, announcing events and registering attendance."
+  surdurulebilirlik: No direct green focus.
+  govde: Some AI and software groups in Ankara are here; Kommunity supports importing Meetup communities.
+microfert-biyoteknoloji:
+  kisiler: Burak Gürkan (founder)
+  govde: Microorganism-based products that reduce chemical fertiliser use; its siderophore-producing microbial inoculant project was funded under the TÜBİTAK BİGG Yeşil Büyüme call.
+momentum-ar-ge-karayel-turbini:
+  govde: "'Karayel', a quiet 3 kW wind turbine with IoT integration, claimed to produce three times more energy than conventional turbines. For off-grid areas and base stations. Founded in 2014; ODTÜ TEKNOKENT YFYİ award (2016)."
+netzero-tekmer:
+  uzmanlik: Planetary health, climate, clean energy, waste and the circular economy; also open to software, AI and games.
+  surdurulebilirlik: Ankara's only sustainability-focused TEKMER. Organises the True Zero Global Prize with SparkLabs at COP31.
+  govde: Pre-incubation, incubation under Law 5746, NetZero İVME, TEYDEB project preparation and O2Zone Academy. Details on the [NetZero TEKMER page](/en/netzero/).
+odtu-ar-ge-toplulugu:
+  uzmanlik: Student society in entrepreneurship and innovation; 500+ members. Events that develop leadership and communication skills.
+  surdurulebilirlik: Sector-agnostic.
+  govde: "Organises TEDxMETUAnkara, ODTÜ Mülakat Günleri (Interview Days), University4Society@METU and Futurena. Website: odtuarget.com."
+odtu-cemut:
+  uzmanlik: ODTÜ student society focused on environment and sustainability; holds a summit on sustainability, energy and the future of the environment.
+  surdurulebilirlik: "Direct focus: held the Çevrenin Geleceği Zirvesi (Future of the Environment Summit) at ODTÜ KKM on 20 April 2026 (sponsored by GAMA Enerji and Palmate)."
+  govde: The summit was promoted as the first AI-supported sustainability summit. Information comes from the society's LinkedIn posts; not verified by a secondary source.
+odtu-genc-girisimciler-toplulugu:
+  uzmanlik: Entrepreneurship society active since 2003 (METU YES); 300+ members. Connects students who have projects with entrepreneurship support organisations in Türkiye.
+  surdurulebilirlik: Sector-agnostic.
+  govde: "Organises the Kristal Ağaç (Crystal Tree) Awards and Find Your Co-Founder meetups. Website: odtuggt.org."
+odtu-gunam:
+  govde: "Founded in 2009, Türkiye's first integrated solar energy research centre. Seven units: silicon PV, emerging PV, integrated PV, concentrated solar thermal, materials and recycling, power electronics and grid, and socio-economic research."
+odtu-iklim:
+  govde: "İklim Değişikliği ve Sürdürülebilir Kalkınma Merkezi (Climate Change and Sustainable Development Centre), founded in November 2022; climate science, energy transition, sustainable cities and adaptation. Director: Prof. Dr. Barış Salihoğlu."
+odtu-istatistik-ve-veri-bilimi-toplulugu:
+  uzmanlik: Student society founded in 1991; events in statistics, data science and AI, 200+ members.
+  surdurulebilirlik: No direct green focus.
+  govde: One of ODTÜ's oldest technical student societies; AI is among its interests.
+odtu-robot-toplulugu:
+  uzmanlik: Founded in 2000, Türkiye's first student robotics society. Has unmanned aerial vehicle, model satellite and electric racing car teams.
+  surdurulebilirlik: Its Temiz Enerji Kulübü (Clean Energy Club) builds hydrogen-, solar- and electric-powered vehicles; METU Formula Racing develops an electric Formula Student car.
+  govde: "Organises Uluslararası ODTÜ Robot Günleri (International ODTÜ Robot Days), Robotalks and the Görev: Yer Altı (Mission: Underground) competition. Its alternative-energy vehicle team started out by winning TÜBİTAK's Formula-G race in 2005."
+odtu-ruzgem:
+  govde: Rüzgâr Enerjisi Teknolojileri Araştırma Merkezi (Wind Energy Technologies Research Centre); its Büyük Rüzgâr Tüneli (Large Wind Tunnel) is in operation.
+odtu-teknokent:
+  uzmanlik: Software and ICT (50%), electronics (20%), machinery and design (15%), medical (6%), energy and environment (6%).
+  surdurulebilirlik: About 6% of its companies work in energy and environment. On the same campus as ODTÜ-GÜNAM, RÜZGEM and ODTÜ İKLİM; a collaborator of NetZero TEKMER and a partner of ASO Teknopark. Its ODTÜ Teknokent TEKMER focuses on education technology.
+  yonetim:
+    - rol: General Manager · Adviser to the ODTÜ Rector
+      ozgecmis: Graduate of ODTÜ Mechanical Engineering and ETH Zürich Electronics Engineering. Experience in business development, technology management and building entrepreneurship ecosystems.
+  capaFirmalarNot: 2021 list; by 2025 more than 420 R&D companies and the TSSK defence cluster.
+  govde: Türkiye's first technopark; more than 300 R&D companies.
+odtu-teknokent-tekmer:
+  uzmanlik: Education technology (EdTech); opened in April 2023. Not on KOSGEB's current Ankara list.
+  surdurulebilirlik: No sustainability focus.
+  govde: Within ODTÜ Teknokent, with KOSGEB support.
+odtu-yapay-zeka-toplulugu:
+  uzmanlik: Student society founded in 2020; develops AI projects from healthcare to robotics and mentors new members.
+  surdurulebilirlik: No direct green focus.
+  govde: ODTÜ student society that follows and shares academic and industrial developments in AI. Its website does not publish a current event calendar.
+ono-yazilim:
+  kisiler: Esin Özdemir (founder)
+  govde: Climate tech startup at Gazi Teknopark since 2017. Ran a blockchain-based IoT sensor carbon measurement project with Gazi Üniversitesi; develops Carboware ESG reporting software for SMEs.
+orion-tekmer:
+  uzmanlik: Defence, aviation, digital transformation, smart cities and software. Operated as THK & Orion TEKMER.
+  surdurulebilirlik: Ran the Yeşil Yaka (Green Collar) sustainability programme with OSTİM ENERJİK; its smart city theme is also open to environmental applications.
+  yonetim:
+    - rol: General Manager · THK & Orion TEKMER
+      ozgecmis: Signed a collaboration with Albaraka Garaj in October 2026.
+  govde: MentorUp, the Albaraka Garaj Ankara accelerator, VC Academy and BİGG programmes.
+ostim-enerjik:
+  kisiler: Mehmet Suphi İnal (coordinator)
+  govde: OSTİM Renewable Energy and Environmental Technologies Cluster (2007).
+ostim-osb:
+  kisiler: Orhan Aydın (Chair of the Board)
+  govde: Holds the TSE Yeşil OSB (Green OSB) Certificate; rooftop solar is mandatory on new buildings and installed capacity is rising to 5 MW.
+ostim-teknopark:
+  uzmanlik: Türkiye's first green-energy-themed technopark (2014); closely intertwined with the OSTİM clusters.
+  surdurulebilirlik: Its theme is green energy itself; in the same ecosystem as the OSTİM ENERJİK cluster and OSTİM OSB, which holds the Yeşil OSB (Green OSB) certificate. Its 176-company list includes firms with energy, agriculture and environment in their names (sector inferred from company name).
+  yonetim:
+    - rol: General Manager (since 2015)
+      ozgecmis: ODTÜ City and Regional Planning; master's from Ball State; PhD in multi-criteria decision analysis from Purdue. Led NSF-funded urban water management research at California State University, Fresno; Head of the Strategy and Business Development Unit and Coordinator of the Investment Support Office at Ankara Kalkınma Ajansı. Executive board member of the Southeast European Science and Technology Parks Alliance.
+    - rol: Chair of the Board · President of OSTİM OSB
+  govde: OSTİM's technology development zone.
+plankton-deniz-teknolojileri:
+  govde: Startup founded at Bilkent CYBERPARK in January 2022; develops innovative hardware and systems that collect floating plastic waste from water bodies, with a focus on the link between oceans and the climate crisis. TÜBİTAK 1512 BİGG support; TechAnkara 2022 Proje Pazarı office award.
+pomega-enerji-depolama:
+  govde: The first prismatic LFP (lithium iron phosphate) battery cell gigafactory of Türkiye's private sector; aims for 3 GWh a year, with a second plant in the US. A Kontrolmatik Teknoloji affiliate.
+qbivio-gozalici-enerji:
+  kisiler: Ceyhan Gözalıcı (co-founder & GM)
+  govde: Energy conversion technology startup founded in 2022; locally made Micro ORC systems that turn industrial waste heat into electricity (30–180 kW output). Member of OSTİM ENERJİK; COP31 Startup Zone participant.
+ronesans-digital-realty:
+  govde: Data centre whose foundation was laid in October 2026; 22 MW in the first phase, designed in line with green transition goals.
+sbu-tekmer:
+  uzmanlik: Health sciences, judging by its name; its website could not be reached.
+  surdurulebilirlik: Sustainability focus unknown.
+  govde: Sağlık Bilimleri Üniversitesi Teknoloji Geliştirme Merkezi.
+sensgreen:
+  kisiler: Çağla Aydın · Hüseyin Ergin · Pınar Kesgin · Ekin Sipahi (ODTÜ founding team)
+  govde: Wireless sensor network measuring CO₂, humidity, dust and VOCs in offices, schools and factories; suggests energy efficiency improvements through a dashboard. Founded in 2018 by four ODTÜ graduates; has raised $2.5 million.
+sesasis-elektronik:
+  govde: Gazi Teknopark company developing HASAT, an IoT-based wireless energy management and efficiency system. It monitors and optimises energy use in industrial, hospital and school buildings.
+sine-enerji:
+  govde: Power electronics and energy conversion systems; battery capacity testers for EVs and grid-scale storage.
+solar-bim-muhendislik:
+  govde: BIM-based engineering and project management for building-integrated photovoltaics (BIPV) and rooftop solar projects; architectural fit and structural calculations.
+solarvis:
+  kisiler: Samet Yıldırım · Enes Berk Karahançer (founders)
+  govde: AI-based pre-feasibility, project design and quotation platform for solar installers, banks and insurers. Founded in 2019; angel round at a $3.3 million valuation in 2023.
+some-carbon:
+  kisiler: Doğan Çiçek (CTO · Hacettepe Üniversitesi Chemical Engineering, CO2 emission process design)
+  govde: Startup spun out of the Hacettepe Üniversitesi ecosystem in 2021; develops chemical technology that turns CO2 from factory stacks into green fuels such as methanol, and offers full-service carbon reduction to the steel and cement sectors. Partner in the Horizon Europe FLARE project (€9.1 million); TÜBİTAK-backed; in the TT Ventures portfolio (2024).
+spacelis:
+  kisiler: Dr. Güler Kocak (founder & CEO · PhD in polymer solar cells, Flinders University)
+  govde: Develops perovskite-organic tandem solar cells for aerospace systems. Founded in 2023; supported by TÜBİTAK 1512 BİGG and NATO DIANA (Energy Resilience category).
+sparklabs-group:
+  konum: Global · NetZero TEKMER partner
+  uzmanlik: Global investment and acceleration network originating in South Korea.
+  surdurulebilirlik: Runs the SparkLabs TrueZero programme and the True Zero Global Prize with NetZero TEKMER; focused on climate, clean energy, agriculture, water and the circular economy.
+  govde: Operates in Ankara through NetZero TEKMER.
+sputek-teknoloji:
+  kisiler: Ömer Kaan Coşkun · Burhan Doğan (co-founders)
+  govde: "Renewable energy products company founded by four entrepreneurs at Teknopark Ankara in 2020: high-efficiency PV panels (Per PV), semi-flexible modules, lithium battery systems, a wave energy module and a solar smart pergola. More than 200 installed systems, technology licensed in 3 countries, 2 patents."
+startup-grind-ankara:
+  uzmanlik: Ankara chapter of Startup Grind, the world's largest startup community; 170 members. Founder talks and workshops.
+  surdurulebilirlik: Sector-agnostic.
+  govde: Has held events at ODTÜ Z-Garage, including a talk with Otsimo founder Zafer Elcik and an entrepreneurship workshop for high school students (TEINN Shot). Its current event calendar has not been verified.
+startupcentrum:
+  konum: Startup data platform · Istanbul and Ankara
+  uzmanlik: Platform combining startup, investor, incubator and talent data; investment reports, an ecosystem map, grant and incentive guidance and recruitment consulting. Founded in 2021 by Müge Bezgin and Nizamettin Sami Harputlu.
+  surdurulebilirlik: "Prepares Ankara Kalkınma Ajansı's Ankara entrepreneurship reports; the 2025 sustainability investment data on this site comes from that report. Its reports list Sustainability & Environment as a separate sector: about $24 million in Türkiye in 2023. Its ecosystem awards include a 'Yılın Sürdürülebilirlik ve Çevre Girişimi' (Sustainability and Environment Startup of the Year) category; Ankara TEKMER was named 'Yılın TEKMER'i' (TEKMER of the Year) in 2024."
+  kisiler: Müge Bezgin · Nizamettin Sami Harputlu (founders) · Mustafa Erşad Zor (Ankara report team lead)
+  govde: Raised $440K at a $10 million valuation in 2024.
+tarimart-bilisim:
+  govde: In the OSTİM Teknopark portfolio; agricultural data management and a digital farming platform.
+techankara:
+  uzmanlik: The Agency's umbrella entrepreneurship brand (not a TEKMER).
+  surdurulebilirlik: Social/environmental impact is one of its evaluation criteria.
+  govde: Proje Pazarı, Girişimcilik Merkezi, accelerator, mentoring and supply chain localisation.
+techcareer:
+  konum: Online
+  uzmanlik: Platform where hackathons, bootcamps and tech career events are announced.
+  surdurulebilirlik: No direct green focus.
+  govde: Events such as Hacettepe Üniversitesi AI Fest 2024 and DevFest 2024 were listed here.
+teknolus-enerji:
+  govde: Member of the OSTİM ENERJİK cluster; smart building systems and energy efficiency solutions.
+teknopark-ankara:
+  uzmanlik: Defence, aviation, electronics, medical, machinery and software.
+  surdurulebilirlik: Its specialism is not green technology; hosts startups developing renewable energy products.
+  yonetim:
+    - rol: General Manager (since December 2019) · Executive board, İvedik GSYF
+      ozgecmis: Atılım Üniversitesi, Mechatronics Engineering (2009). In 2010 founded Robonik Mekatronik, described as Türkiye's first multirotor UAV maker, and sold it in 2017; joined Teknopark Ankara in 2019 as an unmanned systems adviser.
+    - rol: Chair of the Board · İvedik OSB
+  govde: A partnership of İvedik OSB and AYBÜ; since 2017, more than 150 companies.
+tenmak-temiz-enerji-arastirma-enst:
+  govde: R&D on hydrogen production, storage, fuel cells and carbon capture; prepared Türkiye's Hidrojen Teknolojileri Stratejisi ve Yol Haritası (Hydrogen Technologies Strategy and Roadmap).
+teslaware-enerji-danismanlik:
+  govde: Member of the OSTİM ENERJİK cluster; energy efficiency consulting, energy audits and ISO 50001 implementation support for industrial facilities.
+theta-temiz-enerji:
+  govde: "'Günebakan', a solar-powered food drying system that dries farm produce without chemical or heat loss and reduces food waste. TÜBİTAK-backed, founded in 2018."
+tobb-etu-enerji-arastirma-lab:
+  govde: Part of Materials Science and Nanotechnology Engineering; photoelectrochemical cells that split water into hydrogen and oxygen using sunlight, and nanostructured ZnO electrodes.
+tobb-etu-evt:
+  uzmanlik: Careers, entrepreneurship and productivity society founded in 2005; runs seminars, workshops, technical trips and case competitions.
+  surdurulebilirlik: No direct green focus; focused on productivity and industry.
+  govde: Runs corporate collaborations with companies in the TOBB family and has two national-scale events. The source gives different membership figures, between 500+ and 1,200+.
+toya-yazilim-tarim:
+  govde: In the OSTİM Teknopark portfolio; software for smart irrigation, renewable energy integration and agricultural productivity.
+tripy-mobility:
+  kisiler: Dr. Ali Onuralp Ünal (CEO) · Cengiz Bağmancı (co-founder, MİA Teknoloji)
+  govde: Aims to cut transport emissions with AI-assisted e-bikes and a shared micromobility system. A subsidiary of MİA Teknoloji A.Ş.
+tt-ventures:
+  govde: Türk Telekom's corporate venture capital arm; names energy and mobility technologies as priority investment areas.
+ttgv:
+  kisiler: Değerhan Usluel (President) · Evren Bükülmez
+  govde: "Climate technologies have been its priority since 2023: İklim Teknolojileri Radarı, the İklim Öncüsü (Climate Pioneer) programme and fund, and the Eko-Üretim Dönüşüm Programı with ASO."
+turkiye-java-community:
+  uzmanlik: Ankara-based non-profit community of Java users founded in 2021; 5,500+ members and 125 events.
+  surdurulebilirlik: No direct green focus.
+  govde: Meets regularly at Ankara TEKMER (topics such as Keycloak, Kubernetes, Redis and Elasticsearch).
+vsias-muhendislik:
+  govde: Compact weather station for the environment, agriculture and energy sectors; a precision weather and climate measurement device. TechAnkara 2024 participant.
+vulcan:
+  govde: Develops lithium-sulphur battery technology aiming for higher energy density than conventional lithium-ion batteries. One of the 26 startups selected for Deep TechAnkara 2026.
+werer-energy:
+  kisiler: Ensar Levent (founder · Atılım Üniversitesi Automotive Engineering, from AGT Racing Team)
+  govde: Maker of LiFePO4 battery systems and modular energy storage containers, founded in 2021 by a team from Atılım Üniversitesi's AGT Racing; serves the caravan, marine and solar markets. Raised $600K at a $10 million valuation led by Westure VC (Netherlands) (2025); Clean Cities ClimAccelerator alumnus.
+wwf-bilkent:
+  uzmanlik: WWF student society on Bilkent Üniversitesi's official 2025-2026 student club list.
+  surdurulebilirlik: Focused on nature conservation (WWF).
+  govde: The club list gives no description; its activities have not been verified separately.
+yapay-zeka-politikalari-dernegi:
+  uzmanlik: "Ankara-based association working on AI awareness and policy; described as Türkiye's first formal civil society organisation focused on AI. President: Zafer Küçükşabanoğlu."
+  surdurulebilirlik: No direct green focus; its research includes earthquake risk and smart cities.
+  govde: "Holds the AI Tomorrow Summit in Ankara every year (2026: 4-5 June). Publishes survey research on perceptions of AI and an annual book; Yandex Türkiye is among its corporate members."
+yeo-teknoloji:
+  govde: Listed (YEOTK) Ankara-based energy technology company; IoT-based smart grid and energy efficiency software, and BrandIT cloud-based smart machine management. Invested in ION Membranes, which develops ion-exchange membranes for the green hydrogen ecosystem.
+youthall:
+  konum: Online
+  uzmanlik: Career platform for students and young professionals; more than 2 million users, job listings and a student club directory.
+  surdurulebilirlik: No direct green focus.
+  govde: Student clubs can open profiles and publish events and listings; many Ankara clubs have profiles here.

@@ -2,6 +2,7 @@
 ad: ODTÜ İKLİM
 kategori: arastirma
 konum: ODTÜ (Ankara & Mersin)
+alanlar: [karbon-iklim]
 etiketler:
   - iklim bilimi
   - TÜBİTAK 1071 TRANSMIT

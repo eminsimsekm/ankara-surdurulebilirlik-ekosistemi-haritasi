@@ -2,6 +2,7 @@
 ad: Hacettepe Sürdürülebilir Yerleşkeler
 kategori: arastirma
 konum: Beytepe
+alanlar: [yenilenebilir-enerji, enerji-verimliligi, karbon-iklim]
 etiketler:
   - kampüs GES
   - karbon ayak izi

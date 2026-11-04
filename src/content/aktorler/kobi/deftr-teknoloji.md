@@ -2,6 +2,7 @@
 ad: DEFTR Teknoloji
 kategori: kobi
 konum: OSTİM Teknopark, Yenimahalle
+alanlar: [atik-dongusel]
 etiketler:
   - döngüsel ekonomi
   - atık takip

@@ -2,6 +2,7 @@
 ad: Bilkent CYBERPARK
 kategori: teknopark
 konum: Çankaya
+alanlar: [bilisim]
 etiketler:
   - ICT
   - kuluçka

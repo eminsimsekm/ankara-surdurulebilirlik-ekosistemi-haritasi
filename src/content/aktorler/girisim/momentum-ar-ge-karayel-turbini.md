@@ -2,6 +2,7 @@
 ad: Momentum Ar-Ge · Karayel Türbini
 kategori: girisim
 konum: ODTÜ Teknokent, Çankaya
+alanlar: [yenilenebilir-enerji]
 etiketler:
   - rüzgar enerjisi
   - IoT

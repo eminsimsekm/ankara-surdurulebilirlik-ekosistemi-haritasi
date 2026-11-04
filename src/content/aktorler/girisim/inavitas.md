@@ -2,6 +2,7 @@
 ad: Inavitas
 kategori: girisim
 konum: Ankara
+alanlar: [enerji-verimliligi]
 etiketler:
   - akıllı şebeke
   - enerji zekâsı

@@ -2,6 +2,7 @@
 ad: iNOVAT
 kategori: girisim
 konum: Başkent OSB, Sincan, Ankara
+alanlar: [hidrojen, enerji-depolama]
 etiketler:
   - hidrojen depolama
   - hibrit enerji

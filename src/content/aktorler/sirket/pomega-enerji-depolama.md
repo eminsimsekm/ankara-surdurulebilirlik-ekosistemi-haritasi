@@ -2,6 +2,7 @@
 ad: Pomega Enerji Depolama
 kategori: sirket
 konum: Polatlı, Ankara
+alanlar: [enerji-depolama]
 etiketler:
   - LFP batarya
   - pil fabrikası

@@ -2,6 +2,7 @@
 ad: SBÜ TEKMER
 kategori: tekmer
 konum: Keçiören
+alanlar: [saglik]
 etiketler:
   - sağlık bilimleri
 uzmanlik: Adından sağlık bilimleri; sitesine erişilemedi.

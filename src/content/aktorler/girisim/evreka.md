@@ -2,6 +2,7 @@
 ad: Evreka
 kategori: girisim
 konum: ODTÜ Teknokent
+alanlar: [atik-dongusel]
 etiketler:
   - atık yönetimi
   - SaaS

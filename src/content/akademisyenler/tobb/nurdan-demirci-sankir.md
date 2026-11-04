@@ -8,6 +8,7 @@ etiketler:
   - hidrojen
   - nanomalzeme
 profil: https://www.etu.edu.tr/tr/bolum/malzeme-bilimi-ve-nanoteknoloji-muh/akademik-kadro
+aktorler: [tobb-etu-enerji-arastirma-lab]
 ---
 
 Güneş enerjisi ile hidrojen üretimi, ince film güneş hücreleri, foto-süperkapasitörler ve nanoyapılı fotoelektrokimyasal sistemler. TÜBİTAK 1001 desteğiyle çinko-iyodür hibrit süperkapasitör projesi.

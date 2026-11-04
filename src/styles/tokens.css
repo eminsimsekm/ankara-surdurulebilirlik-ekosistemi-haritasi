@@ -39,6 +39,8 @@
   --c-etkinlik: light-dark(#3B5BA9, #8AA6EE);
   --c-yatirim: light-dark(#0E7C86, #4FC3CC);
   --c-platform: light-dark(#9A5B13, #D9A066);
+  --c-topluluk: light-dark(#4F46B8, #A39BF2);
+  --c-uygulama: light-dark(#5E6A75, #A9B6C2);
 
   /* İş birliği türleri (rozet zemini color-mix ile bu renkten türetilir) */
   --c-ib-ar-ge: light-dark(#1F6F5C, #5CC0A2);

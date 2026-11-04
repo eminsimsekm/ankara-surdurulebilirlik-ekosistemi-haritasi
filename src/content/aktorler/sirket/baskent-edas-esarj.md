@@ -2,6 +2,7 @@
 ad: Başkent EDAŞ · Eşarj
 kategori: sirket
 konum: Ankara
+alanlar: [enerji-verimliligi, e-mobilite]
 etiketler:
   - şebeke
   - e-mobilite

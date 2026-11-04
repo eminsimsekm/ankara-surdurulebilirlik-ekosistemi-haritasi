@@ -2,6 +2,7 @@
 ad: ASELSAN
 kategori: sirket
 konum: Ankara
+alanlar: [savunma-havacilik, enerji-verimliligi]
 etiketler:
   - Yeşil Dönüşüm Merkezi
   - ESG
