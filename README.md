@@ -13,6 +13,8 @@ npm run build    # tip kontrolü + dist/ üretimi
 npm run preview  # dist/ çıktısını yerelde sun
 ```
 
+Web Site: https://eminsimsekm.github.io/ankara-surdurulebilirlik-ekosistemi-haritasi/
+
 ## İçerik ekleme
 
 Her kayıt ayrı bir dosyadır; yeni kayıt için kod değiştirmek gerekmez. Alanlar ve kurallar

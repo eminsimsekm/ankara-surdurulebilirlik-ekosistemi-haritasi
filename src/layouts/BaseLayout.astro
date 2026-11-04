@@ -40,6 +40,7 @@ const alternatifler = Astro.site && !tekDil ? DILLER.map((d) => ({ dil: d, href:
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    {alternatifler.map((a) => <link rel="alternate" hreflang={a.dil} href={a.href} />)}
     <script is:inline>
       // Kayıtlı tema seçimini ilk boyamadan önce uygula (yanıp sönmeyi önler).
       try {
