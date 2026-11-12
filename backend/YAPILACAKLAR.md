@@ -116,9 +116,13 @@ Hedef kullanıcı: Destek arayan bir girişimci, seçenekler arasında rahatça 
 ## Açık sorular
 
 - İçerik dosyalarda mı kalacak, Django admin'den mi yönetilecek? (Karşılaştırma özellikleri ve standart veri yapısı bu kararı etkiliyor.)
+  - **Cevap:** İçerik şuan astroda ama verinin atomikliğini ve kontrolünü daha rahta bir şekide yapabilmek için DB de tutulmalı (postegerSQL). Bu sayde ekleme çıkartma silmeyi uygulama canlıdaykende yapılablir. Ayrıca tüm sahip olduğumuz kurumların DB ye ekleme sql kodlarını da hazır da saklarız bu sayde aksilik durumunda kurtarabilririz. 
 - Harita Türkiye geneline mi açılacak? Şu an kapsam Ankara; şehir bazlı harita veri modelini (şehir alanı) etkiler.
+  - **Cevap:** Şuan ankara olacak ama ileride diğer şehirlerde eklenebilir o yüzden onu da göz önünde bulundurarak altyapıyı ona göre kurmalıyız. Yani mesela veri kolonunlardan bir tanesi şehir, ülke falan da eklenebilir. Daha sonra bunların işlenmesi ve UI tarafında naısl gösterileceğine karar veririrz. Örneğin şuan pasta chart şeklinde ama daha sonra göze daha rahat ve kullanışlı bir şekidlde işleriz. Zaten öneli olan DB yi kurmak. UI tarafını da yaparız bir şekilde.
 - Elasticsearch ilk sürümde mi gelmeli, yoksa önce veritabanı araması yeterli mi?
+  - **Cevap:** Bundan tam emin değilim. Sanırım ilk önce DB yi halledelim sonra eklemesin yapalım?
 - Yapay zekâ asistanı hangi veriye dayanacak ve hangi model/servisle çalışacak?
+  - **Cevap:** Buradaki AI modeli şu kısımlardan beslenecek (ilk aşamada bu aklkma geliyor). Bir projesi olan veya bir iş kurmak isteyen kişiyi yönlendrici sorularla seçeceği en mantıklı kurum ve kuruluşu seçtiririz. Veya genel bilgileride sordurrup aldılabiliriz. Ama ilk aşamada bu AI asistan olmayacak, daha sonraki sürümlerde gelecek.
 - Rol tabanlı erişimde hangi roller olacak (girişimci, kurum temsilcisi, yönetici…)? Kurumlar da kullanıcı olacak mı?
 - **Önyüzü kim çizecek: Astro mu, Django mu?** Eğilim: Astro'da kalmak.
   - Veri her durumda Django veritabanında durur. Ekleme admin ya da API (add endpoint'leri) ile yapılır, push gerekmez.
